@@ -23,7 +23,7 @@ public class DBFacade
 
     private DBFacade()
     {
-        om = new DataMapper();
+        om = new DataMapper(con);
         con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }

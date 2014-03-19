@@ -6,11 +6,16 @@
 
 package dataSource;
 
+import domain.Reservation;
+import java.sql.Connection;
+
 /**
  *
  * @author Tomoe
  */
 public interface DataMapperInterface
 { 
-    
+   Reservation getreservation(int reservationNo,Connection con);
+   
+              
 }
