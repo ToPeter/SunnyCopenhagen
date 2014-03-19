@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dataSource;
 
+import domain.Reservation;
 import java.sql.Connection;
 
 /**
@@ -14,8 +14,8 @@ import java.sql.Connection;
  */
 public class DBFacade
 {
-    
-    private DataMapper om;
+
+    private DataMapper dm;
     private Connection con;
 
     //== Singleton start
@@ -23,7 +23,7 @@ public class DBFacade
 
     private DBFacade()
     {
-        om = new DataMapper(con);
+        dm = new DataMapper(con);
         con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
@@ -36,13 +36,15 @@ public class DBFacade
         }
         return instance;
     }
-	  //== Singleton end
+    //== Singleton end
 
-    
+    public Reservation getReservation(int reservationNo)
+    {
+        return dm.getreservation(reservationNo, con);
+    }
+
     //== this is gonna be changed to making the reservations / updating and stuff
     //== i kept is so we could see how we did earlier :) - Peter K
-    
-    
 //    public Order getOrder(int ono)
 //    {
 //        return om.getOrder(ono, con);

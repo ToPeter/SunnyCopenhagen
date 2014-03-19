@@ -19,7 +19,8 @@ import static org.junit.Assert.*;
  */
 public class DataMapperTest
 {DataMapper dm;
-Connection con;
+Connection con =DBConnector.getConnection();
+
     public DataMapperTest()
     {
     }
@@ -36,8 +37,7 @@ Connection con;
 //    
     @Before
     public void setUp()
-    {con = DBConnector.getConnection();
-        dm=new DataMapper(con);
+    {    dm=new DataMapper(con);
     }
     
     /**
@@ -46,11 +46,11 @@ Connection con;
     @Test
     public void testGetreservation()
     {
-        System.out.println("getreservation");
+             System.out.println("getreservation");
         int reservationNo = 12345;
         Reservation res = dm.getreservation(reservationNo, con);
         int result = res.getRoomNo();
-        assertEquals(100, result);
+        assertEquals(26, result);
         // TODO review the generated test code and remove the default call to fail.
         }
     
