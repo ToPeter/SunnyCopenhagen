@@ -10,7 +10,7 @@ package dataSource;
  *
  * @author Tomoe
  */
-public interface OrderMapperInterface
-{
+public interface DataMapperInterface
+{ 
     
 }

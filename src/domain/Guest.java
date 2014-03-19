@@ -4,18 +4,13 @@
  * and open the template in the editor.
  */
 
-package casablancatest;
-
-import javax.mail.MessagingException;
+package domain;
 
 /**
  *
  * @author Tomoe
  */
-public class Starter
-{public static void main(String[] args) throws MessagingException
-    {Mail mail= new Mail();
-    mail.SendMail();
-    }
+public class Guest
+{
     
 }

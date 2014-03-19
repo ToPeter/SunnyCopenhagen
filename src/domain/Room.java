@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package dataSource;
+package domain;
 
 /**
  *
  * @author Tomoe
  */
-public class OrderMapper
+public class Room
 {
     
 }

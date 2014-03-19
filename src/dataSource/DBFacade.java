@@ -15,7 +15,7 @@ import java.sql.Connection;
 public class DBFacade
 {
     
-    private OrderMapper om;
+    private DataMapper om;
     private Connection con;
 
     //== Singleton start
@@ -23,7 +23,7 @@ public class DBFacade
 
     private DBFacade()
     {
-        om = new OrderMapper();
+        om = new DataMapper();
         con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
