@@ -25,14 +25,14 @@ public class DataMapper implements DataMapperInterface
 {
 
     private final Connection con;
-private Date parsedFrom;
-        private Date parsedTo;
-       Calendar c = Calendar.getInstance();
-         public DataMapper(Connection con)
+    private Date parsedFrom;
+    private Date parsedTo;
+    Calendar c = Calendar.getInstance();
+
+    public DataMapper(Connection con)
     {
         this.con = con;
-     
-       
+
     }
 
     @Override
@@ -97,42 +97,49 @@ private Date parsedFrom;
 
     @Override
     public ArrayList<Room> getRoomAvailable(String fromDate, String endDate, String type, Connection con)
-    {ArrayList<Room> roomAvailableList = new ArrayList(); 
+    {
+        ArrayList<Room> roomAvailableList = new ArrayList();
         Room tempRoom;
         String SQLString = // get roomavailable
-  
-                "select * from room "
-                + "WHERE Type = '"+type+"' AND Roomno NOT IN "
-                + "(SELECT roomno FROM Reservation "
-                  + "where enddate BETWEEN ? AND ?)";
+                "select * from room r "
+                + "WHERE Type = '" + type + "' AND r.Roomno NOT IN "
+                + "(SELECT re.roomno FROM Reservation re "
+                + "where roomNo=r.roomNo AND fromdate<? AND roomno in("
+                + "select roomno from reservation where endDate >?))order by roomno";
 //                  +"AND fromdate <= ?)";
-         PreparedStatement statement = null;
-        
+        PreparedStatement statement = null;
+
         try
         {
-            DateFormat format = new SimpleDateFormat("dd-mm-yy");
-       
+            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+
             parsedFrom = format.parse(fromDate);
             parsedTo = format.parse(endDate);
-      c.setTime(parsedFrom);
+            c.setTime(parsedFrom);
             System.out.println(parsedFrom);
-        java.sql.Date sqlFromDate = new java.sql.Date(parsedFrom.getTime());
-                java.sql.Date sqlToDate = new java.sql.Date(parsedTo.getTime());
-        System.out.println(sqlFromDate);
-        System.out.println(sqlToDate);
+            java.sql.Date sqlFromDate = new java.sql.Date(parsedFrom.getTime());
+            java.sql.Date sqlToDate = new java.sql.Date(parsedTo.getTime());
+            System.out.println(sqlFromDate);
+            System.out.println(sqlToDate);
+//          c.setTime(format.parse(fromDate));
+//            java.util.Date utilfromDate = c.setTime(format.parse(fromDate));
+//            System.out.println("utilfromDate"+utilfromDate);
+//   java.sql.Date sqlfromDate = new java.sql.Date(utilfromDate.getTime()); 
+//            System.out.println("sqlfromDate"+sqlfromDate);
             statement = con.prepareStatement(SQLString);
-            statement.setDate(1, sqlFromDate);
-            statement.setDate(2,sqlToDate );
+            statement.setDate(1, sqlToDate);
+            statement.setDate(2, sqlFromDate);
             ResultSet rs = statement.executeQuery();
-            System.out.println(rs.next());    
-            
+            System.out.println(rs.next());
+
             while (rs.next())
-            {System.out.println(rs.getInt(1));
-              
-        tempRoom=new Room(rs.getInt(1),type);
-              System.out.println("adding");  
+            {
+                System.out.println(rs.getInt(1));
+
+                tempRoom = new Room(rs.getInt(1), type);
+                System.out.println("adding");
                 roomAvailableList.add(tempRoom);
-               }
+            }
         }
         catch (Exception e)
         {
@@ -151,8 +158,8 @@ private Date parsedFrom;
                 System.out.println(e.getMessage());
             }
 
-        return roomAvailableList;  
-    }
+            return roomAvailableList;
+        }
 
-}
+    }
 }
