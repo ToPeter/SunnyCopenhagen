@@ -24,7 +24,7 @@ import oracle.net.aso.i;
  */
 public class CasablancaResception extends javax.swing.JFrame
 {
-    
+
     private Controller control;
     private int numOfGuest;
     private DefaultListModel model;
@@ -255,42 +255,43 @@ public class CasablancaResception extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         model.clear();
         jList1.setModel(model);
-        
+
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         Calendar c = Calendar.getInstance();
         Date startDate = null;
-        
+
         int numberOfDays = Integer.parseInt(jTextFieldNumberOfDays.getText());
         try
         {
             startDate = dateFormat.parse(jTextFieldStartDate.getText());
+            System.out.println("startdate in GUI" + startDate);
         }
         catch (ParseException ex)
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         c.setTime(startDate);
         c.add(Calendar.DATE, numberOfDays);
         String date = dateFormat.format(c.getTime());
         jLabelEndDate.setText(date);
-        
+
         int numOfGuest = Integer.parseInt(jTextField1.getText());
-        
+
         if (numOfGuest <= 1)
         {
-            jLabelTypeShow.setText("Single");
+            jLabelTypeShow.setText("single");
         }
         else if (numOfGuest == 2)
         {
-            jLabelTypeShow.setText("Double");
+            jLabelTypeShow.setText("double");
         }
         else
         {
-            jLabelTypeShow.setText("Family");
+            jLabelTypeShow.setText("family");
         }
-        
-        ArrayList<Room> arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), date, jLabelTypeShow.getText());
+
+        ArrayList<Room> arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), jLabelTypeShow.getText());
         if (arrayForJlist == null)
         {
             model.addElement("No Room available");
@@ -299,9 +300,10 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             for (Room r : arrayForJlist)
             {
-                model.addElement(r);
+                System.out.println(r.getRoomNo());
+                model.addElement(r.getRoomNo());
             }
-            
+
         }
         jList1.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed

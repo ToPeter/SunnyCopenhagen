@@ -47,7 +47,7 @@ public class DBFacade
     }
 
     public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
-    {
+    {System.out.println("facade"+fromDate);
         return dm.getRoomAvailable(fromDate, endDate, type, con);
     }
 

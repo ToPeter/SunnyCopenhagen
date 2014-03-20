@@ -48,6 +48,7 @@ public class Controller
 
 //        dbFacade.startProcessOrderBusinessTransaction();
         //      processingOrder = true;
+System.out.println("controller"+fromDate);
         return facade.getRoomsAvailable(fromDate, endDate, type);
 
     }
