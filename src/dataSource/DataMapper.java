@@ -11,12 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,10 +25,14 @@ public class DataMapper implements DataMapperInterface
 {
 
     private final Connection con;
-
-    public DataMapper(Connection con)
+private Date parsedFrom;
+        private Date parsedTo;
+       Calendar c = Calendar.getInstance();
+         public DataMapper(Connection con)
     {
         this.con = con;
+     
+       
     }
 
     @Override
@@ -94,44 +97,42 @@ public class DataMapper implements DataMapperInterface
 
     @Override
     public ArrayList<Room> getRoomAvailable(String fromDate, String endDate, String type, Connection con)
-    {
-        ArrayList<Room> roomAvailableList = null;
+    {ArrayList<Room> roomAvailableList = new ArrayList(); 
         Room tempRoom;
         String SQLString = // get roomavailable
-                "select R.Roomno from room R "
-                + "WHERE Type = '"+type+"' AND r.Roomno NOT IN "
+  
+                "select * from room "
+                + "WHERE Type = '"+type+"' AND Roomno NOT IN "
                 + "(SELECT roomno FROM Reservation "
-                  + "where enddate >= ? "
-                  +"AND fromdate <= ?)";
-         SimpleDateFormat format = new SimpleDateFormat("dd-mm-yy");
-        Date parsedFrom=null;
-        Date parsedTo=null;
+                  + "where enddate BETWEEN ? AND ?)";
+//                  +"AND fromdate <= ?)";
+         PreparedStatement statement = null;
+        
         try
         {
+            DateFormat format = new SimpleDateFormat("dd-mm-yy");
+       
             parsedFrom = format.parse(fromDate);
             parsedTo = format.parse(endDate);
-        }
-        catch (ParseException ex)
-        {
-            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+      c.setTime(parsedFrom);
+            System.out.println(parsedFrom);
         java.sql.Date sqlFromDate = new java.sql.Date(parsedFrom.getTime());
                 java.sql.Date sqlToDate = new java.sql.Date(parsedTo.getTime());
-        PreparedStatement statement = null;
-        try
-        {
+        System.out.println(sqlFromDate);
+        System.out.println(sqlToDate);
             statement = con.prepareStatement(SQLString);
-            statement.setDate(1, sqlToDate);
-            statement.setDate(2, sqlFromDate);
+            statement.setDate(1, sqlFromDate);
+            statement.setDate(2,sqlToDate );
             ResultSet rs = statement.executeQuery();
-
+            System.out.println(rs.next());    
+            
             while (rs.next())
-            {    
-                tempRoom=new Room(rs.getInt(1),type);
-                
+            {System.out.println(rs.getInt(1));
+              
+        tempRoom=new Room(rs.getInt(1),type);
+              System.out.println("adding");  
                 roomAvailableList.add(tempRoom);
-            }
+               }
         }
         catch (Exception e)
         {
