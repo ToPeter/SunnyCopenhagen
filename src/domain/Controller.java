@@ -6,6 +6,8 @@
 package domain;
 
 import dataSource.DBFacade;
+import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,6 +35,20 @@ public class Controller
 //        dbFacade.startProcessOrderBusinessTransaction();
         //      processingOrder = true;
         return facade.getReservation(reservationNo);
+
+    }
+
+    public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
+    {
+        // need to see how it works by Tomoe
+//        if (processingOrder)
+//        {
+//            return null;
+//        }
+
+//        dbFacade.startProcessOrderBusinessTransaction();
+        //      processingOrder = true;
+        return facade.getRoomsAvailable(fromDate, endDate, type);
 
     }
 
