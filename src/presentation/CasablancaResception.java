@@ -290,7 +290,7 @@ public class CasablancaResception extends javax.swing.JFrame
             jLabelTypeShow.setText("Family");
         }
         
-        ArrayList<Room> arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), date, jLabelTypeShow.getText());
+        ArrayList<Room> arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), jLabelTypeShow.getText());
         if (arrayForJlist == null)
         {
             model.addElement("No Room available");
@@ -298,8 +298,8 @@ public class CasablancaResception extends javax.swing.JFrame
         else
         {
             for (Room r : arrayForJlist)
-            {
-                model.addElement(r);
+            {System.out.println(r.getRoomNo());
+                model.addElement(r.getRoomNo());
             }
             
         }
