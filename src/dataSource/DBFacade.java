@@ -6,7 +6,10 @@
 package dataSource;
 
 import domain.Reservation;
+import domain.Room;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  *
@@ -41,6 +44,11 @@ public class DBFacade
     public Reservation getReservation(int reservationNo)
     {
         return dm.getreservation(reservationNo, con);
+    }
+
+    public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
+    {
+        return dm.getRoomAvailable(fromDate, endDate, type, con);
     }
 
     //== this is gonna be changed to making the reservations / updating and stuff

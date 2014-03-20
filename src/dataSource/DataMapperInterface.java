@@ -9,7 +9,7 @@ import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -20,6 +20,6 @@ public interface DataMapperInterface
 
     Reservation getreservation(int reservationNo, Connection con);
 
-    ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate);
+    ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con);
 
 }
