@@ -21,4 +21,77 @@ public class Reservation
     private Date boookingDate;
     private boolean depositPaid; //in database it's 0 or 1
 
+    public Reservation(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+    {
+        this.roomNo = roomNo;
+        this.reservationNo = reservationNo;
+        this.fromDate = fromDate;
+        this.endDate = endDate;
+        this.boookingDate = boookingDate;
+        this.depositPaid = depositPaid;
+    }
+
+    public int getRoomNo()
+    {
+        return roomNo;
+    }
+
+    public void setRoomNo(int roomNo)
+    {
+        this.roomNo = roomNo;
+    }
+
+    public int getReservationNo()
+    {
+        return reservationNo;
+    }
+
+    public void setReservationNo(int reservationNo)
+    {
+        this.reservationNo = reservationNo;
+    }
+
+    public Date getFromDate()
+    {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate)
+    {
+        this.fromDate = fromDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public Date getBoookingDate()
+    {
+        return boookingDate;
+    }
+
+    public void setBoookingDate(Date boookingDate)
+    {
+        this.boookingDate = boookingDate;
+    }
+
+    public boolean isDepositPaid()
+    {
+        return depositPaid;
+    }
+
+    public void setDepositPaid(boolean depositPaid)
+    {
+        this.depositPaid = depositPaid;
+    }
+    
+    
+
+    
 }
