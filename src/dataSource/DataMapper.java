@@ -106,7 +106,7 @@ public class DataMapper implements DataMapperInterface
                 + "(SELECT re.roomno FROM Reservation re "
                 + "where roomNo=r.roomNo AND fromdate<? AND roomno in("
                 + "select roomno from reservation where endDate >?))order by roomno";
-//                  +"AND fromdate <= ?)";
+
         PreparedStatement statement = null;
 
         try
@@ -121,11 +121,6 @@ public class DataMapper implements DataMapperInterface
             java.sql.Date sqlToDate = new java.sql.Date(parsedTo.getTime());
             System.out.println(sqlFromDate);
             System.out.println(sqlToDate);
-//          c.setTime(format.parse(fromDate));
-//            java.util.Date utilfromDate = c.setTime(format.parse(fromDate));
-//            System.out.println("utilfromDate"+utilfromDate);
-//   java.sql.Date sqlfromDate = new java.sql.Date(utilfromDate.getTime()); 
-//            System.out.println("sqlfromDate"+sqlfromDate);
             statement = con.prepareStatement(SQLString);
             statement.setDate(1, sqlToDate);
             statement.setDate(2, sqlFromDate);
