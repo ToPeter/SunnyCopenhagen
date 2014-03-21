@@ -294,7 +294,7 @@ public class CasablancaResception extends javax.swing.JFrame
         }
         else if (jComboBoxType.getSelectedIndex()==0 && numOfGuest>1)
         {
-            jLabelTypeShow.setText("To many guest!");
+            jLabelTypeShow.setText("Too many guests!");
         }
         
         if (jComboBoxType.getSelectedIndex()==1 && numOfGuest <=2)
@@ -305,7 +305,7 @@ public class CasablancaResception extends javax.swing.JFrame
         }
         else if (numOfGuest >2)
         {
-            jLabelTypeShow.setText("To many guest!");
+            jLabelTypeShow.setText("Too many guests!");
         }
         
         if (jComboBoxType.getSelectedIndex()== 2)
