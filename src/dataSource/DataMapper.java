@@ -7,7 +7,6 @@ package dataSource;
 
 import domain.*;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +23,7 @@ import java.util.Date;
  */
 public class DataMapper implements DataMapperInterface
 {
-    
+
     static boolean testRun = false;  // used to enable test output
 
     private final Connection con;
@@ -77,16 +76,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("gotreservation");
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -134,16 +136,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("adding");
                 roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -154,7 +159,8 @@ public class DataMapper implements DataMapperInterface
 
     }
 
-    int[] getPriceList(Connection con)
+    @Override
+    public int[] getPriceList(Connection con)
     {
         int[] priceList = new int[3];
 
@@ -177,16 +183,19 @@ public class DataMapper implements DataMapperInterface
 //                System.out.println("adding");
 //                roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getPriceList");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getPriceList");
                 System.out.println(e.getMessage());
@@ -195,9 +204,8 @@ public class DataMapper implements DataMapperInterface
         }
     }
 
-
 //======  Methods to read from DB =======================================================
-  // Retrieve a specific order and related order details
+    // Retrieve a specific order and related order details
     // Returns the Order-object
     public Guest getGuest(int reservationNo, Connection con)
     {
@@ -206,7 +214,7 @@ public class DataMapper implements DataMapperInterface
                 "select * "
                 + "from guest "
                 + "where reservationNo = ?";
-        
+
         PreparedStatement statement = null;
 
         try
@@ -218,7 +226,7 @@ public class DataMapper implements DataMapperInterface
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                guest = new Guest( rs.getInt(1),
+                guest = new Guest(rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3), // read as SQL date type
                         rs.getString(4),
@@ -227,11 +235,11 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getString(9));
-                
+
             }
 
-         
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in OrderMapper - getOrder");
             System.out.println(e.getMessage());
@@ -243,5 +251,31 @@ public class DataMapper implements DataMapperInterface
         return guest;
     }
 
+//http://www.w3schools.com/sql/sql_autoincrement.asp    
+//CREATE SEQUENCE seq_resno 
+//MINVALUE 1
+//START WITH 1000
+//INCREMENT BY 1;
+    public int getNextReservationNo(Connection conn)
+    {
+        int nextReservationNo = 0;
+        String SQLString = "select seq_resno.nextval  " + "from dual";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = conn.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                nextReservationNo = rs.getInt(1);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in OrderMapper - getNextOrderNo");
+            System.out.println(e.getMessage());
+        }
+        return nextReservationNo;
+    }
 
 }
