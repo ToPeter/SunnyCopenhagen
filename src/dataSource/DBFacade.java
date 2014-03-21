@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dataSource;
 
 import domain.Reservation;
@@ -11,15 +7,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.Date;
 
-/**
- *
- * @author Tomoe
- */
+
 public class DBFacade
 {
 
     private DataMapper dm;
     private Connection con;
+    private UnitOfWorkForGuest unitOfWork;
 
     //== Singleton start
     private static DBFacade instance;
@@ -50,9 +44,21 @@ public class DBFacade
     {System.out.println("facade"+fromDate);
         return dm.getRoomAvailable(fromDate, endDate, type, con);
     }
+    
+    
+   
 
     //== this is gonna be changed to making the reservations / updating and stuff
     //== i kept is so we could see how we did earlier :) - Peter K
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    public Order getOrder(int ono)
 //    {
 //        return om.getOrder(ono, con);
