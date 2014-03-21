@@ -45,6 +45,13 @@ public class Controller
 
     }
 
+    
+    
+      public int getNextReservationNo()
+    {
+        return facade.getNextReservationNo();
+    }
+      
     public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
     {
         // need to see how it works by Tomoe
