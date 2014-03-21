@@ -272,7 +272,7 @@ public class DataMapper implements DataMapperInterface
         }
         catch (Exception e)
         {
-            System.out.println("Fail in OrderMapper - getNextOrderNo");
+            System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());
         }
         return nextReservationNo;
