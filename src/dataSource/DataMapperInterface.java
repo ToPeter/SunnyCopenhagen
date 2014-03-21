@@ -5,6 +5,7 @@
  */
 package dataSource;
 
+import domain.Guest;
 import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
@@ -21,5 +22,11 @@ public interface DataMapperInterface
     Reservation getreservation(int reservationNo, Connection con);
 
     ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con);
+
+    int[] getPriceList(Connection con);
+
+    Guest getGuest(int reservationNo, Connection con);
+
+    int getNextReservationNo(Connection conn);
 
 }

@@ -68,7 +68,11 @@ public class DBFacade
     }
     
     
-    
+      public int getNextReservationNo()
+    {
+        return dm.getNextReservationNo(con);
+    }
+
     
     
     public void startProcessGuestBusinessTransaction()
