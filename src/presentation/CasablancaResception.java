@@ -56,8 +56,7 @@ public class CasablancaResception extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jTextFieldStartDate = new javax.swing.JTextField();
@@ -93,26 +92,20 @@ public class CasablancaResception extends javax.swing.JFrame
         jTextFieldStartDate.setToolTipText("DD-MM-YY");
         jTextFieldStartDate.setMinimumSize(new java.awt.Dimension(75, 25));
         jTextFieldStartDate.setPreferredSize(new java.awt.Dimension(75, 25));
-        jTextFieldStartDate.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextFieldStartDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldStartDateActionPerformed(evt);
             }
         });
-        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
+        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldStartDateFocusGained(evt);
             }
         });
 
         jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -257,8 +250,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -307,6 +299,8 @@ public class CasablancaResception extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         model.clear();
         jList1.setModel(model);
+        boolean getrooms = false;
+        ArrayList<Room> arrayForJlist = null;
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         Calendar c = Calendar.getInstance();
@@ -333,29 +327,32 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             type = "single";
             jLabelTypeShow.setText(type);
+            getrooms=true;
         }
         else if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest > 1)
         {
-            jLabelTypeShow.setText("To many guest!");
+            jLabelTypeShow.setText("Too many guests!");
         }
 
         if (jComboBoxType.getSelectedIndex() == 1 && numOfGuest <= 2)
         {
             type = "double";
             jLabelTypeShow.setText(type);
+            getrooms=true;
         }
         else if (numOfGuest > 2)
         {
-            jLabelTypeShow.setText("To many guest!");
+            jLabelTypeShow.setText("Too many guests!");
         }
 
         if (jComboBoxType.getSelectedIndex() == 2)
         {
             type = "family";
             jLabelTypeShow.setText(type);
+            getrooms=true;
         }
 
-        ArrayList<Room> arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), type);
+        if (getrooms)arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), type);
         if (arrayForJlist == null)
         {
             model.addElement("No Room available");
