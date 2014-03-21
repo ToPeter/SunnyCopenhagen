@@ -19,9 +19,6 @@ public class UnitOfWorkForGuest
     private final ArrayList<Guest> delGuest;
     private final ArrayList<Guest> dirtyGuest;
     
-//    private final ArrayList<OrderDetail> newOrderDetails;
-//    private final ArrayList<OrderDetail> updateOrderDetails;
-//    private final ArrayList<OrderDetail> deleteOrderDetails;
     
    
     public UnitOfWorkForGuest (DataMapper dataMapper)
@@ -30,10 +27,6 @@ public class UnitOfWorkForGuest
         newGuest = new ArrayList<>(); // will never exceed 1 element
         dirtyGuest = new ArrayList<>(); // will never exceed 1 element
         delGuest = new ArrayList<>();
-        
-    //    newOrderDetails = new ArrayList<>();
-   //     updateOrderDetails = new ArrayList<>();
-   //     deleteOrderDetails = new ArrayList<>();
     }
     
     //====== Methods to register changes ==========================
@@ -65,15 +58,15 @@ public class UnitOfWorkForGuest
     }
     
       //====== Method to save changes to DB ===============================
-    public boolean commit(Connection connection)
+    public boolean commit(Connection con)
     {
         boolean status = true;  // will be set false if any part of transaction fails    
         try
         {
             //=== system transaction - starts
-            connection.setAutoCommit(false);
+            con.setAutoCommit(false);
 
-       //     status = status && dataMapper.insertOrders(newGuest, connection);
+            status = status && dataMapper.insertGuest(newGuest, con);
        //     status = status && dataMapper.updateOrders(dirtyGuest, connection);
        //     status = status && dataMapper.deleteOrder(delGuest, connection);
             
@@ -86,13 +79,13 @@ public class UnitOfWorkForGuest
                 throw new Exception("Process Order Business Transaction aborted");
             }
             //=== system transaction - ends with success
-            connection.commit();
+            con.commit();
         } catch (Exception e)
         {
             //=== system transaction - ends with roll back
             try
             {
-                connection.rollback();
+                con.rollback();
             } catch (SQLException e1)
             {
                 e1.printStackTrace();
@@ -101,14 +94,14 @@ public class UnitOfWorkForGuest
         }
         return status;
     }
-//
-//    private void removeOrderDetails(int orderNumber)
-//    {
-//        Iterator<OrderDetail> iterator = newOrderDetails.iterator();
-//        while(iterator.hasNext())
-//        {
-//            if(iterator.next().getOrderNumber() == orderNumber)
-//                iterator.remove();
-//        }
-//    }
+
+  
+  
+
+
+
+
+
+
+
 }

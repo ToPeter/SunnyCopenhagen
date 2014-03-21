@@ -18,19 +18,7 @@ public class Controller
         facade = DBFacade.getInstance();
     }
     
-    public Guest getGuest(int reservationNo)
-    {
-        if (processingGuest)
-        {
-            return null;
-        }
-
-        facade.startProcessGuestBusinessTransaction(); // method in Fascade
-        processingGuest = true;
-        currentGuest = facade.getGuest(reservationNo);
-        return currentGuest;
-    }
-
+  
     public Reservation getReservation(int reservationNo)
     {
         // need to see how it works by Tomoe
@@ -45,7 +33,6 @@ public class Controller
 
     }
 
-    
     
       public int getNextReservationNo()
     {
@@ -75,4 +62,79 @@ System.out.println("controller"+fromDate);
        return priceList;
     }
 
+    
+    
+   // ----------------------------- Unit Of Work ----------------------------
+    
+    
+     public Guest getGuest(int reservationNo)
+    {
+        if (processingGuest)
+        {
+            return null;
+        }
+
+        facade.startProcessGuestBusinessTransaction(); // method in Fascade
+        processingGuest = true;
+        currentGuest = facade.getGuest(reservationNo);
+        return currentGuest;
+    }
+     
+      public void resetGuest()
+    {
+        processingGuest = false;
+        currentGuest = null;
+    }
+     
+        public boolean saveGuest()
+    {
+        boolean status = false;
+        if (processingGuest)
+        {
+      //== ends ongoing business transaction
+
+            status = facade.commitProcessGuestBusinessTransaction();
+            processingGuest = false;
+            currentGuest = null;
+        }
+        return status;
+    }
+     
+         public Guest deleteGuest()
+    {
+        if (processingGuest)
+        {
+            facade.startProcessGuestBusinessTransaction();
+            facade.registerDeleteGuest(currentGuest);
+        }
+        return currentGuest;
+    }
+         
+//          public Guest createGuest(String guestNo, int password )
+//    {
+//        if (processingGuest)
+//        {
+//            return null;
+//        }
+//
+//        facade.startProcessGuestBusinessTransaction();
+//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+//        if (newReservationNo != 0)
+//        {
+//            processingGuest = true;
+//            //- capture current date.Represent as String
+////            String dateReceived = (new java.sql.Date(
+////                    (new java.util.Date().getTime())).toString());
+//        currentGuest = new Guest(newReservationNo, guestNo, employeeNumber, dateReceived, null, 0);
+//            facade.registerNewOrder(currentGuest);
+//        } else
+//        {
+//            processingGuest = false;
+//            currentGuest = null;
+//        }
+//        return currentGuest;
+//    }
+          
+          
+     
 }

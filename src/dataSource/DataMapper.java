@@ -228,7 +228,7 @@ public class DataMapper implements DataMapperInterface
             {
                 guest = new Guest(rs.getInt(1),
                         rs.getString(2),
-                        rs.getInt(3), // read as SQL date type
+                        rs.getInt(3), 
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
@@ -251,6 +251,86 @@ public class DataMapper implements DataMapperInterface
         return guest;
     }
 
+        // Retrieves the next unique order number from DB
+    public int getNextGuestNo(Connection con)
+    {
+        int nextGuestNo = 0;
+        String SQLString = "select orderseq.nextval  " + "from dual";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                nextGuestNo = rs.getInt(1);
+            }
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextGuestNo");
+            System.out.println(e.getMessage());
+        }
+        return nextGuestNo;
+    }
+    
+    //====== Methods to save to DB =========================================================
+  // Insert a list of new orders
+    // returns true if all elements were inserted successfully
+    public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
+    {
+        int rowsInserted = 0;
+        String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?)";
+        PreparedStatement statement = null;
+        statement = con.prepareStatement(SQLString);
+
+        for (int i = 0; i < guestList.size(); i++)
+        {
+            Guest guest = guestList.get(i);
+            statement.setInt(1, guest.getReservationNo());
+            statement.setString(2, guest.getGuestNo());
+            statement.setInt(3, guest.getPassword());
+            statement.setString(4, guest.getGuestFirstName());
+            statement.setString(5, guest.getGuestFamilyName());
+            statement.setString(6, guest.getAddress());
+            statement.setString(7, guest.getCountry());
+            statement.setInt(8, guest.getPhoneNo());
+            statement.setString(9, guest.getEmail());
+            
+            
+            rowsInserted += statement.executeUpdate();
+        }
+        if (testRun)
+        {
+            System.out.println("insertOrders(): " + (rowsInserted == guestList.size())); // for test
+        }
+        return (rowsInserted == guestList.size());
+    }
+
+  
+
+    public boolean deleteOrder(ArrayList<Guest> delGuest, Connection con) throws SQLException
+    {
+        int rowsDeleted = 0;
+        
+        String SQLStringDeleteGuest = "delete from guest where guestNo = ?";
+        PreparedStatement statementDeleteGuest = con.prepareStatement(SQLStringDeleteGuest);
+        for (int i = 0; i < delGuest.size(); i++)
+        {
+            Guest guest = delGuest.get(i);
+            
+            statementDeleteGuest.setString(1, guest.getGuestNo());
+      //      statementDeleteDetails.executeUpdate();
+            
+            statementDeleteGuest.setString(1, guest.getGuestNo());
+      //      statementDeleteOrder.setInt(2, order.getVersionNumber());   // old version number
+            if (statementDeleteGuest.executeUpdate() > 0)
+            {
+                rowsDeleted++;
+            }
+        }
+        return rowsDeleted == delGuest.size();
+    }
+    
 //http://www.w3schools.com/sql/sql_autoincrement.asp    
 //CREATE SEQUENCE seq_resno 
 //MINVALUE 1

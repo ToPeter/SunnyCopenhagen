@@ -114,7 +114,7 @@ public class DBFacade
     }
 
     //=== Save all changes
-    public boolean commitProcessOrderBusinessTransaction()
+    public boolean commitProcessGuestBusinessTransaction()
     {
         boolean status = false;
         if (unitOfWork != null)
