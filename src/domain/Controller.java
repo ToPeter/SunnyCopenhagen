@@ -3,6 +3,7 @@ package domain;
 
 import dataSource.DBFacade;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Controller
@@ -135,6 +136,13 @@ System.out.println("controller"+fromDate);
 //        return currentGuest;
 //    }
           
-          
+          public boolean bookRoom (int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+          {
+              boolean result=true;
+              
+              System.out.println("RESERVATIONNO: "+reservationNo+"\n-----||-----\nORDER BOOKED: \t\nFrom: "+fromDate.toString()+" \tRoom: "+roomNo+" Booked: "+boookingDate.toString()+"\n\tTo  "+endDate.toString()+"\nDepositpaied: "+depositPaid);
+              
+              return result;
+          }
      
 }
