@@ -29,6 +29,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int numOfGuest;
     private DefaultListModel model;
     private String type;
+    private int[] priceList;
 
     /**
      * Creates new form CasablancaResception
@@ -40,6 +41,8 @@ public class CasablancaResception extends javax.swing.JFrame
         model = new DefaultListModel();
         model.addElement("Please insert information above");
         jList1.setModel(model);
+        priceList = new int[3];
+        priceList = control.getPriceList();
     }
 
     /**

@@ -53,4 +53,11 @@ System.out.println("controller"+fromDate);
 
     }
 
+    public int[] getPriceList()
+    {
+        int[] priceList = new int[3];
+
+       return priceList;
+    }
+
 }
