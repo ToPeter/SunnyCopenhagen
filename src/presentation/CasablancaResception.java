@@ -45,7 +45,8 @@ public class CasablancaResception extends javax.swing.JFrame
         priceList = new int[3];
         priceList = control.getPriceList();
         
-        jLabelShowPrice.setText(Integer.toString(priceList[0]));
+        priceType = priceList[0];
+        jLabelShowPrice.setText(Integer.toString(priceType));
 
     }
 
@@ -56,7 +57,8 @@ public class CasablancaResception extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jTextFieldStartDate = new javax.swing.JTextField();
@@ -92,20 +94,26 @@ public class CasablancaResception extends javax.swing.JFrame
         jTextFieldStartDate.setToolTipText("DD-MM-YY");
         jTextFieldStartDate.setMinimumSize(new java.awt.Dimension(75, 25));
         jTextFieldStartDate.setPreferredSize(new java.awt.Dimension(75, 25));
-        jTextFieldStartDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextFieldStartDate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jTextFieldStartDateActionPerformed(evt);
             }
         });
-        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
+        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
                 jTextFieldStartDateFocusGained(evt);
             }
         });
 
         jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -159,7 +167,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addComponent(jLabelType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single", "Double", "Family", " " }));
+        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single", "Double", "Family" }));
         jComboBoxType.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -203,9 +211,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addComponent(jLabelShowPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +222,8 @@ public class CasablancaResception extends javax.swing.JFrame
                                 .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(16, 16, 16))
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(28, 28, 28))))
+                        .addGap(28, 28, 28)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +257,8 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
