@@ -4,7 +4,7 @@ package dataSource;
 import domain.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 
 
@@ -23,7 +23,7 @@ public class UnitOfWorkForGuest
 //    private final ArrayList<OrderDetail> updateOrderDetails;
 //    private final ArrayList<OrderDetail> deleteOrderDetails;
     
-    
+   
     public UnitOfWorkForGuest (DataMapper dataMapper)
     {
         this.dataMapper = dataMapper;
@@ -61,8 +61,7 @@ public class UnitOfWorkForGuest
             newGuest.remove(guest);
         if(dirtyGuest.contains(guest))
             dirtyGuest.remove(guest);
-    //    removeOrderDetails(guest.getGuestID());             // accesor for getting GuestID from DB
-        delGuest.add(guest);      
+           delGuest.add(guest);      
     }
     
       //====== Method to save changes to DB ===============================

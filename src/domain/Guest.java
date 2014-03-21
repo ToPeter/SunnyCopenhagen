@@ -6,7 +6,6 @@
 
 package domain;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +32,9 @@ public class Guest
                  String guestFirstName,
                  String guestFamilyName,
                  String address, 
-                 String country )
+                 String country,
+                 int phone,
+                 String email)
     {
         this.reservationNo = reservationNo;
         this.guestNo = guestNo;
@@ -42,6 +43,9 @@ public class Guest
         this.guestFamilyName = guestFamilyName;
         this.address = address;
         this.country = country;
+        this.phoneNo = phone;
+                this.email = email;
+        
      //   this.guestDetails = new ArrayList<>();
     }
 

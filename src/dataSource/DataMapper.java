@@ -5,8 +5,9 @@
  */
 package dataSource;
 
-import domain.Reservation;
-import domain.Room;
+import domain.*;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +24,8 @@ import java.util.Date;
  */
 public class DataMapper implements DataMapperInterface
 {
+    
+    static boolean testRun = false;  // used to enable test output
 
     private final Connection con;
     private Date parsedFrom;
@@ -191,4 +194,54 @@ public class DataMapper implements DataMapperInterface
             return priceList;
         }
     }
+
+
+//======  Methods to read from DB =======================================================
+  // Retrieve a specific order and related order details
+    // Returns the Order-object
+    public Guest getGuest(int reservationNo, Connection con)
+    {
+        Guest guest = null;
+        String SQLString1 = // get order
+                "select * "
+                + "from guest "
+                + "where reservationNo = ?";
+        
+        PreparedStatement statement = null;
+
+        try
+        {
+            //=== get order
+            statement = con.prepareStatement(SQLString1);
+            statement.setInt(1, reservationNo);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                guest = new Guest( rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3), // read as SQL date type
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9));
+                
+            }
+
+         
+        } catch (Exception e)
+        {
+            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println(e.getMessage());
+        }
+        if (testRun)
+        {
+            System.out.println("Retrieved Order: " + guest);
+        }
+        return guest;
+    }
+
+
 }

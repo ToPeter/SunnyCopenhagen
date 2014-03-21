@@ -1,8 +1,8 @@
 
 package dataSource;
+import domain.*;
 
-import domain.Reservation;
-import domain.Room;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -56,51 +56,76 @@ public class DBFacade
     //== i kept is so we could see how we did earlier :) - Peter K
     
     
+      //===== Methods to handle business transactions
+	  //===	Should be called upon start of a transaction
+    //    Any changes done after last commit will be ignored
+    //Peter T 
+    
+     //======	Methods to retrieve data 
+    public Guest getGuest(int reservation)
+    {
+        return dm.getGuest(reservation, con);
+    }
     
     
     
     
     
+    public void startProcessGuestBusinessTransaction()
+    {
+         unitOfWork = new UnitOfWorkForGuest (dm);
+    }
     
+    //=====	Methods to register changes	in UnitOfWork  
+    public void registerNewOrder(Guest guest)
+    {
+        if (unitOfWork != null)
+        {
+            unitOfWork.registerNewGuest(guest);
+        }
+    }
+
+    public void registerDirtyOrder(Guest guest)
+    {
+        if (unitOfWork != null)
+        {
+            unitOfWork.registerDirtyGuest(guest);
+        }
+    }
     
-//    public Order getOrder(int ono)
-//    {
-//        return om.getOrder(ono, con);
-//    }
-//
-//    public boolean saveNewOrder(Order o)
-//    {
-//        return om.saveNewOrder(o, con);
-//    }
-//
-//    public boolean saveNewOrderDetail(OrderDetail od)
-//    {
-//        return om.saveNewOrderDetail(od, con);
-//    }
-//
-//    public boolean updateCurrentOrder(Order o)
-//    {
-//        return om.updateCurrentOrder(o, con);
-//    }
-//
-//    public boolean updateOrderDetail(OrderDetail od)
-//    {
-//        return om.updateOrderDetail(od, con);
-//    }
-//
-//    public boolean deleteOrderDetail(OrderDetail od)
-//    {
-//           return om.deleteOrderDetail(od, con);
-//    }
-//
-//    public void deleteOrder(Order o)
-//    {
-//
-//        om.deleteOrder(o, con);
-//    }
+     public void registerDeleteGuest(Guest currentGuest)
+    {
+        if (unitOfWork != null)
+        {
+            unitOfWork.registerDeleteGuest(currentGuest);
+        }
+    }
+    
+     	  //===== Methods to handle business transactions
+	  //===	Should be called upon start of a transaction
+    //    Any changes done after last commit will be ignored
+    public void startProcessOrderBusinessTransaction()
+    {
+        unitOfWork = new UnitOfWorkForGuest(dm);
+    }
+
+    //=== Save all changes
+    public boolean commitProcessOrderBusinessTransaction()
+    {
+        boolean status = false;
+        if (unitOfWork != null)
+        {
+            status = unitOfWork.commit(con);
+            unitOfWork = null;
+        }
+        return status;
+    }
+    
+
     public int[] getPriceList()
     {
         return dm.getPriceList(con);
       
     }
+
 }

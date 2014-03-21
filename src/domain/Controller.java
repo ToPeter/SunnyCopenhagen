@@ -1,27 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package domain;
 
 import dataSource.DBFacade;
-import java.sql.Date;
 import java.util.ArrayList;
 
-/**
- *
- * @author Tomoe
- */
+
 public class Controller
 {
-
-    private final DBFacade facade;
-//private boolean processingOrder;	// Represent state of business transaction (need to see how it works. by Tomoe)
+    private boolean processingGuest;	// Represent state of business transaction
+    private Guest currentGuest;      	// Guest in focus
+    private final DBFacade facade;   
 
     public Controller()
     {
+        processingGuest = false;
+        currentGuest = null;
         facade = DBFacade.getInstance();
+    }
+    
+    public Guest getGuest(int reservationNo)
+    {
+        if (processingGuest)
+        {
+            return null;
+        }
+
+        facade.startProcessGuestBusinessTransaction(); // method in Fascade
+        processingGuest = true;
+        currentGuest = facade.getGuest(reservationNo);
+        return currentGuest;
     }
 
     public Reservation getReservation(int reservationNo)
