@@ -57,6 +57,7 @@ System.out.println("controller"+fromDate);
     {
         int[] priceList = new int[3];
 
+     priceList =  facade.getPriceList();
        return priceList;
     }
 
