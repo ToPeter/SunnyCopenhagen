@@ -125,7 +125,6 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(1, sqlToDate);
             statement.setDate(2, sqlFromDate);
             ResultSet rs = statement.executeQuery();
-            System.out.println(rs.next());
 
             while (rs.next())
             {
