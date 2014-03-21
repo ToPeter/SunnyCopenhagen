@@ -10,6 +10,9 @@ import domain.Room;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,7 +50,8 @@ public class DBFacade
     }
 
     public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
-    {System.out.println("facade"+fromDate);
+    {
+        System.out.println("facade" + fromDate);
         return dm.getRoomAvailable(fromDate, endDate, type, con);
     }
 
@@ -88,4 +92,9 @@ public class DBFacade
 //
 //        om.deleteOrder(o, con);
 //    }
+    public int[] getPriceList()
+    {
+        return dm.getPriceList(con);
+      
+    }
 }

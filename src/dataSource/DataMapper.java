@@ -74,19 +74,16 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("gotreservation");
             }
 
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        }
-        finally														// must close statement
+        } finally														// must close statement
         {
             try
             {
                 statement.close();
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -135,19 +132,16 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("adding");
                 roomAvailableList.add(tempRoom);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
-        }
-        finally														// must close statement
+        } finally														// must close statement
         {
             try
             {
                 statement.close();
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -156,5 +150,46 @@ public class DataMapper implements DataMapperInterface
             return roomAvailableList;
         }
 
+    }
+
+    int[] getPriceList(Connection con)
+    {
+        int[] priceList = new int[3];
+
+        String SQLString = // get PriceList
+                "select price from Prices ";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            int i = 0;
+            while (rs.next())
+            {
+                priceList[i] = rs.getInt(1);
+                i++;
+//                System.out.println(rs.getInt(1));
+//
+//                tempRoom = new Room(rs.getInt(1), type);
+//                System.out.println("adding");
+//                roomAvailableList.add(tempRoom);
+            }
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getPriceList");
+            System.out.println(e.getMessage());
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - getPriceList");
+                System.out.println(e.getMessage());
+            }
+            return priceList;
+        }
     }
 }
