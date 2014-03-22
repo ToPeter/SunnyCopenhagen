@@ -132,7 +132,8 @@ System.out.println("controller"+fromDate);
 //                    (new java.util.Date().getTime())).toString());
       //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
             
-        currentGuest = new Guest(10001, "013-1",15698, "Peter", "Lorensen", "Amagerbro 12","Denmark",50122645,"pelo@cph.sk");
+    //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
+                                                                                                                                // to create a guest!
         
         
         
