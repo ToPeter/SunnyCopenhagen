@@ -85,6 +85,7 @@ public class DBFacade
     {
         if (unitOfWork != null)
         {
+            System.out.println("HI");
             unitOfWork.registerNewGuest(guest);
         }
     }
@@ -121,6 +122,7 @@ public class DBFacade
         {
             status = unitOfWork.commit(con);
             unitOfWork = null;
+           
         }
         return status;
     }

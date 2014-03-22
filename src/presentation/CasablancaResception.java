@@ -55,6 +55,9 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
 
+       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
+       control.commit();
+
     }
 
     /**
@@ -528,6 +531,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+
         model.clear();
         jList1.setModel(model);
         boolean getrooms = false;
@@ -561,8 +565,7 @@ public class CasablancaResception extends javax.swing.JFrame
             type = "single";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        }
-        else if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest > 1)
+        } else if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest > 1)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
@@ -572,8 +575,7 @@ public class CasablancaResception extends javax.swing.JFrame
             type = "double";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        }
-        else if (numOfGuest > 2)
+        } else if (numOfGuest > 2)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
@@ -583,8 +585,7 @@ public class CasablancaResception extends javax.swing.JFrame
             type = "family";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        }
-        else if (numOfGuest > 5)
+        } else if (numOfGuest > 5)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
@@ -604,8 +605,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             model.addElement("No Room available");
             jLabelShowTotalPrice.setText("");
-        }
-        else
+        } else
         {
             for (Room r : arrayForJlist)
             {
@@ -655,9 +655,11 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-        if(jCheckBox1.isSelected())
-            depositPaid=true;
-        
+        if (jCheckBox1.isSelected())
+        {
+            depositPaid = true;
+        }
+
         control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
 
     }//GEN-LAST:event_jButton3ActionPerformed

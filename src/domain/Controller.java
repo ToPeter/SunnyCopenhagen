@@ -111,38 +111,54 @@ System.out.println("controller"+fromDate);
         return currentGuest;
     }
          
-//          public Guest createGuest(String guestNo, int password )
-//    {
-//        if (processingGuest)
-//        {
-//            return null;
-//        }
-//
-//        facade.startProcessGuestBusinessTransaction();
-//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
-//        if (newReservationNo != 0)
-//        {
-//            processingGuest = true;
-//            //- capture current date.Represent as String
-////            String dateReceived = (new java.sql.Date(
-////                    (new java.util.Date().getTime())).toString());
-//        currentGuest = new Guest(newReservationNo, guestNo, employeeNumber, dateReceived, null, 0);
-//            facade.registerNewOrder(currentGuest);
-//        } else
-//        {
-//            processingGuest = false;
-//            currentGuest = null;
-//        }
-//        return currentGuest;
-//    }
+    public Guest createGuest(int reservationNo,String guestNo,int password,String guestFirstName,String guestFamilyName,
+                 String address,  String country,int phone, String email )
+    {
+        if (processingGuest)
+        {
+            return null;
+        }
+
+        
+        facade.startProcessGuestBusinessTransaction();
+        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+
+       
+        if (newReservationNo != 0)
+        {
+            processingGuest = true;
+            //- capture current date.Represent as String
+//            String dateReceived = (new java.sql.Date(
+//                    (new java.util.Date().getTime())).toString());
+      //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
+            
+        currentGuest = new Guest(10001, "013-1",15698, "Peter", "Lorensen", "Amagerbro 12","Denmark",50122645,"pelo@cph.sk");
+        
+        
+        
+            facade.registerNewOrder(currentGuest);
+        } else
+        {
+            processingGuest = false;
+            currentGuest = null;
+        }
+        
+       
+        return currentGuest;
+    }
           
-          public boolean bookRoom (int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
-          {
-              boolean result=true;
-              
-              System.out.println("RESERVATIONNO: "+reservationNo+"\n-----||-----\nORDER BOOKED: \t\nFrom: "+fromDate.toString()+" \tRoom: "+roomNo+" Booked: "+boookingDate.toString()+"\n\tTo  "+endDate.toString()+"\nDepositpaied: "+depositPaid);
-              
-              return result;
-          }
+         public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+    {
+        boolean result = true;
+
+        System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
+
+        return result;
+    }
+         
+         public void commit()
+         {
+             facade.commitProcessGuestBusinessTransaction();
+         }
      
 }

@@ -36,6 +36,8 @@ public class UnitOfWorkForGuest
         if (!newGuest.contains(guest) &&  !dirtyGuest.contains(guest))    // if not all ready registered in any list
         {
             newGuest.add(guest);
+
+           
         }
     }
     
@@ -61,15 +63,16 @@ public class UnitOfWorkForGuest
     public boolean commit(Connection con)
     {
         boolean status = true;  // will be set false if any part of transaction fails    
+         
         try
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-
             status = status && dataMapper.insertGuest(newGuest, con);
-       //     status = status && dataMapper.updateOrders(dirtyGuest, connection);
-       //     status = status && dataMapper.deleteOrder(delGuest, connection);
-            
+
+         //   status = status && dataMapper.updateGuest(dirtyGuest, con);
+         //  status = status && dataMapper.deleteGuest(delGuest, con);
+
          //   status = status && dataMapper.updateOrderDetails(updateOrderDetails, dirtyOrders, connection);
         //    status = status && dataMapper.deleteOrderDetails(deleteOrderDetails, dirtyOrders, connection);
        //     status = status && dataMapper.insertOrderDetails(newOrderDetails, connection);
@@ -77,6 +80,7 @@ public class UnitOfWorkForGuest
             if (!status)
             {
                 throw new Exception("Process Order Business Transaction aborted");
+                
             }
             //=== system transaction - ends with success
             con.commit();
@@ -92,6 +96,8 @@ public class UnitOfWorkForGuest
             }
             status = false;
         }
+             
+                System.out.println("Status is : "+status);
         return status;
     }
 

@@ -278,6 +278,7 @@ public class DataMapper implements DataMapperInterface
     // returns true if all elements were inserted successfully
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
     {
+     
         int rowsInserted = 0;
         String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?)";
         PreparedStatement statement = null;
@@ -295,8 +296,9 @@ public class DataMapper implements DataMapperInterface
             statement.setString(7, guest.getCountry());
             statement.setInt(8, guest.getPhoneNo());
             statement.setString(9, guest.getEmail());
-            
-            
+           
+
+       
             rowsInserted += statement.executeUpdate();
         }
         if (testRun)
@@ -308,7 +310,7 @@ public class DataMapper implements DataMapperInterface
 
   
 
-    public boolean deleteOrder(ArrayList<Guest> delGuest, Connection con) throws SQLException
+    public boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException
     {
         int rowsDeleted = 0;
         
