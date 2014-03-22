@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JLayeredPane;
 import oracle.net.aso.i;
 
 /**
@@ -24,7 +25,7 @@ import oracle.net.aso.i;
  */
 public class CasablancaResception extends javax.swing.JFrame
 {
-
+    
     private Controller control;
     private int numOfGuest;
     private DefaultListModel model;
@@ -37,6 +38,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int totalPriceForRoom;
     private boolean depositPaid;
     private int roomNo, reservationNo;
+    private JLayeredPane currentPane;
 
     /**
      * Creates new form CasablancaResception
@@ -45,19 +47,22 @@ public class CasablancaResception extends javax.swing.JFrame
     {
         initComponents();
         jLayeredPaneReservation.setVisible(false);
+        jLayeredPaneReservationInfo.setVisible(false);
+        jLayeredPaneSearchGuest.setVisible(false);
         control = new Controller();
         model = new DefaultListModel();
         model.addElement("Please insert information above");
         jList1.setModel(model);
         priceList = new int[3];
         priceList = control.getPriceList();
-
+        
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
+        
+        currentPane = jLayeredPaneSearchRoome;
 
-       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
-       control.commit();
-
+//       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
+//       control.commit();
     }
 
     /**
@@ -108,11 +113,38 @@ public class CasablancaResception extends javax.swing.JFrame
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabelReservationNo = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLayeredPaneReservationInfo = new javax.swing.JLayeredPane();
+        jButtonSeachReservationNo = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jTextFieldReservationInfoSearch = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListInfoReservation = new javax.swing.JList();
+        jLayeredPaneSearchGuest = new javax.swing.JLayeredPane();
+        jPanel7 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
         setPreferredSize(new java.awt.Dimension(800, 50));
+
+        jLayeredPaneSearchRoome.setAutoscrolls(true);
+        jLayeredPaneSearchRoome.setMaximumSize(new java.awt.Dimension(625, 380));
+        jLayeredPaneSearchRoome.setMinimumSize(new java.awt.Dimension(625, 380));
+        jLayeredPaneSearchRoome.setPreferredSize(new java.awt.Dimension(625, 380));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Search Rooms"));
         jPanel1.setMinimumSize(new java.awt.Dimension(435, 250));
@@ -322,7 +354,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addGroup(jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jLabelShowRoomChosen))))
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(0, 55, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoomeLayout.setVerticalGroup(
             jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,12 +367,15 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelShowRoomChosen)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoome.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jLabelShowRoomChosen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneReservation.setMinimumSize(new java.awt.Dimension(625, 380));
+        jLayeredPaneReservation.setPreferredSize(new java.awt.Dimension(625, 380));
 
         jLabel6.setText("From");
 
@@ -460,7 +495,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(142, 142, 142)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 186, Short.MAX_VALUE))
+                .addGap(0, 107, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,9 +526,197 @@ public class CasablancaResception extends javax.swing.JFrame
             .addGroup(jLayeredPaneReservationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
         jLayeredPaneReservation.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneReservationInfo.setMinimumSize(new java.awt.Dimension(625, 380));
+        jLayeredPaneReservationInfo.setPreferredSize(new java.awt.Dimension(625, 380));
+
+        jButtonSeachReservationNo.setText("Search");
+        jButtonSeachReservationNo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonSeachReservationNoActionPerformed(evt);
+            }
+        });
+
+        jTextFieldReservationInfoSearch.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jTextFieldReservationInfoSearchActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Reservation No");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldReservationInfoSearch)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldReservationInfoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jListInfoReservation.setModel(new javax.swing.AbstractListModel()
+        {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jListInfoReservation);
+
+        javax.swing.GroupLayout jLayeredPaneReservationInfoLayout = new javax.swing.GroupLayout(jLayeredPaneReservationInfo);
+        jLayeredPaneReservationInfo.setLayout(jLayeredPaneReservationInfoLayout);
+        jLayeredPaneReservationInfoLayout.setHorizontalGroup(
+            jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSeachReservationNo)))
+                .addContainerGap(428, Short.MAX_VALUE))
+        );
+        jLayeredPaneReservationInfoLayout.setVerticalGroup(
+            jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSeachReservationNo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(118, Short.MAX_VALUE))
+        );
+        jLayeredPaneReservationInfo.setLayer(jButtonSeachReservationNo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneReservationInfo.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneReservationInfo.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneSearchGuest.setMinimumSize(new java.awt.Dimension(625, 380));
+        jLayeredPaneSearchGuest.setPreferredSize(new java.awt.Dimension(625, 380));
+
+        jButton4.setText("jButton4");
+
+        jTextField2.setText("jTextField2");
+
+        jLabel11.setText("Reservaton No");
+
+        jLabel12.setText("Guest No");
+
+        jTextField3.setText("jTextField3");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton4))
+        );
+
+        jList2.setModel(new javax.swing.AbstractListModel()
+        {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList2);
+
+        javax.swing.GroupLayout jLayeredPaneSearchGuestLayout = new javax.swing.GroupLayout(jLayeredPaneSearchGuest);
+        jLayeredPaneSearchGuest.setLayout(jLayeredPaneSearchGuestLayout);
+        jLayeredPaneSearchGuestLayout.setHorizontalGroup(
+            jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneSearchGuestLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addContainerGap(420, Short.MAX_VALUE))
+        );
+        jLayeredPaneSearchGuestLayout.setVerticalGroup(
+            jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneSearchGuestLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+        jLayeredPaneSearchGuest.setLayer(jPanel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneSearchGuest.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jMenu2.setText("Search");
+
+        jMenuItem1.setText("Search Reservation No");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Search for Room");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Search Guest");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar.add(jMenu2);
+
+        jMenu1.setText("File");
+        jMenuBar.add(jMenu1);
+
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -501,21 +724,41 @@ public class CasablancaResception extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLayeredPaneSearchRoome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 181, Short.MAX_VALUE))
+                .addGap(0, 175, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jLayeredPaneReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 96, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(57, Short.MAX_VALUE)
+                    .addComponent(jLayeredPaneReservationInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(100, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLayeredPaneSearchGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLayeredPaneSearchRoome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(0, 37, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jLayeredPaneReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 14, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLayeredPaneReservationInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 4, Short.MAX_VALUE)
+                    .addComponent(jLayeredPaneSearchGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 5, Short.MAX_VALUE)))
         );
 
         pack();
@@ -523,20 +766,20 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jComboBoxTypeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxTypeActionPerformed
     {//GEN-HEADEREND:event_jComboBoxTypeActionPerformed
-
+        
         priceType = priceList[jComboBoxType.getSelectedIndex()];
-
+        
         jLabelShowPrice.setText(Integer.toString(priceType));
     }//GEN-LAST:event_jComboBoxTypeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-
+        
         model.clear();
         jList1.setModel(model);
         boolean getrooms = false;
         ArrayList<Room> arrayForJlist = null;
-
+        
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         Calendar c = Calendar.getInstance();
         startDate = null;
@@ -551,41 +794,44 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         c.setTime(startDate);
         c.add(Calendar.DATE, numberOfDays);
         endDate = c.getTime();
         endDateStr = dateFormat.format(endDate); //changed here c.getTime()
         jLabelEndDate.setText(endDateStr);
-
+        
         numOfGuest = Integer.parseInt(jTextField1.getText());
-
+        
         if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest == 1)
         {
             type = "single";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        } else if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest > 1)
+        }
+        else if (jComboBoxType.getSelectedIndex() == 0 && numOfGuest > 1)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
-
+        
         if (jComboBoxType.getSelectedIndex() == 1 && numOfGuest <= 2)
         {
             type = "double";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        } else if (numOfGuest > 2)
+        }
+        else if (numOfGuest > 2)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
-
+        
         if (jComboBoxType.getSelectedIndex() == 2 && numOfGuest <= 5)
         {
             type = "family";
             jLabelTypeShow.setText(type);
             getrooms = true;
-        } else if (numOfGuest > 5)
+        }
+        else if (numOfGuest > 5)
         {
             jLabelTypeShow.setText("Too many guests!");
         }
@@ -594,7 +840,7 @@ public class CasablancaResception extends javax.swing.JFrame
             getrooms = false;
             jLabelTypeShow.setText("");
         }
-
+        
         if (getrooms)
         {
             arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), type);
@@ -605,16 +851,17 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             model.addElement("No Room available");
             jLabelShowTotalPrice.setText("");
-        } else
+        }
+        else
         {
             for (Room r : arrayForJlist)
             {
                 System.out.println(r.getRoomNo());
                 model.addElement(r.getRoomNo());
             }
-
+            
         }
-
+        
         jList1.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -640,8 +887,9 @@ public class CasablancaResception extends javax.swing.JFrame
         Object roomNoSelected = model.getElementAt(jListSelectedIndex);
         roomNo = Integer.parseInt(roomNoSelected.toString());
         jLabelShowRoomChosen.setText(roomNoSelected.toString());
-
-        jLayeredPaneSearchRoome.setVisible(false);
+        
+        currentPane.setVisible(false);
+//        jLayeredPaneSearchRoome.setVisible(false);
         jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
         jLabelToDate.setText(endDateStr);
         jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -649,7 +897,11 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelPriceReservation.setText(Integer.toString(totalPriceForRoom));
         reservationNo = control.getNextReservationNo();
         jLabelReservationNo.setText(Integer.toString(reservationNo));
-        jLayeredPaneReservation.setVisible(true);
+        
+        currentPane = jLayeredPaneReservation;
+        
+        currentPane.setVisible(true);
+//        jLayeredPaneReservation.setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -659,7 +911,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             depositPaid = true;
         }
-
+        
         control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -668,6 +920,39 @@ public class CasablancaResception extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+        currentPane.setVisible(false);
+        currentPane = jLayeredPaneReservationInfo;
+        currentPane.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTextFieldReservationInfoSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldReservationInfoSearchActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldReservationInfoSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldReservationInfoSearchActionPerformed
+
+    private void jButtonSeachReservationNoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSeachReservationNoActionPerformed
+    {//GEN-HEADEREND:event_jButtonSeachReservationNoActionPerformed
+        
+        control.getReservationDetails(Integer.parseInt(jTextFieldReservationInfoSearch.getText()));
+    }//GEN-LAST:event_jButtonSeachReservationNoActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
+        currentPane.setVisible(false);
+        currentPane = jLayeredPaneSearchRoome;
+        currentPane.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
+        currentPane.setVisible(false);
+        currentPane = jLayeredPaneSearchGuest;
+        currentPane.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -718,9 +1003,14 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonSeachReservationNo;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxType;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -742,16 +1032,33 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JLabel jLabelType;
     private javax.swing.JLabel jLabelTypeShow;
     private javax.swing.JLayeredPane jLayeredPaneReservation;
+    private javax.swing.JLayeredPane jLayeredPaneReservationInfo;
+    private javax.swing.JLayeredPane jLayeredPaneSearchGuest;
     private javax.swing.JLayeredPane jLayeredPaneSearchRoome;
     private javax.swing.JList jList1;
+    private javax.swing.JList jList2;
+    private javax.swing.JList jListInfoReservation;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextFieldNumberOfDays;
+    private javax.swing.JTextField jTextFieldReservationInfoSearch;
     private javax.swing.JTextField jTextFieldStartDate;
     // End of variables declaration//GEN-END:variables
 }
