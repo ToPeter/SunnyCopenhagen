@@ -1,16 +1,15 @@
-
 package domain;
 
 import dataSource.DBFacade;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class Controller
 {
+
     private boolean processingGuest;	// Represent state of business transaction
     private Guest currentGuest;      	// Guest in focus
-    private final DBFacade facade;   
+    private final DBFacade facade;
 
     public Controller()
     {
@@ -18,8 +17,7 @@ public class Controller
         currentGuest = null;
         facade = DBFacade.getInstance();
     }
-    
-  
+
     public Reservation getReservation(int reservationNo)
     {
         // need to see how it works by Tomoe
@@ -34,12 +32,11 @@ public class Controller
 
     }
 
-    
-      public int getNextReservationNo()
+    public int getNextReservationNo()
     {
         return facade.getNextReservationNo();
     }
-      
+
     public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
     {
         // need to see how it works by Tomoe
@@ -50,7 +47,7 @@ public class Controller
 
 //        dbFacade.startProcessOrderBusinessTransaction();
         //      processingOrder = true;
-System.out.println("controller"+fromDate);
+        System.out.println("controller" + fromDate);
         return facade.getRoomsAvailable(fromDate, endDate, type);
 
     }
@@ -59,16 +56,12 @@ System.out.println("controller"+fromDate);
     {
         int[] priceList = new int[3];
 
-     priceList =  facade.getPriceList();
-       return priceList;
+        priceList = facade.getPriceList();
+        return priceList;
     }
 
-    
-    
    // ----------------------------- Unit Of Work ----------------------------
-    
-    
-     public Guest getGuest(int reservationNo)
+    public Guest getGuest(int reservationNo)
     {
         if (processingGuest)
         {
@@ -80,19 +73,19 @@ System.out.println("controller"+fromDate);
         currentGuest = facade.getGuest(reservationNo);
         return currentGuest;
     }
-     
-      public void resetGuest()
+
+    public void resetGuest()
     {
         processingGuest = false;
         currentGuest = null;
     }
-     
-        public boolean saveGuest()
+
+    public boolean saveGuest()
     {
         boolean status = false;
         if (processingGuest)
         {
-      //== ends ongoing business transaction
+            //== ends ongoing business transaction
 
             status = facade.commitProcessGuestBusinessTransaction();
             processingGuest = false;
@@ -100,8 +93,8 @@ System.out.println("controller"+fromDate);
         }
         return status;
     }
-     
-         public Guest deleteGuest()
+
+    public Guest deleteGuest()
     {
         if (processingGuest)
         {
@@ -110,45 +103,40 @@ System.out.println("controller"+fromDate);
         }
         return currentGuest;
     }
-         
-    public Guest createGuest(int reservationNo,String guestNo,int password,String guestFirstName,String guestFamilyName,
-                 String address,  String country,int phone, String email )
+
+    public Guest createGuest(int reservationNo, String guestNo, int password, String guestFirstName, String guestFamilyName,
+            String address, String country, int phone, String email)
     {
         if (processingGuest)
         {
             return null;
         }
 
-        
         facade.startProcessGuestBusinessTransaction();
         int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
 
-       
         if (newReservationNo != 0)
         {
             processingGuest = true;
             //- capture current date.Represent as String
 //            String dateReceived = (new java.sql.Date(
 //                    (new java.util.Date().getTime())).toString());
-      //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
-            
+            //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
+
     //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
-                                                                                                                                // to create a guest!
-        
-        
-        
+            // to create a guest!
             facade.registerNewOrder(currentGuest);
-        } else
+        }
+        else
         {
             processingGuest = false;
             currentGuest = null;
         }
-        
-       
+
         return currentGuest;
     }
-          
-         public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+
+    public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
     {
         boolean result = true;
 
@@ -156,10 +144,17 @@ System.out.println("controller"+fromDate);
 
         return result;
     }
-         
-         public void commit()
-         {
-             facade.commitProcessGuestBusinessTransaction();
-         }
-     
+
+    public void commit()
+    {
+        facade.commitProcessGuestBusinessTransaction();
+    }
+
+    public void getReservationDetails(int parseInt)
+    {
+
+//        return facade.getNextReservationNo();
+
+    }
+
 }
