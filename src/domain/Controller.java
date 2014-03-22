@@ -10,13 +10,15 @@ public class Controller
 {
     private boolean processingGuest;	// Represent state of business transaction
     private Guest currentGuest;      	// Guest in focus
-    private final DBFacade facade;   
+    private final DBFacade facade;
+    private ArrayList<Guest> guests;
 
     public Controller()
     {
         processingGuest = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
+        
     }
     
   
@@ -68,7 +70,7 @@ System.out.println("controller"+fromDate);
    // ----------------------------- Unit Of Work ----------------------------
     
     
-     public Guest getGuest(int reservationNo)
+     public ArrayList<Guest> getGuests(int reservationNo)
     {
         if (processingGuest)
         {
@@ -77,8 +79,8 @@ System.out.println("controller"+fromDate);
 
         facade.startProcessGuestBusinessTransaction(); // method in Fascade
         processingGuest = true;
-        currentGuest = facade.getGuest(reservationNo);
-        return currentGuest;
+        guests = facade.getGuests(reservationNo);
+        return guests;
     }
      
       public void resetGuest()

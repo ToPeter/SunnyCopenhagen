@@ -62,9 +62,9 @@ public class DBFacade
     //Peter T 
     
      //======	Methods to retrieve data 
-    public Guest getGuest(int reservation)
+    public ArrayList<Guest> getGuests(int reservation)
     {
-        return dm.getGuest(reservation, con);
+        return dm.getGuests(reservation, con);
     }
     
     

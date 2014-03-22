@@ -207,8 +207,8 @@ public class DataMapper implements DataMapperInterface
 //======  Methods to read from DB =======================================================
     // Retrieve a specific order and related order details
     // Returns the Order-object
-    public Guest getGuest(int reservationNo, Connection con)
-    {
+    public ArrayList<Guest> getGuests(int reservationNo, Connection con)
+    {ArrayList<Guest> guestList = new ArrayList<>();
         Guest guest = null;
         String SQLString1 = // get order
                 "select * "
@@ -235,7 +235,7 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getString(9));
-
+guestList.add(guest);
             }
 
         }
@@ -246,9 +246,9 @@ public class DataMapper implements DataMapperInterface
         }
         if (testRun)
         {
-            System.out.println("Retrieved Order: " + guest);
+            System.out.println("Retrieved Order: " + guestList.toString());
         }
-        return guest;
+        return guestList;
     }
 
         // Retrieves the next unique order number from DB
