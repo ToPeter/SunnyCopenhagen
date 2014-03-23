@@ -14,14 +14,15 @@ import java.util.ArrayList;
  */
 public class UnitOfWorkForGuest
 {
-    private final DataMapper dataMapper;
+    //private final DataMapper dataMapper;
+    private final DataMapperInterface dataMapper;
     private final ArrayList<Guest> newGuest;
     private final ArrayList<Guest> delGuest;
     private final ArrayList<Guest> dirtyGuest;
     
     
    
-    public UnitOfWorkForGuest (DataMapper dataMapper)
+    public UnitOfWorkForGuest (DataMapperInterface dataMapper)
     {
         this.dataMapper = dataMapper;
         newGuest = new ArrayList<>(); // will never exceed 1 element
