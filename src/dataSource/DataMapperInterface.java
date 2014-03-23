@@ -11,6 +11,7 @@ import domain.Room;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -28,5 +29,7 @@ public interface DataMapperInterface
     ArrayList<Guest> getGuests(int reservationNo, Connection con);
 
     int getNextReservationNo(Connection conn);
-
+  int getNextGuestNo(Connection con);
+    boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
+    boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;
 }

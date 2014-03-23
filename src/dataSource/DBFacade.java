@@ -14,16 +14,24 @@ import java.util.logging.Logger;
 public class DBFacade
 {
 
-    private DataMapper dm;
+    //private DataMapper dm;
+    private DataMapperInterface dm;
     private Connection con;
     private UnitOfWorkForGuest unitOfWork;
 
     //== Singleton start
     private static DBFacade instance;
 
-    private DBFacade()
+    public DBFacade()
     {
-        dm = new DataMapper(con);
+        dm = new DataMapper(new DBConnector().getConnection());
+        //con = new DBConnector().getConnection();  // the connection will be released upon program 
+        // termination by the garbage collector		  
+    }
+    
+public DBFacade(DataMapperInterface dmi)
+    {
+        dm = dmi;
         con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
