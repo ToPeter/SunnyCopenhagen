@@ -164,15 +164,16 @@ public DBFacade(DataMapperInterface dmi)
       
     }
 
-    public void bookRoom(Reservation reservation)
+    public boolean bookRoom(Reservation reservation)
     {
         try
         {
-            dm.createReservation(reservation, con);
+        return   dm.createReservation(reservation, con);
         } catch (SQLException ex)
         {
             Logger.getLogger(DBFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
         
     }
 

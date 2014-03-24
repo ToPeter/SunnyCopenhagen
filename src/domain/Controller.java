@@ -103,6 +103,7 @@ public class Controller
 
     public ArrayList<Reservation> getReservationDepositNotPaid()
     {
+
         return facade.getReservationDepositNotPaid();
     }
 
@@ -168,7 +169,7 @@ public class Controller
 
     public String getReservationDetails(int parseInt)
     {
-      return  facade.getReservationString(parseInt);
+        return facade.getReservationString(parseInt);
     }
 
 }
