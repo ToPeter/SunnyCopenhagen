@@ -96,6 +96,59 @@ public class DataMapper implements DataMapperInterface
         return reservation;
     }
 
+      public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
+    {ArrayList<Reservation> depositNotPaidArray= new ArrayList();
+        Reservation reservation = null;
+        String SQLString = // get reservation
+                "select * "
+                + "from reservation "
+                + "where DepositPaid =?" ;
+        PreparedStatement statement = null;
+
+        try
+        {
+            //=== get reservaton
+
+            statement = con.prepareStatement(SQLString);
+
+            statement.setInt(1, 0);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                reservation = new Reservation(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getDate(3),//fromDate
+                        rs.getDate(4),//toDate
+                        rs.getDate(5),//bookingDate
+                        rs.getInt(6));
+                
+                depositNotPaidArray.add(reservation);
+                
+                System.out.println("gotreservation");
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getreservation");
+            System.out.println(e.getMessage());
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - getreservation");
+                System.out.println(e.getMessage());
+            }
+        }
+        return depositNotPaidArray;
+    }
+
+      
+      
+      
     @Override
     public ArrayList<Room> getRoomAvailable(String fromDate, String endDate, String type, Connection con)
     {
@@ -136,6 +189,65 @@ public class DataMapper implements DataMapperInterface
                 roomAvailableList.add(tempRoom);
             }
         } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getRoomAvailable");
+            System.out.println(e.getMessage());
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - getRoomAvailable");
+                System.out.println(e.getMessage());
+            }
+
+            return roomAvailableList;
+        }
+
+    }
+public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int RoomNo, Connection con)
+    {   boolean found=true;
+        ArrayList<Integer> roomAvailableList = new ArrayList();
+        Room tempRoom;
+        String SQLString = // get roomavailable
+                "select r.Roomno from room r "
+                + "WHERE r.Roomno NOT IN "
+                + "(SELECT re.roomno FROM Reservation re "
+                + "where roomNo=r.roomNo AND fromdate<? AND roomno in("
+                + "select roomno from reservation where endDate >?))order by roomno";
+
+        PreparedStatement statement = null;
+
+        try{
+//        {
+//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+//
+//            parsedFrom = format.parse(fromDate);
+//            parsedTo = format.parse(endDate);
+//            c.setTime(parsedFrom);
+//            System.out.println(parsedFrom);
+            java.sql.Date sqlFromDate = new java.sql.Date(parsedFrom.getTime());
+            java.sql.Date sqlToDate = new java.sql.Date(parsedTo.getTime());
+//            System.out.println(sqlFromDate);
+//            System.out.println(sqlToDate);
+            statement = con.prepareStatement(SQLString);
+            statement.setDate(1, sqlToDate);
+            statement.setDate(2, sqlFromDate);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                System.out.println(rs.getInt(1));
+                int number=rs.getInt(1);
+                
+                
+                System.out.println("adding");
+                roomAvailableList.add(number);
+            }
+            
+                    } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
@@ -199,9 +311,19 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public void createReservation(Reservation res, Connection con)
-    {
+    public boolean createReservation(Reservation res, Connection con)
+    { boolean doublebooked=false;
+        int roomNo=res.getRoomNo();
+    ArrayList<Integer> availRoomNumbers=ensureRoomAvairable(res.getFromDate(), res.getEndDate(), roomNo, con);
 
+        for (int i = 0; i < availRoomNumbers.size(); i++)
+        {
+            int availRoomNo=availRoomNumbers.get(i);
+            if (roomNo==availRoomNo)
+            {
+            return true;
+            }
+        }
         int rowsInserted = 0;
         String SQLString = "insert into reservation values (?,?,?,?,?,?,?) ";
 
@@ -234,7 +356,7 @@ public class DataMapper implements DataMapperInterface
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
             System.out.println(e.getMessage());
         }
-
+return doublebooked;
     }
     //======  Methods to read from DB =======================================================
 // Retrieve a specific order and related order details

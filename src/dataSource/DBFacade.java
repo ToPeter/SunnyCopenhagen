@@ -80,6 +80,11 @@ public DBFacade(DataMapperInterface dmi)
     {
         return dm.getNextReservationNo(con);
     }
+      
+      public ArrayList<Reservation> getReservationDepositNotPaid()
+    {
+        return dm.getreservationDepositNotPaid(con);
+    }
 
      public String getReservationString(int reservationNo)
     { Reservation lookedUpReservation;
@@ -91,7 +96,7 @@ public DBFacade(DataMapperInterface dmi)
         lookedUpGuestarray=dm.getGuests(reservationNo, con);
         for (int i = 0; i <lookedUpGuestarray.size(); i++)
         {int guestNo=i+1;
-            guestsString+="Guest "+guestNo+"/n"
+            guestsString+="Guest "+guestNo+"\n"
                     +lookedUpGuestarray.get(i).toString();
                     }
     resultString=lookedUpReservation+guestsString;    
