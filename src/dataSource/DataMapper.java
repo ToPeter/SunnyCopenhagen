@@ -198,19 +198,18 @@ public class DataMapper implements DataMapperInterface
         }
     }
 
-
     @Override
     public void createReservation(Reservation res, Connection con)
     {
 
         int rowsInserted = 0;
-        String SQLString = "insert into reservation values (?,?,?,?,?,?,?)";
-        PreparedStatement statement = null;
+        String SQLString = "insert into reservation values (?,?,?,?,?,?,?) ";
 
         try
         {
-            con.setAutoCommit(false);
+           con.setAutoCommit(false);
 //            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+            PreparedStatement statement = null;
 
             java.sql.Date sqlFromDate = new java.sql.Date(res.getFromDate().getTime());
             java.sql.Date sqlToDate = new java.sql.Date(res.getEndDate().getTime());
@@ -226,7 +225,7 @@ public class DataMapper implements DataMapperInterface
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
 
-            rowsInserted = statement.executeUpdate();
+            statement.executeUpdate(SQLString);
 
             System.out.println("printing statement " + rowsInserted);
             con.commit();

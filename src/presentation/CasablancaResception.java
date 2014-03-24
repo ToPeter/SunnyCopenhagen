@@ -1076,7 +1076,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelShowRoomChosen.setText(roomNoSelected.toString());
         
         currentPane.setVisible(false);
-//        jLayeredPaneSearchRoome.setVisible(false);
         jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
         jLabelToDate.setText(endDateStr);
         jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -1088,7 +1087,6 @@ public class CasablancaResception extends javax.swing.JFrame
         currentPane = jLayeredPaneReservation;
         
         currentPane.setVisible(true);
-//        jLayeredPaneReservation.setVisible(true);
 control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
         
     }//GEN-LAST:event_jButton2ActionPerformed
