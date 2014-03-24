@@ -76,16 +76,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("gotreservation");
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -133,16 +136,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("adding");
                 roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -154,6 +160,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
+
     public int[] getPriceList(Connection con)
     {
         int[] priceList = new int[3];
@@ -177,16 +184,19 @@ public class DataMapper implements DataMapperInterface
 //                System.out.println("adding");
 //                roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getPriceList");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getPriceList");
                 System.out.println(e.getMessage());
@@ -199,7 +209,8 @@ public class DataMapper implements DataMapperInterface
     // Retrieve a specific order and related order details
     // Returns the Order-object
     public ArrayList<Guest> getGuests(int reservationNo, Connection con)
-    {ArrayList<Guest> guestList = new ArrayList<>();
+    {
+        ArrayList<Guest> guestList = new ArrayList<>();
         Guest guest = null;
         String SQLString1 = // get order
                 "select * "
@@ -226,10 +237,11 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getString(9));
-guestList.add(guest);
+                guestList.add(guest);
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in OrderMapper - getOrder");
             System.out.println(e.getMessage());
@@ -255,7 +267,8 @@ guestList.add(guest);
             {
                 nextGuestNo = rs.getInt(1);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextGuestNo");
             System.out.println(e.getMessage());
@@ -269,21 +282,20 @@ guestList.add(guest);
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
     {
 
-        
         int rowsInserted = 0;
         String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?)";
 
-        PreparedStatement statement=null;
+        PreparedStatement statement = null;
         statement = con.prepareStatement(SQLString);
 
         for (int i = 0; i < guestList.size(); i++)
         {
-          
-            Guest guest = guestList.get(i);
-            
-              System.out.println("printing guest: "+guest.toString());
 
-              statement.setInt(1, guest.getReservationNo());
+            Guest guest = guestList.get(i);
+
+            System.out.println("printing guest: " + guest.toString());
+
+            statement.setInt(1, guest.getReservationNo());
             statement.setString(2, guest.getGuestNo());
             statement.setInt(3, guest.getPassword());
             statement.setString(4, guest.getGuestFirstName());
@@ -293,11 +305,9 @@ guestList.add(guest);
             statement.setInt(8, guest.getPhoneNo());
             statement.setString(9, guest.getEmail());
 
-            System.out.println("printing statement "+rowsInserted);
+            System.out.println("printing statement " + rowsInserted);
             rowsInserted = statement.executeUpdate();
-            
-            
-            
+
             System.out.println("inserted row: " + rowsInserted);
 
         }
@@ -319,7 +329,7 @@ guestList.add(guest);
             Guest guest = delGuest.get(i);
 
             statementDeleteGuest.setString(1, guest.getGuestNo());
-      //      statementDeleteDetails.executeUpdate();
+            //      statementDeleteDetails.executeUpdate();
 
             statementDeleteGuest.setString(1, guest.getGuestNo());
             //      statementDeleteOrder.setInt(2, order.getVersionNumber());   // old version number
@@ -349,7 +359,8 @@ guestList.add(guest);
             {
                 nextReservationNo = rs.getInt(1);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());

@@ -21,14 +21,14 @@ public interface DataMapperInterface
 {
 
     Reservation getreservation(int reservationNo, Connection con);
-
+        
     ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con);
 
     int[] getPriceList(Connection con);
 
     ArrayList<Guest> getGuests(int reservationNo, Connection con);
 
-    int getNextReservationNo(Connection conn);
+    int getNextReservationNo(Connection con);
   int getNextGuestNo(Connection con);
     boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
     boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;

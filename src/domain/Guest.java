@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
-
 
 /**
  *
@@ -13,6 +11,7 @@ package domain;
  */
 public class Guest
 {
+
     private int reservationNo;
     private String guestNo;
     private int password;
@@ -24,17 +23,15 @@ public class Guest
     private String email;
   //  private final ArrayList<GuestDetail> guestDetails;
 
-   
-    
-     public Guest(int reservationNo, 
-                 String guestNo, 
-                 int password, 
-                 String guestFirstName,
-                 String guestFamilyName,
-                 String address, 
-                 String country,
-                 int phone,
-                 String email)
+    public Guest(int reservationNo,
+            String guestNo,
+            int password,
+            String guestFirstName,
+            String guestFamilyName,
+            String address,
+            String country,
+            int phone,
+            String email)
     {
         this.reservationNo = reservationNo;
         this.guestNo = guestNo;
@@ -44,20 +41,18 @@ public class Guest
         this.address = address;
         this.country = country;
         this.phoneNo = phone;
-                this.email = email;
-        
-     //   this.guestDetails = new ArrayList<>();
+        this.email = email;
+
+        //   this.guestDetails = new ArrayList<>();
     }
 
     //== accessors [Getters and Setters]
-     
-     
     public int getReservationNo()
     {
         return reservationNo;
     }
 
-    public void setReservationNo (int reservationNo)
+    public void setReservationNo(int reservationNo)
     {
         this.reservationNo = reservationNo;
     }
@@ -76,8 +71,8 @@ public class Guest
     {
         this.password = password;
     }
-    
-     public int getPassword()
+
+    public int getPassword()
     {
         return password;
     }
@@ -86,77 +81,75 @@ public class Guest
     {
         return guestFirstName;
     }
-    
-     public void setGuestFirstName(String guestFirstName)
+
+    public void setGuestFirstName(String guestFirstName)
     {
         this.guestFirstName = guestFirstName;
     }
-     
-       public String getGuestFamilyName()
+
+    public String getGuestFamilyName()
     {
         return guestFamilyName;
     }
-    
-     public void setGuestFamilyName(String guestFamilyName)
+
+    public void setGuestFamilyName(String guestFamilyName)
     {
         this.guestFamilyName = guestFamilyName;
     }
-     
-        public String getAddress()
+
+    public String getAddress()
     {
         return address;
     }
-    
-     public void setAddress(String address)
+
+    public void setAddress(String address)
     {
         this.address = address;
     }
 
-         public String getCountry()
+    public String getCountry()
     {
         return country;
     }
-    
-     public void setCountry(String country)
+
+    public void setCountry(String country)
     {
         this.country = country;
     }
-     
-      public int getPhoneNo()
+
+    public int getPhoneNo()
     {
         return phoneNo;
     }
 
-    public void setPhoneNo (int phoneNo)
+    public void setPhoneNo(int phoneNo)
     {
         this.phoneNo = phoneNo;
     }
-    
-           public String getEmail()
+
+    public String getEmail()
     {
         return email;
     }
-    
-     public void setEmail(String email)
+
+    public void setEmail(String email)
     {
         this.email = email;
     }
-     
+
      // == Methods:  toString,
-     // I dont know what about AddGuest ???
-
-
+    // I dont know what about AddGuest ???
     public String toString()
     {
-        return "  reservationNo: " + reservationNo
-                + "   guestNo: " + guestNo
-                + "   password: " + password
-                + "   guestFirstName: " + guestFirstName
-                + "   guestFamilyName: " + guestFamilyName
-                + "   address: " + address
-                + "   country: " + country
-                + "   phoneNo: " + phoneNo
-                + "   email: " + email;
+        return //" reservationNo: " + reservationNo
+                "Guest no: " + guestNo + "/n"
+                + "Password: " + password + "/n"
+                + "First Name: " + guestFirstName + "/n"
+                + "Family Name: " + guestFamilyName + "/n"
+                + "Address: " + address + "/n"
+                + "Country: " + country + "/n"
+                + "PhoneNo: " + phoneNo + "/n"
+                + "Email: " + email + "/n" + "/n";
     }
 
     public boolean equals(Guest guest)
@@ -171,6 +164,5 @@ public class Guest
                 && phoneNo == guest.getPhoneNo())
                 && email.equals(guest.getEmail());
     }
-
 
 }

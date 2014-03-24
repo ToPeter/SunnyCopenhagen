@@ -61,6 +61,7 @@ public class DBFacadeTest
     roomMap.put(10003, new Room (103,"double"));
     roomMap.put(10004, new Room (104,"family"));
     
+    
     guestarray1.add(new Guest(10000,"10000-01",123,"Abc","Def","Lundtoftevej","Denmark",01234566,"email10000-01"));
     guestarray2.add(new Guest(10001,"10001-01",345,"Ghi","JKL","Lundtoft","Sweden",01666666,"email10001-01"));
         guestarray3.add(new Guest(10002,"10002-01",678,"lmn","opq","Lund","USA",01234566,"email10002-01"));
@@ -82,6 +83,7 @@ guestMap.put(10004,guestarray5);
     roomarray.add(new Room (102,"double"));
     roomarray.add(new Room (103,"double"));
     roomarray.add(new Room (104,"family"));
+    roomarray.add(new Room (105,"family"));
     
     pricearray=new int[]{60,80,120}; 
     }
@@ -123,7 +125,7 @@ guestMap.put(10004,guestarray5);
     public void testGetRoomsAvailable()
     {
         System.out.println("getRoomsAvailable");
-        String fromDate = "";
+        String fromDate = "15-";
         String endDate = "";
         String type = "";
         DBFacade instance = null;
