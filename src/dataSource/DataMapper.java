@@ -225,7 +225,7 @@ public class DataMapper implements DataMapperInterface
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
 
-            statement.executeUpdate(SQLString);
+            statement.executeUpdate();
 
             System.out.println("printing statement " + rowsInserted);
             con.commit();
