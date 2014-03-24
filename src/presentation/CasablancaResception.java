@@ -7,7 +7,7 @@ package presentation;
 
 import domain.Controller;
 import domain.Room;
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,9 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
-import oracle.net.aso.i;
 
 /**
  *
@@ -168,9 +166,9 @@ public class CasablancaResception extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 600));
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 50));
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        setMinimumSize(null);
+        setPreferredSize(new java.awt.Dimension(575, 400));
 
         jLayeredPaneSearchRoome.setAutoscrolls(true);
         jLayeredPaneSearchRoome.setMaximumSize(new java.awt.Dimension(625, 380));
@@ -1116,7 +1114,8 @@ control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, deposit
         currentPane.setVisible(false);
         currentPane = jLayeredPaneReservationInfo;
         currentPane.setVisible(true);
-
+        CasablancaResception.this.setPreferredSize(new Dimension (290,400));
+        CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jTextFieldReservationInfoSearchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldReservationInfoSearchActionPerformed
@@ -1135,6 +1134,8 @@ control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, deposit
         currentPane.setVisible(false);
         currentPane = jLayeredPaneSearchRoome;
         currentPane.setVisible(true);
+        CasablancaResception.this.setPreferredSize(new Dimension (575,400));
+        CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -1142,6 +1143,8 @@ control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, deposit
         currentPane.setVisible(false);
         currentPane = jLayeredPaneSearchGuest;
         currentPane.setVisible(true);
+        CasablancaResception.this.setPreferredSize(new Dimension (260,440));
+        CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
@@ -1154,6 +1157,8 @@ control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, deposit
         currentPane.setVisible(false);
         currentPane = jLayeredPaneEnterGuestInfo;
         currentPane.setVisible(true);
+        CasablancaResception.this.setPreferredSize(new Dimension (350,570));
+        CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
     /**
      * @param args the command line arguments
