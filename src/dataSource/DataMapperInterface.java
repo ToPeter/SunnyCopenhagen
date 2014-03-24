@@ -21,7 +21,7 @@ public interface DataMapperInterface
 {
 
     Reservation getreservation(int reservationNo, Connection con);
-        
+    ArrayList<Reservation> getreservationDepositNotPaid(Connection con);    
     ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con);
 
     int[] getPriceList(Connection con);
@@ -33,5 +33,5 @@ public interface DataMapperInterface
     boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
     boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;
 
-    public void createReservation(Reservation reservation, Connection con)throws SQLException;
+    public boolean createReservation(Reservation reservation, Connection con)throws SQLException;
 }
