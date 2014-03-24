@@ -104,12 +104,12 @@ public class Reservation
             paid = "No";
         }
 
-        return "Reservation no" + reservationNo + "/n"
-                + "Room no=" + roomNo + "/n"
-                + "Check in date=" + fromDate + "/n"
-                + "Check out date=" + endDate + "/n"
-                + "Booking date=" + boookingDate + "/n"
-                + "Deposid paid" + paid + "/n" + "/n";
+        return "Reservation no: " + reservationNo + "\n"
+                + "Room no: " + roomNo + "\n"
+                + "Check in date: " + fromDate + "\n"
+                + "Check out date: " + endDate + "\n"
+                + "Booking date: " + boookingDate + "\n"
+                + "Deposid paid: " + paid + "\n" + "\n";
     }
 
 }
