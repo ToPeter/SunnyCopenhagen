@@ -90,8 +90,26 @@ public class Reservation
     {
         this.depositPaid = depositPaid;
     }
-    
-    
 
-    
+    @Override
+    public String toString()
+    {
+        String paid;
+        if (depositPaid == true)
+        {
+            paid = "Yes";
+        }
+        else
+        {
+            paid = "No";
+        }
+
+        return "Reservation no" + reservationNo + "/n"
+                + "Room no=" + roomNo + "/n"
+                + "Check in date=" + fromDate + "/n"
+                + "Check out date=" + endDate + "/n"
+                + "Booking date=" + boookingDate + "/n"
+                + "Deposid paid" + paid + "/n" + "/n";
+    }
+
 }

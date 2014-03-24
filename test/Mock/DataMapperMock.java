@@ -82,6 +82,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
     }
 
+   
     @Override
     public int getNextReservationNo(Connection conn)
     {
@@ -105,5 +106,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

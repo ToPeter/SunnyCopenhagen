@@ -17,7 +17,7 @@ public class Controller
         processingGuest = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
-        
+
     }
 
     public Reservation getReservation(int reservationNo)
@@ -32,6 +32,11 @@ public class Controller
         //      processingOrder = true;
         return facade.getReservation(reservationNo);
 
+    }
+
+    public String getReservationString(int reservationNo)
+    {
+        return facade.getReservationString(reservationNo);
     }
 
     public int getNextReservationNo()
@@ -62,10 +67,8 @@ public class Controller
         return priceList;
     }
 
-   // ----------------------------- Unit Of Work ----------------------------
-    
-    
-     public ArrayList<Guest> getGuests(int reservationNo)
+    // ----------------------------- Unit Of Work ----------------------------
+    public ArrayList<Guest> getGuests(int reservationNo)
     {
         if (processingGuest)
         {
@@ -127,7 +130,7 @@ public class Controller
 //                    (new java.util.Date().getTime())).toString());
             //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
 
-    //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
+            //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
             // to create a guest!
             facade.registerNewOrder(currentGuest);
         }
@@ -158,7 +161,6 @@ public class Controller
     {
 
 //        return facade.getNextReservationNo();
-
     }
 
 }
