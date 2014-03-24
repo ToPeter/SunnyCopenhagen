@@ -101,6 +101,10 @@ public class Controller
         return status;
     }
 
+    public ArrayList<Reservation> getReservationDepositNotPaid()
+    {
+    return facade.getReservationDepositNotPaid();
+    }
     public Guest deleteGuest()
     {
         if (processingGuest)

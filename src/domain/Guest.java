@@ -142,14 +142,14 @@ public class Guest
     public String toString()
     {
         return //" reservationNo: " + reservationNo
-                "Guest no: " + guestNo + "/n"
-                + "Password: " + password + "/n"
-                + "First Name: " + guestFirstName + "/n"
-                + "Family Name: " + guestFamilyName + "/n"
-                + "Address: " + address + "/n"
-                + "Country: " + country + "/n"
-                + "PhoneNo: " + phoneNo + "/n"
-                + "Email: " + email + "/n" + "/n";
+                "Guest no: " + guestNo + "\n"
+                + "Password: " + password + "\n"
+                + "First Name: " + guestFirstName + "\n"
+                + "Family Name: " + guestFamilyName + "\n"
+                + "Address: " + address + "\n"
+                + "Country: " + country + "\n"
+                + "PhoneNo: " + phoneNo + "\n"
+                + "Email: " + email + "\n" + "\n";
     }
 
     public boolean equals(Guest guest)
