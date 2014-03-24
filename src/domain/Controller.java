@@ -103,8 +103,9 @@ public class Controller
 
     public ArrayList<Reservation> getReservationDepositNotPaid()
     {
-    return facade.getReservationDepositNotPaid();
+        return facade.getReservationDepositNotPaid();
     }
+
     public Guest deleteGuest()
     {
         if (processingGuest)
@@ -149,11 +150,10 @@ public class Controller
 
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
-        
-        Reservation reservation = new Reservation (roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid);
+
+        Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid);
         facade.bookRoom(reservation);
-        
-        
+
         boolean result = true;
 
         System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
@@ -166,10 +166,9 @@ public class Controller
         facade.commitProcessGuestBusinessTransaction();
     }
 
-    public void getReservationDetails(int parseInt)
+    public String getReservationDetails(int parseInt)
     {
-
-//        return facade.getNextReservationNo();
+      return  facade.getReservationString(parseInt);
     }
 
 }

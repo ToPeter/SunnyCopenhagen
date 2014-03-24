@@ -96,13 +96,14 @@ public class DataMapper implements DataMapperInterface
         return reservation;
     }
 
-      public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
-    {ArrayList<Reservation> depositNotPaidArray= new ArrayList();
+    public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
+    {
+        ArrayList<Reservation> depositNotPaidArray = new ArrayList();
         Reservation reservation = null;
         String SQLString = // get reservation
                 "select * "
                 + "from reservation "
-                + "where DepositPaid =?" ;
+                + "where DepositPaid =?";
         PreparedStatement statement = null;
 
         try
@@ -122,9 +123,9 @@ public class DataMapper implements DataMapperInterface
                         rs.getDate(4),//toDate
                         rs.getDate(5),//bookingDate
                         rs.getInt(6));
-                
+
                 depositNotPaidArray.add(reservation);
-                
+
                 System.out.println("gotreservation");
             }
 
@@ -146,9 +147,6 @@ public class DataMapper implements DataMapperInterface
         return depositNotPaidArray;
     }
 
-      
-      
-      
     @Override
     public ArrayList<Room> getRoomAvailable(String fromDate, String endDate, String type, Connection con)
     {
@@ -207,8 +205,10 @@ public class DataMapper implements DataMapperInterface
         }
 
     }
-public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int RoomNo, Connection con)
-    {   boolean found=true;
+
+    public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate, int RoomNo, Connection con)
+    {
+        boolean found = true;
         ArrayList<Integer> roomAvailableList = new ArrayList();
         Room tempRoom;
         String SQLString = // get roomavailable
@@ -220,7 +220,8 @@ public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int Ro
 
         PreparedStatement statement = null;
 
-        try{
+        try
+        {
 //        {
 //            DateFormat format = new SimpleDateFormat("dd-MM-yy");
 //
@@ -240,14 +241,13 @@ public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int Ro
             while (rs.next())
             {
                 System.out.println(rs.getInt(1));
-                int number=rs.getInt(1);
-                
-                
+                int number = rs.getInt(1);
+
                 System.out.println("adding");
                 roomAvailableList.add(number);
             }
-            
-                    } catch (Exception e)
+
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
@@ -312,24 +312,31 @@ public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int Ro
 
     @Override
     public boolean createReservation(Reservation res, Connection con)
-    { boolean doublebooked=false;
-        int roomNo=res.getRoomNo();
-    ArrayList<Integer> availRoomNumbers=ensureRoomAvairable(res.getFromDate(), res.getEndDate(), roomNo, con);
+    {
+        boolean doublebooked = false;
+        int roomNo = res.getRoomNo();
+        ArrayList<Integer> availRoomNumbers = ensureRoomAvairable(res.getFromDate(), res.getEndDate(), roomNo, con);
 
-        for (int i = 0; i < availRoomNumbers.size(); i++)
+        if (!availRoomNumbers.contains(roomNo))
         {
-            int availRoomNo=availRoomNumbers.get(i);
-            if (roomNo==availRoomNo)
-            {
-            return true;
-            }
+            System.out.println("doublebooked: " + roomNo);
+            return false;
         }
+//
+//        for (int i = 0; i < availRoomNumbers.size(); i++)
+//        {
+//            int availRoomNo = availRoomNumbers.get(i);
+//            if (roomNo != availRoomNo)
+//            {
+//
+//            }
+//        }
         int rowsInserted = 0;
         String SQLString = "insert into reservation values (?,?,?,?,?,?,?) ";
 
         try
         {
-           con.setAutoCommit(false);
+            con.setAutoCommit(false);
 //            DateFormat format = new SimpleDateFormat("dd-MM-yy");
             PreparedStatement statement = null;
 
@@ -356,7 +363,7 @@ public ArrayList<Integer> ensureRoomAvairable(Date fromDate, Date endDate,int Ro
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
             System.out.println(e.getMessage());
         }
-return doublebooked;
+        return doublebooked;
     }
     //======  Methods to read from DB =======================================================
 // Retrieve a specific order and related order details
