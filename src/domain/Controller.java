@@ -143,8 +143,13 @@ public class Controller
         return currentGuest;
     }
 
-    public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+    public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
+        
+        Reservation reservation = new Reservation (roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid);
+        facade.bookRoom(reservation);
+        
+        
         boolean result = true;
 
         System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);

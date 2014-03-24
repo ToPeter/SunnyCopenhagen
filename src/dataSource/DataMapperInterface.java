@@ -29,7 +29,9 @@ public interface DataMapperInterface
     ArrayList<Guest> getGuests(int reservationNo, Connection con);
 
     int getNextReservationNo(Connection con);
-  int getNextGuestNo(Connection con);
+    int getNextGuestNo(Connection con);
     boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
     boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;
+
+    public void createReservation(Reservation reservation, Connection con)throws SQLException;
 }

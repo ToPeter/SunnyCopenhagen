@@ -38,7 +38,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private Date startDate, endDate, bookingDate;
     private String endDateStr, startDateStr;
     private int totalPriceForRoom;
-    private boolean depositPaid;
+    private int depositPaid;
     private int roomNo, reservationNo;
     private JLayeredPane currentPane;
 
@@ -1071,7 +1071,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        depositPaid = false;
+        depositPaid = 0;
         int jListSelectedIndex = jList1.getSelectedIndex();
         Object roomNoSelected = model.getElementAt(jListSelectedIndex);
         roomNo = Integer.parseInt(roomNoSelected.toString());
@@ -1091,14 +1091,15 @@ public class CasablancaResception extends javax.swing.JFrame
         
         currentPane.setVisible(true);
 //        jLayeredPaneReservation.setVisible(true);
-
+control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
         if (jCheckBox1.isSelected())
         {
-            depositPaid = true;
+            depositPaid = 1;
         }
         
         control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);

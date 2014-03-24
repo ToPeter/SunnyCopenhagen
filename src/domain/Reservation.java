@@ -19,9 +19,9 @@ public class Reservation
     private Date fromDate;
     private Date endDate;
     private Date boookingDate;
-    private boolean depositPaid; //in database it's 0 or 1
+    private int depositPaid; //in database it's 0 or 1
 
-    public Reservation(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, boolean depositPaid)
+    public Reservation(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
         this.roomNo = roomNo;
         this.reservationNo = reservationNo;
@@ -81,12 +81,12 @@ public class Reservation
         this.boookingDate = boookingDate;
     }
 
-    public boolean isDepositPaid()
+    public int isDepositPaid()
     {
         return depositPaid;
     }
 
-    public void setDepositPaid(boolean depositPaid)
+    public void setDepositPaid(int depositPaid)
     {
         this.depositPaid = depositPaid;
     }
@@ -95,7 +95,7 @@ public class Reservation
     public String toString()
     {
         String paid;
-        if (depositPaid == true)
+        if (depositPaid == 1)
         {
             paid = "Yes";
         }

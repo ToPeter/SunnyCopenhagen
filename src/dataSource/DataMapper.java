@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,23 +74,20 @@ public class DataMapper implements DataMapperInterface
                         rs.getDate(3),//fromDate
                         rs.getDate(4),//toDate
                         rs.getDate(5),//bookingDate
-                        paid);
+                        rs.getInt(6));
                 System.out.println("gotreservation");
             }
 
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        }
-        finally														// must close statement
+        } finally														// must close statement
         {
             try
             {
                 statement.close();
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -136,19 +135,16 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("adding");
                 roomAvailableList.add(tempRoom);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
-        }
-        finally														// must close statement
+        } finally														// must close statement
         {
             try
             {
                 statement.close();
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -184,19 +180,16 @@ public class DataMapper implements DataMapperInterface
 //                System.out.println("adding");
 //                roomAvailableList.add(tempRoom);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getPriceList");
             System.out.println(e.getMessage());
-        }
-        finally														// must close statement
+        } finally														// must close statement
         {
             try
             {
                 statement.close();
-            }
-            catch (SQLException e)
+            } catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getPriceList");
                 System.out.println(e.getMessage());
@@ -205,9 +198,48 @@ public class DataMapper implements DataMapperInterface
         }
     }
 
-//======  Methods to read from DB =======================================================
-    // Retrieve a specific order and related order details
-    // Returns the Order-object
+    @Override
+    public void createReservation(Reservation res, Connection con)
+    {
+
+        int rowsInserted = 0;
+        String SQLString = "insert into reservation values (?,?,?,?,?,?,?)";
+        PreparedStatement statement = null;
+
+        try
+        {
+            con.setAutoCommit(false);
+//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+
+            java.sql.Date sqlFromDate = new java.sql.Date(res.getFromDate().getTime());
+            java.sql.Date sqlToDate = new java.sql.Date(res.getEndDate().getTime());
+            java.sql.Date sqlToBookingDate = new java.sql.Date(res.getBoookingDate().getTime());
+
+            statement = con.prepareStatement(SQLString);
+
+            statement.setInt(1, res.getRoomNo());
+            statement.setInt(2, res.getReservationNo());
+            statement.setDate(3, sqlFromDate);
+            statement.setDate(4, sqlToDate);
+            statement.setDate(5, sqlToBookingDate);
+            statement.setInt(6, res.isDepositPaid());
+            statement.setInt(7, 1111);
+
+            rowsInserted = statement.executeUpdate();
+
+            System.out.println("printing statement " + rowsInserted);
+            con.commit();
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - ERROR IN BOOKING");
+            System.out.println(e.getMessage());
+        }
+
+    }
+    //======  Methods to read from DB =======================================================
+// Retrieve a specific order and related order details
+// Returns the Order-object
+
     public ArrayList<Guest> getGuests(int reservationNo, Connection con)
     {
         ArrayList<Guest> guestList = new ArrayList<>();
@@ -240,8 +272,7 @@ public class DataMapper implements DataMapperInterface
                 guestList.add(guest);
             }
 
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in OrderMapper - getOrder");
             System.out.println(e.getMessage());
@@ -267,8 +298,7 @@ public class DataMapper implements DataMapperInterface
             {
                 nextGuestNo = rs.getInt(1);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextGuestNo");
             System.out.println(e.getMessage());
@@ -315,6 +345,7 @@ public class DataMapper implements DataMapperInterface
         {
             System.out.println("insertOrders(): " + (rowsInserted == guestList.size())); // for test
         }
+
         return (rowsInserted == guestList.size());
     }
 
@@ -359,8 +390,7 @@ public class DataMapper implements DataMapperInterface
             {
                 nextReservationNo = rs.getInt(1);
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());
