@@ -10,7 +10,7 @@ import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 
 /**
@@ -22,8 +22,8 @@ public interface DataMapperInterface
 
     Reservation getreservation(int reservationNo, Connection con);
     ArrayList<Reservation> getreservationDepositNotPaid(Connection con);    
-    ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con);
-
+    ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type, Connection con);
+ 
     int[] getPriceList(Connection con);
 
     ArrayList<Guest> getGuests(int reservationNo, Connection con);

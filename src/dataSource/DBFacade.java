@@ -1,15 +1,13 @@
-
 package dataSource;
-import domain.*;
 
+import domain.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 public class DBFacade
 {
@@ -23,13 +21,14 @@ public class DBFacade
     private static DBFacade instance;
 
     public DBFacade()
-    {   con=new DBConnector().getConnection();
+    {
+        con = new DBConnector().getConnection();
         dm = new DataMapper(con);
         //con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
-    
-public DBFacade(DataMapperInterface dmi)
+
+    public DBFacade(DataMapperInterface dmi)
     {
         dm = dmi;
         con = new DBConnector().getConnection();  // the connection will be released upon program 
@@ -51,65 +50,59 @@ public DBFacade(DataMapperInterface dmi)
         return dm.getreservation(reservationNo, con);
     }
 
-    public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
+    public ArrayList<Room> getRoomsAvailable(Date fromDate, Date endDate, String type)
     {
         System.out.println("facade" + fromDate);
         return dm.getRoomAvailable(fromDate, endDate, type, con);
     }
-    
-    
-   
 
     //== this is gonna be changed to making the reservations / updating and stuff
     //== i kept is so we could see how we did earlier :) - Peter K
-    
-    
       //===== Methods to handle business transactions
-	  //===	Should be called upon start of a transaction
+    //===	Should be called upon start of a transaction
     //    Any changes done after last commit will be ignored
     //Peter T 
-    
-     //======	Methods to retrieve data 
+    //======	Methods to retrieve data 
     public ArrayList<Guest> getGuests(int reservation)
     {
         return dm.getGuests(reservation, con);
     }
-    
-    
-      public int getNextReservationNo()
+
+    public int getNextReservationNo()
     {
         return dm.getNextReservationNo(con);
     }
-      
-      public ArrayList<Reservation> getReservationDepositNotPaid()
+
+    public ArrayList<Reservation> getReservationDepositNotPaid()
     {
         return dm.getreservationDepositNotPaid(con);
     }
 
-     public String getReservationString(int reservationNo)
-    { Reservation lookedUpReservation;
-    ArrayList<Guest> lookedUpGuestarray;
-    String guestsString="";
-    String resultString;
-    
-    lookedUpReservation= dm.getreservation(reservationNo, con);
-        lookedUpGuestarray=dm.getGuests(reservationNo, con);
-        for (int i = 0; i <lookedUpGuestarray.size(); i++)
-        {int guestNo=i+1;
-            guestsString+="Guest "+guestNo+"\n"
-                    +lookedUpGuestarray.get(i).toString();
-                    }
-    resultString=lookedUpReservation+guestsString;    
-        
-    return resultString;
-    }            
+    public String getReservationString(int reservationNo)
+    {
+        Reservation lookedUpReservation;
+        ArrayList<Guest> lookedUpGuestarray;
+        String guestsString = "";
+        String resultString;
 
-    
+        lookedUpReservation = dm.getreservation(reservationNo, con);
+        lookedUpGuestarray = dm.getGuests(reservationNo, con);
+        for (int i = 0; i < lookedUpGuestarray.size(); i++)
+        {
+            int guestNo = i + 1;
+            guestsString += "Guest " + guestNo + "\n"
+                    + lookedUpGuestarray.get(i).toString();
+        }
+        resultString = lookedUpReservation + guestsString;
+
+        return resultString;
+    }
+
     public void startProcessGuestBusinessTransaction()
     {
-         unitOfWork = new UnitOfWorkForGuest (dm);
+        unitOfWork = new UnitOfWorkForGuest(dm);
     }
-    
+
     //=====	Methods to register changes	in UnitOfWork  
     public void registerNewOrder(Guest guest)
     {
@@ -127,17 +120,17 @@ public DBFacade(DataMapperInterface dmi)
             unitOfWork.registerDirtyGuest(guest);
         }
     }
-    
-     public void registerDeleteGuest(Guest currentGuest)
+
+    public void registerDeleteGuest(Guest currentGuest)
     {
         if (unitOfWork != null)
         {
             unitOfWork.registerDeleteGuest(currentGuest);
         }
     }
-    
+
      	  //===== Methods to handle business transactions
-	  //===	Should be called upon start of a transaction
+    //===	Should be called upon start of a transaction
     //    Any changes done after last commit will be ignored
     public void startProcessOrderBusinessTransaction()
     {
@@ -152,29 +145,29 @@ public DBFacade(DataMapperInterface dmi)
         {
             status = unitOfWork.commit(con);
             unitOfWork = null;
-           
+
         }
         return status;
     }
-    
 
     public int[] getPriceList()
     {
         return dm.getPriceList(con);
-      
+
     }
 
     public boolean bookRoom(Reservation reservation)
     {
         try
         {
-        return   dm.createReservation(reservation, con);
-        } catch (SQLException ex)
+            return dm.createReservation(reservation, con);
+        }
+        catch (SQLException ex)
         {
             Logger.getLogger(DBFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-        
+
     }
 
 }

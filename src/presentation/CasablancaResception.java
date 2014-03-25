@@ -1142,7 +1142,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
         if (getrooms)
         {
-            arrayForJlist = control.getRoomsAvailable(jTextFieldStartDate.getText(), jLabelEndDate.getText(), type);
+            arrayForJlist = control.getRoomsAvailable(startDate, endDate, type);
             totalPriceForRoom = priceType * numberOfDays;
             jLabelShowTotalPrice.setText(Integer.toString(totalPriceForRoom));
         }
