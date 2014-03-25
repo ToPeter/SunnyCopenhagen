@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -41,6 +42,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int depositPaid;
     private int roomNo, reservationNo;
     private JLayeredPane currentPane;
+    private int guestcounter = 0;
 
     /**
      * Creates new form CasablancaResception
@@ -1089,7 +1091,8 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             startDate = dateFormat.parse(jTextFieldStartDate.getText());
             startDateStr = dateFormat.format(startDate);
-        } catch (ParseException ex)
+        }
+        catch (ParseException ex)
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1207,12 +1210,18 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-        if (jCheckBox1.isSelected())
-        {
-            depositPaid = 1;
-        }
-
-        control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+//        if (jCheckBox1.isSelected())
+//        {
+//            depositPaid = 1;
+//        }
+//
+//        control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+        currentPane.setVisible(false);
+        currentPane = jLayeredPaneEnterGuestInfo;
+        currentPane.setVisible(true);
+        fNamePANE.setText("");
+        lNamePANE.setText("");
+        checkinPANE.setText(startDateStr);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -1262,6 +1271,28 @@ public class CasablancaResception extends javax.swing.JFrame
     private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
     {//GEN-HEADEREND:event_guestInfoSaveButtonActionPerformed
         // TODO add your handling code here:
+        Random ran = new Random();
+        String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
+        System.out.println(guestNo);
+        int password = ran.nextInt() + 1000;
+
+        control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), email.getText());
+
+        guestcounter++;
+        if (guestcounter < numOfGuest)
+        {
+            jButton3ActionPerformed(evt);
+        }
+        else
+        {
+            guestcounter = 0;
+            currentPane.setVisible(false);
+            currentPane = jLayeredPaneSearchRoome;
+            currentPane.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_guestInfoSaveButtonActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1292,10 +1323,10 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButtonFindOpenReservationsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFindOpenReservationsActionPerformed
     {//GEN-HEADEREND:event_jButtonFindOpenReservationsActionPerformed
-        
+
         ArrayList<Reservation> res = new ArrayList<>(control.getReservationDepositNotPaid());
         Calendar c = Calendar.getInstance();
-         Date today = c.getTime(); //Booking date could be change to today in booking for keeping variable down;
+        Date today = c.getTime(); //Booking date could be change to today in booking for keeping variable down;
         if (res == null)
         {
             showOpenReservation.addElement("All paid");
@@ -1304,19 +1335,18 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             for (Reservation reservation : res)
             {
-               
-                
-                System.out.println("today: "+today);
-                
+
+                System.out.println("today: " + today);
+
                 c.setTime((reservation.getBoookingDate()));
                 c.add(Calendar.DATE, 5);
                 if ((today.after(c.getTime())))
                 {
-                   showOpenReservation.addElement(reservation.getReservationNo() + " Booked: " + reservation.getBoookingDate());
+                    showOpenReservation.addElement(reservation.getReservationNo() + " Booked: " + reservation.getBoookingDate());
                 }
                 else
                 {
-                     overDueDeposit.addElement(reservation.getReservationNo()+ " Booked: "+ reservation.getBoookingDate());
+                    overDueDeposit.addElement(reservation.getReservationNo() + " Booked: " + reservation.getBoookingDate());
                 }
             }
         }
@@ -1345,16 +1375,20 @@ public class CasablancaResception extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
