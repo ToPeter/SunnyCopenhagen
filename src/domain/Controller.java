@@ -118,7 +118,7 @@ public class Controller
 
             //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
             // to create a guest!
-            facade.registerNewOrder(currentGuest);
+            facade.registerNewGuest(currentGuest);
         }
         else
         {

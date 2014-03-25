@@ -104,7 +104,7 @@ public class DBFacade
     }
 
     //=====	Methods to register changes	in UnitOfWork  
-    public void registerNewOrder(Guest guest)
+    public void registerNewGuest(Guest guest)
     {
         if (unitOfWork != null)
         {
