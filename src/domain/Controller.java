@@ -22,38 +22,18 @@ public class Controller
 
     public Reservation getReservation(int reservationNo)
     {
-        // need to see how it works by Tomoe
-//        if (processingOrder)
-//        {
-//            return null;
-//        }
-
-//        dbFacade.startProcessOrderBusinessTransaction();
-        //      processingOrder = true;
         return facade.getReservation(reservationNo);
 
     }
 
-    public String getReservationString(int reservationNo)
-    {
-        return facade.getReservationString(reservationNo);
-    }
 
     public int getNextReservationNo()
     {
         return facade.getNextReservationNo();
     }
 
-    public ArrayList<Room> getRoomsAvailable(String fromDate, String endDate, String type)
+    public ArrayList<Room> getRoomsAvailable(Date fromDate, Date endDate, String type)
     {
-        // need to see how it works by Tomoe
-//        if (processingOrder)
-//        {
-//            return null;
-//        }
-
-//        dbFacade.startProcessOrderBusinessTransaction();
-        //      processingOrder = true;
         System.out.println("controller" + fromDate);
         return facade.getRoomsAvailable(fromDate, endDate, type);
 
