@@ -11,6 +11,7 @@ import domain.Room;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     Map<Integer, ArrayList> guestMap; //res.no , guestArray
     ArrayList<Room> roomarray; // allrooms
     ArrayList<Room> availableRooms;
-    int[] pricearray;
+    int[] pricearray ={60,80,120};
 
     public DataMapperMock()
     {
@@ -46,7 +47,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public ArrayList<Room> getRoomAvailable(String fromDate, String toDate, String type, Connection con)
+    public ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type, Connection con)
     {
         availableRooms = roomarray;
 
@@ -57,9 +58,10 @@ public class DataMapperMock implements dataSource.DataMapperInterface
             for (int i = 0; i < roomarray.size(); i++)
             {
                 Room tempRoom = roomarray.get(i);
-                if (room == tempRoom)
+                if (room.getRoomNo() == tempRoom.getRoomNo())
                 {
                     availableRooms.remove(tempRoom);
+                    System.out.println("availableroomremoving");
                 }
             }
 
@@ -68,7 +70,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
     }
 
-    @Override // need to edit
+    @Override 
     public int[] getPriceList(Connection con)
 
     {
@@ -89,12 +91,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
         return 0; // cannnot be tested without connecting DB
     }
 
-    @Override
-    public int getNextGuestNo(Connection con)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+ 
     @Override
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
     {
@@ -105,6 +102,85 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     public boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public boolean createReservation(Reservation reservation, Connection con) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateDeposit(int reservationNoSelected, Connection con) throws SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Map<Integer, Reservation> getReservationMap()
+    {
+        return reservationMap;
+    }
+
+    public void setReservationMap(Map<Integer, Reservation> reservationMap)
+    {
+        this.reservationMap = reservationMap;
+    }
+
+    public Map<Integer, Room> getRoomMap()
+    {
+        return roomMap;
+    }
+
+    public void setRoomMap(Map<Integer, Room> roomMap)
+    {
+        this.roomMap = roomMap;
+    }
+
+    public Map<Integer, ArrayList> getGuestMap()
+    {
+        return guestMap;
+    }
+
+    public void setGuestMap(Map<Integer, ArrayList> guestMap)
+    {
+        this.guestMap = guestMap;
+    }
+
+    public ArrayList<Room> getRoomarray()
+    {
+        return roomarray;
+    }
+
+    public void setRoomarray(ArrayList<Room> roomarray)
+    {
+        this.roomarray = roomarray;
+    }
+
+    public ArrayList<Room> getAvailableRooms()
+    {
+        return availableRooms;
+    }
+
+    public void setAvailableRooms(ArrayList<Room> availableRooms)
+    {
+        this.availableRooms = availableRooms;
+    }
+
+    public int[] getPricearray()
+    {
+        return pricearray;
+    }
+
+    public void setPricearray(int[] pricearray)
+    {
+        this.pricearray = pricearray;
     }
 
     
