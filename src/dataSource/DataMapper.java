@@ -42,6 +42,25 @@ public class DataMapper implements DataMapperInterface
     @Override
     public Reservation getreservation(int reservationNo, Connection con)
     {
+       
+        String SQLString2 = "LOCK TABLE RESERVATION IN EXCLUSIVE MODE";
+
+        try
+        {
+            con.setAutoCommit(false);
+            PreparedStatement statement = null;
+
+            statement = con.prepareStatement(SQLString2);
+
+            statement.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - ERROR IN LOCKING");
+            System.out.println(e.getMessage());
+        } 
+        
         boolean paid;
         Reservation reservation = null;
         String SQLString = // get reservation

@@ -66,6 +66,9 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
+       
+        
+        
 
 //       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
 //       control.commit();
@@ -1274,10 +1277,10 @@ public class CasablancaResception extends javax.swing.JFrame
         Random ran = new Random();
         String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
         System.out.println(guestNo);
-        int password = ran.nextInt() + 1000;
+        int password = ran.nextInt(9000) + 1000;
 
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), email.getText() ,trvlAgncyPANE.getText() );
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText() ,trvlAgncyPANE.getText() );
 
         guestcounter++;
         control.commit();

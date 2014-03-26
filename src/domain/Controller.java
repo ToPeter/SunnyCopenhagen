@@ -26,7 +26,6 @@ public class Controller
 
     }
 
-
     public int getNextReservationNo()
     {
         return facade.getNextReservationNo();
@@ -106,28 +105,24 @@ public class Controller
         }
 
         facade.startProcessGuestBusinessTransaction();
-        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
 
-        if (newReservationNo != 0)
+        if (reservationNo != 0)
         {
             processingGuest = true;
-            //- capture current date.Represent as String
-//            String dateReceived = (new java.sql.Date(
-//                    (new java.util.Date().getTime())).toString());
-            //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
 
-            System.out.println("control->createguest: "+reservationNo+" "+ guestNo+" "+ 15698+" "+ guestFirstName+" "+ guestFamilyName+" "+ address+" "+country+" "+50122645+" "+ email+" "+ agency);
-  
-            
-            currentGuest = new Guest(reservationNo, guestNo,15698, guestFirstName, guestFamilyName, address,country,50122645, email, agency); //THIS LINE WAS FOR TESTING
+
+            currentGuest = new Guest(reservationNo, guestNo, password, guestFirstName, guestFamilyName, address, country, password, email, agency); //THIS LINE WAS FOR TESTING
             facade.registerNewGuest(currentGuest);
+             processingGuest = false;
         }
         else
         {
-            processingGuest = false;
+
             currentGuest = null;
         }
-
+       
+        
         return currentGuest;
     }
 
