@@ -1339,6 +1339,8 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButtonFindOpenReservationsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFindOpenReservationsActionPerformed
     {//GEN-HEADEREND:event_jButtonFindOpenReservationsActionPerformed
+        overDueDeposit.clear();
+        showOpenReservation.clear();
         getOpenReservations();
     }//GEN-LAST:event_jButtonFindOpenReservationsActionPerformed
 
@@ -1349,16 +1351,19 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             System.out.println("double clicked , congrats, it works");
             int index = jListOpen.locationToIndex(evt.getPoint());
-           int reservationNoSelected = (Integer)overDueDeposit.get(index);
-            System.out.println("reservation NO: "+reservationNoSelected);
+            int reservationNoSelected = (Integer) overDueDeposit.get(index);
+            System.out.println("reservation NO: " + reservationNoSelected);
             int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION)
             {
-              boolean result = control.updateDeposit(reservationNoSelected);
-              if(result)
-              {
-                  JOptionPane.showMessageDialog(null, "Deposit paid", "Deposit paid", 1);
-              }
+                boolean result = control.updateDeposit(reservationNoSelected);
+                if (result)
+                {
+                    JOptionPane.showMessageDialog(null, "Deposit paid", "Deposit paid", 1);
+                    overDueDeposit.clear();
+                    showOpenReservation.clear();
+                    getOpenReservations();
+                }
             }
         }
 
@@ -1412,10 +1417,10 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
     }
-    
+
     public void getOpenReservations()
     {
-        
+
         ArrayList<Reservation> res = new ArrayList<>(control.getReservationDepositNotPaid());
         Calendar c = Calendar.getInstance();
         Date today = c.getTime(); //Booking date could be change to today in booking for keeping variable down;
