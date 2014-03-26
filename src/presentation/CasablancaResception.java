@@ -9,6 +9,7 @@ import domain.Controller;
 import domain.Reservation;
 import domain.Room;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -66,9 +68,6 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
-       
-        
-        
 
 //       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
 //       control.commit();
@@ -169,10 +168,10 @@ public class CasablancaResception extends javax.swing.JFrame
         guestInfoSaveButton = new javax.swing.JButton();
         jLayeredPaneShowOpenReservations = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        jListOverDue = new javax.swing.JList();
         jButtonFindOpenReservations = new javax.swing.JButton();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jListOverDue = new javax.swing.JList();
+        jListOpen = new javax.swing.JList();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
@@ -336,7 +335,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addContainerGap(10, Short.MAX_VALUE))
+                        .addContainerGap(1, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))
@@ -867,16 +866,16 @@ public class CasablancaResception extends javax.swing.JFrame
         jLayeredPaneEnterGuestInfo.setLayer(jScrollPane12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(guestInfoSaveButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jList3.setForeground(new java.awt.Color(255, 51, 51));
-        jList3.setModel(new javax.swing.AbstractListModel()
+        jListOverDue.setForeground(new java.awt.Color(255, 51, 51));
+        jListOverDue.setModel(new javax.swing.AbstractListModel()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList3);
+        jScrollPane2.setViewportView(jListOverDue);
 
-        jButtonFindOpenReservations.setText("Find Open");
+        jButtonFindOpenReservations.setText("Refresh");
         jButtonFindOpenReservations.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -885,13 +884,20 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
 
-        jListOverDue.setModel(new javax.swing.AbstractListModel()
+        jListOpen.setModel(new javax.swing.AbstractListModel()
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane14.setViewportView(jListOverDue);
+        jListOpen.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jListOpenMouseClicked(evt);
+            }
+        });
+        jScrollPane14.setViewportView(jListOpen);
 
         jLabel13.setText("Open Bookings");
 
@@ -1094,8 +1100,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             startDate = dateFormat.parse(jTextFieldStartDate.getText());
             startDateStr = dateFormat.format(startDate);
-        }
-        catch (ParseException ex)
+        } catch (ParseException ex)
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1281,7 +1286,7 @@ public class CasablancaResception extends javax.swing.JFrame
         int password = ran.nextInt(9000) + 1000;
 
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText() ,trvlAgncyPANE.getText() );
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
 
         guestcounter++;
         control.commit();
@@ -1291,7 +1296,7 @@ public class CasablancaResception extends javax.swing.JFrame
         }
         else
         {
-            
+
             guestcounter = 0;
             currentPane.setVisible(false);
             currentPane = jLayeredPaneSearchRoome;
@@ -1315,7 +1320,7 @@ public class CasablancaResception extends javax.swing.JFrame
         int choice = JOptionPane.showConfirmDialog(null, "Do you want to close?", "", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION)
         {
-            System.exit(0);            
+            System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -1329,42 +1334,35 @@ public class CasablancaResception extends javax.swing.JFrame
         currentPane.setVisible(false);
         currentPane = jLayeredPaneShowOpenReservations;
         jLayeredPaneShowOpenReservations.setVisible(true);
+        getOpenReservations();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jButtonFindOpenReservationsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonFindOpenReservationsActionPerformed
     {//GEN-HEADEREND:event_jButtonFindOpenReservationsActionPerformed
+        getOpenReservations();
+    }//GEN-LAST:event_jButtonFindOpenReservationsActionPerformed
 
-        ArrayList<Reservation> res = new ArrayList<>(control.getReservationDepositNotPaid());
-        Calendar c = Calendar.getInstance();
-        Date today = c.getTime(); //Booking date could be change to today in booking for keeping variable down;
-        if (res == null)
+    private void jListOpenMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListOpenMouseClicked
+    {//GEN-HEADEREND:event_jListOpenMouseClicked
+
+        if (evt.getClickCount() == 2)
         {
-            showOpenReservation.addElement("All paid");
-        }
-        else
-        {
-            for (Reservation reservation : res)
+            System.out.println("double clicked , congrats, it works");
+            int index = jListOpen.locationToIndex(evt.getPoint());
+           int reservationNoSelected = (Integer)overDueDeposit.get(index);
+            System.out.println("reservation NO: "+reservationNoSelected);
+            int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION)
             {
-
-                System.out.println("today: " + today);
-
-                c.setTime((reservation.getBoookingDate()));
-                c.add(Calendar.DATE, 5);
-                if ((today.after(c.getTime())))
-                {
-                    showOpenReservation.addElement(reservation.getReservationNo() + " Booked: " + reservation.getBoookingDate());
-                }
-                else
-                {
-                    overDueDeposit.addElement(reservation.getReservationNo() + " Booked: " + reservation.getBoookingDate());
-                }
+              boolean result = control.updateDeposit(reservationNoSelected);
+              if(result)
+              {
+                  JOptionPane.showMessageDialog(null, "Deposit paid", "Deposit paid", 1);
+              }
             }
         }
 
-        jList3.setModel(showOpenReservation);
-        jListOverDue.setModel(overDueDeposit);
-
-    }//GEN-LAST:event_jButtonFindOpenReservationsActionPerformed
+    }//GEN-LAST:event_jListOpenMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -1383,24 +1381,25 @@ public class CasablancaResception extends javax.swing.JFrame
                 {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+            java.util.logging.Logger.getLogger(CasablancaResception.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+            java.util.logging.Logger.getLogger(CasablancaResception.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+            java.util.logging.Logger.getLogger(CasablancaResception.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(CasablancaResception.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CasablancaResception.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1412,6 +1411,38 @@ public class CasablancaResception extends javax.swing.JFrame
                 new CasablancaResception().setVisible(true);
             }
         });
+    }
+    
+    public void getOpenReservations()
+    {
+        
+        ArrayList<Reservation> res = new ArrayList<>(control.getReservationDepositNotPaid());
+        Calendar c = Calendar.getInstance();
+        Date today = c.getTime(); //Booking date could be change to today in booking for keeping variable down;
+        if (res == null)
+        {
+            showOpenReservation.addElement("All paid");
+        }
+        else
+        {
+            for (Reservation reservation : res)
+            {
+                c.setTime((reservation.getBoookingDate()));
+                c.add(Calendar.DATE, 5);
+                if ((today.after(c.getTime())))
+                {
+                    showOpenReservation.addElement(reservation.getReservationNo());
+                }
+                else
+                {
+                    overDueDeposit.addElement(reservation.getReservationNo());
+                }
+            }
+        }
+
+        jListOverDue.setModel(showOpenReservation);
+        jListOpen.setModel(overDueDeposit);
+
     }
 
 
@@ -1469,7 +1500,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JLayeredPane jLayeredPaneShowOpenReservations;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
+    private javax.swing.JList jListOpen;
     private javax.swing.JList jListOverDue;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
