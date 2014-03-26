@@ -388,7 +388,8 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(6),
                         rs.getString(7),
                         rs.getInt(8),
-                        rs.getString(9));
+                        rs.getString(9),
+                        rs.getString(10));
                 guestList.add(guest);
             }
 
@@ -436,7 +437,7 @@ public class DataMapper implements DataMapperInterface
     {
 
         int rowsInserted = 0;
-        String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?)";
+        String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = null;
         statement = con.prepareStatement(SQLString);
@@ -457,6 +458,7 @@ public class DataMapper implements DataMapperInterface
             statement.setString(7, guest.getCountry());
             statement.setInt(8, guest.getPhoneNo());
             statement.setString(9, guest.getEmail());
+                    statement.setString(10, guest.getAgency());
 
             System.out.println("printing statement " + rowsInserted);
             rowsInserted = statement.executeUpdate();

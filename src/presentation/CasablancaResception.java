@@ -1277,15 +1277,17 @@ public class CasablancaResception extends javax.swing.JFrame
         int password = ran.nextInt() + 1000;
 
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), email.getText());
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), email.getText() ,trvlAgncyPANE.getText() );
 
         guestcounter++;
+        control.commit();
         if (guestcounter < numOfGuest)
         {
             jButton3ActionPerformed(evt);
         }
         else
         {
+            
             guestcounter = 0;
             currentPane.setVisible(false);
             currentPane = jLayeredPaneSearchRoome;

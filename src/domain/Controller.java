@@ -98,7 +98,7 @@ public class Controller
     }
 
     public Guest createGuest(int reservationNo, String guestNo, int password, String guestFirstName, String guestFamilyName,
-            String address, String country, int phone, String email)
+            String address, String country, int phone, String email, String agency)
     {
         if (processingGuest)
         {
@@ -116,8 +116,10 @@ public class Controller
 //                    (new java.util.Date().getTime())).toString());
             //  currentGuest = new Guest(newReservationNo, newReservationNo+"-1", dateReceived, null, 0);
 
-            //    currentGuest = new Guest(12345, "123459-1",15698, "Peter", "Lorensen", "Amagerbro","Denmark",50122645,"pelo@cph.sk"); //THIS LINE WAS FOR TESTING
-            // to create a guest!
+            System.out.println("control->createguest: "+reservationNo+" "+ guestNo+" "+ 15698+" "+ guestFirstName+" "+ guestFamilyName+" "+ address+" "+country+" "+50122645+" "+ email+" "+ agency);
+  
+            
+            currentGuest = new Guest(reservationNo, guestNo,15698, guestFirstName, guestFamilyName, address,country,50122645, email, agency); //THIS LINE WAS FOR TESTING
             facade.registerNewGuest(currentGuest);
         }
         else

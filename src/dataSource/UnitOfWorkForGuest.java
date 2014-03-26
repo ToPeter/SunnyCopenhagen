@@ -36,6 +36,7 @@ public class UnitOfWorkForGuest
     {
         if (!newGuest.contains(guest) &&  !dirtyGuest.contains(guest))    // if not all ready registered in any list
         {
+            System.out.println("Adding guets int UOW: "+guest.toString());
             newGuest.add(guest);
 
            

@@ -21,6 +21,7 @@ public class Guest
     private String country;
     private int phoneNo;
     private String email;
+    private String agency;
   //  private final ArrayList<GuestDetail> guestDetails;
 
     public Guest(int reservationNo,
@@ -31,7 +32,8 @@ public class Guest
             String address,
             String country,
             int phone,
-            String email)
+            String email,
+            String agency)
     {
         this.reservationNo = reservationNo;
         this.guestNo = guestNo;
@@ -42,8 +44,19 @@ public class Guest
         this.country = country;
         this.phoneNo = phone;
         this.email = email;
+        this.agency = agency;
 
         //   this.guestDetails = new ArrayList<>();
+    }
+
+    public String getAgency()
+    {
+        return agency;
+    }
+
+    public void setAgency(String agency)
+    {
+        this.agency = agency;
     }
 
     //== accessors [Getters and Setters]
