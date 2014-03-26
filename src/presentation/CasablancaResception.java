@@ -1156,6 +1156,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             model.addElement("No Room available");
             jLabelShowTotalPrice.setText("");
+            JOptionPane.showMessageDialog(null, "No room available", "", JOptionPane.OK_OPTION);
         }
         else
         {
