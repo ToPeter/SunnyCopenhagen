@@ -21,19 +21,23 @@ public interface DataMapperInterface
 {
 
     Reservation getreservation(int reservationNo, Connection con);
-    ArrayList<Reservation> getreservationDepositNotPaid(Connection con);    
+
+    ArrayList<Reservation> getreservationDepositNotPaid(Connection con);
+
     ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type, Connection con);
- 
+
     int[] getPriceList(Connection con);
 
     ArrayList<Guest> getGuests(int reservationNo, Connection con);
 
     int getNextReservationNo(Connection con);
-    int getNextGuestNo(Connection con);
+
+    //int getNextGuestNo(Connection con);//commented out because guestno is reservationno-1,2,3.... don't need to connect DB
     boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
+
     boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;
 
-    public boolean createReservation(Reservation reservation, Connection con)throws SQLException;
+    public boolean createReservation(Reservation reservation, Connection con) throws SQLException;
 
-    public boolean updateDeposit(int reservationNoSelected, Connection con)throws SQLException;
+    public boolean updateDeposit(int reservationNoSelected, Connection con) throws SQLException;
 }

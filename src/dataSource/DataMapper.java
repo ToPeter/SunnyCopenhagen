@@ -407,27 +407,28 @@ public class DataMapper implements DataMapperInterface
         return guestList;
     }
 
+//commented out because guestno is reservationno-1,2,3.... don't need to connect DB
     // Retrieves the next unique order number from DB
-    public int getNextGuestNo(Connection con)
-    {
-        int nextGuestNo = 0;
-        String SQLString = "select orderseq.nextval  " + "from dual";
-        PreparedStatement statement = null;
-        try
-        {
-            statement = con.prepareStatement(SQLString);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next())
-            {
-                nextGuestNo = rs.getInt(1);
-            }
-        } catch (Exception e)
-        {
-            System.out.println("Fail in DataMapper - getNextGuestNo");
-            System.out.println(e.getMessage());
-        }
-        return nextGuestNo;
-    }
+//    public int getNextGuestNo(Connection con)
+//    {
+//        int nextGuestNo = 0;
+//        String SQLString = "select orderseq.nextval  " + "from dual";
+//        PreparedStatement statement = null;
+//        try
+//        {
+//            statement = con.prepareStatement(SQLString);
+//            ResultSet rs = statement.executeQuery();
+//            if (rs.next())
+//            {
+//                nextGuestNo = rs.getInt(1);
+//            }
+//        } catch (Exception e)
+//        {
+//            System.out.println("Fail in DataMapper - getNextGuestNo");
+//            System.out.println(e.getMessage());
+//        }
+//        return nextGuestNo;
+//    }
 
     //====== Methods to save to DB =========================================================
     // Insert a list of new orders
