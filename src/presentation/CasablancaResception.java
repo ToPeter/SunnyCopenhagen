@@ -6,7 +6,6 @@
 package presentation;
 
 import domain.Controller;
-import domain.Guest;
 import domain.Reservation;
 import domain.Room;
 import java.awt.Dimension;
@@ -20,7 +19,6 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.MessagingException;
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -1290,10 +1288,8 @@ public class CasablancaResception extends javax.swing.JFrame
         System.out.println(guestNo);
         int password = ran.nextInt(9000) + 1000;
 
-        String eMail=emailPANE.getText();
-        
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), eMail, trvlAgncyPANE.getText());
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
 
         guestcounter++;
         control.commit();
@@ -1308,16 +1304,6 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane.setVisible(false);
             currentPane = jLayeredPaneSearchRoome;
             currentPane.setVisible(true);
-            try
-            {
-                control.sendInvoice(eMail,control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
-            }
-            catch (MessagingException ex)
-            {System.out.println("Message failed");
-                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-            }
-      
-        
         }
 
 
