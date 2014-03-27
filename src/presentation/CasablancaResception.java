@@ -38,7 +38,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int[] priceList;
     private int priceType;
     private boolean visible = true;
-    private Date startDate, endDate, bookingDate;
+    private Date startDate, endDate, bookingDate,date;
     private String endDateStr, startDateStr;
     private int totalPriceForRoom;
     private int depositPaid;
@@ -69,8 +69,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
 
-//       control.createGuest(reservationNo, type, roomNo, startDateStr, type, type, type, WIDTH, type);
-//       control.commit();
+
     }
 
     /**
@@ -218,6 +217,10 @@ public class CasablancaResception extends javax.swing.JFrame
             public void focusGained(java.awt.event.FocusEvent evt)
             {
                 jTextFieldStartDateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                jTextFieldStartDateFocusLost(evt);
             }
         });
 
@@ -1368,11 +1371,31 @@ public class CasablancaResception extends javax.swing.JFrame
         }
 
     }//GEN-LAST:event_jListOpenMouseClicked
+
+    private void jTextFieldStartDateFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldStartDateFocusLost
+    {//GEN-HEADEREND:event_jTextFieldStartDateFocusLost
+       DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy"); 
+        Date date = new Date();
+        
+        
+        try 
+        {
+            if ( date.after(dateFormat.parse(jTextFieldStartDate.getText())))
+            {
+                JOptionPane.showMessageDialog(null, "Wrong date");
+                jTextFieldStartDate.setText("");
+            }
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+    }//GEN-LAST:event_jTextFieldStartDateFocusLost
     /**
      * @param args the command line arguments
      */
     public static void main(String args[])
-    {
+     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1449,6 +1472,8 @@ public class CasablancaResception extends javax.swing.JFrame
         jListOpen.setModel(overDueDeposit);
 
     }
+    
+   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
