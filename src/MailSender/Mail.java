@@ -37,7 +37,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class Mail {
     
-    public boolean sendInvoice(Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException {
+    public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException {
         
         PDF pdf= new PDF();
         int reservationNo=reservation.getReservationNo();
@@ -63,7 +63,7 @@ public class Mail {
         String host = "smtp.gmail.com";
         String Password = "cphbusiness11";
         String from = "casablancaholidaycentre@gmail.com ";
-        String toAddress = "tomoetom@gmail.com";
+        String toAddress = email;
         String filename = pdf.getFilePath();
         // Get system properties
         Properties props = System.getProperties();
@@ -117,6 +117,7 @@ public class Mail {
 
             System.out.println(sfe);
             return false;
+      
         }
     }    
 //    

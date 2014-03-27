@@ -51,6 +51,7 @@ public class PDF
         return "Room Type: " + roomType + "\n" + guests;
     }
 
+    
     public void createInvoice(Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice)
             throws DocumentException, IOException
     {
