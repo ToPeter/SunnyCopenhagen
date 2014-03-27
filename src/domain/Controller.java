@@ -1,8 +1,10 @@
 package domain;
 
+import MailSender.Mail;
 import dataSource.DBFacade;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.mail.MessagingException;
 
 public class Controller
 {
@@ -11,12 +13,14 @@ public class Controller
     private Guest currentGuest;      	// Guest in focus
     private final DBFacade facade;
     private ArrayList<Guest> guests;
+    private Mail mailsender;
 
     public Controller()
     {
         processingGuest = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
+        mailsender=new Mail();
 
     }
 
@@ -153,4 +157,10 @@ public class Controller
        return facade.updateDeposit(reservationNoSelected);
     }
 
-}
+    public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException
+    {
+        return mailsender.sendInvoice(email, reservation, guestarray, roomType, roomPrice);
+        
+    }
+            
+            }
