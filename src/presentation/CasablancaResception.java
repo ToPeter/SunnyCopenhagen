@@ -1377,18 +1377,24 @@ public class CasablancaResception extends javax.swing.JFrame
        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy"); 
         Date date = new Date();
         
-        
-        try 
+        try
         {
-            if ( date.after(dateFormat.parse(jTextFieldStartDate.getText())))
+           Date parse = dateFormat.parse(jTextFieldStartDate.getText());
+           if ( date.after(dateFormat.parse(jTextFieldStartDate.getText())))
             {
                 JOptionPane.showMessageDialog(null, "Wrong date");
                 jTextFieldStartDate.setText("");
             }
-        } catch (ParseException ex)
-        {
-            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        catch (ParseException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Invalid date format");
+            jTextFieldStartDate.setText("");
+
+        }
+       
+        
            
     }//GEN-LAST:event_jTextFieldStartDateFocusLost
     /**
