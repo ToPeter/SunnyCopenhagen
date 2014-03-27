@@ -325,7 +325,7 @@ public class DataMapper implements DataMapperInterface
             return false;
         }
         int rowsInserted = 0;
-        String SQLString = "insert into reservation values (?,?,?,?,?,?,?) ";
+        String SQLString = "insert into reservation values (?,?,?,?,?,?,?,?) ";
 
         try
         {
@@ -346,7 +346,7 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(5, sqlToBookingDate);
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
-
+statement.setInt(8, res.getReservationNo());
             statement.executeUpdate();
 
             System.out.println("printing statement " + rowsInserted);
