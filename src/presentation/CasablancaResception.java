@@ -6,6 +6,7 @@
 package presentation;
 
 import domain.Controller;
+import domain.Guest;
 import domain.Reservation;
 import domain.Room;
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -38,7 +40,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int[] priceList;
     private int priceType;
     private boolean visible = true;
-    private Date startDate, endDate, bookingDate,date;
+    private Date startDate, endDate, bookingDate, date;
     private String endDateStr, startDateStr;
     private int totalPriceForRoom;
     private int depositPaid;
@@ -68,7 +70,6 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
-
 
     }
 
@@ -1103,7 +1104,8 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             startDate = dateFormat.parse(jTextFieldStartDate.getText());
             startDateStr = dateFormat.format(startDate);
-        } catch (ParseException ex)
+        }
+        catch (ParseException ex)
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1287,9 +1289,9 @@ public class CasablancaResception extends javax.swing.JFrame
         String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
         System.out.println(guestNo);
         int password = ran.nextInt(9000) + 1000;
-
+        String eMail = emailPANE.getText();
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), eMail, trvlAgncyPANE.getText());
 
         guestcounter++;
         control.commit();
@@ -1304,6 +1306,14 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane.setVisible(false);
             currentPane = jLayeredPaneSearchRoome;
             currentPane.setVisible(true);
+            try
+            {
+                control.sendInvoice(eMail, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
+            }
+            catch (MessagingException ex)
+            {System.out.println("Messege sending failed");
+                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
 
@@ -1374,34 +1384,33 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jTextFieldStartDateFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldStartDateFocusLost
     {//GEN-HEADEREND:event_jTextFieldStartDateFocusLost
-       DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy"); 
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         Date date = new Date();
-        
+
         try
         {
-           Date parse = dateFormat.parse(jTextFieldStartDate.getText());
-           if ( date.after(dateFormat.parse(jTextFieldStartDate.getText())))
+            Date parse = dateFormat.parse(jTextFieldStartDate.getText());
+            if (date.after(dateFormat.parse(jTextFieldStartDate.getText())))
             {
                 JOptionPane.showMessageDialog(null, "Wrong date");
                 jTextFieldStartDate.setText("");
             }
         }
-        
+
         catch (ParseException ex)
         {
             JOptionPane.showMessageDialog(null, "Invalid date format");
             jTextFieldStartDate.setText("");
 
         }
-       
-        
-           
+
+
     }//GEN-LAST:event_jTextFieldStartDateFocusLost
     /**
      * @param args the command line arguments
      */
     public static void main(String args[])
-     {
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1418,19 +1427,23 @@ public class CasablancaResception extends javax.swing.JFrame
 
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -1478,8 +1491,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jListOpen.setModel(overDueDeposit);
 
     }
-    
-   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
