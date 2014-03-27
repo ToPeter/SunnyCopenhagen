@@ -94,20 +94,40 @@ public class DataMapperMock implements dataSource.DataMapperInterface
  
     @Override
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    {boolean result=false;
+    int size=guestMap.size();
+guestMap.put(11111,guestList);
+if(guestMap.size()==size+1)
+{result=true;}
+        return result;
     }
 
     @Override
     public boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    boolean result=false;
+    int size=guestMap.size();
+guestMap.remove(delGuest);
+if(guestMap.size()==size-delGuest.size())
+{result=true;}
+        return result;
     }
 
     @Override
     public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    {ArrayList<Reservation> resultarray= new ArrayList();
+        for (Map.Entry<Integer, Reservation> entry : reservationMap.entrySet())
+        {
+            //Integer integer = entry.getKey();
+            Reservation reservation = entry.getValue();
+            
+            if(reservation.isDepositPaid()==0)
+            resultarray.add(reservation);
+            
+        }
+        
+        return resultarray;
+        
     }
 
 

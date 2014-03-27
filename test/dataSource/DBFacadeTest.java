@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -47,6 +50,16 @@ public class DBFacadeTest
     {   
             
         }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception
+    {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception
+    {
+    }
     
     @Before
     public void setUp() throws ParseException
@@ -96,7 +109,7 @@ dmm.setGuestMap(guestMap); //res.no , guestArray
     dmm.setPricearray(pricearray);
     
     }
-    
+
     /**
      * Test of getInstance method, of class DBFacade.
 //     */
@@ -147,79 +160,126 @@ dmm.setGuestMap(guestMap); //res.no , guestArray
                 int resultRoomno=result.get(0).getRoomNo();
         assertEquals(expResultSize, resultSize);
         assertEquals(expResultRoomno, resultRoomno);
-    }}
+    }
 
     /**
      * Test of getGuests method, of class DBFacade.
      */
+    @Test
+    public void testGetGuests()
+    {
+        System.out.println("getGuests");
+        int reservation = 10001;
+        String expResultFamilyName ="JKL";
+        ArrayList<Guest> result = facade.getGuests(reservation);
+        assertEquals(expResultFamilyName, result.get(0).getGuestFamilyName());
+    }
+
+    @Test
+    public void testGetReservationDepositNotPaid()
+    {
+        System.out.println("getReservationDepositNotPaid");
+        ArrayList<Reservation> expResult= new ArrayList();
+        for (Map.Entry<Integer, Reservation> entry : reservationMap.entrySet())
+        {
+            
+            Reservation reservation = entry.getValue();
+            expResult.add(reservation);
+        }
+        ArrayList<Reservation> result = facade.getReservationDepositNotPaid();
+        assertEquals(expResult.get(2).getRoomNo(), result.get(2).getRoomNo());
+        assertEquals(expResult.get(2).getReservationNo(), result.get(2).getReservationNo());
+        assertEquals(expResult.size(), result.size());
+// TODO review the generated test code and remove the default call to fail.
+        
+    }
+
+    /**
+     * Test of registerNewGuest method, of class DBFacade.
+     */
 //    @Test
-//    public void testGetGuests()
+//    public void testRegisterNewGuest()
 //    {
-//        System.out.println("getGuests");
-//        int reservation = 0;
-//        DBFacade instance = null;
-//        ArrayList<Guest> expResult = null;
-//        ArrayList<Guest> result = instance.getGuests(reservation);
+//        System.out.println("registerNewGuest");
+//        Guest guest = null;
+//        DBFacade instance = new DBFacade();
+//        instance.registerNewGuest(guest);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+//    @Test
+//    public void testRegisterDeleteGuest()
+//    {
+//        System.out.println("registerDeleteGuest");
+//        Guest currentGuest = null;
+//        DBFacade instance = new DBFacade();
+//        instance.registerDeleteGuest(currentGuest);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+
+    /**
+     * Test of getPriceList method, of class DBFacade.
+     */
+//    @Test
+//    public void testGetPriceList()
+//    {
+//        System.out.println("getPriceList");
+//        DBFacade instance = new DBFacade();
+//        int[] expResult = null;
+//        int[] result = instance.getPriceList();
+//        assertArrayEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+    /**
+     * Test of bookRoom method, of class DBFacade.
+     */
+//    @Test
+//    public void testBookRoom()
+//    {
+//        System.out.println("bookRoom");
+//        Reservation reservation = null;
+//        DBFacade instance = new DBFacade();
+//        boolean expResult = false;
+//        boolean result = instance.bookRoom(reservation);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    /**
-//     * Test of getNextReservationNo method, of class DBFacade.
-//     */
+
+    /**
+     * Test of updateDeposit method, of class DBFacade.
+     */
 //    @Test
-//    public void testGetNextReservationNo()
+//    public void testUpdateDeposit()
 //    {
-//        System.out.println("getNextReservationNo");
-//        DBFacade instance = null;
-//        int expResult = 0;
-//        int result = instance.getNextReservationNo();
+//        System.out.println("updateDeposit");
+//        int reservationNoSelected = 0;
+//        DBFacade instance = new DBFacade();
+//        boolean expResult = false;
+//        boolean result = instance.updateDeposit(reservationNoSelected);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    /**
-//     * Test of startProcessGuestBusinessTransaction method, of class DBFacade.
-//     */
-//    @Test
-//    public void testStartProcessGuestBusinessTransaction()
-//    {
-//        System.out.println("startProcessGuestBusinessTransaction");
-//        DBFacade instance = null;
-//        instance.startProcessGuestBusinessTransaction();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
 //    /**
 //     * Test of registerNewOrder method, of class DBFacade.
-//     */
+////     */
 //    @Test
-//    public void testRegisterNewOrder()
+//    public void testRegisterNewGuest()
 //    {
 //        System.out.println("registerNewOrder");
 //        Guest guest = null;
-//        DBFacade instance = null;
-////        instance.registerNewOrder(guest);
+//    //    facade.registerNewOrder(guest);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of registerDirtyOrder method, of class DBFacade.
-//     */
-//    @Test
-//    public void testRegisterDirtyOrder()
-//    {
-//        System.out.println("registerDirtyOrder");
-//        Guest guest = null;
-//        DBFacade instance = null;
-//        instance.registerDirtyOrder(guest);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 //
 //    /**
 //     * Test of registerDeleteGuest method, of class DBFacade.
@@ -234,48 +294,4 @@ dmm.setGuestMap(guestMap); //res.no , guestArray
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    /**
-//     * Test of startProcessOrderBusinessTransaction method, of class DBFacade.
-//     */
-//    @Test
-//    public void testStartProcessOrderBusinessTransaction()
-//    {
-//        System.out.println("startProcessOrderBusinessTransaction");
-//        DBFacade instance = null;
-//        instance.startProcessOrderBusinessTransaction();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of commitProcessGuestBusinessTransaction method, of class DBFacade.
-//     */
-//    @Test
-//    public void testCommitProcessGuestBusinessTransaction()
-//    {
-//        System.out.println("commitProcessGuestBusinessTransaction");
-//        DBFacade instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.commitProcessGuestBusinessTransaction();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getPriceList method, of class DBFacade.
-//     */
-//    @Test
-//    public void testGetPriceList()
-//    {
-//        System.out.println("getPriceList");
-//        DBFacade instance = null;
-//        int[] expResult = null;
-//        int[] result = instance.getPriceList();
-//        assertArrayEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
-//}
+}
