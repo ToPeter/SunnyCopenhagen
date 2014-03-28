@@ -20,8 +20,10 @@ public class Reservation
     private Date endDate;
     private Date boookingDate;
     private int depositPaid; //in database it's 0 or 1
+    private int version;
+    private int empNo;
 
-    public Reservation(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
+    public Reservation(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid, int empNo, int version)
     {
         this.roomNo = roomNo;
         this.reservationNo = reservationNo;
@@ -29,6 +31,18 @@ public class Reservation
         this.endDate = endDate;
         this.boookingDate = boookingDate;
         this.depositPaid = depositPaid;
+        this.empNo = empNo;
+        this.version = version;
+    }
+
+    public int getEmpNo()
+    {
+        return empNo;
+    }
+
+    public void setEmpNo(int empNo)
+    {
+        this.empNo = empNo;
     }
 
     public int getRoomNo()
@@ -91,6 +105,16 @@ public class Reservation
         this.depositPaid = depositPaid;
     }
 
+    public int getVersion()
+    {
+        return version;
+    }
+
+    public void incrementVersionNumber()
+    {
+        version++;
+    }
+    
     @Override
     public String toString()
     {
@@ -111,5 +135,6 @@ public class Reservation
                 + "Booking date: " + boookingDate + "\n"
                 + "Deposid paid: " + paid + "\n" + "\n";
     }
+
 
 }

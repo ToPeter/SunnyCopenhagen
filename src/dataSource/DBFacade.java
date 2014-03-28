@@ -170,16 +170,12 @@ public class DBFacade
 
     }
 
-    public boolean updateDeposit(int reservationNoSelected)
+    public boolean updateDeposit(Reservation currentReservation)
     {
-        try
-        {
-            return dm.updateDeposit(reservationNoSelected, con);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(DBFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        
+        unitOfWork.updateDeposit(currentReservation);
+        
+        return true;
     }
 
 }

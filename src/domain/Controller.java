@@ -9,8 +9,9 @@ import javax.mail.MessagingException;
 public class Controller
 {
 
-    private boolean processingGuest;	// Represent state of business transaction
-    private Guest currentGuest;      	// Guest in focus
+    private boolean processingGuest, processingReservation;        // Represent state of business transaction
+    private Guest currentGuest;             // Guest in focus
+    private Reservation currentReservation; //Reservation in focus
     private final DBFacade facade;
     private ArrayList<Guest> guests;
     private Mail mailsender;
@@ -18,9 +19,11 @@ public class Controller
     public Controller()
     {
         processingGuest = false;
+        processingReservation = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
         mailsender = new Mail();
+        currentReservation = null;
     }
 
     public Reservation getReservation(int reservationNo)
@@ -130,7 +133,7 @@ public class Controller
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
 
-        Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid);
+        Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid, 1111, 0);
         facade.bookRoom(reservation);
 
         boolean result = true;
@@ -150,10 +153,22 @@ public class Controller
         return facade.getReservationString(parseInt);
     }
 
-    public boolean updateDeposit(int reservationNoSelected)
+    public boolean updateDeposit()
     {
-
-        return facade.updateDeposit(reservationNoSelected);
+ facade.startProcessGuestBusinessTransaction();
+        //facade.registerDirtyReservation(currentReservation);
+        boolean result =  facade.updateDeposit(currentReservation);
+        boolean test = facade.commitProcessGuestBusinessTransaction();
+        System.out.println("printing trest in contriller update deposti "+test);
+        return (result==test);
+        
+        
+        
+//        facade.startProcessGuestBusinessTransaction();
+//
+//        boolean result = facade.updateDeposit(currentReservation);
+//        boolean test = facade.commitProcessGuestBusinessTransaction();
+//        return result;
     }
 
     public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException
@@ -161,6 +176,21 @@ public class Controller
         {
             return mailsender.sendInvoice(email, reservation, guestarray, roomType, roomPrice);
         }
+    }
+
+    public boolean getCurrentReservation(int reservationNoSelected)
+    {
+        boolean result=false;
+        if (processingReservation)
+        {
+            return result;
+        }
+
+        facade.startProcessOrderBusinessTransaction();
+        
+        currentReservation = facade.getReservation(reservationNoSelected);
+        result = true;
+      return result;
     }
 
 }

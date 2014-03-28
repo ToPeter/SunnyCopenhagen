@@ -39,5 +39,5 @@ public interface DataMapperInterface
 
     public boolean createReservation(Reservation reservation, Connection con) throws SQLException;
 
-    public boolean updateDeposit(int reservationNoSelected, Connection con) throws SQLException;
+    public boolean updateDeposit(ArrayList<Reservation> reservation, Connection con) throws SQLException;
 }

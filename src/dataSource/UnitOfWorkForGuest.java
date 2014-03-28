@@ -19,6 +19,8 @@ public class UnitOfWorkForGuest
     private final ArrayList<Guest> newGuest;
     private final ArrayList<Guest> delGuest;
     private final ArrayList<Guest> dirtyGuest;
+    private final ArrayList<Reservation> updatedDeposit;
+    private final ArrayList<Reservation> dirtyUpdatedDeposit;
     
     
    
@@ -28,6 +30,8 @@ public class UnitOfWorkForGuest
         newGuest = new ArrayList<>(); // will never exceed 1 element
         dirtyGuest = new ArrayList<>(); // will never exceed 1 element
         delGuest = new ArrayList<>();
+        updatedDeposit = new ArrayList<>();
+        dirtyUpdatedDeposit = new ArrayList<>();
     }
     
     //====== Methods to register changes ==========================
@@ -71,8 +75,9 @@ public class UnitOfWorkForGuest
             //=== system transaction - starts
             con.setAutoCommit(false);
             status = status && dataMapper.insertGuest(newGuest, con);
-
-         //   status = status && dataMapper.updateGuest(dirtyGuest, con);
+            System.out.println("printing status aftter inserGuest "+status);
+            status = status && dataMapper.updateDeposit(updatedDeposit, con);
+             System.out.println("printing status aftter updateDeposit "+status);
          //  status = status && dataMapper.deleteGuest(delGuest, con);
 
          //   status = status && dataMapper.updateOrderDetails(updateOrderDetails, dirtyOrders, connection);
@@ -100,6 +105,17 @@ public class UnitOfWorkForGuest
         }
                         System.out.println("Status is : "+status);
         return status;
+    }
+
+    void updateDeposit(Reservation currentReservation)
+    {
+
+     if (!updatedDeposit.contains(currentReservation) &&  !dirtyUpdatedDeposit.contains(currentReservation))    // if not all ready registered in any list
+        {
+            updatedDeposit.add(currentReservation);
+
+           
+        }        
     }
 
   

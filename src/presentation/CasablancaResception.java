@@ -1104,8 +1104,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             startDate = dateFormat.parse(jTextFieldStartDate.getText());
             startDateStr = dateFormat.format(startDate);
-        }
-        catch (ParseException ex)
+        } catch (ParseException ex)
         {
             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1289,13 +1288,13 @@ public class CasablancaResception extends javax.swing.JFrame
         String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
         System.out.println(guestNo);
         int password = ran.nextInt(9000) + 1000;
-        
+
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
                 AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
 
         control.commit();
         guestcounter++;
-        
+
         if (guestcounter < numOfGuest)
         {
             jButton3ActionPerformed(evt);
@@ -1366,17 +1365,22 @@ public class CasablancaResception extends javax.swing.JFrame
             System.out.println("double clicked , congrats, it works");
             int index = jListOpen.locationToIndex(evt.getPoint());
             int reservationNoSelected = (Integer) overDueDeposit.get(index);
-            System.out.println("reservation NO: " + reservationNoSelected);
-            int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION)
+            boolean haveCurrentReservation = control.getCurrentReservation(reservationNoSelected);
+            System.out.println("status of currentReservation " + haveCurrentReservation);
+            if (haveCurrentReservation)
             {
-                boolean result = control.updateDeposit(reservationNoSelected);
-                if (result)
+                int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION)
                 {
-                    JOptionPane.showMessageDialog(null, "Deposit paid", "Deposit paid", 1);
-                    overDueDeposit.clear();
-                    showOpenReservation.clear();
-                    getOpenReservations();
+                    boolean result = control.updateDeposit();
+                    if (result)
+                    {
+                        control.commit();
+                        JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: "+reservationNoSelected, "Deposit paid", 1);
+                        overDueDeposit.clear();
+                        showOpenReservation.clear();
+                        getOpenReservations();
+                    }
                 }
             }
         }
@@ -1396,9 +1400,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "Wrong date");
                 jTextFieldStartDate.setText("");
             }
-        }
-
-        catch (ParseException ex)
+        } catch (ParseException ex)
         {
             JOptionPane.showMessageDialog(null, "Invalid date format");
             jTextFieldStartDate.setText("");
@@ -1428,23 +1430,19 @@ public class CasablancaResception extends javax.swing.JFrame
 
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

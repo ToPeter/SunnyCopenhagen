@@ -43,24 +43,6 @@ public class DataMapper implements DataMapperInterface
     public Reservation getreservation(int reservationNo, Connection con)
     {
 
-        String SQLString2 = "LOCK TABLE RESERVATION IN EXCLUSIVE MODE";
-
-        try
-        {
-            con.setAutoCommit(false);
-            PreparedStatement statement = null;
-
-            statement = con.prepareStatement(SQLString2);
-
-            statement.executeUpdate();
-
-        } catch (SQLException e)
-        {
-            System.out.println("Fail in DataMapper - ERROR IN LOCKING");
-            System.out.println(e.getMessage());
-        }
-
-        boolean paid;
         Reservation reservation = null;
         String SQLString = // get reservation
                 "select * "
@@ -78,21 +60,15 @@ public class DataMapper implements DataMapperInterface
             ResultSet rs = statement.executeQuery();
             if (rs.next())
             {
-                if (rs.getInt(6) == 0)//if DepositPaid==0
-                {
-                    paid = false;
-                }
-                else
-                {
-                    paid = true;
-                }
                 reservation = new Reservation(
                         rs.getInt(1),
-                        reservationNo,
+                        rs.getInt(2),
                         rs.getDate(3),//fromDate
                         rs.getDate(4),//toDate
                         rs.getDate(5),//bookingDate
-                        rs.getInt(6));
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
                 System.out.println("gotreservation");
             }
 
@@ -140,11 +116,12 @@ public class DataMapper implements DataMapperInterface
                         rs.getDate(3),//fromDate
                         rs.getDate(4),//toDate
                         rs.getDate(5),//bookingDate
-                        rs.getInt(6));
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
 
                 depositNotPaidArray.add(reservation);
 
-                System.out.println("gotreservation");
             }
 
         } catch (Exception e)
@@ -346,7 +323,7 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(5, sqlToBookingDate);
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
-statement.setInt(8, res.getReservationNo());
+            statement.setInt(8, res.getReservationNo());
             statement.executeUpdate();
 
             System.out.println("printing statement " + rowsInserted);
@@ -429,7 +406,6 @@ statement.setInt(8, res.getReservationNo());
 //        }
 //        return nextGuestNo;
 //    }
-
     //====== Methods to save to DB =========================================================
     // Insert a list of new orders
     // returns true if all elements were inserted successfully
@@ -498,32 +474,68 @@ statement.setInt(8, res.getReservationNo());
         return rowsDeleted == delGuest.size();
     }
 
-        public boolean updateDeposit(int reservationNoSelected, Connection con)
+     @Override
+    public boolean updateDeposit(ArrayList<Reservation> updateList, Connection con) throws SQLException
     {
-        try
+
+        System.out.println("are in updateDeposit: ");
+        System.out.println("size of updateList: " + updateList.size());
+        int rowsUpdated = 0;
+
+        String SQLString = "UPDATE RESERVATION "
+                + "SET depositpaid = ?, ver_no = ? "
+                + "where reservationNO= ? and ver_no = ? ";
+        PreparedStatement statement = null;
+
+        statement = con.prepareStatement(SQLString);
+
+        for (int i = 0; i < updateList.size(); i++)
         {
-            con.setAutoCommit(false);
-            String SQLStringLock = "SELECT * FROM RESERVATION FOR UPDATE ";
-            PreparedStatement statement = con.prepareStatement(SQLStringLock);
-            statement.executeUpdate();
+            Reservation reservation = updateList.get(i);
+            System.out.println(reservation.toString());
+            statement.setInt(1, 1);
+            statement.setInt(2, reservation.getVersion() + 1); // next version number
+            statement.setInt(3, reservation.getReservationNo());
+            statement.setInt(4, reservation.getVersion());   // old version number
 
-            String SQLStringUpdate = "UPDATE RESERVATION SET depositpaid = 1 where reservationNO=?";
-
-            PreparedStatement statementUpdate = con.prepareStatement(SQLStringUpdate);
-
-            statementUpdate.setInt(1, reservationNoSelected);
-
-            statementUpdate.executeUpdate();
-
-            con.commit();
-
-            return true;
-
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            int tupleUpdated = statement.executeUpdate();
+            if (tupleUpdated == 1)
+            {
+                reservation.incrementVersionNumber();                       // increment version in current OrderObject
+            }
+            rowsUpdated += tupleUpdated;
         }
+        if (testRun)
+        {
+            System.out.println("updateOrders: " + (rowsUpdated == updateList.size())); // for test
+        }
+
+//        
+//        try
+//        {
+//            con.setAutoCommit(false);
+//            String SQLStringLock = "SELECT * FROM RESERVATION FOR UPDATE ";
+//            PreparedStatement statement = con.prepareStatement(SQLStringLock);
+//            statement.executeUpdate();
+//
+//            String SQLStringUpdate = "UPDATE RESERVATION SET depositpaid = 1 where reservationNO=?";
+//
+//            PreparedStatement statementUpdate = con.prepareStatement(SQLStringUpdate);
+//
+//            statementUpdate.setInt(1, reservationNoSelected);
+//
+//            statementUpdate.executeUpdate();
+//
+//            con.commit();
+//
+//            return true;
+//
+//        } catch (SQLException ex)
+//        {
+//            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+//            return false;
+//        }
+        return (rowsUpdated == updateList.size());    // false if any conflict in version number
     }
 
 //http://www.w3schools.com/sql/sql_autoincrement.asp    
