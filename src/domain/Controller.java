@@ -114,7 +114,7 @@ public class Controller
         {
             processingGuest = true;
 
-            currentGuest = new Guest(reservationNo, guestNo, password, guestFirstName, guestFamilyName, address, country, password, email, agency); //THIS LINE WAS FOR TESTING
+            currentGuest = new Guest(reservationNo, guestNo, password, guestFirstName, guestFamilyName, address, country, phone, email, agency); //THIS LINE WAS FOR TESTING
             facade.registerNewGuest(currentGuest);
             processingGuest = false;
         }

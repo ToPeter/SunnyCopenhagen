@@ -40,7 +40,7 @@ public class UnitOfWorkForGuest
             newGuest.add(guest);
 
            
-        }
+        }        
     }
     
      public void registerDirtyGuest(Guest guest)
@@ -98,8 +98,7 @@ public class UnitOfWorkForGuest
             }
             status = false;
         }
-             
-                System.out.println("Status is : "+status);
+                        System.out.println("Status is : "+status);
         return status;
     }
 
