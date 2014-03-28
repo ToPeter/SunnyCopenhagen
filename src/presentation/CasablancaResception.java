@@ -1289,12 +1289,13 @@ public class CasablancaResception extends javax.swing.JFrame
         String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
         System.out.println(guestNo);
         int password = ran.nextInt(9000) + 1000;
-        String eMail = emailPANE.getText();
+        
         control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), eMail, trvlAgncyPANE.getText());
+                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
 
-        guestcounter++;
         control.commit();
+        guestcounter++;
+        
         if (guestcounter < numOfGuest)
         {
             jButton3ActionPerformed(evt);
