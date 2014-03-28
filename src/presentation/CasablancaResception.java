@@ -1308,8 +1308,8 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane = jLayeredPaneSearchRoome;
             currentPane.setVisible(true);
 //            try
-//            {
-//                control.sendInvoice(eMail, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
+//            { String email= control.getGuests(reservationNo).get(0).getEmail();
+//              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
 //            }
 //            catch (MessagingException ex)
 //            {System.out.println("Messege sending failed");
