@@ -5,6 +5,7 @@
  */
 package presentation;
 
+import datechooser.beans.DateChooserPanel;
 import domain.Controller;
 import domain.Guest;
 import domain.Reservation;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +72,6 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
-
     }
 
     /**
@@ -105,6 +106,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jList1 = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jLabelShowRoomChosen = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLayeredPaneReservation = new javax.swing.JLayeredPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -396,6 +398,8 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jLabelShowRoomChosen.setText("jLabel6");
 
+        jDateChooser1.setDateFormatString("dd-MM-yy");
+
         javax.swing.GroupLayout jLayeredPaneSearchRoomeLayout = new javax.swing.GroupLayout(jLayeredPaneSearchRoome);
         jLayeredPaneSearchRoome.setLayout(jLayeredPaneSearchRoomeLayout);
         jLayeredPaneSearchRoomeLayout.setHorizontalGroup(
@@ -409,8 +413,9 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
-                            .addComponent(jLabelShowRoomChosen))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabelShowRoomChosen)))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 55, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoomeLayout.setVerticalGroup(
             jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,12 +428,15 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelShowRoomChosen)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoome.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jLabelShowRoomChosen, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneSearchRoome.setLayer(jDateChooser1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneReservation.setMinimumSize(new java.awt.Dimension(625, 380));
 
@@ -1376,7 +1384,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     if (result)
                     {
                         control.commit();
-                        JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: "+reservationNoSelected, "Deposit paid", 1);
+                        JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: " + reservationNoSelected, "Deposit paid", 1);
                         overDueDeposit.clear();
                         showOpenReservation.clear();
                         getOpenReservations();
@@ -1512,6 +1520,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JButton jButtonSeachReservationNo;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxType;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

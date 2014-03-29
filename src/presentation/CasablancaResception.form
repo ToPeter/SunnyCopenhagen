@@ -207,8 +207,9 @@
                               <Component id="jLabelShowRoomChosen" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="jDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -225,7 +226,9 @@
                           <Component id="jLabelShowRoomChosen" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="191" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -554,6 +557,11 @@
         <Component class="javax.swing.JLabel" name="jLabelShowRoomChosen">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel6"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yy"/>
           </Properties>
         </Component>
       </SubComponents>
