@@ -42,7 +42,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int[] priceList;
     private int priceType;
     private boolean visible = true;
-    private Date startDate, endDate, bookingDate, date;
+    private Date startDate, endDate, bookingDate, date, today;
     private String endDateStr, startDateStr;
     private int totalPriceForRoom;
     private int depositPaid;
@@ -55,6 +55,9 @@ public class CasablancaResception extends javax.swing.JFrame
      */
     public CasablancaResception()
     {
+        Calendar c = Calendar.getInstance();
+        today = c.getTime();
+        
         initComponents();
         jLayeredPaneReservation.setVisible(false);
         jLayeredPaneReservationInfo.setVisible(false);
@@ -84,9 +87,9 @@ public class CasablancaResception extends javax.swing.JFrame
     private void initComponents()
     {
 
+        jToggleButton1 = new javax.swing.JToggleButton();
         jLayeredPaneSearchRoome = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
-        jTextFieldStartDate = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jTextFieldNumberOfDays = new javax.swing.JTextField();
         jLabelEndDate = new javax.swing.JLabel();
@@ -102,11 +105,12 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jLabelShowTotalPrice = new javax.swing.JLabel();
         jLabelShowPrice = new javax.swing.JLabel();
+        jTextFieldStartDate = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jLabelShowRoomChosen = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButtonPrintDate = new javax.swing.JButton();
         jLayeredPaneReservation = new javax.swing.JLayeredPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -186,6 +190,8 @@ public class CasablancaResception extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLogOut = new javax.swing.JMenuItem();
 
+        jToggleButton1.setText("jToggleButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(null);
         addWindowListener(new java.awt.event.WindowAdapter()
@@ -203,29 +209,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Search Rooms"));
         jPanel1.setMinimumSize(new java.awt.Dimension(435, 250));
         jPanel1.setPreferredSize(new java.awt.Dimension(435, 250));
-
-        jTextFieldStartDate.setText("dd-mm-yy");
-        jTextFieldStartDate.setToolTipText("DD-MM-YY");
-        jTextFieldStartDate.setMinimumSize(new java.awt.Dimension(75, 25));
-        jTextFieldStartDate.setPreferredSize(new java.awt.Dimension(75, 25));
-        jTextFieldStartDate.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextFieldStartDateActionPerformed(evt);
-            }
-        });
-        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                jTextFieldStartDateFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
-                jTextFieldStartDateFocusLost(evt);
-            }
-        });
 
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -308,6 +291,9 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelShowTotalPrice.setMinimumSize(new java.awt.Dimension(51, 16));
         jLabelShowTotalPrice.setPreferredSize(new java.awt.Dimension(51, 16));
 
+        jTextFieldStartDate.setDateFormatString("dd-MM-yy");
+        jTextFieldStartDate.setMinSelectableDate(today);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -321,7 +307,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(7, 7, 7)
                         .addComponent(jTextFieldNumberOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,10 +355,11 @@ public class CasablancaResception extends javax.swing.JFrame
                             .addComponent(jLabelShowPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNumberOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldNumberOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -398,7 +385,14 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jLabelShowRoomChosen.setText("jLabel6");
 
-        jDateChooser1.setDateFormatString("dd-MM-yy");
+        jButtonPrintDate.setText("Print date");
+        jButtonPrintDate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonPrintDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jLayeredPaneSearchRoomeLayout = new javax.swing.GroupLayout(jLayeredPaneSearchRoome);
         jLayeredPaneSearchRoome.setLayout(jLayeredPaneSearchRoomeLayout);
@@ -414,7 +408,9 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addGroup(jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jLabelShowRoomChosen)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jLayeredPaneSearchRoomeLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jButtonPrintDate)))
                 .addGap(0, 55, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoomeLayout.setVerticalGroup(
@@ -429,14 +425,14 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelShowRoomChosen)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addComponent(jButtonPrintDate)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoome.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jLabelShowRoomChosen, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchRoome.setLayer(jDateChooser1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneSearchRoome.setLayer(jButtonPrintDate, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneReservation.setMinimumSize(new java.awt.Dimension(625, 380));
 
@@ -1108,14 +1104,9 @@ public class CasablancaResception extends javax.swing.JFrame
         endDate = null;
         bookingDate = c.getTime();
         int numberOfDays = Integer.parseInt(jTextFieldNumberOfDays.getText());
-        try
-        {
-            startDate = dateFormat.parse(jTextFieldStartDate.getText());
+       
+            startDate = (jTextFieldStartDate.getDate());
             startDateStr = dateFormat.format(startDate);
-        } catch (ParseException ex)
-        {
-            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         c.setTime(startDate);
         c.add(Calendar.DATE, numberOfDays);
@@ -1187,16 +1178,6 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jList1.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextFieldStartDateFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldStartDateFocusGained
-    {//GEN-HEADEREND:event_jTextFieldStartDateFocusGained
-        //jTextFieldStartDate.setText("");
-    }//GEN-LAST:event_jTextFieldStartDateFocusGained
-
-    private void jTextFieldStartDateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldStartDateActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldStartDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldStartDateActionPerformed
 
     private void jTextFieldNumberOfDaysActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldNumberOfDaysActionPerformed
     {//GEN-HEADEREND:event_jTextFieldNumberOfDaysActionPerformed
@@ -1395,28 +1376,12 @@ public class CasablancaResception extends javax.swing.JFrame
 
     }//GEN-LAST:event_jListOpenMouseClicked
 
-    private void jTextFieldStartDateFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldStartDateFocusLost
-    {//GEN-HEADEREND:event_jTextFieldStartDateFocusLost
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-        Date date = new Date();
-
-        try
-        {
-            Date parse = dateFormat.parse(jTextFieldStartDate.getText());
-            if (date.after(dateFormat.parse(jTextFieldStartDate.getText())))
-            {
-                JOptionPane.showMessageDialog(null, "Wrong date");
-                jTextFieldStartDate.setText("");
-            }
-        } catch (ParseException ex)
-        {
-            JOptionPane.showMessageDialog(null, "Invalid date format");
-            jTextFieldStartDate.setText("");
-
-        }
-
-
-    }//GEN-LAST:event_jTextFieldStartDateFocusLost
+    private void jButtonPrintDateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonPrintDateActionPerformed
+    {//GEN-HEADEREND:event_jButtonPrintDateActionPerformed
+     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+        Date dateFromChooser =  jTextFieldStartDate.getDate();
+        System.out.println(sdf.format(dateFromChooser));
+    }//GEN-LAST:event_jButtonPrintDateActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1517,10 +1482,10 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonFindOpenReservations;
+    private javax.swing.JButton jButtonPrintDate;
     private javax.swing.JButton jButtonSeachReservationNo;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxType;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1593,7 +1558,8 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextFieldNumberOfDays;
     private javax.swing.JTextField jTextFieldReservationInfoSearch;
-    private javax.swing.JTextField jTextFieldStartDate;
+    private com.toedter.calendar.JDateChooser jTextFieldStartDate;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lName;
     private javax.swing.JTextPane lNamePANE;
     private javax.swing.JLabel noOfnights;
