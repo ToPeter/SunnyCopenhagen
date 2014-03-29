@@ -57,7 +57,7 @@ public class CasablancaResception extends javax.swing.JFrame
     {
         Calendar c = Calendar.getInstance();
         today = c.getTime();
-        
+
         initComponents();
         jLayeredPaneReservation.setVisible(false);
         jLayeredPaneReservationInfo.setVisible(false);
@@ -293,6 +293,13 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jTextFieldStartDate.setDateFormatString("dd-MM-yy");
         jTextFieldStartDate.setMinSelectableDate(today);
+        jTextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                jTextFieldStartDateFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1104,9 +1111,17 @@ public class CasablancaResception extends javax.swing.JFrame
         endDate = null;
         bookingDate = c.getTime();
         int numberOfDays = Integer.parseInt(jTextFieldNumberOfDays.getText());
-       
+
+        if (jTextFieldStartDate.getDate().before(jTextFieldStartDate.getMinSelectableDate()))
+        {
+            startDate = null;
+            JOptionPane.showMessageDialog(null, "unavailable date", "Invalid date", JOptionPane.OK_OPTION);
+        }
+        else
+        {
             startDate = (jTextFieldStartDate.getDate());
-            startDateStr = dateFormat.format(startDate);
+        }
+        startDateStr = dateFormat.format(startDate);
 
         c.setTime(startDate);
         c.add(Calendar.DATE, numberOfDays);
@@ -1378,10 +1393,15 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButtonPrintDateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonPrintDateActionPerformed
     {//GEN-HEADEREND:event_jButtonPrintDateActionPerformed
-     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
-        Date dateFromChooser =  jTextFieldStartDate.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+        Date dateFromChooser = jTextFieldStartDate.getDate();
         System.out.println(sdf.format(dateFromChooser));
     }//GEN-LAST:event_jButtonPrintDateActionPerformed
+
+    private void jTextFieldStartDateFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldStartDateFocusLost
+    {//GEN-HEADEREND:event_jTextFieldStartDateFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldStartDateFocusLost
     /**
      * @param args the command line arguments
      */

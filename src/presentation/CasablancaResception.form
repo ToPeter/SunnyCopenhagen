@@ -521,6 +521,9 @@
                   <Connection code="today" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldStartDateFocusLost"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
