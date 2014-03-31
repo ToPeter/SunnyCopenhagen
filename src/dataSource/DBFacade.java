@@ -68,6 +68,10 @@ public class DBFacade
         return dm.getGuests(reservation, con);
     }
 
+    public String getRoomType(int roomNo)
+    {
+        return dm.getRoomType(roomNo, con);
+    }
     public int getNextReservationNo()
     {
         return dm.getNextReservationNo(con);

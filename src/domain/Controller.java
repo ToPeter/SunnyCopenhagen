@@ -155,15 +155,13 @@ public class Controller
 
     public boolean updateDeposit()
     {
- facade.startProcessGuestBusinessTransaction();
+        facade.startProcessGuestBusinessTransaction();
         //facade.registerDirtyReservation(currentReservation);
-        boolean result =  facade.updateDeposit(currentReservation);
+        boolean result = facade.updateDeposit(currentReservation);
         boolean test = facade.commitProcessGuestBusinessTransaction();
-        System.out.println("printing trest in contriller update deposti "+test);
-        return (result==test);
-        
-        
-        
+        System.out.println("printing trest in contriller update deposti " + test);
+        return (result == test);
+
 //        facade.startProcessGuestBusinessTransaction();
 //
 //        boolean result = facade.updateDeposit(currentReservation);
@@ -178,19 +176,31 @@ public class Controller
         }
     }
 
+    public boolean sendConfirmation(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType) throws MessagingException
+    {
+        {
+            return mailsender.sendConfirmation(email, reservation, guestarray, roomType);
+        }
+    }
+
+    public String getRoomType(int roomNo)
+    {
+        return facade.getRoomType(roomNo);
+    }
+
     public boolean getCurrentReservation(int reservationNoSelected)
     {
-        boolean result=false;
+        boolean result = false;
         if (processingReservation)
         {
             return result;
         }
 
         facade.startProcessOrderBusinessTransaction();
-        
+
         currentReservation = facade.getReservation(reservationNoSelected);
         result = true;
-      return result;
+        return result;
     }
 
 }

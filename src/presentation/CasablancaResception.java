@@ -5,7 +5,6 @@
  */
 package presentation;
 
-import datechooser.beans.DateChooserPanel;
 import domain.Controller;
 import domain.Guest;
 import domain.Reservation;
@@ -334,7 +333,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addContainerGap(1, Short.MAX_VALUE))
+                        .addContainerGap(23, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))
@@ -418,7 +417,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addGroup(jLayeredPaneSearchRoomeLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jButtonPrintDate)))
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoomeLayout.setVerticalGroup(
             jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,7 +539,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jLabelReservationNo.setText("jLabel10");
 
-        jButton3.setText("Book");
+        jButton3.setText("Continue");
         jButton3.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -559,9 +558,9 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(128, 128, 128)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 151, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,7 +858,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(guestInfoSaveButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jLayeredPaneEnterGuestInfo.setLayer(fName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(lName, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1371,6 +1370,7 @@ public class CasablancaResception extends javax.swing.JFrame
             int reservationNoSelected = (Integer) overDueDeposit.get(index);
             boolean haveCurrentReservation = control.getCurrentReservation(reservationNoSelected);
             System.out.println("status of currentReservation " + haveCurrentReservation);
+
             if (haveCurrentReservation)
             {
                 int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
@@ -1379,11 +1379,30 @@ public class CasablancaResception extends javax.swing.JFrame
                     boolean result = control.updateDeposit();
                     if (result)
                     {
-                        control.commit();
+
+                        control.commit();;
                         JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: " + reservationNoSelected, "Deposit paid", 1);
                         overDueDeposit.clear();
                         showOpenReservation.clear();
                         getOpenReservations();
+
+                        Reservation res = control.getReservation(reservationNoSelected);
+                        ArrayList<Guest> guestarray = control.getGuests(reservationNoSelected);
+                        System.out.println("guestarray got");
+                        System.out.println(guestarray.size());
+                        String email = guestarray.get(0).getEmail();
+                        System.out.println("email got" + email);
+                        String roomType = control.getRoomType(res.getRoomNo());
+                        System.out.println("roomtype got");
+                        try
+                        {
+                            control.sendConfirmation(email, res, guestarray, roomType);
+                        }
+                        catch (MessagingException ex)
+                        {
+                            System.out.println("Messege sending failed");
+                            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -1423,19 +1442,23 @@ public class CasablancaResception extends javax.swing.JFrame
 
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaResception.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
