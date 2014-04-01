@@ -44,6 +44,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private int roomNo, reservationNo;
     private JLayeredPane currentPane;
     private int guestcounter = 0;
+    private int numberOfDays;
 
     /**
      * Creates new form CasablancaResception
@@ -760,6 +761,10 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
 
+        jTextFieldcheckin.setEditable(false);
+
+        jTextFieldnoOfnights.setEditable(false);
+
         javax.swing.GroupLayout jLayeredPaneEnterGuestInfoLayout = new javax.swing.GroupLayout(jLayeredPaneEnterGuestInfo);
         jLayeredPaneEnterGuestInfo.setLayout(jLayeredPaneEnterGuestInfoLayout);
         jLayeredPaneEnterGuestInfoLayout.setHorizontalGroup(
@@ -1086,7 +1091,7 @@ public class CasablancaResception extends javax.swing.JFrame
         startDate = null;
         endDate = null;
         bookingDate = c.getTime();
-        int numberOfDays = Integer.parseInt(jTextFieldNumberOfDays.getText());
+        numberOfDays = Integer.parseInt(jTextFieldNumberOfDays.getText());
 
         if (jTextFieldStartDate.getDate().before(jTextFieldStartDate.getMinSelectableDate()))
         {
@@ -1212,6 +1217,7 @@ public class CasablancaResception extends javax.swing.JFrame
         currentPane.setVisible(false);
         currentPane = jLayeredPaneEnterGuestInfo;
         currentPane.setVisible(true);
+        jTextFieldnoOfnights.setText(String.valueOf(numberOfDays));
         jTextFieldfName.setText("");
         jTextFieldlName.setText("");
         jTextFieldcheckin.setText(startDateStr);
