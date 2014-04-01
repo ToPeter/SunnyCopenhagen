@@ -296,7 +296,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="23" max="32767" attributes="0"/>
+                              <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabelShowTotalPrice" max="32767" attributes="0"/>
@@ -1053,16 +1053,16 @@
                               <Component id="lName" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="70" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane4" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane7" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane8" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane9" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane10" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane11" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="jScrollPane12" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextFieldfName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldlName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldAdress" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldcountry" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldphoneNo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldemail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldtrvlAgncy" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldcheckin" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldnoOfnights" alignment="0" pref="140" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1073,54 +1073,54 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="fName" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldfName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lName" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldlName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Address" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Address" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldAdress" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="country" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane7" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="country" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldcountry" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="phoneNo" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane8" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="phoneNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldphoneNo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="email" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane9" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldemail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="trvlAgncy" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane10" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="trvlAgncy" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldtrvlAgncy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="checkin" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane11" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="checkin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldcheckin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="noOfnights" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane12" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="noOfnights" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldnoOfnights" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="guestInfoSaveButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="102" max="32767" attributes="0"/>
+                  <EmptySpace pref="177" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1171,105 +1171,6 @@
             <Property name="text" type="java.lang.String" value="No. of nights"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="fNamePANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane5">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="lNamePANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="AddressPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane7">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="countryPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane8">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="phoneNoPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane9">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="emailPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane10">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="trvlAgncyPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane11">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="checkinPANE">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane12">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextPane" name="noOfnightsPANE">
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JButton" name="guestInfoSaveButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save"/>
@@ -1277,6 +1178,27 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guestInfoSaveButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldfName">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldlName">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldlNameActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldAdress">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldcountry">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldphoneNo">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldemail">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldtrvlAgncy">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldcheckin">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldnoOfnights">
         </Component>
       </SubComponents>
     </Container>
