@@ -10,21 +10,17 @@ import domain.Guest;
 import domain.Reservation;
 import domain.Room;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -152,25 +148,16 @@ public class CasablancaResception extends javax.swing.JFrame
         trvlAgncy = new javax.swing.JLabel();
         checkin = new javax.swing.JLabel();
         noOfnights = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        fNamePANE = new javax.swing.JTextPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        lNamePANE = new javax.swing.JTextPane();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        AddressPANE = new javax.swing.JTextPane();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        countryPANE = new javax.swing.JTextPane();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        phoneNoPANE = new javax.swing.JTextPane();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        emailPANE = new javax.swing.JTextPane();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        trvlAgncyPANE = new javax.swing.JTextPane();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        checkinPANE = new javax.swing.JTextPane();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        noOfnightsPANE = new javax.swing.JTextPane();
         guestInfoSaveButton = new javax.swing.JButton();
+        jTextFieldfName = new javax.swing.JTextField();
+        jTextFieldlName = new javax.swing.JTextField();
+        jTextFieldAdress = new javax.swing.JTextField();
+        jTextFieldcountry = new javax.swing.JTextField();
+        jTextFieldphoneNo = new javax.swing.JTextField();
+        jTextFieldemail = new javax.swing.JTextField();
+        jTextFieldtrvlAgncy = new javax.swing.JTextField();
+        jTextFieldcheckin = new javax.swing.JTextField();
+        jTextFieldnoOfnights = new javax.swing.JTextField();
         jLayeredPaneShowOpenReservations = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListOverDue = new javax.swing.JList();
@@ -333,7 +320,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addContainerGap(23, Short.MAX_VALUE))
+                        .addContainerGap(10, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))
@@ -756,30 +743,20 @@ public class CasablancaResception extends javax.swing.JFrame
 
         noOfnights.setText("No. of nights");
 
-        jScrollPane4.setViewportView(fNamePANE);
-
-        jScrollPane5.setViewportView(lNamePANE);
-
-        jScrollPane6.setViewportView(AddressPANE);
-
-        jScrollPane7.setViewportView(countryPANE);
-
-        jScrollPane8.setViewportView(phoneNoPANE);
-
-        jScrollPane9.setViewportView(emailPANE);
-
-        jScrollPane10.setViewportView(trvlAgncyPANE);
-
-        jScrollPane11.setViewportView(checkinPANE);
-
-        jScrollPane12.setViewportView(noOfnightsPANE);
-
         guestInfoSaveButton.setText("Save");
         guestInfoSaveButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 guestInfoSaveButtonActionPerformed(evt);
+            }
+        });
+
+        jTextFieldlName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jTextFieldlNameActionPerformed(evt);
             }
         });
 
@@ -805,60 +782,60 @@ public class CasablancaResception extends javax.swing.JFrame
                             .addComponent(Address)
                             .addComponent(lName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldfName)
+                            .addComponent(jTextFieldlName)
+                            .addComponent(jTextFieldAdress)
+                            .addComponent(jTextFieldcountry)
+                            .addComponent(jTextFieldphoneNo)
+                            .addComponent(jTextFieldemail)
+                            .addComponent(jTextFieldtrvlAgncy)
+                            .addComponent(jTextFieldcheckin)
+                            .addComponent(jTextFieldnoOfnights, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jLayeredPaneEnterGuestInfoLayout.setVerticalGroup(
             jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneEnterGuestInfoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fName)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lName)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldlName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Address)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(country)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldcountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneNo)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldphoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trvlAgncy)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldtrvlAgncy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkin)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldcheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jLayeredPaneEnterGuestInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(noOfnights)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldnoOfnights, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(guestInfoSaveButton)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jLayeredPaneEnterGuestInfo.setLayer(fName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(lName, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -869,16 +846,16 @@ public class CasablancaResception extends javax.swing.JFrame
         jLayeredPaneEnterGuestInfo.setLayer(trvlAgncy, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(checkin, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(noOfnights, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneEnterGuestInfo.setLayer(jScrollPane12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneEnterGuestInfo.setLayer(guestInfoSaveButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldfName, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldlName, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldAdress, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldcountry, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldphoneNo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldemail, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldtrvlAgncy, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldcheckin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneEnterGuestInfo.setLayer(jTextFieldnoOfnights, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jListOverDue.setForeground(new java.awt.Color(255, 51, 51));
         jListOverDue.setModel(new javax.swing.AbstractListModel()
@@ -1235,9 +1212,9 @@ public class CasablancaResception extends javax.swing.JFrame
         currentPane.setVisible(false);
         currentPane = jLayeredPaneEnterGuestInfo;
         currentPane.setVisible(true);
-        fNamePANE.setText("");
-        lNamePANE.setText("");
-        checkinPANE.setText(startDateStr);
+        jTextFieldfName.setText("");
+        jTextFieldlName.setText("");
+        jTextFieldcheckin.setText(startDateStr);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -1283,44 +1260,6 @@ public class CasablancaResception extends javax.swing.JFrame
         CasablancaResception.this.setPreferredSize(new Dimension(260, 440));
         CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
-    {//GEN-HEADEREND:event_guestInfoSaveButtonActionPerformed
-        // TODO add your handling code here:
-        Random ran = new Random();
-        String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
-        System.out.println(guestNo);
-        int password = ran.nextInt(9000) + 1000;
-
-        control.createGuest(reservationNo, guestNo, password, fNamePANE.getText(), lNamePANE.getText(),
-                AddressPANE.getText(), countryPANE.getText(), Integer.parseInt(phoneNoPANE.getText()), emailPANE.getText(), trvlAgncyPANE.getText());
-
-        control.commit();
-        guestcounter++;
-
-        if (guestcounter < numOfGuest)
-        {
-            jButton3ActionPerformed(evt);
-        }
-        else
-        {
-
-            guestcounter = 0;
-            currentPane.setVisible(false);
-            currentPane = jLayeredPaneSearchRoome;
-            currentPane.setVisible(true);
-//            try
-//            { String email= control.getGuests(reservationNo).get(0).getEmail();
-//              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
-//            }
-//            catch (MessagingException ex)
-//            {System.out.println("Messege sending failed");
-//                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        }
-
-
-    }//GEN-LAST:event_guestInfoSaveButtonActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
@@ -1421,6 +1360,48 @@ public class CasablancaResception extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextFieldStartDateFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldStartDateFocusLost
+
+    private void jTextFieldlNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldlNameActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldlNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldlNameActionPerformed
+
+    private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
+    {//GEN-HEADEREND:event_guestInfoSaveButtonActionPerformed
+        // TODO add your handling code here:
+        Random ran = new Random();
+        String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
+        System.out.println(guestNo);
+        int password = ran.nextInt(9000) + 1000;
+
+        control.createGuest(reservationNo, guestNo, password, jTextFieldfName.getText(), jTextFieldlName.getText(),
+            jTextFieldAdress.getText(), jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText(), jTextFieldtrvlAgncy.getText());
+
+        control.commit();
+        guestcounter++;
+
+        if (guestcounter < numOfGuest)
+        {
+            jButton3ActionPerformed(evt);
+        }
+        else
+        {
+
+            guestcounter = 0;
+            currentPane.setVisible(false);
+            currentPane = jLayeredPaneSearchRoome;
+            currentPane.setVisible(true);
+            //            try
+            //            { String email= control.getGuests(reservationNo).get(0).getEmail();
+                //              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
+                //            }
+            //            catch (MessagingException ex)
+            //            {System.out.println("Messege sending failed");
+                //                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+                //            }
+        }
+
+    }//GEN-LAST:event_guestInfoSaveButtonActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1510,15 +1491,10 @@ public class CasablancaResception extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Address;
-    private javax.swing.JTextPane AddressPANE;
     private javax.swing.JLabel checkin;
-    private javax.swing.JTextPane checkinPANE;
     private javax.swing.JLabel country;
-    private javax.swing.JTextPane countryPANE;
     private javax.swing.JLabel email;
-    private javax.swing.JTextPane emailPANE;
     private javax.swing.JLabel fName;
-    private javax.swing.JTextPane fNamePANE;
     private javax.swing.JButton guestInfoSaveButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1582,34 +1558,30 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextArea jTextAreaReservationInfo;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldAdress;
     private javax.swing.JTextField jTextFieldNumberOfDays;
     private javax.swing.JTextField jTextFieldReservationInfoSearch;
     private com.toedter.calendar.JDateChooser jTextFieldStartDate;
+    private javax.swing.JTextField jTextFieldcheckin;
+    private javax.swing.JTextField jTextFieldcountry;
+    private javax.swing.JTextField jTextFieldemail;
+    private javax.swing.JTextField jTextFieldfName;
+    private javax.swing.JTextField jTextFieldlName;
+    private javax.swing.JTextField jTextFieldnoOfnights;
+    private javax.swing.JTextField jTextFieldphoneNo;
+    private javax.swing.JTextField jTextFieldtrvlAgncy;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lName;
-    private javax.swing.JTextPane lNamePANE;
     private javax.swing.JLabel noOfnights;
-    private javax.swing.JTextPane noOfnightsPANE;
     private javax.swing.JLabel phoneNo;
-    private javax.swing.JTextPane phoneNoPANE;
     private javax.swing.JLabel trvlAgncy;
-    private javax.swing.JTextPane trvlAgncyPANE;
     // End of variables declaration//GEN-END:variables
 }
