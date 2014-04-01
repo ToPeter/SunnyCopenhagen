@@ -154,12 +154,10 @@ public class DataMapper implements DataMapperInterface
         ArrayList<Room> roomAvailableList = new ArrayList();
         Room tempRoom;
         String SQLString = // get roomavailable
-                "select * from room r "
-                + "WHERE Type = '" + type + "' AND r.Roomno NOT IN "
-                + "(SELECT re.roomno FROM Reservation re "
-                + "where roomNo=r.roomNo AND fromdate<? AND roomno in("
-                + "select roomno from reservation where endDate >?))order by roomno";
-
+                "select * from room"
+                + " WHERE Type = '" + type + "' AND Roomno NOT IN "
+                + "(SELECT roomno FROM Reservation "
+                + " where fromdate < ? AND endDate >?)order by roomno ";
         PreparedStatement statement = null;
 
         try

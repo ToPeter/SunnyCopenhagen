@@ -1389,7 +1389,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         Reservation res = control.getReservation(reservationNoSelected);
                         ArrayList<Guest> guestarray = control.getGuests(reservationNoSelected);
                         System.out.println("guestarray got");
-                        System.out.println(guestarray.size());
+                       System.out.println(guestarray.size());
                         String email = guestarray.get(0).getEmail();
                         System.out.println("email got" + email);
                         String roomType = control.getRoomType(res.getRoomNo());
