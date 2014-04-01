@@ -199,7 +199,7 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
 
-        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\Milkman\\Desktop\\sc.JPG")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentation/sc.JPG"))); // NOI18N
         jLabel15.setText("jLabel15");
 
         jLabel16.setText("HotelSys is a product of");
