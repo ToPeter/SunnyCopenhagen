@@ -56,7 +56,7 @@ public class CasablancaResception extends javax.swing.JFrame
         Calendar c = Calendar.getInstance();
         today = c.getTime();
 
-        initComponents();
+        initComponents();        
         jLayeredPaneReservation.setVisible(false);
         jLayeredPaneReservationInfo.setVisible(false);
         jLayeredPaneSearchGuest.setVisible(false);
@@ -243,6 +243,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(null);
+        setPreferredSize(new java.awt.Dimension(575, 400));
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosing(java.awt.event.WindowEvent evt)
@@ -680,23 +681,23 @@ public class CasablancaResception extends javax.swing.JFrame
             .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSeachReservationNo))
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSeachReservationNo)))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
         jLayeredPaneReservationInfoLayout.setVerticalGroup(
             jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneReservationInfoLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addContainerGap()
                 .addGroup(jLayeredPaneReservationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSeachReservationNo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jLayeredPaneReservationInfo.setLayer(jButtonSeachReservationNo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneReservationInfo.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -755,7 +756,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jLayeredPaneSearchGuestLayout.setHorizontalGroup(
             jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneSearchGuestLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addGroup(jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
@@ -764,7 +765,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jLayeredPaneSearchGuestLayout.setVerticalGroup(
             jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneSearchGuestLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -951,7 +952,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jLayeredPaneShowOpenReservationsLayout.setHorizontalGroup(
             jLayeredPaneShowOpenReservationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneShowOpenReservationsLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
                 .addGroup(jLayeredPaneShowOpenReservationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addComponent(jLabel13)
@@ -959,12 +960,12 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addComponent(jButtonFindOpenReservations)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                         .addComponent(jScrollPane14)))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
         jLayeredPaneShowOpenReservationsLayout.setVerticalGroup(
             jLayeredPaneShowOpenReservationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneShowOpenReservationsLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap()
                 .addComponent(jButtonFindOpenReservations)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
@@ -974,7 +975,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addComponent(jLabel13)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jLayeredPaneShowOpenReservations.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneShowOpenReservations.setLayer(jButtonFindOpenReservations, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1278,6 +1279,8 @@ public class CasablancaResception extends javax.swing.JFrame
         currentPane.setVisible(false);
         currentPane = jLayeredPaneEnterGuestInfo;
         currentPane.setVisible(true);
+        CasablancaResception.this.setPreferredSize(new Dimension(350, 570));
+        CasablancaResception.this.pack();
         jTextFieldnoOfnights.setText(String.valueOf(numberOfDays));
         jTextFieldfName.setText("");
         jTextFieldlName.setText("");
@@ -1355,7 +1358,9 @@ public class CasablancaResception extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
         currentPane.setVisible(false);
         currentPane = jLayeredPaneShowOpenReservations;
-        jLayeredPaneShowOpenReservations.setVisible(true);
+        currentPane.setVisible(true);
+        CasablancaResception.this.setPreferredSize(new Dimension(350, 470));
+        CasablancaResception.this.pack();
         getOpenReservations();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
