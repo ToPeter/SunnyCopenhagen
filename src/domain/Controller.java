@@ -2,8 +2,12 @@ package domain;
 
 import MailSender.Mail;
 import dataSource.DBFacade;
+import dataSource.DBFacadeForFacility;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import javax.mail.MessagingException;
 
 public class Controller
@@ -15,15 +19,17 @@ public class Controller
     private final DBFacade facade;
     private ArrayList<Guest> guests;
     private Mail mailsender;
-
+    private final DBFacadeForFacility facadeF;
     public Controller()
     {
         processingGuest = false;
         processingReservation = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
+        facadeF = DBFacadeForFacility.getInstance();
         mailsender = new Mail();
         currentReservation = null;
+    
     }
 
     public Reservation getReservation(int reservationNo)
@@ -203,4 +209,23 @@ public class Controller
         return result;
     }
 
+public ArrayList<Booking> getBookedfac(String type, Date bookingdate, int bookingtime)
+{ return facadeF.getBookedfac(type, bookingdate, bookingtime);
 }
+
+public int remaingPlace(String type, Date bookingdate, int bookingtime,int facid)
+{ ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime);
+int answer=facadeF.getMaxUsers(facid);    
+for (int i = 0; i < booking.size(); i++)
+    {
+        Booking booking1 = booking.get(i);
+        if(booking1.getFacilityId()==facid)
+        {answer=booking1.getMaxUsers()-booking1.getBookedNumOfUsers();
+        return answer;
+        }
+    }
+
+return answer;
+}
+        
+        }
