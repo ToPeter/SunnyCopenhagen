@@ -100,7 +100,8 @@ public class DataMapper implements DataMapperInterface
         String SQLString = // get reservation
                 "select * "
                 + "from reservation "
-                + "where DepositPaid =? ";
+                + "where DepositPaid =? "
+                + "order by reservationno ";
         PreparedStatement statement = null;
 
         try
