@@ -259,5 +259,22 @@ for (int i = 0; i < booking.size(); i++)
 
 return answer;
 }
+      
+
+
+
+public ArrayList<Facility> getfacilitylist (String type)
+{return facadeF.getfacilitylist(type);
+
+}
         
+public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
+{ return facadeF.getFacArrayForJlist(type, bookingdate, bookingtime);
+    }
+
+   public String getString(Facility fac)
+    {
+        return "FacilityID: " +  fac.getFacID() + "   Minimum user: " + fac.getMinUsers() + "   Max user: " + fac.getMaxUsers()+"   Room remaining: "+fac.roomRemaining;
+    }
+
         }

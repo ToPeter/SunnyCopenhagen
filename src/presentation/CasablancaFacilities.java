@@ -6,20 +6,32 @@
 
 package presentation;
 
+import domain.Controller;
+import domain.Facility;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Milkman
  */
 public class CasablancaFacilities extends javax.swing.JFrame
-{
+{    
+
 
     /**
      * Creates new form CasablancaFacilities
      */
     private int facilityType = 0;
+    private DefaultListModel model;
+    private Controller control;
+  
     public CasablancaFacilities()
     {
         initComponents();
+    model = new DefaultListModel();
+    control=new Controller();
     }
 
     /**
@@ -40,6 +52,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListAvailableFacilities = new javax.swing.JList();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +89,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jScrollPane1.setViewportView(jListAvailableFacilities);
 
+        jButton1.setText("Show");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,8 +117,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(195, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton1)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,12 +133,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
                     .addComponent(jDateChooserFacilityBooking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxFacilityType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,6 +157,40 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextFieldFacilityBookingHourActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFacilityBookingHourActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+
+        String type=null;
+        int typeIndex=jComboBoxFacilityType.getSelectedIndex();
+        System.out.println("typeindes = "+typeIndex);
+      Date dd =  jDateChooserFacilityBooking.getDate();
+        //"Tennis", "Badminton", "Volleyball", "Handball", "Fitness"
+        if(typeIndex==0)
+        {type="tennis";}
+        else if (typeIndex==1)
+        {type="badminton";}
+        else if(typeIndex==2)
+        {type="volleyball"; }
+        else if(typeIndex==3)
+        {type="handball";}
+        else if(typeIndex==4)
+        {type="fitness";}
+        
+        int hour = Integer.parseInt(jTextFieldFacilityBookingHour.getText());
+        System.out.println("type=" +type);
+        System.out.println(dd.toString());
+        System.out.println(hour);
+  ArrayList<Facility> facArray= control.getFacArrayForJlist(type,dd, hour);
+        for (int i = 0; i < facArray.size(); i++)
+        {
+            Facility facility = facArray.get(i);
+            String facstring=control.getString(facility);
+            model.addElement(facstring);
+        }
+  jListAvailableFacilities.setModel(model);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +242,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBoxFacilityType;
     private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking;
     private javax.swing.JLabel jLabel1;
