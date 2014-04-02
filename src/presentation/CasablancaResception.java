@@ -381,7 +381,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addContainerGap(23, Short.MAX_VALUE))
+                        .addContainerGap(10, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))
@@ -1460,6 +1460,8 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane.setVisible(false);
             currentPane = jLayeredPaneSearchRoome;
             currentPane.setVisible(true);
+            CasablancaResception.this.setPreferredSize(new Dimension(575, 400));
+            CasablancaResception.this.pack();
             //            try
             //            { String email= control.getGuests(reservationNo).get(0).getEmail();
             //              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
