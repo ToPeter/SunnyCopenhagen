@@ -42,4 +42,10 @@ public interface DataMapperInterface
     boolean updateDeposit(ArrayList<Reservation> reservation, Connection con) throws SQLException;
 
     String getRoomType(int roomNo, Connection con);
+
+    public boolean getGuestInfo(String userName, String password, Connection con);
+
+    public boolean getEmpInfo(String userName, String password, Connection con);
+
+   
 }

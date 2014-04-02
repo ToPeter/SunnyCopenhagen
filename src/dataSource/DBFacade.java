@@ -82,26 +82,6 @@ public class DBFacade
         return dm.getreservationDepositNotPaid(con);
     }
 
-    public String getReservationString(int reservationNo)
-    {
-        Reservation lookedUpReservation;
-        ArrayList<Guest> lookedUpGuestarray;
-        String guestsString = "";
-        String resultString;
-
-        lookedUpReservation = dm.getreservation(reservationNo, con);
-        lookedUpGuestarray = dm.getGuests(reservationNo, con);
-        for (int i = 0; i < lookedUpGuestarray.size(); i++)
-        {
-            int guestNo = i + 1;
-            guestsString += "Guest " + guestNo + "\n"
-                    + lookedUpGuestarray.get(i).toString();
-        }
-        resultString = lookedUpReservation + guestsString;
-
-        return resultString;
-    }
-
     public void startProcessGuestBusinessTransaction()
     {
         unitOfWork = new UnitOfWorkForGuest(dm);
@@ -181,5 +161,46 @@ public class DBFacade
         
         return true;
     }
-   
+
+  
+       
+
+ 
+
+    public boolean getGuestInfo(String userName, String password)
+    {
+        return dm.getGuestInfo(userName, password,con);
+       
+    }
+    
+    
+
+    public String getReservationString(int reservationNo)
+    {
+        Reservation lookedUpReservation;
+        ArrayList<Guest> lookedUpGuestarray;
+        String guestsString = "";
+        String resultString;
+
+        lookedUpReservation = dm.getreservation(reservationNo, con);
+        lookedUpGuestarray = dm.getGuests(reservationNo, con);
+        for (int i = 0; i < lookedUpGuestarray.size(); i++)
+        {
+            int guestNo = i + 1;
+            guestsString += "Guest " + guestNo + "\n"
+                    + lookedUpGuestarray.get(i).toString();
+        }
+        resultString = lookedUpReservation + guestsString;
+
+        return resultString;
+    }
+
+    
+    public boolean getEmpInfo(String userName, String password)
+    {
+       return dm.getEmpInfo(userName, password,con);
+    }
+
+ 
+
 }

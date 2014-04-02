@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -623,4 +624,80 @@ public class DataMapper implements DataMapperInterface
         return nextReservationNo;
     }
 
-}
+    @Override
+    public boolean getGuestInfo(String userName, String password, Connection conn)
+    {
+       Boolean result = false;
+       HashMap<String, String> logIn = new HashMap<>();
+       String SQLString = "select guestno from guest where password = ? and guestno = ?";
+       PreparedStatement statement = null;
+       
+        try
+        {
+            statement = conn.prepareStatement(SQLString);
+            statement.setString(1, password);
+            statement.setString(2, userName);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next())
+            {
+                result = true;
+            }
+            
+            
+          
+            
+        }
+        
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_Guest");
+            System.out.println(e.getMessage());
+        }
+       
+        
+        return result;
+        
+    }
+
+    @Override
+    public boolean getEmpInfo(String userName, String password, Connection conn)
+    {
+       Boolean result = false;
+       String SQLString = "select empid from employee where password = ? and empid = ?";
+       PreparedStatement statement = null;
+       
+        try
+        {
+            statement = conn.prepareStatement(SQLString);
+            statement.setString(1, password);
+            statement.setString(2, userName);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next())
+            {
+                result = true;
+            }
+            
+            
+          
+            
+        }
+        
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_EMP");
+            System.out.println(e.getMessage());
+        }
+       
+        
+        return result;
+        
+    }
+    
+    
+
+    }
+
+   
+

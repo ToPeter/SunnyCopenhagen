@@ -197,11 +197,7 @@ public class Controller
     public boolean getCurrentReservation(int reservationNoSelected)
     {
         boolean result = false;
-        if (processingReservation)
-        {
-            return result;
-        }
-
+      
         facade.startProcessOrderBusinessTransaction();
 
         currentReservation = facade.getReservation(reservationNoSelected);
@@ -209,12 +205,48 @@ public class Controller
         return result;
     }
 
-public ArrayList<Booking> getBookedfac(String type, Date bookingdate, int bookingtime)
-{ return facadeF.getBookedfac(type, bookingdate, bookingtime);
-}
+   
+ 
+
+    public Boolean checkLogInForGuest(String userName, String password)
+    {
+        Boolean result = false;
+       try {
+           
+        facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
+        result = facade.getGuestInfo(userName, password);
+          } 
+       
+     catch (Exception e)
+            {
+                e.getMessage();
+            }
+        
+        return result;
+    }
+
+
+
+    public Boolean checkLogInForEmp(String userName, String password)
+    {
+        Boolean result = false;
+       try {
+           
+        facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
+        result = facade.getEmpInfo(userName, password);
+          } 
+       
+     catch (Exception e)
+            {
+                e.getMessage();
+            }
+        
+        return result;
+    }
+
 
 public int remaingPlace(String type, Date bookingdate, int bookingtime,int facid)
-{ ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime);
+{ ArrayList<Booking> booking = facadeF.getBookedfac(type, bookingdate, bookingtime);
 int answer=facadeF.getMaxUsers(facid);    
 for (int i = 0; i < booking.size(); i++)
     {
