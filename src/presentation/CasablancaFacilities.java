@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package presentation;
 
 import domain.Controller;
@@ -17,8 +16,7 @@ import javax.swing.DefaultListModel;
  * @author Milkman
  */
 public class CasablancaFacilities extends javax.swing.JFrame
-{    
-
+{
 
     /**
      * Creates new form CasablancaFacilities
@@ -26,12 +24,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private int facilityType = 0;
     private DefaultListModel model;
     private Controller control;
-  
+
     public CasablancaFacilities()
     {
         initComponents();
-    model = new DefaultListModel();
-    control=new Controller();
+        model = new DefaultListModel();
+        control = new Controller();
     }
 
     /**
@@ -149,7 +147,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jComboBoxFacilityTypeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxFacilityTypeActionPerformed
     {//GEN-HEADEREND:event_jComboBoxFacilityTypeActionPerformed
         // TODO add your handling code here:
-        facilityType=jComboBoxFacilityType.getSelectedIndex();
+        facilityType = jComboBoxFacilityType.getSelectedIndex();
         System.out.println(facilityType);
     }//GEN-LAST:event_jComboBoxFacilityTypeActionPerformed
 
@@ -160,35 +158,45 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-
-        String type=null;
-        int typeIndex=jComboBoxFacilityType.getSelectedIndex();
-        System.out.println("typeindes = "+typeIndex);
-      Date dd =  jDateChooserFacilityBooking.getDate();
+        model.clear();
+        String type = null;
+        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
+        System.out.println("typeindes = " + typeIndex);
+        Date dd = jDateChooserFacilityBooking.getDate();
         //"Tennis", "Badminton", "Volleyball", "Handball", "Fitness"
-        if(typeIndex==0)
-        {type="tennis";}
-        else if (typeIndex==1)
-        {type="badminton";}
-        else if(typeIndex==2)
-        {type="volleyball"; }
-        else if(typeIndex==3)
-        {type="handball";}
-        else if(typeIndex==4)
-        {type="fitness";}
-        
+        if (typeIndex == 0)
+        {
+            type = "tennis";
+        }
+        else if (typeIndex == 1)
+        {
+            type = "badminton";
+        }
+        else if (typeIndex == 2)
+        {
+            type = "volleyball";
+        }
+        else if (typeIndex == 3)
+        {
+            type = "handball";
+        }
+        else if (typeIndex == 4)
+        {
+            type = "fitness";
+        }
+
         int hour = Integer.parseInt(jTextFieldFacilityBookingHour.getText());
-        System.out.println("type=" +type);
+        System.out.println("type=" + type);
         System.out.println(dd.toString());
         System.out.println(hour);
-  ArrayList<Facility> facArray= control.getFacArrayForJlist(type,dd, hour);
+        ArrayList<Facility> facArray = control.getFacArrayForJlist(type, dd, hour);
         for (int i = 0; i < facArray.size(); i++)
         {
             Facility facility = facArray.get(i);
-            String facstring=control.getString(facility);
+            String facstring = control.getString(facility);
             model.addElement(facstring);
         }
-  jListAvailableFacilities.setModel(model);
+        jListAvailableFacilities.setModel(model);
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -212,20 +220,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
