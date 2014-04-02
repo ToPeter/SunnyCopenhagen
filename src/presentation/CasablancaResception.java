@@ -20,8 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
@@ -56,7 +54,7 @@ public class CasablancaResception extends javax.swing.JFrame
         Calendar c = Calendar.getInstance();
         today = c.getTime();
 
-        initComponents();        
+        initComponents();
         jLayeredPaneReservation.setVisible(false);
         jLayeredPaneReservationInfo.setVisible(false);
         jLayeredPaneSearchGuest.setVisible(false);
@@ -188,7 +186,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jDialog1.setMinimumSize(new java.awt.Dimension(594, 334));
         jDialog1.setModal(true);
         jDialog1.setName("About"); // NOI18N
-        jDialog1.setPreferredSize(new java.awt.Dimension(594, 334));
 
         jButton5.setText("Close");
         jButton5.addActionListener(new java.awt.event.ActionListener()
@@ -429,6 +426,13 @@ public class CasablancaResception extends javax.swing.JFrame
             public Object getElementAt(int i) { return strings[i]; }
         });
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jButton2.setText("Book");
@@ -1400,7 +1404,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         Reservation res = control.getReservation(reservationNoSelected);
                         ArrayList<Guest> guestarray = control.getGuests(reservationNoSelected);
                         System.out.println("guestarray got");
-                       System.out.println(guestarray.size());
+                        System.out.println(guestarray.size());
                         String email = guestarray.get(0).getEmail();
                         System.out.println("email got" + email);
                         String roomType = control.getRoomType(res.getRoomNo());
@@ -1440,7 +1444,7 @@ public class CasablancaResception extends javax.swing.JFrame
         int password = ran.nextInt(9000) + 1000;
 
         control.createGuest(reservationNo, guestNo, password, jTextFieldfName.getText(), jTextFieldlName.getText(),
-            jTextFieldAdress.getText(), jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText(), jTextFieldtrvlAgncy.getText());
+                jTextFieldAdress.getText(), jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText(), jTextFieldtrvlAgncy.getText());
 
         control.commit();
         guestcounter++;
@@ -1458,12 +1462,12 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane.setVisible(true);
             //            try
             //            { String email= control.getGuests(reservationNo).get(0).getEmail();
-                //              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
-                //            }
+            //              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
+            //            }
             //            catch (MessagingException ex)
             //            {System.out.println("Messege sending failed");
-                //                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
+            //                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+            //            }
         }
 
     }//GEN-LAST:event_guestInfoSaveButtonActionPerformed
@@ -1480,6 +1484,29 @@ public class CasablancaResception extends javax.swing.JFrame
         // TODO add your handling code here:
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jList1MouseClicked
+    {//GEN-HEADEREND:event_jList1MouseClicked
+        if (evt.getClickCount() == 2)
+        {
+            depositPaid = 0;
+            int jListSelectedIndex = jList1.getSelectedIndex();
+            Object roomNoSelected = model.getElementAt(jListSelectedIndex);
+            roomNo = Integer.parseInt(roomNoSelected.toString());
+            jLabelShowRoomChosen.setText(roomNoSelected.toString());
+            currentPane.setVisible(false);
+            jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
+            jLabelToDate.setText(endDateStr);
+            jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
+            jLabelShowType.setText(type);
+            jLabelPriceReservation.setText(Integer.toString(totalPriceForRoom));
+            reservationNo = control.getNextReservationNo();
+            jLabelReservationNo.setText(Integer.toString(reservationNo));
+            currentPane = jLayeredPaneReservation;
+            currentPane.setVisible(true);
+            boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
     /**
      * @param args the command line arguments
      */
