@@ -385,7 +385,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="10" max="32767" attributes="0"/>
+                              <EmptySpace pref="1" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabelShowTotalPrice" max="32767" attributes="0"/>
@@ -1117,14 +1117,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="guestInfoSaveButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="fName" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="noOfnights" min="-2" max="-2" attributes="0"/>
@@ -1136,36 +1132,59 @@
                               <Component id="Address" min="-2" max="-2" attributes="0"/>
                               <Component id="lName" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="70" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldfName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldlName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldAdress" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldcountry" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldphoneNo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldemail" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldtrvlAgncy" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldcheckin" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldnoOfnights" alignment="0" pref="140" max="32767" attributes="0"/>
+                          <EmptySpace pref="78" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jTextFieldID" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldfFirstName" min="-2" pref="140" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jTextFieldlLastName" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldAdress" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldcountry" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldphoneNo" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldemail" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldtrvlAgncy" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldcheckin" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldnoOfnights" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="guestInfoSaveButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="fName1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="143" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fName1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="fName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldfName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldfFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldlName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldlLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1202,9 +1221,9 @@
                       <Component id="noOfnights" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldnoOfnights" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="guestInfoSaveButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="177" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1263,11 +1282,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guestInfoSaveButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldfName">
+        <Component class="javax.swing.JTextField" name="jTextFieldfFirstName">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldlName">
+        <Component class="javax.swing.JTextField" name="jTextFieldlLastName">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldlNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldlLastNameActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldAdress">
@@ -1289,6 +1308,13 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fName1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID/ Passport/ CPR-Nr."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldID">
         </Component>
       </SubComponents>
     </Container>

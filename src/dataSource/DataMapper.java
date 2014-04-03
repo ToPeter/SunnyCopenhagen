@@ -421,12 +421,7 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(2),
                         rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getInt(8),
-                        rs.getString(9),
-                        rs.getString(10));
+                        rs.getInt(5));
                 guestList.add(guest);
             }
 
@@ -473,7 +468,7 @@ public class DataMapper implements DataMapperInterface
     {
 
         int rowsInserted = 0;
-        String SQLString = "insert into guest values (?,?,?,?,?,?,?,?,?,?)";
+        String SQLString = "insert into guest values (?,?,?,?,?)";
 
         PreparedStatement statement = null;
         statement = con.prepareStatement(SQLString);
@@ -483,21 +478,19 @@ public class DataMapper implements DataMapperInterface
 
             Guest guest = guestList.get(i);
 
-            System.out.println("printing guest: " + guest.toString());
 
             statement.setInt(1, guest.getReservationNo());
             statement.setString(2, guest.getGuestNo());
             statement.setInt(3, guest.getPassword());
-            statement.setString(4, guest.getGuestFirstName());
-            statement.setString(5, guest.getGuestFamilyName());
-            statement.setString(6, guest.getAddress());
-            statement.setString(7, guest.getCountry());
-            statement.setInt(8, guest.getPhoneNo());
-            statement.setString(9, guest.getEmail());
-            statement.setString(10, guest.getAgency());
-
-            System.out.println("printing statement " + rowsInserted);
+            statement.setString(4, guest.getAgency());
+            statement.setInt(5, guest.getId());
+            
+            System.out.println(guest.toString());
+            
             rowsInserted = statement.executeUpdate();
+            
+            
+            System.out.println("printing statement " + rowsInserted);
 
             System.out.println("inserted row: " + rowsInserted);
 

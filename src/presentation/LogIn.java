@@ -73,6 +73,7 @@ public class LogIn extends javax.swing.JFrame
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\pc\\Documents\\NetBeansProjects\\SunnyCopenhagen\\key_icon.png")); // NOI18N
         jButton1.setText("LogIn");
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {
@@ -108,7 +109,7 @@ public class LogIn extends javax.swing.JFrame
                         .addComponent(jLabelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(156, 156, 156)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

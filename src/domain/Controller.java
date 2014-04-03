@@ -108,8 +108,7 @@ public class Controller
         return currentGuest;
     }
 
-    public Guest createGuest(int reservationNo, String guestNo, int password, String guestFirstName, String guestFamilyName,
-            String address, String country, int phone, String email, String agency)
+    public Guest createGuest(int reservationNo, String guestNo, int password, String agency, int id)
     {
         if (processingGuest)
         {
@@ -123,7 +122,7 @@ public class Controller
         {
             processingGuest = true;
 
-            currentGuest = new Guest(reservationNo, guestNo, password, guestFirstName, guestFamilyName, address, country, phone, email, agency); //THIS LINE WAS FOR TESTING
+            currentGuest = new Guest(reservationNo, guestNo,password, agency,id); //THIS LINE WAS FOR TESTING
             facade.registerNewGuest(currentGuest);
             processingGuest = false;
         }
