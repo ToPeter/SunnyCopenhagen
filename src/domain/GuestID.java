@@ -38,7 +38,7 @@ public class GuestID
         this.guestFamilyName = guestFamilyName;
         this.address = address;
         this.country = country;
-        this.phoneNo = phoneNo;
+        this.phoneNo = phone;
         this.email = email;
 
         //   this.guestDetails = new ArrayList<>();

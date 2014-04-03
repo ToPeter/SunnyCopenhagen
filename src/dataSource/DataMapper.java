@@ -397,14 +397,14 @@ public class DataMapper implements DataMapperInterface
 // Retrieve a specific order and related order details
 // Returns the Order-object
 
-    public ArrayList<Guest> getGuests(int reservationNo, Connection con)
+    @Override
+    public GuestID getGuest(int id, Connection con)
     {
-        ArrayList<Guest> guestList = new ArrayList<>();
-        Guest guest = null;
+        GuestID guestID = null;
         String SQLString1 = // get order
-                "select * "
-                + "from guest "
-                + "where reservationNo = ?";
+                   "select * "
+                + "from GUESTID "
+                + "where GUESTID = ? ";
 
         PreparedStatement statement = null;
 
@@ -412,30 +412,30 @@ public class DataMapper implements DataMapperInterface
         {
             //=== get order
             statement = con.prepareStatement(SQLString1);
-            statement.setInt(1, reservationNo);
+            statement.setInt(1, id);
 
             ResultSet rs = statement.executeQuery();
-            while (rs.next())
+            if (rs.next())
             {
-                guest = new Guest(rs.getInt(1),
+                guestID = new GuestID(
+                        rs.getInt(1),
                         rs.getString(2),
-                        rs.getInt(3),
+                        rs.getString(3),
                         rs.getString(4),
-                        rs.getInt(5));
-                guestList.add(guest);
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7));
+               
             }
 
         }
         catch (Exception e)
         {
-            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println("Fail in OrderMapper - getGuest");
             System.out.println(e.getMessage());
         }
-        if (testRun)
-        {
-            System.out.println("Retrieved Order: " + guestList.toString());
-        }
-        return guestList;
+       
+        return guestID;
     }
 
 //commented out because guestno is reservationno-1,2,3.... don't need to connect DB
@@ -466,7 +466,7 @@ public class DataMapper implements DataMapperInterface
     @Override
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
     {
-
+        System.out.println("inside insertGuest, size = "+guestList.size());
         int rowsInserted = 0;
         String SQLString = "insert into guest values (?,?,?,?,?)";
 
@@ -478,7 +478,8 @@ public class DataMapper implements DataMapperInterface
 
             Guest guest = guestList.get(i);
 
-
+            System.out.println("printing current guest in insertGuest: "+guest.toString());
+            
             statement.setInt(1, guest.getReservationNo());
             statement.setString(2, guest.getGuestNo());
             statement.setInt(3, guest.getPassword());
@@ -746,9 +747,7 @@ public class DataMapper implements DataMapperInterface
             
             String SQLString = "insert into guestid values (?,?,?,?,?,?,?)";
             
-            GuestID test = guestListID.get(0);
-            System.out.println("geust print> "+test.toString());
-            
+                       
             PreparedStatement statement = null;
             statement = con.prepareStatement(SQLString);
             

@@ -29,7 +29,7 @@ public interface DataMapperInterface
 
     int[] getPriceList(Connection con);
 
-    ArrayList<Guest> getGuests(int reservationNo, Connection con);
+    GuestID getGuest(int guestid, Connection con);
 
     int getNextReservationNo(Connection con);
 
