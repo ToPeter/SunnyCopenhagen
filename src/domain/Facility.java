@@ -34,6 +34,16 @@ public class Facility
         this.maxUsers = maxUsers;
     }
 
+    public int getRoomRemaining()
+    {
+        return roomRemaining;
+    }
+
+    public void setRoomRemaining(int roomRemaining)
+    {
+        this.roomRemaining = roomRemaining;
+    }
+
     public int getFacID()
     {
         return facID;

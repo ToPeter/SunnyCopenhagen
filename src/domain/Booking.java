@@ -78,6 +78,12 @@ public class Booking
         return facilityId;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Booking{" + "bookingId=" + bookingId + ", bookedNumOfUsers=" + bookedNumOfUsers + ", maxUsers=" + maxUsers + ", type=" + type + ", facilityId=" + facilityId + ", bookingdate=" + bookingdate + ", bookingtime=" + bookingtime + '}';
+    }
+
     public void setFacilityId(int facilityId)
     {
         this.facilityId = facilityId;

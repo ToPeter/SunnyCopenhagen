@@ -25,7 +25,7 @@ private static DBFacadeForFacility instance;
 
     public DBFacadeForFacility()
     {
-        con = DBConnector.getConnection();
+        con = new DBConnector().getConnection();
         facilityMapper = new DataMapperForFacility(con);
     }
      
@@ -46,22 +46,15 @@ public int getMaxUsers(int facId)
 
 public ArrayList<Facility> getfacilitylist (String type)
 {return facilityMapper.getfacilitylist (type,con);}
-
+public int getnextbookingno()
+{return facilityMapper.getNextBookingNo(con);}
+public int getbookingno(int facId, Date bookingdate, int bookingtime)
+{return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);}
+public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
+{ return facilityMapper.createFacilityBooking(facility, guestNo,bookingdate, bookingtime, inno, con);}
 
 public int remaingPlace(String type, Date bookingdate, int bookingtime,int facid)
-{ ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime);
-int answer=getMaxUsers(facid);    
-for (int i = 0; i < booking.size(); i++)
-    {
-        Booking booking1 = booking.get(i);
-        if(booking1.getFacilityId()==facid)
-        {answer=booking1.getMaxUsers()-booking1.getBookedNumOfUsers();
-        return answer;
-        }
-    }
-
-return answer;
-}
+{ return facilityMapper.remaingPlace(type, bookingdate, bookingtime, facid);}
 
 public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
 { 
@@ -79,6 +72,12 @@ public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, in
        System.out.println(result.toString());
        return result;
 }
+
+
+
+
+
+
 }
 
 

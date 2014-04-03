@@ -7,6 +7,7 @@ package dataSource;
 
 import domain.Booking;
 import domain.Facility;
+import domain.Reservation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,12 +47,16 @@ public class DataMapperForFacility
         String SQLString
                 = "select  bs.bookingid, count(bs.bookingid), T.Max_Users, t.type, f.id, b.bookingdate, b.bookingtime "
                 + "from bookingstatus bs, type t, facility f, booking b "
-                + "where f.type=t.type and f.id=b.facilityid and b.bookingid=bs.bookingid and t.type='" + type + "' and bookingdate='" + sqlbookingdate + "' and bookingtime='" + bookingtime + "' "
+                + "where f.type=t.type and f.id=b.facilityid and b.bookingid=bs.bookingid and t.type=? and bookingdate=? and bookingtime=? "
                 + "group by bs.Bookingid,T.Max_Users,t.type,f.id,b.bookingdate,b.bookingtime ";
 
         try
         {
             statement = con.prepareStatement(SQLString);
+            statement.setString(1, type);
+            statement.setDate(2, sqlbookingdate);
+            statement.setInt(3, bookingtime);
+
             ResultSet rs = statement.executeQuery();
 
             while (rs.next())
@@ -81,6 +86,7 @@ public class DataMapperForFacility
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("bookedlist" + bookedlist.toString());
         return bookedlist;
     }
 
@@ -90,10 +96,11 @@ public class DataMapperForFacility
         int maxUsers = 0;
         String SQLString
                 = "select max_users from type t, facility f "
-                + "where t.type=f.type AND f.id='" + facID + "'";
+                + "where t.type=f.type AND f.id=?";
         try
         {
             statement = con.prepareStatement(SQLString);
+            statement.setInt(1, facID);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next())
@@ -122,7 +129,7 @@ public class DataMapperForFacility
         return maxUsers;
     }
 
-    public ArrayList<Facility> getfacilitylist (String type,Connection con)
+    public ArrayList<Facility> getfacilitylist(String type, Connection con)
     {
         ArrayList<Facility> facilitylist = new ArrayList();
         Facility facility = null;
@@ -130,20 +137,21 @@ public class DataMapperForFacility
 //        java.sql.Date sqlbookingdate = new java.sql.Date(bookingdate.getTime());
 
         String SQLString
-                = "select f.id, f.type,t.num_users,t.max_Users from facility f, type t " +
-"where f.type=t.type and t.type='"+type+"'";
-        
+                = "select f.id, f.type,t.num_users,t.max_Users from facility f, type t "
+                + "where f.type=t.type and t.type=?";
+
         try
         {
             statement = con.prepareStatement(SQLString);
+            statement.setString(1, type);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next())
             {
-                facility= new Facility(
+                facility = new Facility(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getInt(3), 
+                        rs.getInt(3),
                         rs.getInt(4));
 
                 facilitylist.add(facility);
@@ -168,7 +176,151 @@ public class DataMapperForFacility
             }
         }
         return facilitylist;
-    
-    
+
     }
+
+    public int getNextBookingNo(Connection con)
+    {
+        int nextBookingNo = 0;
+        String SQLString = "select booking_seq.nextval from dual";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            boolean status = rs.next();
+            System.out.println("status " + status);
+            if (status)
+            {
+                nextBookingNo = rs.getInt(1);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        }
+        return nextBookingNo;
+    }
+
+    public int getBookingno(int facId, Date bookingdate, int bookingtime, Connection con)
+    {
+        int bookingNo = 0;
+        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
+        String SQLString = "select bookingid from booking "
+                + "   where facilityid=? and bookingdate=? and bookingtime=?";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setInt(1, facId);
+            statement.setDate(2, sqlBookingdate);
+            statement.setInt(3, bookingtime);
+
+            ResultSet rs = statement.executeQuery();
+            boolean result = rs.next();
+            if (result)
+            {
+                bookingNo = rs.getInt(1);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        }
+        System.out.println("your booking no is: " + bookingNo);
+        return bookingNo;
+    }
+
+    public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
+    {
+        ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime, con);
+        int answer = 0;
+        for (int i = 0; i < booking.size(); i++)
+        {
+            Booking booking1 = booking.get(i);
+            if (booking1.getFacilityId() == facid)
+            {
+                System.out.println("bookednumusers" + booking1.getBookedNumOfUsers());
+                answer = booking1.getMaxUsers() - booking1.getBookedNumOfUsers();
+
+            }
+            else
+            {
+                answer = getMaxUsers(facid, con);
+            }
+        }
+        System.out.println("remainingplace answer=" + answer);
+        return answer;
+    }
+
+    public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
+    {
+        boolean bookingnoFound = true;
+        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
+        int bookingno = getBookingno(facility.getFacID(), sqlBookingdate, bookingtime, con);
+        int waitingpos;
+        int rowsInserted = 0;
+        int remainroom = remaingPlace(facility.getType(), bookingdate, bookingtime, facility.getFacID());
+        System.out.println("remainroom " + remainroom);
+        if (remainroom <= 0)
+        {
+            waitingpos = Math.abs(remainroom - 1);
+        }
+        else
+        {
+            waitingpos = 0;
+        }
+
+        if (bookingno == 0)
+        {
+            bookingnoFound = false;
+            bookingno = getNextBookingNo(con);
+            System.out.println("here");
+            System.out.println(bookingnoFound);
+        }
+
+        String SQLString = "insert into bookingstatus values (?,?,?,?)";
+        String SQLString2 = "insert into booking values(?,?,?,?)";
+
+        try
+        {
+            con.setAutoCommit(false);
+//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+            PreparedStatement statement = null;
+
+            //creating a new booking if bookingno is not found yet
+            if (!bookingnoFound)
+            {
+                statement = con.prepareStatement(SQLString2);
+
+                statement.setInt(1, bookingno);
+                statement.setInt(2, facility.getFacID());
+                statement.setDate(3, sqlBookingdate);
+                statement.setInt(4, bookingtime);
+
+                rowsInserted = statement.executeUpdate();
+            }
+
+            statement = con.prepareStatement(SQLString);
+
+            statement.setInt(1, bookingno);
+            statement.setString(2, guestNo);//guestno should be got
+            statement.setInt(3, waitingpos);
+            statement.setInt(4, inno);//inno should be got
+
+            rowsInserted += statement.executeUpdate();
+
+            System.out.println("Booking created rows inserted = " + rowsInserted);
+            con.commit();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - ERROR IN BOOKING");
+            System.out.println(e.getMessage());
+        }
+        return rowsInserted == 1;
+    }
+
 }
