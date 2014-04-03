@@ -380,7 +380,7 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(5, sqlToBookingDate);
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
-            statement.setInt(8, res.getReservationNo());
+            statement.setInt(8, res.getVersion());
             statement.executeUpdate();
 
             System.out.println("printing statement " + rowsInserted);
