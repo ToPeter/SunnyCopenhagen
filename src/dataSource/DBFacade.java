@@ -207,7 +207,7 @@ public class DBFacade
        
          if (unitOfWork != null)
         {
-            unitOfWork.registerNewGuestID(guestID);
+            unitOfWork.registerNewGuestID(currentGuestID);
         }
         
         
