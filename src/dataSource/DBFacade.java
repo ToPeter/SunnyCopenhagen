@@ -92,7 +92,6 @@ public class DBFacade
     {
         if (unitOfWork != null)
         {
-            System.out.println("HI");
             unitOfWork.registerNewGuest(guest);
         }
     }

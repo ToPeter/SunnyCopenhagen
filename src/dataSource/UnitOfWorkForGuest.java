@@ -69,7 +69,6 @@ public class UnitOfWorkForGuest
     public boolean commit(Connection con)
     {
         boolean status = true;  // will be set false if any part of transaction fails    
-         
         try
         {
             //=== system transaction - starts
@@ -117,14 +116,5 @@ public class UnitOfWorkForGuest
            
         }        
     }
-
-  
-  
-
-
-
-
-
-
 
 }
