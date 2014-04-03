@@ -380,7 +380,7 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(5, sqlToBookingDate);
             statement.setInt(6, res.isDepositPaid());
             statement.setInt(7, 1111);
-            statement.setInt(8, res.getReservationNo());
+            statement.setInt(8, res.getVersion());
             statement.executeUpdate();
 
             System.out.println("printing statement " + rowsInserted);
@@ -687,10 +687,111 @@ public class DataMapper implements DataMapperInterface
         return result;
         
     }
+
+       
+    @Override
+    public ArrayList<GuestID> getGuestID(int guestID, Connection con)
+    {
+        ArrayList<GuestID> guestListID = new ArrayList<>();
+        GuestID guestIDobject = null;
+        String SQLString1 = // get order
+                "select * "
+                + "from guestid "
+                + "where guestid = ?";
+
+        PreparedStatement statement = null;
+
+        try
+        {
+            //=== get order
+            statement = con.prepareStatement(SQLString1);
+            statement.setInt(1, guestIDobject.getId());
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                guestIDobject = new GuestID(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7));
+                        
+                guestListID.add(guestIDobject);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in OrderMapper - getOrder");
+            System.out.println(e.getMessage());
+        }
+        if (testRun)
+        {
+            System.out.println("Retrieved Order: " + guestListID.toString());
+        }
+        return guestListID;
+    }
     
     
 
+    @Override
+    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) 
+    {
+            int rowsInserted = 0;
+        try
+        {
+            System.out.println("TOP OF INSERT GUEST ID " + guestListID.size());
+            
+            String SQLString = "insert into guestid values (?,?,?,?,?,?,?)";
+            
+            GuestID test = guestListID.get(0);
+            System.out.println("geust print> "+test.toString());
+            
+            PreparedStatement statement = null;
+            statement = con.prepareStatement(SQLString);
+            
+            for (int i = 0; i < guestListID.size(); i++)
+            {
+                
+                GuestID guestID = guestListID.get(i);
+                
+                
+                statement.setInt(1, guestID.getId());
+                statement.setString(2, guestID.getGuestFirstName());
+                statement.setString(3, guestID.getGuestFamilyName());
+                statement.setString(4, guestID.getAddress());
+                statement.setString(5, guestID.getCountry());
+                statement.setInt(6, guestID.getPhoneNo());
+                statement.setString(7, guestID.getEmail());
+                
+                System.out.println("Printing guest in fuest ID :"+guestID.toString());
+                
+                rowsInserted = statement.executeUpdate();
+                
+                
+                System.out.println("printing statement " + rowsInserted);
+                
+                System.out.println("inserted row: " + rowsInserted);
+                
+            }
+            if (testRun)
+            {
+                System.out.println("insertOrders(): " + (rowsInserted == guestListID.size())); // for test
+            }
+            
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return (rowsInserted == guestListID.size());
     }
+    
+
+
+
+}
 
    
 

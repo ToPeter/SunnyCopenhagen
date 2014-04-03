@@ -19,6 +19,8 @@ public class DBFacade
 
     //== Singleton start
     private static DBFacade instance;
+    private Guest guest;
+    private GuestID guestID;
 
     public DBFacade()
     {
@@ -199,6 +201,25 @@ public class DBFacade
     {
        return dm.getEmpInfo(userName, password,con);
     }
+
+    public void registerNewGuestID(GuestID currentGuestID)
+    {
+       
+         if (unitOfWork != null)
+        {
+            unitOfWork.registerNewGuestID(guestID);
+        }
+        
+        
+    }
+    
+
+    public ArrayList<GuestID> getGuestsID(int guestID)
+    {
+       return dm.getGuestID(guestID, con);
+    }
+
+  
 
  
 

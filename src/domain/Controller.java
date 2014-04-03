@@ -15,11 +15,15 @@ public class Controller
 
     private boolean processingGuest, processingReservation;        // Represent state of business transaction
     private Guest currentGuest;             // Guest in focus
+    private GuestID currentGuestID;
     private Reservation currentReservation; //Reservation in focus
     private final DBFacade facade;
     private ArrayList<Guest> guests;
     private Mail mailsender;
     private final DBFacadeForFacility facadeF;
+    private boolean processingGuestID;
+    private ArrayList<GuestID> guestsID;
+    
     public Controller()
     {
         processingGuest = false;
@@ -71,6 +75,23 @@ public class Controller
         guests = facade.getGuests(reservationNo);
         return guests;
     }
+    
+    
+    
+        public ArrayList<GuestID> getGuestsID(int guestID)
+    {
+        if (processingGuestID)
+        {
+            return null;
+        }
+
+        facade.startProcessGuestBusinessTransaction(); // method in Fascade
+        processingGuestID = true;
+        guestsID = facade.getGuestsID(guestID);
+        return guestsID;
+    }
+    
+ 
 
     public void resetGuest()
     {
@@ -133,6 +154,36 @@ public class Controller
         }
 
         return currentGuest;
+    }
+    
+    
+    public GuestID createGuestID(int guestID, String guestFirstName, String guestLastName, String address, String country, int number, String email)
+    {
+        if (processingGuest)
+        {
+            return null;
+        }
+
+        facade.startProcessGuestBusinessTransaction();
+//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+
+        if (guestID != 0)
+        {
+            processingGuest = true;
+
+            currentGuestID = new GuestID(guestID, guestFirstName, guestLastName, address, country, number, email); //THIS LINE WAS FOR TESTING
+            facade.registerNewGuestID(currentGuestID);
+            
+            processingGuest = false;
+            
+        }
+        else
+        {
+
+            currentGuest = null;
+        }
+
+        return currentGuestID;
     }
 
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)

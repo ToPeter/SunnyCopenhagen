@@ -1462,6 +1462,9 @@ public class CasablancaResception extends javax.swing.JFrame
         System.out.println(guestNo);
         int password = ran.nextInt(9000) + 1000;
 
+        control.createGuestID(Integer.parseInt(jTextFieldID.getText()),jTextFieldfFirstName.getText(),jTextFieldfFirstName.getText(),jTextFieldAdress.getText(),
+                jTextFieldcountry.getText(),Integer.parseInt(jTextFieldphoneNo.getText()),jTextFieldemail.getText());
+        control.commit();
         control.createGuest(reservationNo, guestNo, password,jTextFieldtrvlAgncy.getText(),Integer.parseInt(jTextFieldID.getText()));
         
        // control.createGuestId;

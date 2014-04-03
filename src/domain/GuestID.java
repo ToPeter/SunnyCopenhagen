@@ -44,7 +44,16 @@ public class GuestID
         //   this.guestDetails = new ArrayList<>();
     }
      
-     
+            public int getId()
+    {
+        return id;
+    }        
+
+
+    public int setId()
+    {
+        return id;
+    }
      
     public String getGuestFirstName()
     {
@@ -109,8 +118,8 @@ public class GuestID
     public String toString()
     {
         return //" reservationNo: " + reservationNo
- 
-                 "First Name: " + guestFirstName + "\n"
+                  "ID: " + id + "\n"
+                + "First Name: " + guestFirstName + "\n"
                 + "Family Name: " + guestFamilyName + "\n"
                 + "Address: " + address + "\n"
                 + "Country: " + country + "\n"
@@ -120,7 +129,8 @@ public class GuestID
     
         public boolean equals(GuestID guestID)
     {
-        return (guestFirstName.equals(guestID.getGuestFamilyName())
+        return ( id == guestID.getId()
+                && guestFirstName.equals(guestID.getGuestFirstName())
                 && guestFamilyName.equals(guestID.getGuestFamilyName())
                 && address.equals(guestID.getAddress())
                 && country.equals(guestID.getCountry())
