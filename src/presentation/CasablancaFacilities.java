@@ -24,12 +24,13 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private int facilityType = 0;
     private DefaultListModel model;
     private Controller control;
-
+private ArrayList<Facility> facArray;
     public CasablancaFacilities()
     {
         initComponents();
         model = new DefaultListModel();
         control = new Controller();
+        facArray=new ArrayList();
     }
 
     /**
@@ -161,9 +162,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         model.clear();
         String type = null;
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        System.out.println("typeindes = " + typeIndex);
         Date dd = jDateChooserFacilityBooking.getDate();
-        //"Tennis", "Badminton", "Volleyball", "Handball", "Fitness"
+        
         if (typeIndex == 0)
         {
             type = "tennis";
@@ -189,7 +189,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         System.out.println("type=" + type);
         System.out.println(dd.toString());
         System.out.println(hour);
-        ArrayList<Facility> facArray = control.getFacArrayForJlist(type, dd, hour);
+        facArray = control.getFacArrayForJlist(type, dd, hour);
         for (int i = 0; i < facArray.size(); i++)
         {
             Facility facility = facArray.get(i);

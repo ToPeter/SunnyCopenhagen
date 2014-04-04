@@ -34,6 +34,7 @@ private static DBFacadeForFacility instance;
         if (instance == null)
         {
             instance = new DBFacadeForFacility();
+            
         }
         return instance;
     }
@@ -46,10 +47,13 @@ public int getMaxUsers(int facId)
 
 public ArrayList<Facility> getfacilitylist (String type)
 {return facilityMapper.getfacilitylist (type,con);}
+
 public int getnextbookingno()
 {return facilityMapper.getNextBookingNo(con);}
+
 public int getbookingno(int facId, Date bookingdate, int bookingtime)
 {return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);}
+
 public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
 { return facilityMapper.createFacilityBooking(facility, guestNo,bookingdate, bookingtime, inno, con);}
 
@@ -57,22 +61,7 @@ public int remaingPlace(String type, Date bookingdate, int bookingtime,int facid
 { return facilityMapper.remaingPlace(type, bookingdate, bookingtime, facid);}
 
 public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
-{ 
-        ArrayList<Facility> result=new ArrayList();
-    ArrayList<Facility> facList=getfacilitylist(type);
-       for (int i = 0; i < facList.size(); i++)
-    {
-       Facility tempfac  = facList.get(i);
-       int tempFacId=tempfac.getFacID();
-       int remaining=remaingPlace(type, bookingdate, bookingtime,tempFacId);
-       Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
-        
-        result.add(newfac);
-    }
-       System.out.println(result.toString());
-       return result;
-}
-
+{return facilityMapper.getFacArrayForJlist(type, bookingdate, bookingtime);}
 
 
 

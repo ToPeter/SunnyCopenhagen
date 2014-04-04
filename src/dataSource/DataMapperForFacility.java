@@ -236,7 +236,7 @@ public class DataMapperForFacility
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
         ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime, con);
-        int answer = 0;
+        int answer = getMaxUsers(facid, con);
         for (int i = 0; i < booking.size(); i++)
         {
             Booking booking1 = booking.get(i);
@@ -246,10 +246,8 @@ public class DataMapperForFacility
                 answer = booking1.getMaxUsers() - booking1.getBookedNumOfUsers();
 
             }
-            else
-            {
-                answer = getMaxUsers(facid, con);
-            }
+            
+            
         }
         System.out.println("remainingplace answer=" + answer);
         return answer;
@@ -322,5 +320,22 @@ public class DataMapperForFacility
         }
         return rowsInserted == 1;
     }
+public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
+{ 
+        ArrayList<Facility> result=new ArrayList();
+    ArrayList<Facility> facList=getfacilitylist(type,con);
+       for (int i = 0; i < facList.size(); i++)
+    {
+       Facility tempfac  = facList.get(i);
+       int tempFacId=tempfac.getFacID();
+       int remaining=remaingPlace(type, bookingdate, bookingtime,tempFacId);
+       Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
+        
+        result.add(newfac);
+    }
+       System.out.println(result.toString());
+       return result;
+}
+
 
 }
