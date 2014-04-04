@@ -6,6 +6,7 @@
 package dataSource;
 
 import domain.Guest;
+import domain.GuestID;
 import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public interface DataMapperInterface
 
     int[] getPriceList(Connection con);
 
-    ArrayList<Guest> getGuests(int reservationNo, Connection con);
+    GuestID getGuest(int guestid, Connection con);
 
     int getNextReservationNo(Connection con);
 
@@ -46,6 +47,10 @@ public interface DataMapperInterface
     public boolean getGuestInfo(String userName, String password, Connection con);
 
     public boolean getEmpInfo(String userName, String password, Connection con);
+
+    public ArrayList<GuestID> getGuestID (int guestID, Connection con);
+    
+    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) throws SQLException;
 
    
 }

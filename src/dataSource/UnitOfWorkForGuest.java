@@ -17,6 +17,8 @@ public class UnitOfWorkForGuest
     //private final DataMapper dataMapper;
     private final DataMapperInterface dataMapper;
     private final ArrayList<Guest> newGuest;
+    private final ArrayList<GuestID> newGuestID;
+    private final ArrayList<GuestID> dirtyGuestID;
     private final ArrayList<Guest> delGuest;
     private final ArrayList<Guest> dirtyGuest;
     private final ArrayList<Reservation> updatedDeposit;
@@ -30,6 +32,8 @@ public class UnitOfWorkForGuest
         newGuest = new ArrayList<>(); // will never exceed 1 element
         dirtyGuest = new ArrayList<>(); // will never exceed 1 element
         delGuest = new ArrayList<>();
+        dirtyGuestID = new ArrayList<>(); 
+        newGuestID = new ArrayList<>();
         updatedDeposit = new ArrayList<>();
         dirtyUpdatedDeposit = new ArrayList<>();
     }
@@ -73,11 +77,12 @@ public class UnitOfWorkForGuest
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
+            status = status && dataMapper.insertGuestID(newGuestID, con);
             status = status && dataMapper.insertGuest(newGuest, con);
             System.out.println("printing status aftter inserGuest "+status);
             status = status && dataMapper.updateDeposit(updatedDeposit, con);
              System.out.println("printing status aftter updateDeposit "+status);
-         //  status = status && dataMapper.deleteGuest(delGuest, con);
+        //   status = status && dataMapper.I(delGuest, con);
 
          //   status = status && dataMapper.updateOrderDetails(updateOrderDetails, dirtyOrders, connection);
         //    status = status && dataMapper.deleteOrderDetails(deleteOrderDetails, dirtyOrders, connection);
@@ -102,7 +107,7 @@ public class UnitOfWorkForGuest
             }
             status = false;
         }
-                        System.out.println("Status is : "+status);
+                        System.out.println("Status in Unit : "+status);
         return status;
     }
 
@@ -115,6 +120,15 @@ public class UnitOfWorkForGuest
 
            
         }        
+    }
+
+    void registerNewGuestID(GuestID guestID)
+    {
+       if (!newGuestID.contains(guestID) &&  !dirtyGuestID.contains(guestID))    // if not all ready registered in any list
+        {
+            newGuestID.add(guestID);
+        } 
+        
     }
 
 }

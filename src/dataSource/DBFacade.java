@@ -19,6 +19,8 @@ public class DBFacade
 
     //== Singleton start
     private static DBFacade instance;
+    private Guest guest;
+    private GuestID guestID;
 
     public DBFacade()
     {
@@ -63,9 +65,9 @@ public class DBFacade
     //    Any changes done after last commit will be ignored
     //Peter T 
     //======	Methods to retrieve data 
-    public ArrayList<Guest> getGuests(int reservation)
+    public GuestID getGuest(int guestId)
     {
-        return dm.getGuests(reservation, con);
+        return dm.getGuest(guestId, con);
     }
 
     public String getRoomType(int roomNo)
@@ -182,13 +184,13 @@ public class DBFacade
         String resultString;
 
         lookedUpReservation = dm.getreservation(reservationNo, con);
-        lookedUpGuestarray = dm.getGuests(reservationNo, con);
-        for (int i = 0; i < lookedUpGuestarray.size(); i++)
-        {
-            int guestNo = i + 1;
-            guestsString += "Guest " + guestNo + "\n"
-                    + lookedUpGuestarray.get(i).toString();
-        }
+      //  lookedUpGuestarray = dm.getGuest(reservationNo, con);
+//        for (int i = 0; i < lookedUpGuestarray.size(); i++)
+//        {
+//            int guestNo = i + 1;
+//            guestsString += "Guest " + guestNo + "\n"
+//                    + lookedUpGuestarray.get(i).toString();
+//        }
         resultString = lookedUpReservation + guestsString;
 
         return resultString;
@@ -199,6 +201,25 @@ public class DBFacade
     {
        return dm.getEmpInfo(userName, password,con);
     }
+
+    public void registerNewGuestID(GuestID currentGuestID)
+    {
+       
+         if (unitOfWork != null)
+        {
+            unitOfWork.registerNewGuestID(currentGuestID);
+        }
+        
+        
+    }
+    
+
+    public ArrayList<GuestID> getGuestsID(int guestID)
+    {
+       return dm.getGuestID(guestID, con);
+    }
+
+  
 
  
 
