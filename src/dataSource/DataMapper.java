@@ -786,6 +786,81 @@ public class DataMapper implements DataMapperInterface
         }
             return (rowsInserted == guestListID.size());
     }
+
+   
+    
+    @Override
+        public String getEmpLogInName(String userName, Connection con)
+                    
+    {
+       String name = "";
+       String SQLString = "select firstname from employee where empid = ? ";
+       PreparedStatement statement = null;
+       
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, userName);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next())
+            {
+                name = rs.getString(1);;
+              //  result = true;
+            }
+   
+            
+        }
+        
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_EMP");
+            System.out.println(e.getMessage());
+        }
+       
+        
+        return name;
+        
+    }
+
+    @Override
+    public String getGuestLogInName(String userName, Connection con)
+    {
+       String name = "";
+       String SQLString = "select guestfirstname from guestid where guestid = ("
+               + "select guestid from guest where guestno = ?) ";
+       PreparedStatement statement = null;
+       
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, userName);
+            ResultSet rs = statement.executeQuery();
+            
+            if (rs.next())
+            {
+                name = rs.getString(1);
+            }
+   
+            
+        }
+        
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_Guest");
+            System.out.println(e.getMessage());
+        }
+       
+        
+        return name;    
+    
+    }
+
+    
+
+
+   
+    
     
 
 

@@ -35,6 +35,11 @@ public class Guest
         //   this.guestDetails = new ArrayList<>();
     }
 
+    public Guest()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getAgency()
     {
         return agency;

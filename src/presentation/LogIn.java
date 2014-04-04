@@ -16,7 +16,8 @@ public class LogIn extends javax.swing.JFrame
 {
 
   
-    Controller control = new Controller ();
+   private  Controller control = new Controller ();
+
    
     public LogIn()
     {
@@ -173,25 +174,28 @@ public class LogIn extends javax.swing.JFrame
         
    else if (UserNameField.getText().contains("-")) // it figure out if it is guest or emp.
         {                                           // enters loop if guest and checks if all is good + make check
-     
+       
        userName = UserNameField.getText();
        password = PasswordField.getText();
        // CHECKS HERE IF GUESTNO = PASSWORD
        
       logInResult = control.checkLogInForGuest (userName, password);
-
+           
        
        
        if (logInResult == true)
             {
-             
-             JOptionPane.showMessageDialog(null, "Welcome dear customer"); 
+                                
+            String  guestName = control.getGuestNameLogIn(userName);
+      
+             JOptionPane.showMessageDialog(null, "Welcome dear customer: " + guestName); 
             
              java.awt.EventQueue.invokeLater(new Runnable()
                 {
                      public void run()
                         {
-                             new CasablancaResception().setVisible(true);
+                             new CasablancaFacilities().setVisible(true);
+                             setLocationRelativeTo(null); // NO ide if it works
                         }
                 });
                         this.setVisible(false);   
@@ -210,6 +214,7 @@ public class LogIn extends javax.swing.JFrame
    
    
    else {
+       
         userName = UserNameField.getText();
         password = PasswordField.getText();
        // CHECKS HERE IF EMPNo = PASSWORD
@@ -221,7 +226,9 @@ public class LogIn extends javax.swing.JFrame
        if (logInResult == true)
             {
              
-             JOptionPane.showMessageDialog(null, "Welcome dear EMP"); 
+             String empName = control.getEmpNameLogIn(userName);
+                      
+             JOptionPane.showMessageDialog(null, "Welcome dear EMP: " + empName); 
             
              java.awt.EventQueue.invokeLater(new Runnable()
                 {
@@ -308,4 +315,8 @@ public class LogIn extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+
+
+  
 }

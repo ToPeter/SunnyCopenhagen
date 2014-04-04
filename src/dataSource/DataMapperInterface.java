@@ -53,4 +53,10 @@ public interface DataMapperInterface
     public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) throws SQLException;
 
    
+
+    public String getEmpLogInName(String userName, Connection con);
+
+    public String getGuestLogInName(String userName, Connection con);
+
+   
 }

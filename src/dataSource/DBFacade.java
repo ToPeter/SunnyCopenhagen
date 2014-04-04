@@ -219,6 +219,28 @@ public class DBFacade
        return dm.getGuestID(guestID, con);
     }
 
+//    public String getGuestLogInName(String name)
+//    {
+//       // return dm.getGuestID(name, con);
+//    }
+
+
+
+    public String getEmpLogInName(String userName)
+    {
+       
+        String name  = dm.getEmpLogInName(userName,con);
+       
+        return name;
+        
+    }
+
+    public String getGuestLogInName(String userName)
+    {
+       String name  = dm.getGuestLogInName(userName,con);
+       return name;
+    }
+
   
 
  

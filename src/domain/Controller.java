@@ -363,4 +363,29 @@ public class Controller
         
     }
 
+//    public String getLogInGuestName(String userName)
+//    {
+//        
+//        return facade.getGuestLogInName(userName);
+//    }
+
+    public String getEmpNameLogIn(String userName)
+    {
+     
+        String name =facade.getEmpLogInName(userName);
+        
+        return name;
+    }
+
+  
+
+    public String getGuestNameLogIn(String userName)
+    {
+        String name =facade.getGuestLogInName(userName);
+        return name;
+    }
+
+  
+   
+
 }
