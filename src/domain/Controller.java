@@ -363,4 +363,7 @@ public class Controller
         
     }
 
-}
+public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
+{return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);}
+        
+        }
