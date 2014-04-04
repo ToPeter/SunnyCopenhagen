@@ -383,7 +383,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addContainerGap(1, Short.MAX_VALUE))
+                        .addContainerGap(10, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelShowTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))
@@ -820,14 +820,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jTextFieldnoOfnights.setEditable(false);
 
         fName1.setText("ID/ Passport/ CPR-Nr.");
-
-        jTextFieldID.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
-                jTextFieldIDFocusLost(evt);
-            }
-        });
 
         Search.setText("Search");
         Search.addActionListener(new java.awt.event.ActionListener()
@@ -1575,11 +1567,6 @@ control.resetGuest();
        else
       jTextFieldfFirstName.setText("No Guest Found");
     }//GEN-LAST:event_SearchActionPerformed
-
-    private void jTextFieldIDFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jTextFieldIDFocusLost
-    {//GEN-HEADEREND:event_jTextFieldIDFocusLost
-        
-    }//GEN-LAST:event_jTextFieldIDFocusLost
     /**
      * @param args the command line arguments
      */
