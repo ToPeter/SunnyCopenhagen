@@ -169,7 +169,7 @@ public class Controller
             return null;
         }
 
- //       facade.startProcessGuestBusinessTransaction();
+        //       facade.startProcessGuestBusinessTransaction();
 //        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
         if (guestID != 0)
         {
@@ -229,22 +229,24 @@ public class Controller
 //        return result;
     }
 
-    public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation,  String roomType, int roomPrice) throws MessagingException
+    public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation, String roomType, int roomPrice) throws MessagingException
     {
-        
-            return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
-        
+
+        return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
+
     }
+
     public String getGuestStringForMail(int reservationNo)
 
-    {return facade.getReservationString(reservationNo);}
-    
-    public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation,  String roomType) throws MessagingException
     {
-        
-            return mailsender.sendConfirmation(guestarray, reservation,  roomType);
-        
-        
+        return facade.getReservationString(reservationNo);
+    }
+
+    public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation, String roomType) throws MessagingException
+    {
+
+        return mailsender.sendConfirmation(guestarray, reservation, roomType);
+
     }
 
     public String getRoomType(int roomNo)
@@ -265,31 +267,27 @@ public class Controller
 
     public Boolean checkLogInForGuest(String userName, String password)
     {
-        Boolean result = false;
+        boolean result = false;
         try
         {
-
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
-
         return result;
     }
 
     public Boolean checkLogInForEmp(String userName, String password)
     {
-        Boolean result = false;
+        boolean result = false;
         try
         {
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -379,5 +377,19 @@ public class Controller
     {
         return facade.getGuestArrayForMail(reservationNo);
     }
+
+    public String getGuestNameLogIn(String userName)
+    {
+        String name = facade.getGuestLogInName(userName);
+        return name;
+    }
+    
+    public String getEmpNameLogIn(String userName)
+    {
+        String name = facade.getEmpLogInName(userName);
+        return name;
+    }
+
+
 
 }

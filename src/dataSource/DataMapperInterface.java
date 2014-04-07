@@ -48,9 +48,11 @@ public interface DataMapperInterface
 
     public boolean getEmpInfo(String userName, String password, Connection con);
 
-    public ArrayList<GuestID> getGuestID (int guestID, Connection con);
-    
+    public ArrayList<GuestID> getGuestID(int guestID, Connection con);
+
     public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) throws SQLException;
 
-   
+    public String getEmpLogInName(String userName, Connection con);
+
+    public String getGuestLogInName(String userName, Connection con);
 }

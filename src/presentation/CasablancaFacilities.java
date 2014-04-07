@@ -237,7 +237,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(typeIndex);
-        control.createFacilityBooking(fac, "10219-1", jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
+        control.createFacilityBooking(fac, "10402-1", jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
