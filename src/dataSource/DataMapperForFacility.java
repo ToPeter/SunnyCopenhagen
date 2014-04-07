@@ -234,6 +234,7 @@ public class DataMapperForFacility
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
         ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime, con);
+        System.out.println("booking array size" + booking.size());
         int answer = getMaxUsers(facid, con);
         for (int i = 0; i < booking.size(); i++)
         {
@@ -244,25 +245,75 @@ public class DataMapperForFacility
                 answer = booking1.getMaxUsers() - booking1.getBookedNumOfUsers();
 
             }
-            
-            
+
         }
         System.out.println("remainingplace answer=" + answer);
         return answer;
     }
-    
-    // under construction. :)
-    public boolean updateWaitingPos(Connection con)
-    {return true;}
 
-    public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
+    public boolean updateWaitingPos(int bookingno, String guestno, Connection con)
+    {
+        String SQLString = "SELECT WaitingPos from bookingstatus where bookingid = ? AND guestno = ?";
+        String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
+        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1) where bookingid = ? AND  waitingpos > 0";
+
+        int currentWaitingPost = -1;
+
+        try
+        {
+            con.setAutoCommit(false);
+//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+            PreparedStatement statement = null;
+
+            statement = con.prepareStatement(SQLString);
+
+            statement.setInt(1, bookingno);
+            statement.setString(2, guestno);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                currentWaitingPost = rs.getInt(1);
+            }
+
+            System.out.println("currentWaitingpost is" + currentWaitingPost);
+
+            statement = con.prepareStatement(SQLString2);
+
+            statement.setInt(1, bookingno);
+            statement.setString(2, guestno);
+
+            int rowdeleted = statement.executeUpdate();
+            System.out.println(rowdeleted + " row is deleted");
+
+            statement = con.prepareStatement(SQLString3);
+
+            statement.setInt(1, bookingno);
+
+            int rowchanged = statement.executeUpdate();
+            System.out.println(rowchanged + " row is changed");
+
+            con.commit();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - ERROR IN BOOKING");
+            System.out.println(e.getMessage());
+        }
+
+        return true;
+    }
+
+    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
     {
         boolean bookingnoFound = true;
         java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
         int bookingno = getBookingno(facility.getFacID(), sqlBookingdate, bookingtime, con);
         int waitingpos;
         int rowsInserted = 0;
-        int remainroom = remaingPlace(facility.getType(), bookingdate, bookingtime, facility.getFacID());
+        System.out.println("facility type=" + type);
+        int remainroom = remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
         System.out.println("remainroom " + remainroom);
         if (remainroom <= 0)
         {
@@ -281,7 +332,7 @@ public class DataMapperForFacility
             System.out.println(bookingnoFound);
         }
 
-        String SQLString = "insert into bookingstatus values (?,?,?,?)";
+        String SQLString = "insert into bookingstatus values (?,?,?,?,?)";
         String SQLString2 = "insert into booking values(?,?,?,?)";
 
         try
@@ -309,7 +360,7 @@ public class DataMapperForFacility
             statement.setString(2, guestNo);//guestno should be got
             statement.setInt(3, waitingpos);
             statement.setInt(4, inno);//inno should be got
-
+            statement.setInt(5, inno);
             rowsInserted += statement.executeUpdate();
 
             System.out.println("Booking created rows inserted = " + rowsInserted);
@@ -322,29 +373,30 @@ public class DataMapperForFacility
         }
         return rowsInserted == 1;
     }
-public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
-{ 
-        ArrayList<Facility> result=new ArrayList();
-    ArrayList<Facility> facList=getfacilitylist(type,con);
-       for (int i = 0; i < facList.size(); i++)
+
+    public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
     {
-       Facility tempfac  = facList.get(i);
-       int tempFacId=tempfac.getFacID();
-       int remaining=remaingPlace(type, bookingdate, bookingtime,tempFacId);
-       Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
-        
-        result.add(newfac);
+        ArrayList<Facility> result = new ArrayList();
+        ArrayList<Facility> facList = getfacilitylist(type, con);
+        for (int i = 0; i < facList.size(); i++)
+        {
+            Facility tempfac = facList.get(i);
+            int tempFacId = tempfac.getFacID();
+            int remaining = remaingPlace(type, bookingdate, bookingtime, tempFacId);
+            Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
+
+            result.add(newfac);
+        }
+        System.out.println(result.toString());
+        return result;
     }
-       System.out.println(result.toString());
-       return result;
-}
 
-
-public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int bookingtime)
-{ ArrayList<Guest> waitingarray= new ArrayList();
+    public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int bookingtime, Connection con)
+    {
+        ArrayList<Guest> waitingarray = new ArrayList();
         java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
-        String SQLString = "select g.guestno, gi.guestfirstname, gi.guestlastname from guest g, guestid gi, booking b, bookingstatus bs " +
-"  where gi.guestid=g.guestid and bs.guestno=g.guestno and b.bookingid=bs.bookingid and b.facilityid=? and b.bookingdate=? and b.bookingtime=? and bs.waitingpos>0";
+        String SQLString = "select b.bookingid, g.guestno, gi.guestfirstname, gi.guestlastname from guest g, guestid gi, booking b, bookingstatus bs "
+                + "  where gi.guestid=g.guestid and bs.guestno=g.guestno and b.bookingid=bs.bookingid and b.facilityid=? and b.bookingdate=? and b.bookingtime=? and bs.waitingpos>0";
         PreparedStatement statement = null;
         try
         {
@@ -354,16 +406,18 @@ public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int 
             statement.setInt(3, bookingtime);
 
             ResultSet rs = statement.executeQuery();
-            System.out.println("rs"+rs); 
+
             while (rs.next())
-            {Guest tempGuest;
-                String guestNo = rs.getString(1);
-                String guestFN = rs.getString(2);
-                String guestLN= rs.getString(3);
-                
-                tempGuest=new Guest(guestNo,guestFN,guestLN);
+            {
+                Guest tempGuest;
+                int bookingid = rs.getInt(1);
+                String guestNo = rs.getString(2);
+                String guestFN = rs.getString(3);
+                String guestLN = rs.getString(4);
+
+                tempGuest = new Guest(bookingid, guestNo, guestFN, guestLN);
                 waitingarray.add(tempGuest);
-                System.out.println("waitingarray size ="+waitingarray.size());
+                System.out.println("waitingarray size =" + waitingarray.size());
             }
         }
         catch (Exception e)
@@ -372,5 +426,6 @@ public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int 
             System.out.println(e.getMessage());
         };
         return waitingarray;
-}
+    }
+
 }

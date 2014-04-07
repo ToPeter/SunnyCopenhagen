@@ -27,6 +27,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private Controller control;
     private ArrayList<Facility> facArray;
     private ArrayList<Guest> waitingarray;
+    private String type;
 
     public CasablancaFacilities()
     {
@@ -36,6 +37,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         facArray = new ArrayList();
         waitingarray = new ArrayList();
         model.clear();
+        type = null;
     }
 
     /**
@@ -193,7 +195,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         model.clear();
-        String type = null;
+
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
         Date dd = jDateChooserFacilityBooking.getDate();
 
@@ -223,6 +225,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         System.out.println(dd.toString());
         System.out.println(hour);
         facArray = control.getFacArrayForJlist(type, dd, hour);
+
         for (int i = 0; i < facArray.size(); i++)
         {
             Facility facility = facArray.get(i);
@@ -235,9 +238,34 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        int typeIndex = jListAvailableFacilities.getSelectedIndex();
-        Facility fac = facArray.get(typeIndex);
-        control.createFacilityBooking(fac, "10219-1", jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
+        int listIndex = jListAvailableFacilities.getSelectedIndex();
+        Facility fac = facArray.get(listIndex);
+
+        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
+        Date dd = jDateChooserFacilityBooking.getDate();
+
+        if (typeIndex == 0)
+        {
+            type = "tennis";
+        }
+        else if (typeIndex == 1)
+        {
+            type = "badminton";
+        }
+        else if (typeIndex == 2)
+        {
+            type = "volleyball";
+        }
+        else if (typeIndex == 3)
+        {
+            type = "handball";
+        }
+        else if (typeIndex == 4)
+        {
+            type = "fitness";
+        }
+
+        control.createFacilityBooking(fac, type, "10000-4", dd, Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
