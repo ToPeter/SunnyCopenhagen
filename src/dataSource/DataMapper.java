@@ -91,6 +91,7 @@ public class DataMapper implements DataMapperInterface
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println("reservation got"+reservation.toString());
         return reservation;
     }
 

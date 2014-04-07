@@ -1412,50 +1412,50 @@ public class CasablancaResception extends javax.swing.JFrame
     private void jListOpenMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListOpenMouseClicked
     {//GEN-HEADEREND:event_jListOpenMouseClicked
 
-//        if (evt.getClickCount() == 2)
-//        {
-//            System.out.println("double clicked , congrats, it works");
-//            int index = jListOpen.locationToIndex(evt.getPoint());
-//            int reservationNoSelected = (Integer) overDueDeposit.get(index);
-//            boolean haveCurrentReservation = control.getCurrentReservation(reservationNoSelected);
-//            System.out.println("status of currentReservation " + haveCurrentReservation);
-//
-//            if (haveCurrentReservation)
-//            {
-//                int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
-//                if (choice == JOptionPane.YES_OPTION)
-//                {
-//                    boolean result = control.updateDeposit();
-//                    if (result)
-//                    {
-//
-//                        control.commit();;
-//                        JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: " + reservationNoSelected, "Deposit paid", 1);
-//                        overDueDeposit.clear();
-//                        showOpenReservation.clear();
-//                        getOpenReservations();
-//
-//                        Reservation res = control.getReservation(reservationNoSelected);
-//                        ArrayList<Guest> guestarray = control.getGuests(reservationNoSelected);
-//                        System.out.println("guestarray got");
-//                        System.out.println(guestarray.size());
-//                       // String email = guestarray.get(0).getEmail();
-//                        System.out.println("email got" + email);
-//                        String roomType = control.getRoomType(res.getRoomNo());
-//                        System.out.println("roomtype got");
-//                        try
-//                        {
-//                           control.sendConfirmation(email, res, guestarray, roomType);
-//                        }
-//                        catch (MessagingException ex)
-//                        {
-//                            System.out.println("Messege sending failed");
-//                            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        if (evt.getClickCount() == 2)
+        {
+            System.out.println("double clicked , congrats, it works");
+            int index = jListOpen.locationToIndex(evt.getPoint());
+            int reservationNoSelected = (Integer) overDueDeposit.get(index);
+            boolean haveCurrentReservation = control.getCurrentReservation(reservationNoSelected);
+            System.out.println("status of currentReservation " + haveCurrentReservation);
+
+            if (haveCurrentReservation)
+            {
+                int choice = JOptionPane.showConfirmDialog(null, "Has the deposit been paid?", "", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION)
+                {
+                    boolean result = control.updateDeposit();
+                    if (result)
+                    {
+
+                        control.commit();;
+                        JOptionPane.showMessageDialog(null, "Deposit paid\nfor reservation: " + reservationNoSelected, "Deposit paid", 1);
+                        overDueDeposit.clear();
+                        showOpenReservation.clear();
+                        getOpenReservations();
+
+                        Reservation res = control.getReservation(reservationNoSelected);
+                        ArrayList<Guest> guestarray = control.getGuestArrayForMail(reservationNoSelected);
+                        System.out.println("guestarray got");
+                        System.out.println(guestarray.size());
+                       // String email = guestarray.get(0).getEmail();
+                        System.out.println("email got" + email);
+                        String roomType = control.getRoomType(res.getRoomNo());
+                        System.out.println("roomtype got");
+                        try
+                        {
+                           control.sendConfirmation(guestarray,res, roomType);
+                        }
+                        catch (MessagingException ex)
+                        {
+                            System.out.println("Messege sending failed");
+                            Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_jListOpenMouseClicked
 
@@ -1471,6 +1471,8 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
     {//GEN-HEADEREND:event_guestInfoSaveButtonActionPerformed
+        ArrayList<Guest> guestarray= new ArrayList();
+        Reservation res=null;
         if (!jTextFieldID.getText().isEmpty() && !jTextFieldfFirstName.getText().isEmpty() && !jTextFieldlLastName.getText().isEmpty()
                 && !jTextFieldAdress.getText().isEmpty() && !jTextFieldcountry.getText().isEmpty() && !jTextFieldphoneNo.getText().isEmpty()
                 && !jTextFieldemail.getText().isEmpty())
@@ -1483,6 +1485,7 @@ public class CasablancaResception extends javax.swing.JFrame
             if (control.getGuest(Integer.parseInt(jTextFieldID.getText())))
             {
                 control.createGuest(reservationNo, guestNo, password, jTextFieldtrvlAgncy.getText());
+                
             }
             else
             {
@@ -1509,14 +1512,14 @@ public class CasablancaResception extends javax.swing.JFrame
                 currentPane.setVisible(true);
                 CasablancaResception.this.setPreferredSize(new Dimension(575, 400));
                 CasablancaResception.this.pack();
-                //            try
-                //            { String email= control.getGuests(reservationNo).get(0).getEmail();
-                //              control.sendInvoice(email, control.getReservation(reservationNo), control.getGuests(reservationNo), type, priceType);
-                //            }
-                //            catch (MessagingException ex)
-                //            {System.out.println("Messege sending failed");
-                //                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
+                //for mail
+                            try
+                            { control.sendInvoice(control.getGuestArrayForMail(reservationNo), control.getReservation(reservationNo), type, priceType);
+                            }
+                            catch (MessagingException ex)
+                            {System.out.println("Messege sending failed");
+                                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             }
             control.resetGuest();
         }

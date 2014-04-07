@@ -16,7 +16,8 @@ public class DBFacade
     private DataMapperInterface dm;
     private Connection con;
     private UnitOfWorkForGuest unitOfWork;
-
+    private DataMapperForMail mailmapper;
+    
     //== Singleton start
     private static DBFacade instance;
     private Guest guest;
@@ -26,6 +27,7 @@ public class DBFacade
     {
         con = new DBConnector().getConnection();
         dm = new DataMapper(con);
+        mailmapper= new DataMapperForMail(con);
         //con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
@@ -220,7 +222,12 @@ public class DBFacade
     }
 
   
-
+ public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
+ {
+ return mailmapper.getGuestArrayForMail(reservationNo, con);}
+ 
+ public String getGuestStringForMail(int reservationNo)
+ { return mailmapper.getGuestStringForMail(reservationNo, con);}
  
 
 }

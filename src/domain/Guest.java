@@ -113,8 +113,41 @@ public class Guest
         return password;
     }
 
+    public String getGuestFirstName()
+    {
+        return guestFirstName;
+    }
+
+    public void setGuestFirstName(String guestFirstName)
+    {
+        this.guestFirstName = guestFirstName;
+    }
+
+    public String getGuestFamilyName()
+    {
+        return guestFamilyName;
+    }
+
+    public void setGuestFamilyName(String guestFamilyName)
+    {
+        this.guestFamilyName = guestFamilyName;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+    
+    
+
     // == Methods:  toString,
     // I dont know what about AddGuest ???
+    
     public String toString()
     {
         return // " ReservationNo: " + reservationNo + "\n" // was comm. out
@@ -124,7 +157,14 @@ public class Guest
                 + "ID: " + id;
     }
 
-   
+   public String toStringForMail()
+    {
+        return // " ReservationNo: " + reservationNo + "\n" // was comm. out
+                "Guest no: " + guestNo + "\n"
+                 + "Name: " + guestFirstName+ " "+guestFamilyName + "\n"
+                + "Password: " + password + "\n";
+               }
+
     public boolean equals(Guest guest)
     {
         return (reservationNo == guest.getReservationNo()

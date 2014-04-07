@@ -24,10 +24,12 @@ private DataMapperForFacility facilityMapper;
 private static DBFacadeForFacility instance;
 private UnitOfWorkForFacility uowFacility;
 
+
     public DBFacadeForFacility()
     {
         con = new DBConnector().getConnection();
         facilityMapper = new DataMapperForFacility(con);
+       
     }
      
     public static DBFacadeForFacility getInstance()
@@ -78,7 +80,6 @@ public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingt
             //uowFacility.registerNewGuest(guest);
         }
     }
-
 
 
 }

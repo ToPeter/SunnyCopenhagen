@@ -64,7 +64,7 @@ public class Controller
     }
 
     // ----------------------------- Unit Of Work ----------------------------
-    public boolean getGuest (int guestID)
+    public boolean getGuest(int guestID)
     {
         boolean guestFound = false;
 
@@ -75,14 +75,14 @@ public class Controller
 
         facade.startProcessGuestBusinessTransaction(); // method in Fascade
         processingGuest = true;
-        
+
         currentGuestID = facade.getGuest(guestID);
         processingGuest = false;
         if (currentGuestID != null)
         {
             guestFound = true;
         }
-       
+
         return guestFound;
     }
 
@@ -171,7 +171,6 @@ public class Controller
 
  //       facade.startProcessGuestBusinessTransaction();
 //        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
-
         if (guestID != 0)
         {
             processingGuest = true;
@@ -230,20 +229,22 @@ public class Controller
 //        return result;
     }
 
-    public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException
+    public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation,  String roomType, int roomPrice) throws MessagingException
     {
-//        {
-//            return mailsender.sendInvoice(email, reservation, guestarray, roomType, roomPrice);
-//        }
-        return true;
+        
+            return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
+        
     }
+    public String getGuestStringForMail(int reservationNo)
 
-    public boolean sendConfirmation(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType) throws MessagingException
+    {return facade.getReservationString(reservationNo);}
+    
+    public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation,  String roomType) throws MessagingException
     {
-//        {
-//            return mailsender.sendConfirmation(email, reservation, guestarray, roomType);
-//        }
-        return true;
+        
+            return mailsender.sendConfirmation(guestarray, reservation,  roomType);
+        
+        
     }
 
     public String getRoomType(int roomNo)
@@ -270,7 +271,8 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -286,7 +288,8 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -334,7 +337,7 @@ public class Controller
 
     public String getCurrentGuestIDLastName()
     {
-    return currentGuestID.getGuestFamilyName();
+        return currentGuestID.getGuestFamilyName();
     }
 
     public String getCurrentGuestIDAdress()
@@ -349,7 +352,7 @@ public class Controller
 
     public String getCurrentGuestIDPhoneNo()
     {
-        return ""+currentGuestID.getPhoneNo();
+        return "" + currentGuestID.getPhoneNo();
     }
 
     public String getCurrentGuestIDEmail()
@@ -359,14 +362,22 @@ public class Controller
 
     public void updateGuest(int reservationNo, String guestNo, int password, String text)
     {
-    
-        
+
     }
 
-public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
-{return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);}
-        
+    public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);
+    }
 
-public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
-{return facadeF.getWaitingList(facID, bookingdate, bookingtime);}
-        }
+    public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
+    {
+        return facadeF.getWaitingList(facID, bookingdate, bookingtime);
+    }
+
+    public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
+    {
+        return facade.getGuestArrayForMail(reservationNo);
+    }
+
+}

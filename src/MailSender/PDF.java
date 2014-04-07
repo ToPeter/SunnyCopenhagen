@@ -41,26 +41,26 @@ public class PDF
 {
   String filePath;
      Calendar c = Calendar.getInstance();
-//
-//    private String toStringForPDF(ArrayList<Guest> guestarray)
-//    {
-//        String guests = "";
-//        for (int i = 0; i < guestArray.size(); i++)
-//        {
-//            guests += "<<Guest " +(i+1)+">> "+"\n"+guestarray.get(i).toString();
-//
-//        }
-//        return guests;
-//    }
+
+    private String toStringForPDF(ArrayList<Guest> guestarray)
+    {
+        String guests = "";
+        for (int i = 0; i < guestarray.size(); i++)
+        {
+            guests += "<<Guest " +(i+1)+">> "+"\n"+guestarray.get(i).toStringForMail();
+
+        }
+        return guests;
+    }
 
     
-    public void createInvoice(ArrayList<Guest> guestarray, ArrayList<GuestID> guestIDarray, Date fromDate, Date endDate, String roomType, int roomPrice)
+    public void createInvoice(ArrayList<Guest> guestarray, Reservation res, String roomType, int roomPrice)
             throws DocumentException, IOException
     {
         filePath = "Invoice" + guestarray.get(0).getReservationNo()+ ".pdf";
         // step 1
-        String firstName = guestIDarray.get(0).getGuestFirstName();
-        String lastName = guestIDarray.get(0).getGuestFamilyName();
+        String firstName = guestarray.get(0).getGuestFirstName();
+        String lastName = guestarray.get(0).getGuestFamilyName();
         int deposit = roomPrice / 2;
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
@@ -89,9 +89,9 @@ public class PDF
         document.add(new Paragraph("thank you for your reservation.", font));
         document.add(new Paragraph(Chunk.NEWLINE));
         document.add(new Paragraph("++++++Reservation details+++++++", font));
-        document.add(new Paragraph("Name: "+guestIDarray.get(0).getGuestFirstName()+" "+guestIDarray.get(0).getGuestFamilyName(), font));
-        document.add(new Paragraph("From: " + dateFormat.format(fromDate), font));
-        document.add(new Paragraph("To: " + dateFormat.format(endDate), font));
+        document.add(new Paragraph("Name: "+guestarray.get(0).getGuestFirstName()+" "+guestarray.get(0).getGuestFamilyName(), font));
+        document.add(new Paragraph("From: " + dateFormat.format(res.getFromDate()), font));
+        document.add(new Paragraph("To: " + dateFormat.format(res.getEndDate()), font));
         document.add(new Paragraph("Room type: "+roomType, font));
         document.add(new Paragraph("++++++++++++++++++++++++++++++++",font));
 
@@ -128,70 +128,69 @@ public class PDF
         document.close();
         System.out.println("closed");
     }
-//
-//    public void createConfirmation(int reservationno, ArrayList<GuestID> guestIDarray,ArrayList<Guest> guestarray,Date fromDate,Date endDate, String roomType)
-//            throws DocumentException, IOException
-//    {
-//        filePath = "Confirmation" + reservationno+ ".pdf";
-//        // step 1
-//        String firstName = guestIDarray.get(0).getGuestFirstName();
-//        String lastName = guestIDarray.get(0).getGuestFamilyName();
-//       
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-//
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-//
-//        Document document = new Document();
-//        System.out.println("document");
-//        // step 2
-//        FileOutputStream fos = new FileOutputStream(filePath);
-//        PdfWriter.getInstance(document, fos);
-//        System.out.println("fos");
-//        // step 3
-//        document.open();
-//        // step 4
-//        Font font = FontFactory.getFont("Times-Roman", 14);
-//        Font fontbold = FontFactory.getFont("Times-Roman", 30, Font.BOLD);
-//
-//        document.add(new Paragraph("Confirmation", fontbold));
-//        document.add(new Paragraph("                                                             Casablanca Holiday Centre", font));
-//        document.add(new Paragraph("                                                            "+dateFormat.format(c.getTime()), font));
-//        
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph("Dear " + firstName + " " + lastName + ",", font));
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph("thank you for your reservation.", font));
-//        //document.add(new Paragraph("Please print out and bring this confirmation.", font));
-//        //document.add(new Paragraph("You will need password shown in guest details below for booking sport facilities.", font));
-//
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph("++++++Reservation details+++++++", font));
-//        document.add(new Paragraph("From: " + dateFormat.format(fromDate), font));
-//        document.add(new Paragraph("To: " + dateFormat.format(endDate), font));
-//        document.add(new Paragraph("Room type: "+roomType, font));
-//        
-//
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph("++++++Guest details+++++++", font));
-//        document.add(new Paragraph(toStringForPDF(guestIDarray), font));
-//
-//        document.add(new Paragraph("+++++++++++++++++++++++++++++++++",font));
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//
-//        document.add(new Paragraph("We are looking forward to seeing you.", font));
-//
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//
-//        document.add(new Paragraph(Chunk.NEWLINE));
-//        document.add(new Paragraph("Regards,", font));
-//        document.add(new Paragraph("CasaBlanca Hotel Resort", font));
-//
-//        // step 5
-//        document.close();
-//        System.out.println("closed");
-//    }
-//
+
+    public void createConfirmation( ArrayList<Guest> guestarray,Reservation res, String roomType)
+            throws DocumentException, IOException
+    {
+        filePath = "Confirmation" + guestarray.get(0).getReservationNo()+ ".pdf";
+        // step 1
+        String firstName = guestarray.get(0).getGuestFirstName();
+        String lastName = guestarray.get(0).getGuestFamilyName();
+       
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+
+
+        Document document = new Document();
+        System.out.println("document");
+        // step 2
+        FileOutputStream fos = new FileOutputStream(filePath);
+        PdfWriter.getInstance(document, fos);
+        System.out.println("fos");
+        // step 3
+        document.open();
+        // step 4
+        Font font = FontFactory.getFont("Times-Roman", 14);
+        Font fontbold = FontFactory.getFont("Times-Roman", 30, Font.BOLD);
+
+        document.add(new Paragraph("Confirmation", fontbold));
+        document.add(new Paragraph("                                                             Casablanca Holiday Centre", font));
+        document.add(new Paragraph("                                                            "+dateFormat.format(c.getTime()), font));
+        
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph("Dear " + firstName + " " + lastName + ",", font));
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph("thank you for your reservation.", font));
+        //document.add(new Paragraph("Please print out and bring this confirmation.", font));
+        //document.add(new Paragraph("You will need password shown in guest details below for booking sport facilities.", font));
+
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph("++++++Reservation details+++++++", font));
+        document.add(new Paragraph("From: " + dateFormat.format(res.getFromDate()), font));
+        document.add(new Paragraph("To: " + dateFormat.format(res.getEndDate()), font));
+        document.add(new Paragraph("Room type: "+roomType, font));
+        
+
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph("++++++Guest details+++++++", font));
+        document.add(new Paragraph(toStringForPDF(guestarray), font));
+
+        document.add(new Paragraph("+++++++++++++++++++++++++++++++++",font));
+        document.add(new Paragraph(Chunk.NEWLINE));
+
+        document.add(new Paragraph("We are looking forward to seeing you.", font));
+
+        document.add(new Paragraph(Chunk.NEWLINE));
+
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new Paragraph("Regards,", font));
+        document.add(new Paragraph("CasaBlanca Hotel Resort", font));
+
+        // step 5
+        document.close();
+        System.out.println("closed");
+    }
+
     public String getFilePath()
     {
         return filePath;
