@@ -369,6 +369,10 @@ public class Controller
     {
         return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
     }
+    
+    public int getBookingno(int facId, Date bookingdate, int bookingtime)
+    {
+    return facadeF.getBookingno(facId, bookingdate, bookingtime);}
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {

@@ -17,7 +17,7 @@ public class Facility
     int minUsers;
     int maxUsers;
     int roomRemaining;
-
+    
     public Facility(int facID, int minUsers, int maxUsers, int roomRemaining)
     {
         this.facID = facID;
@@ -84,6 +84,8 @@ public class Facility
         this.maxUsers = maxUsers;
     }
 
+    
+    
     @Override
     public String toString()
     {

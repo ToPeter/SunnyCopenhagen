@@ -105,4 +105,6 @@ public class DBFacadeForFacility
         return facilityMapper.updateWaitingPos(bookingno, guestno, con);
     }
 
+    public int getBookingno(int facId, Date bookingdate, int bookingtime)
+    {return facilityMapper.getBookingno( facId, bookingdate, bookingtime,  con);}
 }

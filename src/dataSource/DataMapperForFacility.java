@@ -241,7 +241,6 @@ public class DataMapperForFacility
             Booking booking1 = booking.get(i);
             if (booking1.getFacilityId() == facid)
             {
-                System.out.println("bookednumusers" + booking1.getBookedNumOfUsers());
                 answer = booking1.getMaxUsers() - booking1.getBookedNumOfUsers();
 
             }
@@ -255,7 +254,7 @@ public class DataMapperForFacility
     {
         String SQLString = "SELECT WaitingPos from bookingstatus where bookingid = ? AND guestno = ?";
         String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
-        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1) where bookingid = ? AND  waitingpos > 0";
+        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1) where bookingid = ? AND  waitingpos > ?";
 
         int currentWaitingPost = -1;
 
@@ -290,6 +289,7 @@ public class DataMapperForFacility
             statement = con.prepareStatement(SQLString3);
 
             statement.setInt(1, bookingno);
+            statement.setInt(2, currentWaitingPost);
 
             int rowchanged = statement.executeUpdate();
             System.out.println(rowchanged + " row is changed");
@@ -382,6 +382,7 @@ public class DataMapperForFacility
         {
             Facility tempfac = facList.get(i);
             int tempFacId = tempfac.getFacID();
+            System.out.println("tempfacid=" + tempFacId);
             int remaining = remaingPlace(type, bookingdate, bookingtime, tempFacId);
             Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
 
