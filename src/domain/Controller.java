@@ -272,7 +272,8 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -287,7 +288,8 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
