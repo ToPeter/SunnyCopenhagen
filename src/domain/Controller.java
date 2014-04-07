@@ -174,19 +174,19 @@ public class Controller
 //        return result;
     }
 
-    public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException
-    {
-        {
-            return mailsender.sendInvoice(email, reservation, guestarray, roomType, roomPrice);
-        }
-    }
-
-    public boolean sendConfirmation(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType) throws MessagingException
-    {
-        {
-            return mailsender.sendConfirmation(email, reservation, guestarray, roomType);
-        }
-    }
+//    public boolean sendInvoice(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType, int roomPrice) throws MessagingException
+//    {
+//        {
+//            return mailsender.sendInvoice(email, reservation, guestarray, roomType, roomPrice);
+//        }
+//    }
+//
+//    public boolean sendConfirmation(String email, Reservation reservation, ArrayList<Guest> guestarray, String roomType) throws MessagingException
+//    {
+//        {
+//            return mailsender.sendConfirmation(email, reservation, guestarray, roomType);
+//        }
+//    }
 
     public String getRoomType(int roomNo)
     {
