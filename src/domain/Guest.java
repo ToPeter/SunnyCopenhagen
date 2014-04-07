@@ -18,8 +18,35 @@ public class Guest
     private String agency;
     private int id;
 
-  //  private final ArrayList<GuestDetail> guestDetails;
+    //following is added by Tomoe. 
+    private String guestFirstName;
+    private String guestFamilyName;
+    private String address;
+    private String country;
+    private int phone;
+    private String email;
 
+    //for creating mail info
+    public Guest(int reservationNo, String guestNo, int password, String guestFirstName, String guestFamilyName, String email)
+    {
+        this.reservationNo = reservationNo;
+        this.guestNo = guestNo;
+        this.password = password;
+        this.guestFirstName = guestFirstName;
+        this.guestFamilyName = guestFamilyName;
+        this.email = email;
+    }
+//for waiting list for facility
+    public Guest(String guestNo, String guestFirstName, String guestFamilyName)
+    {
+        this.guestNo = guestNo;
+        this.guestFirstName = guestFirstName;
+        this.guestFamilyName = guestFamilyName;
+    }
+    
+    
+    ///////////////////////////////
+    
     public Guest(int reservationNo,
             String guestNo,
             int password,
@@ -44,12 +71,11 @@ public class Guest
     {
         this.agency = agency;
     }
-    
-       public int getId()
+
+    public int getId()
     {
         return id;
-    }        
-
+    }
 
     public int setId()
     {
@@ -87,19 +113,18 @@ public class Guest
         return password;
     }
 
-   
-
-     // == Methods:  toString,
+    // == Methods:  toString,
     // I dont know what about AddGuest ???
     public String toString()
     {
         return // " ReservationNo: " + reservationNo + "\n" // was comm. out
-                 "Guest no: " + guestNo + "\n"
+                "Guest no: " + guestNo + "\n"
                 + "Password: " + password + "\n"
                 + "Travel agency: " + agency + "\n"
-                + "ID: " + id ;
+                + "ID: " + id;
     }
 
+   
     public boolean equals(Guest guest)
     {
         return (reservationNo == guest.getReservationNo()
@@ -109,4 +134,7 @@ public class Guest
                 && id == guest.getId());
     }
 
+    public String stringForWaitingList()
+          
+    {return "Guest no: "+ guestNo+"  Name: "+ guestFirstName+ " "+guestFamilyName;}
 }

@@ -8,11 +8,11 @@ package dataSource;
 
 import domain.Booking;
 import domain.Facility;
+import domain.Guest;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 
 /**
  *
@@ -22,6 +22,7 @@ public class DBFacadeForFacility
 {private Connection con;
 private DataMapperForFacility facilityMapper;
 private static DBFacadeForFacility instance;
+private UnitOfWorkForFacility uowFacility;
 
     public DBFacadeForFacility()
     {
@@ -63,7 +64,20 @@ public int remaingPlace(String type, Date bookingdate, int bookingtime,int facid
 public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
 {return facilityMapper.getFacArrayForJlist(type, bookingdate, bookingtime);}
 
+public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
+{return facilityMapper.getWaitingListForJlist(facID, bookingdate, bookingtime);}
 
+    public void startProcessGuestBusinessTransaction()
+    {
+        uowFacility = new UnitOfWorkForFacility(facilityMapper);
+    }
+    public void registerNewGuest(Guest guest)
+    {
+        if (uowFacility != null)
+        {
+            //uowFacility.registerNewGuest(guest);
+        }
+    }
 
 
 

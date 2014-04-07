@@ -7,6 +7,7 @@ package presentation;
 
 import domain.Controller;
 import domain.Facility;
+import domain.Guest;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -24,13 +25,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private int facilityType = 0;
     private DefaultListModel model;
     private Controller control;
-private ArrayList<Facility> facArray;
+    private ArrayList<Facility> facArray;
+    private ArrayList<Guest> waitingarray;
+
     public CasablancaFacilities()
     {
         initComponents();
         model = new DefaultListModel();
         control = new Controller();
-        facArray=new ArrayList();
+        facArray = new ArrayList();
+        waitingarray = new ArrayList();
         model.clear();
     }
 
@@ -54,6 +58,7 @@ private ArrayList<Facility> facArray;
         jListAvailableFacilities = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +113,15 @@ private ArrayList<Facility> facArray;
             }
         });
 
+        jButton3.setText("Waiting guest");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,12 +142,13 @@ private ArrayList<Facility> facArray;
                             .addComponent(jLabel2)
                             .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
-                            .addComponent(jButton1))))
-                .addContainerGap(102, Short.MAX_VALUE))
+                            .addComponent(jButton1)
+                            .addComponent(jButton3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +168,10 @@ private ArrayList<Facility> facArray;
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -178,7 +196,7 @@ private ArrayList<Facility> facArray;
         String type = null;
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
         Date dd = jDateChooserFacilityBooking.getDate();
-        
+
         if (typeIndex == 0)
         {
             type = "tennis";
@@ -218,12 +236,29 @@ private ArrayList<Facility> facArray;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
-        Facility fac=facArray.get(typeIndex);
-        control.createFacilityBooking(fac, "10219-1",jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
-               
+        Facility fac = facArray.get(typeIndex);
+        control.createFacilityBooking(fac, "10219-1", jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+
+        int typeIndex = jListAvailableFacilities.getSelectedIndex();
+        Facility fac = facArray.get(typeIndex);
+        waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()));
+        System.out.println("waitingarray size " + waitingarray.size());
+        model.clear();
+        for (int i = 0; i < waitingarray.size(); i++)
+        {
+            Guest guest = waitingarray.get(i);
+            model.addElement(guest.stringForWaitingList());
+        }
+
+        jListAvailableFacilities.setModel(model);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,16 +280,20 @@ private ArrayList<Facility> facArray;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -273,6 +312,7 @@ private ArrayList<Facility> facArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBoxFacilityType;
     private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking;
     private javax.swing.JLabel jLabel1;

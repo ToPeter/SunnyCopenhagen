@@ -1517,7 +1517,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 //            {System.out.println("Messege sending failed");
                 //                Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
                 //            }
-            }
+                            }
             control.resetGuest();
         }
         else

@@ -7,13 +7,11 @@ package dataSource;
 
 import domain.Booking;
 import domain.Facility;
-import domain.Reservation;
+import domain.Guest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -252,6 +250,10 @@ public class DataMapperForFacility
         System.out.println("remainingplace answer=" + answer);
         return answer;
     }
+    
+    // under construction. :)
+    public boolean updateWaitingPos(Connection con)
+    {return true;}
 
     public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
     {
@@ -338,4 +340,37 @@ public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, in
 }
 
 
+public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int bookingtime)
+{ ArrayList<Guest> waitingarray= new ArrayList();
+        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
+        String SQLString = "select g.guestno, gi.guestfirstname, gi.guestlastname from guest g, guestid gi, booking b, bookingstatus bs " +
+"  where gi.guestid=g.guestid and bs.guestno=g.guestno and b.bookingid=bs.bookingid and b.facilityid=? and b.bookingdate=? and b.bookingtime=? and bs.waitingpos>0";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setInt(1, facId);
+            statement.setDate(2, sqlBookingdate);
+            statement.setInt(3, bookingtime);
+
+            ResultSet rs = statement.executeQuery();
+            System.out.println("rs"+rs); 
+            while (rs.next())
+            {Guest tempGuest;
+                String guestNo = rs.getString(1);
+                String guestFN = rs.getString(2);
+                String guestLN= rs.getString(3);
+                
+                tempGuest=new Guest(guestNo,guestFN,guestLN);
+                waitingarray.add(tempGuest);
+                System.out.println("waitingarray size ="+waitingarray.size());
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return waitingarray;
+}
 }

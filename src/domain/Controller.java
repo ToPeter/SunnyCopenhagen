@@ -366,4 +366,7 @@ public class Controller
 public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
 {return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);}
         
+
+public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
+{return facadeF.getWaitingList(facID, bookingdate, bookingtime);}
         }
