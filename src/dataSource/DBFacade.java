@@ -60,7 +60,7 @@ public class DBFacade
 
     //== this is gonna be changed to making the reservations / updating and stuff
     //== i kept is so we could see how we did earlier :) - Peter K
-      //===== Methods to handle business transactions
+    //===== Methods to handle business transactions
     //===	Should be called upon start of a transaction
     //    Any changes done after last commit will be ignored
     //Peter T 
@@ -74,6 +74,7 @@ public class DBFacade
     {
         return dm.getRoomType(roomNo, con);
     }
+
     public int getNextReservationNo()
     {
         return dm.getNextReservationNo(con);
@@ -114,7 +115,7 @@ public class DBFacade
         }
     }
 
-     	  //===== Methods to handle business transactions
+    //===== Methods to handle business transactions
     //===	Should be called upon start of a transaction
     //    Any changes done after last commit will be ignored
     public void startProcessOrderBusinessTransaction()
@@ -157,24 +158,16 @@ public class DBFacade
 
     public boolean updateDeposit(Reservation currentReservation)
     {
-        
+
         unitOfWork.updateDeposit(currentReservation);
-        
+
         return true;
     }
 
-  
-       
-
- 
-
     public boolean getGuestInfo(String userName, String password)
     {
-        return dm.getGuestInfo(userName, password,con);
-       
+        return dm.getGuestInfo(userName, password, con);
     }
-    
-    
 
     public String getReservationString(int reservationNo)
     {
@@ -184,7 +177,7 @@ public class DBFacade
         String resultString;
 
         lookedUpReservation = dm.getreservation(reservationNo, con);
-      //  lookedUpGuestarray = dm.getGuest(reservationNo, con);
+        //  lookedUpGuestarray = dm.getGuest(reservationNo, con);
 //        for (int i = 0; i < lookedUpGuestarray.size(); i++)
 //        {
 //            int guestNo = i + 1;
@@ -196,31 +189,36 @@ public class DBFacade
         return resultString;
     }
 
-    
     public boolean getEmpInfo(String userName, String password)
     {
-       return dm.getEmpInfo(userName, password,con);
+        return dm.getEmpInfo(userName, password, con);
     }
 
     public void registerNewGuestID(GuestID currentGuestID)
     {
-       
-         if (unitOfWork != null)
+
+        if (unitOfWork != null)
         {
             unitOfWork.registerNewGuestID(currentGuestID);
         }
-        
-        
+
     }
-    
 
     public ArrayList<GuestID> getGuestsID(int guestID)
     {
-       return dm.getGuestID(guestID, con);
+        return dm.getGuestID(guestID, con);
     }
 
-  
+    public String getEmpLogInName(String userName)
+    {
+        String name = dm.getEmpLogInName(userName, con);
 
- 
+        return name;
+    }
 
+    public String getGuestLogInName(String userName)
+    {
+        String name = dm.getGuestLogInName(userName, con);
+        return name;
+    }
 }

@@ -402,7 +402,7 @@ public class DataMapper implements DataMapperInterface
     {
         GuestID guestID = null;
         String SQLString1 = // get order
-                   "select * "
+                "select * "
                 + "from GUESTID "
                 + "where GUESTID = ? ";
 
@@ -425,7 +425,7 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7));
-               
+
             }
 
         }
@@ -434,7 +434,7 @@ public class DataMapper implements DataMapperInterface
             System.out.println("Fail in OrderMapper - getGuest");
             System.out.println(e.getMessage());
         }
-       
+
         return guestID;
     }
 
@@ -466,7 +466,7 @@ public class DataMapper implements DataMapperInterface
     @Override
     public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
     {
-        System.out.println("inside insertGuest, size = "+guestList.size());
+        System.out.println("inside insertGuest, size = " + guestList.size());
         int rowsInserted = 0;
         String SQLString = "insert into guest values (?,?,?,?,?)";
 
@@ -478,19 +478,18 @@ public class DataMapper implements DataMapperInterface
 
             Guest guest = guestList.get(i);
 
-            System.out.println("printing current guest in insertGuest: "+guest.toString());
-            
+            System.out.println("printing current guest in insertGuest: " + guest.toString());
+
             statement.setInt(1, guest.getReservationNo());
             statement.setString(2, guest.getGuestNo());
             statement.setInt(3, guest.getPassword());
             statement.setString(4, guest.getAgency());
             statement.setInt(5, guest.getId());
-            
+
             System.out.println(guest.toString());
-            
+
             rowsInserted = statement.executeUpdate();
-            
-            
+
             System.out.println("printing statement " + rowsInserted);
 
             System.out.println("inserted row: " + rowsInserted);
@@ -621,75 +620,64 @@ public class DataMapper implements DataMapperInterface
     @Override
     public boolean getGuestInfo(String userName, String password, Connection conn)
     {
-       Boolean result = false;
-       HashMap<String, String> logIn = new HashMap<>();
-       String SQLString = "select guestno from guest where password = ? and guestno = ?";
-       PreparedStatement statement = null;
-       
+        boolean result = false;
+        String SQLString = "select guestno from guest where password = ? and guestno = ?";
+        PreparedStatement statement = null;
         try
         {
             statement = conn.prepareStatement(SQLString);
             statement.setString(1, password);
             statement.setString(2, userName);
+            //String SQLString = "select guestno from guest where password = 6560 and guestno = '10238-1'";
             ResultSet rs = statement.executeQuery();
-            
+
             if (rs.next())
             {
                 result = true;
             }
-            
-            
-          
-            
+
         }
-        
+
         catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_Guest");
             System.out.println(e.getMessage());
         }
-       
-        
+
         return result;
-        
     }
 
     @Override
     public boolean getEmpInfo(String userName, String password, Connection conn)
     {
-       Boolean result = false;
-       String SQLString = "select empid from employee where password = ? and empid = ?";
-       PreparedStatement statement = null;
-       
+        boolean result = false;
+        String SQLString = "select empid from employee where password = ? and empid = ?";
+        PreparedStatement statement = null;
+
         try
         {
             statement = conn.prepareStatement(SQLString);
             statement.setString(1, password);
             statement.setString(2, userName);
             ResultSet rs = statement.executeQuery();
-            
+
             if (rs.next())
             {
                 result = true;
             }
-            
-            
-          
-            
+
         }
-        
+
         catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_EMP");
             System.out.println(e.getMessage());
         }
-       
-        
+
         return result;
-        
+
     }
 
-       
     @Override
     public ArrayList<GuestID> getGuestID(int guestID, Connection con)
     {
@@ -718,7 +706,7 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7));
-                        
+
                 guestListID.add(guestIDobject);
             }
 
@@ -734,29 +722,25 @@ public class DataMapper implements DataMapperInterface
         }
         return guestListID;
     }
-    
-    
 
     @Override
-    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) 
+    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con)
     {
-            int rowsInserted = 0;
+        int rowsInserted = 0;
         try
         {
             System.out.println("TOP OF INSERT GUEST ID " + guestListID.size());
-            
+
             String SQLString = "insert into guestid values (?,?,?,?,?,?,?)";
-            
-                       
+
             PreparedStatement statement = null;
             statement = con.prepareStatement(SQLString);
-            
+
             for (int i = 0; i < guestListID.size(); i++)
             {
-                
+
                 GuestID guestID = guestListID.get(i);
-                
-                
+
                 statement.setInt(1, guestID.getId());
                 statement.setString(2, guestID.getGuestFirstName());
                 statement.setString(3, guestID.getGuestFamilyName());
@@ -764,33 +748,81 @@ public class DataMapper implements DataMapperInterface
                 statement.setString(5, guestID.getCountry());
                 statement.setInt(6, guestID.getPhoneNo());
                 statement.setString(7, guestID.getEmail());
-                
-                System.out.println("Printing guest in fuest ID :"+guestID.toString());
-                
+
+                System.out.println("Printing guest in fuest ID :" + guestID.toString());
+
                 rowsInserted = statement.executeUpdate();
-                
-                
+
                 System.out.println("printing statement " + rowsInserted);
-                
+
                 System.out.println("inserted row: " + rowsInserted);
-                
             }
             if (testRun)
             {
                 System.out.println("insertOrders(): " + (rowsInserted == guestListID.size())); // for test
             }
-            
-        } catch (SQLException ex)
+
+        }
+        catch (SQLException ex)
         {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return (rowsInserted == guestListID.size());
+        return (rowsInserted == guestListID.size());
     }
-    
 
+    @Override
+    public String getEmpLogInName(String userName, Connection con)
 
+    {
+        String name = "";
+        String SQLString = "select firstname from employee where empid = ? ";
+        PreparedStatement statement = null;
 
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, userName);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                name = rs.getString(1);;
+                //  result = true;
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_EMP");
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+
+    @Override
+    public String getGuestLogInName(String userName, Connection con)
+    {
+        String name = "";
+        String SQLString = "select guestfirstname from guestid where guestid = ("
+                + "select guestid from guest where guestno = ?) ";
+        PreparedStatement statement = null;
+
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, userName);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                name = rs.getString(1);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_Guest");
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
 }
-
-   
-

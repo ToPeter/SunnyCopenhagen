@@ -64,7 +64,7 @@ public class Controller
     }
 
     // ----------------------------- Unit Of Work ----------------------------
-    public boolean getGuest (int guestID)
+    public boolean getGuest(int guestID)
     {
         boolean guestFound = false;
 
@@ -75,14 +75,14 @@ public class Controller
 
         facade.startProcessGuestBusinessTransaction(); // method in Fascade
         processingGuest = true;
-        
+
         currentGuestID = facade.getGuest(guestID);
         processingGuest = false;
         if (currentGuestID != null)
         {
             guestFound = true;
         }
-       
+
         return guestFound;
     }
 
@@ -171,7 +171,6 @@ public class Controller
 
  //       facade.startProcessGuestBusinessTransaction();
 //        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
-
         if (guestID != 0)
         {
             processingGuest = true;
@@ -264,29 +263,29 @@ public class Controller
 
     public Boolean checkLogInForGuest(String userName, String password)
     {
-        Boolean result = false;
+        boolean result = false;
         try
         {
-
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
-
         return result;
     }
 
     public Boolean checkLogInForEmp(String userName, String password)
     {
-        Boolean result = false;
+        boolean result = false;
         try
         {
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -334,7 +333,7 @@ public class Controller
 
     public String getCurrentGuestIDLastName()
     {
-    return currentGuestID.getGuestFamilyName();
+        return currentGuestID.getGuestFamilyName();
     }
 
     public String getCurrentGuestIDAdress()
@@ -349,7 +348,7 @@ public class Controller
 
     public String getCurrentGuestIDPhoneNo()
     {
-        return ""+currentGuestID.getPhoneNo();
+        return "" + currentGuestID.getPhoneNo();
     }
 
     public String getCurrentGuestIDEmail()
@@ -359,14 +358,28 @@ public class Controller
 
     public void updateGuest(int reservationNo, String guestNo, int password, String text)
     {
-    
-        
+
     }
 
-public boolean createFacilityBooking(Facility facility, String guestNo,Date bookingdate, int bookingtime,int inno)
-{return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);}
-        
+    public String getEmpNameLogIn(String userName)
+    {
+        String name = facade.getEmpLogInName(userName);
+        return name;
+    }
 
-public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
-{return facadeF.getWaitingList(facID, bookingdate, bookingtime);}
-        }
+    public String getGuestNameLogIn(String userName)
+    {
+        String name = facade.getGuestLogInName(userName);
+        return name;
+    }
+
+    public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);
+    }
+
+    public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
+    {
+        return facadeF.getWaitingList(facID, bookingdate, bookingtime);
+    }
+}
