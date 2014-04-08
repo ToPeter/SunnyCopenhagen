@@ -382,7 +382,7 @@ public class DataMapperForFacility
         {
             Facility tempfac = facList.get(i);
             int tempFacId = tempfac.getFacID();
-            System.out.println("tempfacid=" + tempFacId);
+
             int remaining = remaingPlace(type, bookingdate, bookingtime, tempFacId);
             Facility newfac = new Facility(tempFacId, tempfac.getMinUsers(), tempfac.getMaxUsers(), remaining);
 
@@ -429,4 +429,77 @@ public class DataMapperForFacility
         return waitingarray;
     }
 
+    public ArrayList<Booking> getBookingList(String guestno, Connection con)
+    {
+        ArrayList<Booking> bookingarray = new ArrayList();
+//        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
+
+        String SQLString = "SELECT b.bookingid, b.bookingdate, B.Bookingtime  from booking b, bookingstatus bs "
+                + "where b.bookingid = bs.bookingid and Bs.Guestno = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, guestno);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                Booking booking;
+                int bookingid = rs.getInt(1);
+                Date bookingdate = rs.getDate(2);
+                int bookingtime = rs.getInt(3);
+
+                booking = new Booking(bookingid, bookingdate, bookingtime);
+                bookingarray.add(booking);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return bookingarray;
+    }
+
+    
+    
+//        public ArrayList<Booking> getBookingDetails(Facil, Connection con)
+//    {
+//        ArrayList<Booking> bookingarray = new ArrayList();
+////        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
+//
+//        String SQLString = "SELECT b.bookingid, b.bookingdate, B.Bookingtime  from booking b, bookingstatus bs "
+//                + "where b.bookingid = bs.bookingid and Bs.Guestno = ?";
+//
+//        PreparedStatement statement = null;
+//        try
+//        {
+//            statement = con.prepareStatement(SQLString);
+//            statement.setString(1, guestno);
+//
+//            ResultSet rs = statement.executeQuery();
+//
+//            while (rs.next())
+//            {
+//                Booking booking;
+//                int bookingid = rs.getInt(1);
+//                Date bookingdate = rs.getDate(2);
+//                int bookingtime = rs.getInt(3);
+//
+//                booking = new Booking(bookingid, bookingdate, bookingtime);
+//                bookingarray.add(booking);
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println("Fail in DataMapper - getNextReservationNo");
+//            System.out.println(e.getMessage());
+//        };
+//        return bookingarray;
+//    }
+
+    
 }

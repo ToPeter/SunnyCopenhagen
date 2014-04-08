@@ -9,6 +9,7 @@ import domain.Controller;
 import domain.Facility;
 import domain.Guest;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 
@@ -28,6 +29,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private ArrayList<Facility> facArray;
     private ArrayList<Guest> waitingarray;
     private String type;
+    private String username;
+    Date minDate, dd, weekfwd;
 
     public CasablancaFacilities()
     {
@@ -38,6 +41,34 @@ public class CasablancaFacilities extends javax.swing.JFrame
         waitingarray = new ArrayList();
         model.clear();
         type = null;
+        Calendar c = Calendar.getInstance();
+        // c.add(Calendar.DAY_OF_MONTH, -1);
+        minDate = c.getTime();
+        c.add(Calendar.DAY_OF_MONTH, 7);
+        weekfwd = c.getTime();
+        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.requestFocusInWindow();
+        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+
+    }
+
+    public CasablancaFacilities(String user)
+    {
+        initComponents();
+        model = new DefaultListModel();
+        control = new Controller();
+        facArray = new ArrayList();
+        waitingarray = new ArrayList();
+        model.clear();
+        type = null;
+        username = user;
+        Calendar c = Calendar.getInstance();
+        minDate = c.getTime();
+        c.add(Calendar.DAY_OF_MONTH, 7);
+        weekfwd = c.getTime();
+        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.requestFocusInWindow();
+        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
     }
 
     /**
@@ -74,6 +105,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
 
         jDateChooserFacilityBooking.setDateFormatString("dd-MM-yy");
+        jDateChooserFacilityBooking.setFocusCycleRoot(true);
 
         jTextFieldFacilityBookingHour.addActionListener(new java.awt.event.ActionListener()
         {
@@ -197,7 +229,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         model.clear();
 
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        Date dd = jDateChooserFacilityBooking.getDate();
+        dd = jDateChooserFacilityBooking.getDate();
 
         if (typeIndex == 0)
         {
@@ -242,7 +274,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         Facility fac = facArray.get(listIndex);
 
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        Date dd = jDateChooserFacilityBooking.getDate();
+        dd = jDateChooserFacilityBooking.getDate();
 
         if (typeIndex == 0)
         {
@@ -265,7 +297,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        control.createFacilityBooking(fac, type, "10000-4", dd, Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
+        control.createFacilityBooking(fac, type, username, dd, Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -308,20 +340,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
