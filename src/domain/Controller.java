@@ -398,4 +398,9 @@ public class Controller
     {
         return "Booking ID: " + booking.bookingId + " Booking date: "+booking.bookingdate+ " Booking time: "+booking.bookingtime;
     }
+
+    public ArrayList<Booking> getBookingDetails(int bookingid)
+    {
+        return facadeF.getBookingDetails(bookingid);
+    }
 }

@@ -106,10 +106,17 @@ public class DBFacadeForFacility
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
-    {return facilityMapper.getBookingno( facId, bookingdate, bookingtime,  con);}
-    
+    {
+        return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+    }
+
     public ArrayList<Booking> getBookingList(String guestno)
     {
         return facilityMapper.getBookingList(guestno, con);
+    }
+
+    public ArrayList<Booking> getBookingDetails(int bookingid)
+    {
+        return facilityMapper.getBookingDetails(bookingid, con);
     }
 }

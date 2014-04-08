@@ -464,21 +464,20 @@ public class DataMapperForFacility
         return bookingarray;
     }
 
-    public ArrayList<Booking> getBookingDetails(int bookingId, Date date, int hour, Connection con)
+    public ArrayList<Booking> getBookingDetails(int bookingId, Connection con)
     {
         ArrayList<Booking> bdetailarray = new ArrayList();
-        java.sql.Date sqldate = new java.sql.Date(date.getTime());
+       // java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
         String SQLString = "SELECT  bs.guestno , bs.waitingpos, bs.inno from bookingstatus bs, booking b "
-                + "where bs.bookingid=b.bookingid and b.bookingid=? and b.bookingdate=? and b.bookingtime=?";
+                + "where bs.bookingid=b.bookingid and b.bookingid=? order by bs.waitingpos ";
 
         PreparedStatement statement = null;
         try
         {
             statement = con.prepareStatement(SQLString);
             statement.setInt(1, bookingId);
-            statement.setDate(2, sqldate);
-            statement.setInt(3, hour);
+
 
             ResultSet rs = statement.executeQuery();
 
@@ -489,7 +488,7 @@ public class DataMapperForFacility
                 int waitingpos = rs.getInt(2);
                 int inno = rs.getInt(3);
 
-                booking = new Booking(guestno, waitingpos, inno);
+                booking = new Booking(guestno, inno, waitingpos);
                 bdetailarray.add(booking);
             }
         }
