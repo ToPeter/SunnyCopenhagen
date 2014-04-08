@@ -464,42 +464,41 @@ public class DataMapperForFacility
         return bookingarray;
     }
 
-    
-    
-//        public ArrayList<Booking> getBookingDetails(Facil, Connection con)
-//    {
-//        ArrayList<Booking> bookingarray = new ArrayList();
-////        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
-//
-//        String SQLString = "SELECT b.bookingid, b.bookingdate, B.Bookingtime  from booking b, bookingstatus bs "
-//                + "where b.bookingid = bs.bookingid and Bs.Guestno = ?";
-//
-//        PreparedStatement statement = null;
-//        try
-//        {
-//            statement = con.prepareStatement(SQLString);
-//            statement.setString(1, guestno);
-//
-//            ResultSet rs = statement.executeQuery();
-//
-//            while (rs.next())
-//            {
-//                Booking booking;
-//                int bookingid = rs.getInt(1);
-//                Date bookingdate = rs.getDate(2);
-//                int bookingtime = rs.getInt(3);
-//
-//                booking = new Booking(bookingid, bookingdate, bookingtime);
-//                bookingarray.add(booking);
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println("Fail in DataMapper - getNextReservationNo");
-//            System.out.println(e.getMessage());
-//        };
-//        return bookingarray;
-//    }
+    public ArrayList<Booking> getBookingDetails(int bookingId, Date date, int hour, Connection con)
+    {
+        ArrayList<Booking> bdetailarray = new ArrayList();
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
-    
+        String SQLString = "SELECT  bs.guestno , bs.waitingpos, bs.inno from bookingstatus bs, booking b "
+                + "where bs.bookingid=b.bookingid and b.bookingid=? and b.bookingdate=? and b.bookingtime=?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setInt(1, bookingId);
+            statement.setDate(2, sqldate);
+            statement.setInt(3, hour);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                Booking booking;
+                String guestno = rs.getString(1);
+                int waitingpos = rs.getInt(2);
+                int inno = rs.getInt(3);
+
+                booking = new Booking(guestno, waitingpos, inno);
+                bdetailarray.add(booking);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return bdetailarray;
+    }
+
 }

@@ -91,7 +91,7 @@ public class DataMapper implements DataMapperInterface
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("reservation got"+reservation.toString());
+        System.out.println("reservation got" + reservation.toString());
         return reservation;
     }
 
@@ -218,6 +218,7 @@ public class DataMapper implements DataMapperInterface
 
         try
         {
+            
             java.sql.Date sqlFromDate = new java.sql.Date(fromDate.getTime());
             java.sql.Date sqlToDate = new java.sql.Date(endDate.getTime());
             System.out.println(sqlFromDate);
@@ -349,9 +350,25 @@ public class DataMapper implements DataMapperInterface
 
     @Override
     public boolean createReservation(Reservation res, Connection con)
-    {
+    {   
         boolean doublebooked = false;
         int roomNo = res.getRoomNo();
+         String lock = "Lock table reservation in exclusive mode";
+                    
+        try
+        {PreparedStatement statement = null;
+          statement=con.prepareStatement(lock);
+            statement.executeUpdate();
+
+          
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in lokinc");
+            System.out.println(e.getMessage());
+        }
+
+
         ArrayList<Integer> availRoomNumbers = doubleCheckRoomAvailable(res.getFromDate(), res.getEndDate(), con);
 
         if (!availRoomNumbers.contains(roomNo))
