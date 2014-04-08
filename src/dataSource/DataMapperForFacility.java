@@ -305,6 +305,50 @@ public class DataMapperForFacility
         return true;
     }
 
+    
+    //return true if a guest have more than 4 booking per day.
+    public boolean fourBookingPerDay(String guestno, Date date, Connection con)
+    {
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
+
+        String SQLString = "select bs.guestno,Count(bs.guestno), b.bookingdate from booking b , bookingstatus bs "
+                + "where bs.guestno=? and bs.bookingid=b.bookingid and bookingdate=? "
+                + "group by b.bookingdate, bs.guestno";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, guestno);
+            statement.setDate(2, sqldate);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                if (rs.getInt(2) >= 4)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return false;
+    }
+
+    
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
     {
         boolean bookingnoFound = true;
@@ -392,6 +436,7 @@ public class DataMapperForFacility
         return result;
     }
 
+    //maybe this can be deleted
     public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int bookingtime, Connection con)
     {
         ArrayList<Guest> waitingarray = new ArrayList();
@@ -467,7 +512,7 @@ public class DataMapperForFacility
     public ArrayList<Booking> getBookingDetails(int bookingId, Connection con)
     {
         ArrayList<Booking> bdetailarray = new ArrayList();
-       // java.sql.Date sqldate = new java.sql.Date(date.getTime());
+        // java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
         String SQLString = "SELECT  bs.guestno , bs.waitingpos, bs.inno from bookingstatus bs, booking b "
                 + "where bs.bookingid=b.bookingid and b.bookingid=? order by bs.waitingpos ";
@@ -477,7 +522,6 @@ public class DataMapperForFacility
         {
             statement = con.prepareStatement(SQLString);
             statement.setInt(1, bookingId);
-
 
             ResultSet rs = statement.executeQuery();
 
