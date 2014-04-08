@@ -30,7 +30,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private ArrayList<Guest> waitingarray;
     private String type;
     private String username;
-    Date minDate, dd;
+    Date minDate, dd, weekfwd;
 
     public CasablancaFacilities()
     {
@@ -42,11 +42,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
         model.clear();
         type = null;
         Calendar c = Calendar.getInstance();
-       // c.add(Calendar.DAY_OF_MONTH, -1);
+        // c.add(Calendar.DAY_OF_MONTH, -1);
         minDate = c.getTime();
+        c.add(Calendar.DAY_OF_MONTH, 7);
+        weekfwd = c.getTime();
         jDateChooserFacilityBooking.setMinSelectableDate(minDate);
         jDateChooserFacilityBooking.requestFocusInWindow();
-        
+        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+
     }
 
     public CasablancaFacilities(String user)
@@ -59,7 +62,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
         model.clear();
         type = null;
         username = user;
+        Calendar c = Calendar.getInstance();
+        minDate = c.getTime();
+        c.add(Calendar.DAY_OF_MONTH, 7);
+        weekfwd = c.getTime();
+        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.requestFocusInWindow();
+        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -263,7 +274,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         Facility fac = facArray.get(listIndex);
 
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-       dd = jDateChooserFacilityBooking.getDate();
+        dd = jDateChooserFacilityBooking.getDate();
 
         if (typeIndex == 0)
         {
@@ -329,20 +340,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
