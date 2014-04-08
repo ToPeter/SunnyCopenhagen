@@ -102,6 +102,7 @@
     <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFacilityBooking">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yy"/>
+        <Property name="focusCycleRoot" type="boolean" value="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldFacilityBookingHour">

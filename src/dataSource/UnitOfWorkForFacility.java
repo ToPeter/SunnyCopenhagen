@@ -36,7 +36,7 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-            status = status && dmf.updateWaitingPos(con);
+//            status = status && dmf.updateWaitingPos(con);
 
             if (!status)
             {

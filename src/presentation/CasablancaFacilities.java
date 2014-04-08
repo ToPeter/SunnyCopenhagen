@@ -9,6 +9,7 @@ import domain.Controller;
 import domain.Facility;
 import domain.Guest;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 
@@ -27,6 +28,9 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private Controller control;
     private ArrayList<Facility> facArray;
     private ArrayList<Guest> waitingarray;
+    private String type;
+    private String username;
+    Date minDate, dd;
 
     public CasablancaFacilities()
     {
@@ -36,8 +40,26 @@ public class CasablancaFacilities extends javax.swing.JFrame
         facArray = new ArrayList();
         waitingarray = new ArrayList();
         model.clear();
+        type = null;
+        Calendar c = Calendar.getInstance();
+       // c.add(Calendar.DAY_OF_MONTH, -1);
+        minDate = c.getTime();
+        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.requestFocusInWindow();
+        
     }
 
+    public CasablancaFacilities(String user)
+    {
+        initComponents();
+        model = new DefaultListModel();
+        control = new Controller();
+        facArray = new ArrayList();
+        waitingarray = new ArrayList();
+        model.clear();
+        type = null;
+        username = user;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +94,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
 
         jDateChooserFacilityBooking.setDateFormatString("dd-MM-yy");
+        jDateChooserFacilityBooking.setFocusCycleRoot(true);
 
         jTextFieldFacilityBookingHour.addActionListener(new java.awt.event.ActionListener()
         {
@@ -193,9 +216,9 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         model.clear();
-        String type = null;
+
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        Date dd = jDateChooserFacilityBooking.getDate();
+        dd = jDateChooserFacilityBooking.getDate();
 
         if (typeIndex == 0)
         {
@@ -223,6 +246,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         System.out.println(dd.toString());
         System.out.println(hour);
         facArray = control.getFacArrayForJlist(type, dd, hour);
+
         for (int i = 0; i < facArray.size(); i++)
         {
             Facility facility = facArray.get(i);
@@ -235,9 +259,34 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        int typeIndex = jListAvailableFacilities.getSelectedIndex();
-        Facility fac = facArray.get(typeIndex);
-        control.createFacilityBooking(fac, "10402-1", jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
+        int listIndex = jListAvailableFacilities.getSelectedIndex();
+        Facility fac = facArray.get(listIndex);
+
+        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
+       dd = jDateChooserFacilityBooking.getDate();
+
+        if (typeIndex == 0)
+        {
+            type = "tennis";
+        }
+        else if (typeIndex == 1)
+        {
+            type = "badminton";
+        }
+        else if (typeIndex == 2)
+        {
+            type = "volleyball";
+        }
+        else if (typeIndex == 3)
+        {
+            type = "handball";
+        }
+        else if (typeIndex == 4)
+        {
+            type = "fitness";
+        }
+
+        control.createFacilityBooking(fac, type, username, dd, Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

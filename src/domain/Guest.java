@@ -21,9 +21,7 @@ public class Guest
     //following is added by Tomoe. 
     private String guestFirstName;
     private String guestFamilyName;
-    private String address;
-    private String country;
-    private int phone;
+    private int bookingid;
     private String email;
 
     //for creating mail info
@@ -37,8 +35,8 @@ public class Guest
         this.email = email;
     }
 //for waiting list for facility
-    public Guest(String guestNo, String guestFirstName, String guestFamilyName)
-    {
+    public Guest(int bookingid, String guestNo, String guestFirstName, String guestFamilyName)
+    {   this.bookingid= bookingid;
         this.guestNo = guestNo;
         this.guestFirstName = guestFirstName;
         this.guestFamilyName = guestFamilyName;

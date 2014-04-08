@@ -14,15 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class LogIn extends javax.swing.JFrame
 {
-
+    
     private Controller control = new Controller();
-
+    
     public LogIn()
     {
         initComponents();
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
@@ -154,15 +154,15 @@ public class LogIn extends javax.swing.JFrame
         String userName = "";
         String password = "";
         boolean logInResult = false;
-
+        
         if (UserNameField.getText().trim().length() == 0 || PasswordField.getText().length() == 0) // if there is no input
         {
-
+            
             JOptionPane.showMessageDialog(null, "You have NOT insert any information");
             UserNameField.setText("");
             PasswordField.setText("");
         }
-
+        
         else if (UserNameField.getText().contains("-")) // it figure out if it is guest or emp.
         {                                           // enters loop if guest and checks if all is good + make check
 
@@ -170,31 +170,32 @@ public class LogIn extends javax.swing.JFrame
             password = PasswordField.getText();
             // CHECKS HERE IF GUESTNO = PASSWORD
             logInResult = control.checkLogInForGuest(userName, password);
-
+            
             if (logInResult == true)
             {
                 String guestName = control.getGuestNameLogIn(userName);
                 JOptionPane.showMessageDialog(null, "Welcome dear customer: " + guestName);
-
-                java.awt.EventQueue.invokeLater(new Runnable()
-                {
-                    public void run()
-                    {
-                        new CasablancaFacilities().setVisible(true);
-                        setLocationRelativeTo(null); // NO ide if it works
-                    }
-                });
+                CasablancaFacilities cbf = new CasablancaFacilities(userName);
+                cbf.setVisible(logInResult);
+//                java.awt.EventQueue.invokeLater(new Runnable()
+//                {
+//                    public void run()
+//                    {
+//                        new CasablancaFacilities().setVisible(true);
+//                        setLocationRelativeTo(null); // NO ide if it works
+//                    }
+//                });
                 this.setVisible(false);
-
+                
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "Invalid password");
                 UserNameField.setText("");
                 PasswordField.setText("");
-
+                
             }
-
+            
         }
         // --------------------- CHECKS EMP------------------------
 
@@ -205,13 +206,13 @@ public class LogIn extends javax.swing.JFrame
             // CHECKS HERE IF EMPNo = PASSWORD
 
             logInResult = control.checkLogInForEmp(userName, password);
-
+            
             if (logInResult == true)
             {
-
+                
                 String empName = control.getEmpNameLogIn(userName);
                 JOptionPane.showMessageDialog(null, "Welcome dear EMP: " + empName);
-
+                
                 java.awt.EventQueue.invokeLater(new Runnable()
                 {
                     public void run()
@@ -220,17 +221,17 @@ public class LogIn extends javax.swing.JFrame
                     }
                 });
                 this.setVisible(false);
-
+                
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "Invalid password");
                 UserNameField.setText("");
                 PasswordField.setText("");
-
+                
             }
         }
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -259,20 +260,16 @@ public class LogIn extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

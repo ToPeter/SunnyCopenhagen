@@ -235,12 +235,11 @@ public class Controller
         return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
 
     }
-
-    public String getGuestStringForMail(int reservationNo)
-
-    {
-        return facade.getReservationString(reservationNo);
-    }
+    
+//    public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation,  String roomType) throws MessagingException
+//    {
+//        return facade.getReservationString(reservationNo);
+//    }
 
     public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation, String roomType) throws MessagingException
     {
@@ -364,10 +363,13 @@ public class Controller
     {
 
     }
-
-    public boolean createFacilityBooking(Facility facility, String guestNo, Date bookingdate, int bookingtime, int inno)
+   
+    public boolean updateWaitingPos(int bookingno,String guestno)
+    {return facadeF.updateWaitingPos(bookingno, guestno);}
+            
+    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
-        return facadeF.createFacilityBooking(facility, guestNo, bookingdate, bookingtime, inno);
+        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
     }
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
