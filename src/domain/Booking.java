@@ -22,6 +22,13 @@ public class Booking
     Date bookingdate;
     int bookingtime;
 
+    public Booking(int bookingId, Date bookingdate, int bookingtime)
+    {
+        this.bookingId = bookingId;
+        this.bookingdate = bookingdate;
+        this.bookingtime = bookingtime;
+    }
+    
     public Booking(int bookingId, int bookedNumOfUsers, int maxUsers, String type, int facilityId, Date bookingdate, int bookingtime)
     {
         this.bookingId = bookingId;
@@ -108,7 +115,5 @@ public class Booking
     {
         this.bookingtime = bookingtime;
     }
-    
-    
-    
+     
 }

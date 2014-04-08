@@ -389,6 +389,13 @@ public class Controller
         return name;
     }
 
-
-
+    public ArrayList<Booking> getBookingList(String guestno)
+    {
+        return facadeF.getBookingList(guestno);
+    }
+    
+    public String getBookingListString (Booking booking)
+    {
+        return "Booking ID: " + booking.bookingId + " Booking date: "+booking.bookingdate+ " Booking time: "+booking.bookingtime;
+    }
 }
