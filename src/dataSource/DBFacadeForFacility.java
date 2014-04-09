@@ -102,10 +102,10 @@ public class DBFacadeForFacility
 
     public boolean updateWaitingPos(Booking booking)
     {
+        System.out.println("booking: "+booking.getGuestno());
         
         uowFacility.registerDeleteBooking(booking);
        
-       // return facilityMapper.updateWaitingPos(booking, con);
         return true;
     }
 
@@ -122,5 +122,16 @@ public class DBFacadeForFacility
     public ArrayList<Booking> getBookingDetails(int bookingid)
     {
         return facilityMapper.getBookingDetails(bookingid, con);
+    }
+    public boolean commitProcessBookingBusinessTransaction()
+    {
+      boolean status = false;
+        if (uowFacility != null)
+        {
+            status = uowFacility.commit(con);
+            uowFacility = null;
+
+        }
+        return status;
     }
 }

@@ -356,6 +356,8 @@ public class Controller
     public boolean updateWaitingPos(int bookingno, String guestno)
     {
         Booking booking = new Booking (bookingno, guestno);
+        facadeF.startProcessGuestBusinessTransaction();
+        facadeF.commitProcessBookingBusinessTransaction();
         return facadeF.updateWaitingPos(booking);
     }
 
