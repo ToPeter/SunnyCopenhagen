@@ -66,11 +66,12 @@ public class DBFacadeForFacility
     {
         return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
     }
-
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-    }
+//
+//    public boolean createFacilityBooking()
+//    {
+//        
+//        ;
+//    }
 
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
@@ -106,8 +107,9 @@ public class DBFacadeForFacility
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
-    {
-        return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+    {  int bookingno=facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+      
+       return bookingno;
     }
 
     public ArrayList<Booking> getBookingList(String guestno)
@@ -118,5 +120,45 @@ public class DBFacadeForFacility
     public ArrayList<Booking> getBookingDetails(int bookingid)
     {
         return facilityMapper.getBookingDetails(bookingid, con);
+
+    }
+
+    public void registerNewBooking(Booking bookingSQL1)
+    {
+    if (uowFacility != null)
+        {
+            uowFacility.registerNewBooking(bookingSQL1);
+        }
+    
+    }
+    
+    public void registerNewBookingStatus(Booking bookingSQL2)
+    {
+    if (uowFacility != null)
+        {
+            uowFacility.registerNewBookingStatus(bookingSQL2);
+        }
+    
+    }
+    
+    public void registerDeletBooking(Booking deleteSql)
+    {
+    if (uowFacility != null)
+        {
+            uowFacility.registerDeleteBooking(deleteSql);
+        }
+    
+    }
+
+    public boolean commitProcessBookingBusinessTransaction()
+    {
+      boolean status = false;
+        if (uowFacility != null)
+        {
+            status = uowFacility.commit(con);
+            uowFacility = null;
+
+        }
+        return status;
     }
 }

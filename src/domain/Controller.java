@@ -13,7 +13,7 @@ import javax.mail.MessagingException;
 public class Controller
 {
 
-    private boolean processingGuest, processingReservation;        // Represent state of business transaction
+    private boolean processingGuest, processingReservation, processingBooking;        // Represent state of business transaction
     private Guest currentGuest;             // Guest in focus
     private GuestID currentGuestID;
     private Reservation currentReservation; //Reservation in focus
@@ -29,6 +29,7 @@ public class Controller
         processingGuest = false;
         processingGuestID = false;
         processingReservation = false;
+        processingBooking = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
         facadeF = DBFacadeForFacility.getInstance();
@@ -226,11 +227,9 @@ public class Controller
     public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation, String roomType, int roomPrice) throws MessagingException
     {
 
-        
-            return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
-        
+        return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
+
     }
-    
 
     public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation, String roomType) throws MessagingException
     {
@@ -354,18 +353,72 @@ public class Controller
     {
 
     }
-   
-    public boolean updateWaitingPos(int bookingno,String guestno)
-    {return facadeF.updateWaitingPos(bookingno, guestno);}
-            
+
+    public boolean updateWaitingPos(int bookingno, String guestno)
+    {
+        return facadeF.updateWaitingPos(bookingno, guestno);
+    }
+
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
-        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
+        int waitingpos;
+        int remainroom = facadeF.remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
+
+        if (remainroom <= 0)
+        {
+            waitingpos = Math.abs(remainroom - 1);
+        }
+        else
+        {
+            waitingpos = 0;
+        }
+
+        facadeF.startProcessGuestBusinessTransaction();
+        int bookingno = facadeF.getBookingno(facility.getFacID(), bookingdate, bookingtime);
+        
+        Booking bookingSQL1 = new Booking(bookingno,facility.getFacID() ,bookingdate,bookingtime);
+        facadeF.registerNewBooking(bookingSQL1);
+        System.out.println("guestno "+ guestNo);
+        Booking bookingSQL2 = new Booking(bookingno,guestNo,waitingpos,inno);
+        facadeF.registerNewBookingStatus(bookingSQL2);
+        
+        return facadeF.commitProcessBookingBusinessTransaction(); // return boolean if commit was or wasNOT succesful
+        
+      //  return true;
     }
+//    }
+//     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
+//    {
+//        if (processingGuest)
+//        {
+//            return null;
+//        }
+//
+////       facade.startProcessGuestBusinessTransaction();
+////        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+//        if (reservationNo != 0)
+//        {
+//            processingGuest = true;
+//
+//            currentGuest = new Guest(reservationNo, guestNo, password, agency, currentGuestID.getId());
+//            facade.registerNewGuest(currentGuest);
+//            processingGuest = false;
+//        }
+//        else
+//        {
+//
+//            currentGuest = null;
+//        }
+//
+//        return currentGuest;
+//    }
+
+    
     
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
-    return facadeF.getBookingno(facId, bookingdate, bookingtime);}
+        return facadeF.getBookingno(facId, bookingdate, bookingtime);
+    }
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
@@ -382,7 +435,7 @@ public class Controller
         String name = facade.getGuestLogInName(userName);
         return name;
     }
-    
+
     public String getEmpNameLogIn(String userName)
     {
         String name = facade.getEmpLogInName(userName);
@@ -393,10 +446,10 @@ public class Controller
     {
         return facadeF.getBookingList(guestno);
     }
-    
-    public String getBookingListString (Booking booking)
+
+    public String getBookingListString(Booking booking)
     {
-        return "Booking ID: " + booking.bookingId + " Booking date: "+booking.bookingdate+ " Booking time: "+booking.bookingtime;
+        return "Booking ID: " + booking.bookingId + " Booking date: " + booking.bookingdate + " Booking time: " + booking.bookingtime;
     }
 
     public ArrayList<Booking> getBookingDetails(int bookingid)
