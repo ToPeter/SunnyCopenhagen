@@ -367,12 +367,11 @@ public class DataMapperForFacility
             for (int i = 0; i < bookingSql1.size(); i++)
             {
                 Booking booking = bookingSql1.get(i);
-
-                if (booking.getBookingId() == 0)
+                bookingno = booking.getBookingId();
+                if (bookingno == 0)
                 {
                     bookingno = getNextBookingNo(con);
-                }
-
+                                
                 java.sql.Date sqldate = new java.sql.Date(booking.getBookingdate().getTime());
                 System.out.println("new bookingno " + bookingno);
                 statement.setInt(1, bookingno);
@@ -380,7 +379,7 @@ public class DataMapperForFacility
                 statement.setDate(3, sqldate);
                 statement.setInt(4, booking.getBookingtime());
                 rowsInserted += statement.executeUpdate();
-                System.out.println("rows inserted = " + rowsInserted);
+                System.out.println("rows inserted = " + rowsInserted);}
             }
             statement = con.prepareStatement(SQLString2);
 
