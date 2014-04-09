@@ -499,5 +499,30 @@ public class DataMapperForFacility
         };
         return bdetailarray;
     }
+    public ArrayList<String> getTypes(Connection con)
+    {
+         ArrayList<String> typeArray = new ArrayList();
+
+        String SQLString = "SELECT type from type";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next())
+            {
+                String type = rs.getString(1);
+                typeArray.add(type);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        }
+        return typeArray;
+    }
 
 }
