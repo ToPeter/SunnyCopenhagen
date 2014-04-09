@@ -165,15 +165,5 @@ public class DBFacadeForFacility
         }
         return status;
     }
-    public boolean commitProcessBookingBusinessTransaction()
-    {
-      boolean status = false;
-        if (uowFacility != null)
-        {
-            status = uowFacility.commit(con);
-            uowFacility = null;
 
-        }
-        return status;
-    }
 }

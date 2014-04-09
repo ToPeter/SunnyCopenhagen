@@ -410,7 +410,7 @@ public class DataMapperForFacility
                 System.out.println("2 bookingno = " + bookingno);
                 statement.setString(2, booking2.getGuestno());
                 System.out.println("2 guestno= " + booking2.getGuestno());//guestno should be got
-            statement.setInt(5, inno);// is ver_no
+                statement.setInt(3, booking2.getWaitingpos());
                 System.out.println("2 waitingpos= " + booking2.getWaitingpos());
                 statement.setInt(4, booking2.getInno());//inno should be got
                 statement.setInt(5, 0);//versionno

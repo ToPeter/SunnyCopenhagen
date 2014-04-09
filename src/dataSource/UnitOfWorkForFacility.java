@@ -40,7 +40,7 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-          //  status = status && dmf.createFacilityBooking(newBooking,newBookingStatus,con);
+            status = status && dmf.createFacilityBooking(newBooking,newBookingStatus,con);
             status = status && dmf.updateWaitingPos(delBooking,con);
 
             
@@ -72,23 +72,23 @@ public class UnitOfWorkForFacility
 
     
     
-     public void registerNewBooking(Booking booking)
-    {
-        if ( !newBooking.contains(booking)) // if not all ready registered in any list
-              
-        {
-            newBooking.add(booking);
-        }
-    }
-     
-        public void registerDeleteBooking(Booking booking)
-    {
-        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
-              
-        {
-            newBookingStatus.add(bookingSQL1);
-        }
-    }
+//     public void registerNewBooking(Booking booking)
+//    {
+//        if ( !newBooking.contains(booking)) // if not all ready registered in any list
+//              
+//        {
+//            newBooking.add(booking);
+//        }
+//    }
+//     
+//        public void registerDeleteBooking(Booking booking)
+//    {
+//        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
+//              
+//        {
+//            newBookingStatus.add(bookingSQL1);
+//        }
+//    }
      
         public void registerDeleteBooking(Booking deleteSql)
     {
@@ -106,6 +106,14 @@ public class UnitOfWorkForFacility
               
         {
             newBooking.add(bookingSQL2);
+        }
+    }
+     public void registerNewBookingStatus(Booking bookingSQL1)
+    {
+        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
+              
+        {
+            newBookingStatus.add(bookingSQL1);
         }
     }
 }
