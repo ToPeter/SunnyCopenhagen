@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dataSource;
 
 import domain.Booking;
@@ -18,14 +17,15 @@ import java.util.ArrayList;
  * @author Tomoe
  */
 public class UnitOfWorkForFacility
-{    
+{
+
     private final DataMapperForFacility dmf;
-    private final ArrayList<Booking> delBooking; 
-    private final ArrayList<Booking> newBooking; 
+    private final ArrayList<Booking> delBooking;
+    private final ArrayList<Booking> newBooking;
     private final ArrayList<Booking> newBookingStatus;
     String type;
-   
-    public UnitOfWorkForFacility (DataMapperForFacility dmf)
+
+    public UnitOfWorkForFacility(DataMapperForFacility dmf)
     {
         this.dmf = dmf;
         delBooking = new ArrayList<>();
@@ -40,38 +40,40 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-            status = status && dmf.createFacilityBooking(newBooking,newBookingStatus,con);
-            status = status && dmf.updateWaitingPos(delBooking,con);
-
-            
-            
-            
+            if (newBooking.size()!=0&& newBookingStatus.size() != 0)
+            {
+                status = status && dmf.createFacilityBooking(newBooking, newBookingStatus, con);
+            }
+            if (delBooking.size()!=0)
+            {
+                status = status && dmf.updateWaitingPos(delBooking, con);
+            }
 
             if (!status)
             {
                 throw new Exception("Process Order Business Transaction aborted");
-                
+
             }
             //=== system transaction - ends with success
             con.commit();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             //=== system transaction - ends with roll back
             try
             {
                 con.rollback();
-            } catch (SQLException e1)
+            }
+            catch (SQLException e1)
             {
                 e1.printStackTrace();
             }
             status = false;
         }
-                        System.out.println("Status in Unit : "+status);
+        System.out.println("Status in Unit : " + status);
         return status;
     }
 
-    
-    
 //     public void registerNewBooking(Booking booking)
 //    {
 //        if ( !newBooking.contains(booking)) // if not all ready registered in any list
@@ -89,11 +91,10 @@ public class UnitOfWorkForFacility
 //            newBookingStatus.add(bookingSQL1);
 //        }
 //    }
-     
-        public void registerDeleteBooking(Booking deleteSql)
+    public void registerDeleteBooking(Booking deleteSql)
     {
-        if ( !delBooking.contains(deleteSql)) // if not all ready registered in any list
-              
+        if (!delBooking.contains(deleteSql)) // if not all ready registered in any list
+
         {
             delBooking.add(deleteSql);
         }
@@ -102,16 +103,17 @@ public class UnitOfWorkForFacility
 
     void registerNewBooking(Booking bookingSQL2)
     {
-        if ( !newBooking.contains(bookingSQL2)) // if not all ready registered in any list
-              
+        if (!newBooking.contains(bookingSQL2)) // if not all ready registered in any list
+
         {
             newBooking.add(bookingSQL2);
         }
     }
-     public void registerNewBookingStatus(Booking bookingSQL1)
+
+    public void registerNewBookingStatus(Booking bookingSQL1)
     {
-        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
-              
+        if (!newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
+
         {
             newBookingStatus.add(bookingSQL1);
         }
