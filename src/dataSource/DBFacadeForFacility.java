@@ -103,8 +103,10 @@ public class DBFacadeForFacility
     public boolean updateWaitingPos(Booking booking)
     {
         
-       // uowFacility.registerDeleteBooking(booking);
-        return facilityMapper.updateWaitingPos(booking, con);
+        uowFacility.registerDeleteBooking(booking);
+       
+       // return facilityMapper.updateWaitingPos(booking, con);
+        return true;
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)

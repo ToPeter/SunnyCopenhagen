@@ -262,9 +262,9 @@ public class DataMapperForFacility
         return answer;
     }
 
-    public boolean updateWaitingPos(Booking booking, Connection con)
+    public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList, Connection con)
     {
-        
+        Booking booking = bookingUpdateList.get(0);
         String SQLString = "SELECT WaitingPos,ver_no from bookingstatus where bookingid = ? AND guestno = ?";
         String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
         String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1),Ver_no = ?  where bookingid = ? AND  waitingpos > ? and ver_no = ?";
