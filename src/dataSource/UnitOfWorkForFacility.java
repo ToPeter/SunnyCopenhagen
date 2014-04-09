@@ -22,13 +22,15 @@ public class UnitOfWorkForFacility
     private final DataMapperForFacility dmf;
     private final ArrayList<Booking> delBooking; 
     private final ArrayList<Booking> newBooking; 
-    
+    private final ArrayList<Booking> newBookingStatus;
+    String type;
    
     public UnitOfWorkForFacility (DataMapperForFacility dmf)
     {
         this.dmf = dmf;
         delBooking = new ArrayList<>();
         newBooking = new ArrayList<>();
+        newBookingStatus = new ArrayList<>();
     }
 
     public boolean commit(Connection con)
@@ -67,7 +69,7 @@ public class UnitOfWorkForFacility
                         System.out.println("Status in Unit : "+status);
         return status;
     }
-    
+
     
     
      public void registerNewBooking(Booking booking)
@@ -81,12 +83,29 @@ public class UnitOfWorkForFacility
      
         public void registerDeleteBooking(Booking booking)
     {
-        if ( !delBooking.contains(booking)) // if not all ready registered in any list
+        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
               
         {
-            delBooking.add(booking);
+            newBookingStatus.add(bookingSQL1);
         }
     }
+     
+        public void registerDeleteBooking(Booking deleteSql)
+    {
+        if ( !delBooking.contains(deleteSql)) // if not all ready registered in any list
+              
+        {
+            delBooking.add(deleteSql);
+        }
 
-    
+    }
+
+    void registerNewBooking(Booking bookingSQL2)
+    {
+        if ( !newBooking.contains(bookingSQL2)) // if not all ready registered in any list
+              
+        {
+            newBooking.add(bookingSQL2);
+        }
+    }
 }

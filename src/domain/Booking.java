@@ -53,14 +53,28 @@ public class Booking
         this.bookingtime = bookingtime;
     }
 
+    public Booking(int bookingId, int facilityId, Date bookingdate, int bookingtime)
+    {
+        this.bookingId = bookingId;
+        this.facilityId = facilityId;
+        this.bookingdate = bookingdate;
+        this.bookingtime = bookingtime;
+    }
+
     public Booking(String guestno, int inno, int waitingpos)
     {
         this.guestno = guestno;
         this.inno = inno;
         this.waitingpos = waitingpos;
     }
-
-    public int getBookingId()
+    public Booking(int bookingId, String guestno, int waitingpos, int inno)
+    {
+        this.bookingId = bookingId;
+        this.guestno = guestno;
+        this.inno = inno;
+        this.waitingpos = waitingpos;
+    }
+public int getBookingId()
     {
         return bookingId;
     }

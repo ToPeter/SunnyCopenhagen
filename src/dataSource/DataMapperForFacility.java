@@ -38,6 +38,7 @@ public class DataMapperForFacility
 
         this.con = con;
         delBooking = new ArrayList<>();
+
         newBooking = new ArrayList<>(); 
     }
 
@@ -324,73 +325,109 @@ public class DataMapperForFacility
         return true;
     }
 
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
+    //return true if a guest have more than 4 booking per day.
+    public boolean fourBookingPerDay(String guestno, Date date, Connection con)
     {
-        boolean bookingnoFound = true;
-        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
-        int bookingno = getBookingno(facility.getFacID(), sqlBookingdate, bookingtime, con);
-        int waitingpos;
-        int rowsInserted = 0;
-        System.out.println("facility type=" + type);
-        int remainroom = remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
-        System.out.println("remainroom " + remainroom);
-        if (remainroom <= 0)
-        {
-            waitingpos = Math.abs(remainroom - 1);
-        }
-        else
-        {
-            waitingpos = 0;
-        }
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
-        if (bookingno == 0)
-        {
-            bookingnoFound = false;
-            bookingno = getNextBookingNo(con);
-            System.out.println("here");
-            System.out.println(bookingnoFound);
-        }
+        String SQLString = "select bs.guestno,Count(bs.guestno), b.bookingdate from booking b , bookingstatus bs "
+                + "where bs.guestno=? and bs.bookingid=b.bookingid and bookingdate=? "
+                + "group by b.bookingdate, bs.guestno";
 
-        String SQLString = "insert into bookingstatus values (?,?,?,?,?)";
-        String SQLString2 = "insert into booking values(?,?,?,?)";
-
+        PreparedStatement statement = null;
         try
         {
-            con.setAutoCommit(false);
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, guestno);
+            statement.setDate(2, sqldate);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                if (rs.getInt(2) >= 4)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return false;
+    }
+
+    public boolean createFacilityBooking(ArrayList<Booking> bookingSql1, ArrayList<Booking> bookingSql2, Connection con)
+    {
+        int rowsInserted = 0;
+        int bookingno = -1;
+
+        String SQLString1 = "insert into booking values(?,?,?,?)";
+        String SQLString2 = "insert into bookingstatus values (?,?,?,?,?)";
+
+        // int remainroom = remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
+        try
+        {
+            //con.setAutoCommit(false);
 //            DateFormat format = new SimpleDateFormat("dd-MM-yy");
             PreparedStatement statement = null;
 
-            //creating a new booking if bookingno is not found yet
-            if (!bookingnoFound)
+            statement = con.prepareStatement(SQLString1);
+            for (int i = 0; i < bookingSql1.size(); i++)
             {
-                statement = con.prepareStatement(SQLString2);
+                Booking booking = bookingSql1.get(i);
+                bookingno = booking.getBookingId();
+                if (bookingno == 0)
+                {
+                    bookingno = getNextBookingNo(con);
+                                
+                java.sql.Date sqldate = new java.sql.Date(booking.getBookingdate().getTime());
+                System.out.println("new bookingno " + bookingno);
+                statement.setInt(1, bookingno);
+                statement.setInt(2, booking.getFacilityId());
+                statement.setDate(3, sqldate);
+                statement.setInt(4, booking.getBookingtime());
+                rowsInserted += statement.executeUpdate();
+                System.out.println("rows inserted = " + rowsInserted);}
+            }
+            statement = con.prepareStatement(SQLString2);
+
+            for (int i = 0; i < bookingSql2.size(); i++)
+            {
+                Booking booking2 = bookingSql2.get(i);
 
                 statement.setInt(1, bookingno);
-                statement.setInt(2, facility.getFacID());
-                statement.setDate(3, sqlBookingdate);
-                statement.setInt(4, bookingtime);
-
-                rowsInserted = statement.executeUpdate();
-            }
-
-            statement = con.prepareStatement(SQLString);
-
-            statement.setInt(1, bookingno);
-            statement.setString(2, guestNo);//guestno should be got
-            statement.setInt(3, waitingpos);
-            statement.setInt(4, inno);//inno should be got
+                System.out.println("2 bookingno = " + bookingno);
+                statement.setString(2, booking2.getGuestno());
+                System.out.println("2 guestno= " + booking2.getGuestno());//guestno should be got
             statement.setInt(5, inno);// is ver_no
-            rowsInserted += statement.executeUpdate();
+                System.out.println("2 waitingpos= " + booking2.getWaitingpos());
+                statement.setInt(4, booking2.getInno());//inno should be got
+                statement.setInt(5, 0);//versionno
 
+                rowsInserted += statement.executeUpdate();
+            }
             System.out.println("Booking created rows inserted = " + rowsInserted);
-            con.commit();
+            //con.commit();
+
         }
         catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
             System.out.println(e.getMessage());
+            return false;
         }
-        return rowsInserted == 1;
+        return true;
     }
 
     public ArrayList<Facility> getFacArrayForJlist(String type, Date bookingdate, int bookingtime)
@@ -411,6 +448,7 @@ public class DataMapperForFacility
         return result;
     }
 
+    //maybe this can be deleted
     public ArrayList<Guest> getWaitingListForJlist(int facId, Date bookingdate, int bookingtime, Connection con)
     {
         ArrayList<Guest> waitingarray = new ArrayList();
@@ -486,7 +524,7 @@ public class DataMapperForFacility
     public ArrayList<Booking> getBookingDetails(int bookingId, Connection con)
     {
         ArrayList<Booking> bdetailarray = new ArrayList();
-       // java.sql.Date sqldate = new java.sql.Date(date.getTime());
+        // java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
         String SQLString = "SELECT  bs.guestno , bs.waitingpos, bs.inno from bookingstatus bs, booking b "
                 + "where bs.bookingid=b.bookingid and b.bookingid=? order by bs.waitingpos ";
@@ -496,7 +534,6 @@ public class DataMapperForFacility
         {
             statement = con.prepareStatement(SQLString);
             statement.setInt(1, bookingId);
-
 
             ResultSet rs = statement.executeQuery();
 
