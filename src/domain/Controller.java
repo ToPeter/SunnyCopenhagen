@@ -146,7 +146,6 @@ public class Controller
 
 //       facade.startProcessGuestBusinessTransaction();
 //        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
-        
         if (reservationNo != 0)
         {
             processingGuest = true;
@@ -205,7 +204,6 @@ public class Controller
         return result;
     }
 
-    
     public void commit()
     {
         facade.commitProcessGuestBusinessTransaction();
@@ -263,7 +261,8 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -278,7 +277,8 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -356,11 +356,10 @@ public class Controller
 
     public boolean updateWaitingPos(int bookingno, String guestno)
     {
-         facadeF.startProcessGuestBusinessTransaction();
+        facadeF.startProcessGuestBusinessTransaction();
         boolean result;
-        Booking booking = new Booking (bookingno, guestno);
-       
-        
+        Booking booking = new Booking(bookingno, guestno);
+
         result = facadeF.updateWaitingPos(booking);
         facadeF.commitProcessBookingBusinessTransaction();
         return result;
@@ -382,16 +381,16 @@ public class Controller
 
         facadeF.startProcessGuestBusinessTransaction();
         int bookingno = facadeF.getBookingno(facility.getFacID(), bookingdate, bookingtime);
-        
-        Booking bookingSQL1 = new Booking(bookingno,facility.getFacID() ,bookingdate,bookingtime);
+
+        Booking bookingSQL1 = new Booking(bookingno, facility.getFacID(), bookingdate, bookingtime);
         facadeF.registerNewBooking(bookingSQL1);
-        System.out.println("guestno "+ guestNo);
-        Booking bookingSQL2 = new Booking(bookingno,guestNo,waitingpos,inno);
+        System.out.println("guestno " + guestNo);
+        Booking bookingSQL2 = new Booking(bookingno, guestNo, waitingpos, inno);
         facadeF.registerNewBookingStatus(bookingSQL2);
-        
+
         return facadeF.commitProcessBookingBusinessTransaction(); // return boolean if commit was or wasNOT succesful
-        
-      //  return true;
+
+        //  return true;
     }
 //    }
 //     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
@@ -419,8 +418,6 @@ public class Controller
 //
 //        return currentGuest;
 //    }
-
-    
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
@@ -479,10 +476,10 @@ public class Controller
     {
         return currentGuestID.getId();
     }
-    
+
     public void changeCurrentGuestID(int index)
     {
-        if(arrayOfGuestID.size()>1)
+        if (arrayOfGuestID.size() > 1)
         {
             currentGuestID = arrayOfGuestID.get(index);
         }
@@ -491,7 +488,7 @@ public class Controller
     public boolean searchGuestByReservationNO(int reservationNO)
     {
 
-    boolean result = false;
+        boolean result = false;
         arrayOfGuestID = facade.searchGuestByReservationNO(reservationNO);
         if (arrayOfGuestID != null)
         {
@@ -500,10 +497,12 @@ public class Controller
         }
         return result;
     }
+
     public int getSizeOfArrayOfGuestID()
     {
         return arrayOfGuestID.size();
     }
+
     public ArrayList<String> getNamesInArrayOfGuest()
     {
         ArrayList<String> arrayOfNames = new ArrayList<>();
@@ -515,9 +514,15 @@ public class Controller
         }
         return arrayOfNames;
     }
-    
+
     public void commitFac()
     {
         facadeF.commitProcessBookingBusinessTransaction();
     }
+
+    public boolean fourBookingPerDay(String guestno, Date date)
+    {
+        return facadeF.fourBookingPerDay(guestno, date);
+    }
+
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -86,7 +87,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
-    }
+            }
 
     public void populateComboBox()
     {
@@ -500,7 +501,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
 
         int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
-        control.createFacilityBooking(fac, type, username, dd, hour, 0);
+        if (!control.fourBookingPerDay(username, dd))
+        {
+            control.createFacilityBooking(fac, type, username, dd, hour, 0);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error", "You can only have 4 booking per day", JOptionPane.OK_OPTION);
+        }
 
         
     }//GEN-LAST:event_jButton2ActionPerformed

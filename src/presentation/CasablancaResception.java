@@ -1628,6 +1628,7 @@ public class CasablancaResception extends javax.swing.JFrame
         if (!jTextFieldID.getText().isEmpty() && !jTextFieldfFirstName.getText().isEmpty() && !jTextFieldlLastName.getText().isEmpty()
                 && !jTextFieldAdress.getText().isEmpty() && !jTextFieldcountry.getText().isEmpty() && !jTextFieldphoneNo.getText().isEmpty()
                 && !jTextFieldemail.getText().isEmpty())
+            
         {
             Random ran = new Random();
             String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
