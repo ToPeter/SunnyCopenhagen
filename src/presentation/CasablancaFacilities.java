@@ -36,6 +36,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     Date today, dd, weekfwd;
     Calendar c;
     private ArrayList<Booking> arrayBookingInfo;
+    private boolean selected = false;
 
     public CasablancaFacilities() //should be updated and used only for employees
     {
@@ -213,6 +214,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jComboBoxBookingHour.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jComboBoxBookingHourActionPerformed(evt);
             }
         });
 
@@ -467,6 +476,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             model.addElement(facstring);
         }
         jListAvailableFacilities.setModel(model);
+        selected = false;
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -637,8 +647,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jLayeredPane1MouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jLayeredPane1MouseMoved
     {//GEN-HEADEREND:event_jLayeredPane1MouseMoved
         // TODO add your handling code here:
+        if (!selected)
         populateComboBox();
     }//GEN-LAST:event_jLayeredPane1MouseMoved
+
+    private void jComboBoxBookingHourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxBookingHourActionPerformed
+    {//GEN-HEADEREND:event_jComboBoxBookingHourActionPerformed
+        // TODO add your handling code here:
+        selected = true;
+    }//GEN-LAST:event_jComboBoxBookingHourActionPerformed
 
     /**
      * @param args the command line arguments
