@@ -100,9 +100,11 @@ public class DBFacadeForFacility
         }
     }
 
-    public boolean updateWaitingPos(int bookingno, String guestno)
+    public boolean updateWaitingPos(Booking booking)
     {
-        return facilityMapper.updateWaitingPos(bookingno, guestno, con);
+        
+       // uowFacility.registerDeleteBooking(booking);
+        return facilityMapper.updateWaitingPos(booking, con);
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)

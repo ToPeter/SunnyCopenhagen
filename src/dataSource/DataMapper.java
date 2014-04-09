@@ -353,12 +353,12 @@ public class DataMapper implements DataMapperInterface
     {   
         boolean doublebooked = false;
         int roomNo = res.getRoomNo();
-         String lock = "Lock table reservation in exclusive mode";
+        String lock = "Lock table reservation in exclusive mode";
                     
         try
         {PreparedStatement statement = null;
-          statement=con.prepareStatement(lock);
-            statement.executeUpdate();
+         statement=con.prepareStatement(lock);
+         statement.executeUpdate();
 
           
         }
@@ -607,7 +607,9 @@ public class DataMapper implements DataMapperInterface
 //        }
         return (rowsUpdated == updateList.size());    // false if any conflict in version number
     }
-
+    
+    
+   
 //http://www.w3schools.com/sql/sql_autoincrement.asp    
 //CREATE SEQUENCE seq_resno 
 //MINVALUE 1

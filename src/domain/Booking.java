@@ -21,8 +21,7 @@ public class Booking
     int facilityId;
     Date bookingdate;
     int bookingtime;
-
-   
+    int ver_no;
     String guestno;
     int inno;
     int waitingpos;
@@ -32,7 +31,16 @@ public class Booking
         this.bookingId = bookingId;
         this.bookingdate = bookingdate;
         this.bookingtime = bookingtime;
+
     }
+
+    public Booking(int bookingId, String guestno)
+    {
+        this.bookingId = bookingId;
+        this.guestno = guestno;
+        
+    }
+    
     
     public Booking(int bookingId, int bookedNumOfUsers, int maxUsers, String type, int facilityId, Date bookingdate, int bookingtime)
     {
