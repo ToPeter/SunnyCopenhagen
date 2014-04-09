@@ -264,6 +264,7 @@ public class DataMapperForFacility
 
     public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList, Connection con)
     {
+        System.out.println("in top of updatewitingpos");
         Booking booking = bookingUpdateList.get(0);
         String SQLString = "SELECT WaitingPos,ver_no from bookingstatus where bookingid = ? AND guestno = ?";
         String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
@@ -545,8 +546,7 @@ public class DataMapperForFacility
 
     boolean insertNewBooking(ArrayList<Booking> newBooking, Connection con)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+return true;        
         
         
         

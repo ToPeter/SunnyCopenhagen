@@ -128,7 +128,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookingDetails = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListShowInfoOnreservation = new javax.swing.JList();
-        jButtonDelete = new javax.swing.JToggleButton();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -320,12 +320,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jScrollPane3.setViewportView(jListShowInfoOnreservation);
 
-        jButtonDelete.setText("jToggleButton1");
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener()
+        jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButtonDeleteActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -335,21 +335,21 @@ public class CasablancaFacilities extends javax.swing.JFrame
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                 .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonDelete)
+                    .addComponent(jButton4)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1396, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetailsLayout.setVerticalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jButtonDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(90, 90, 90)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(312, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetails.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jButtonDelete, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookingDetails.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("File");
 
@@ -590,29 +590,30 @@ public class CasablancaFacilities extends javax.swing.JFrame
 //        }
     }//GEN-LAST:event_jListShowInfoOnreservationMouseClicked
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDeleteActionPerformed
-    {//GEN-HEADEREND:event_jButtonDeleteActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        
         int jListSelectedIndex = jListShowInfoOnreservation.getSelectedIndex();
 
-            System.out.println("index: "+jListSelectedIndex);
-           Booking booking = arrayBookingInfo.get(jListSelectedIndex);
-            System.out.println(booking.toString());
-           control.updateWaitingPos(bookingid, "10404-1");
-           control.commit();
-           infoOfBookingModel.clear();
-            for (int i = 0; i < arrayBookingInfo.size(); i++)
-            {
-                Booking book = arrayBookingInfo.get(i);
-                String resutl = "" + book.getGuestno() + " Waiting: " + book.getWaitingpos() + " instructor: " + book.getInno();
-                System.out.println(resutl);
+        System.out.println("index: " + jListSelectedIndex);
+        Booking booking = arrayBookingInfo.get(jListSelectedIndex);
+        System.out.println(booking.toString());
+        control.updateWaitingPos(bookingid, booking.getGuestno());
+        infoOfBookingModel.clear();
+        for (int i = 0; i < arrayBookingInfo.size(); i++)
+        {
+            Booking book = arrayBookingInfo.get(i);
+            String resutl = "" + book.getGuestno() + " Waiting: " + book.getWaitingpos() + " instructor: " + book.getInno();
+            System.out.println(resutl);
 
-                infoOfBookingModel.addElement(resutl);
+            infoOfBookingModel.addElement(resutl);
 
-            }
-            jListShowInfoOnreservation.setModel(infoOfBookingModel);
+        }
+        jListShowInfoOnreservation.setModel(infoOfBookingModel);
+        control.commitFac();
 
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -663,7 +664,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JToggleButton jButtonDelete;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonSearchGuestFacilities;
     private javax.swing.JComboBox jComboBoxBookingHour;
     private javax.swing.JComboBox jComboBoxFacilityType;

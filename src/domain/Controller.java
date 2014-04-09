@@ -355,10 +355,14 @@ public class Controller
 
     public boolean updateWaitingPos(int bookingno, String guestno)
     {
+         facadeF.startProcessGuestBusinessTransaction();
+        boolean result;
         Booking booking = new Booking (bookingno, guestno);
-        facadeF.startProcessGuestBusinessTransaction();
+       
+        
+        result = facadeF.updateWaitingPos(booking);
         facadeF.commitProcessBookingBusinessTransaction();
-        return facadeF.updateWaitingPos(booking);
+        return result;
     }
 
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
@@ -458,5 +462,10 @@ public class Controller
             arrayOfNames.add(name);
         }
         return arrayOfNames;
+    }
+    
+    public void commitFac()
+    {
+        facadeF.commitProcessBookingBusinessTransaction();
     }
 }
