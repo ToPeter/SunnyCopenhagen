@@ -91,7 +91,6 @@ public class DataMapperForFacility
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("bookedlist" + bookedlist.toString());
         return bookedlist;
     }
 
@@ -372,7 +371,7 @@ public class DataMapperForFacility
     {
         int rowsInserted = 0;
         int bookingno = -1;
-
+        Date bookingDate=c.getTime();
         String SQLString1 = "insert into booking values(?,?,?,?)";
         String SQLString2 = "insert into bookingstatus values (?,?,?,?,?)";
 
@@ -387,6 +386,7 @@ public class DataMapperForFacility
             for (int i = 0; i < bookingSql1.size(); i++)
             {
                 Booking booking = bookingSql1.get(i);
+                bookingDate=booking.getBookingdate();
                 bookingno = booking.getBookingId();
                 if (bookingno == 0)
                 {
@@ -407,13 +407,13 @@ public class DataMapperForFacility
             for (int i = 0; i < bookingSql2.size(); i++)
             {
                 Booking booking2 = bookingSql2.get(i);
+                if(fourBookingPerDay(booking2.getGuestno(),bookingDate, con))
+                {System.out.println("more than 4 bookings!");
+                    return false;}
 
                 statement.setInt(1, bookingno);
-                System.out.println("2 bookingno = " + bookingno);
                 statement.setString(2, booking2.getGuestno());
-                System.out.println("2 guestno= " + booking2.getGuestno());//guestno should be got
                 statement.setInt(3, booking2.getWaitingpos());
-                System.out.println("2 waitingpos= " + booking2.getWaitingpos());
                 statement.setInt(4, booking2.getInno());//inno should be got
                 statement.setInt(5, 0);//versionno
 
@@ -446,7 +446,7 @@ public class DataMapperForFacility
 
             result.add(newfac);
         }
-        System.out.println(result.toString());
+      
         return result;
     }
 
