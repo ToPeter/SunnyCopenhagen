@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
  *
  * @author Tomoe
  */
-public class DataMapperForFacility 
+public class DataMapperForFacility
 {
 
     private final Connection con;
@@ -30,8 +30,8 @@ public class DataMapperForFacility
     Calendar c = Calendar.getInstance();
     Booking booking;
     LinkedHashMap<Date, Integer> oneweekmap;
-    private final ArrayList<Booking> delBooking; 
-    private final ArrayList<Booking> newBooking; 
+    private final ArrayList<Booking> delBooking;
+    private final ArrayList<Booking> newBooking;
 
     public DataMapperForFacility(Connection con)
     {
@@ -39,14 +39,8 @@ public class DataMapperForFacility
         this.con = con;
         delBooking = new ArrayList<>();
 
-        newBooking = new ArrayList<>(); 
+        newBooking = new ArrayList<>();
     }
-
- 
- 
-
-    
-    
 
     public ArrayList<Booking> getBookedfac(String type, Date bookingdate, int bookingtime, Connection con)
     {
@@ -266,63 +260,70 @@ public class DataMapperForFacility
     public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList, Connection con)
     {
         System.out.println("in top of updatewitingpos");
-        Booking booking = bookingUpdateList.get(0);
-        String SQLString = "SELECT WaitingPos,ver_no from bookingstatus where bookingid = ? AND guestno = ?";
-        String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
-        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1),Ver_no = ?  where bookingid = ? AND  waitingpos > ? and ver_no = ?";
-
-        int currentWaitingPost = -1;
-        int currentVersion = 0;
-       
-        try
+        if (bookingUpdateList.isEmpty())
         {
-            con.setAutoCommit(false);
-//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
-            PreparedStatement statement = null;
+            return true;
+        }
+        else
+        {
+            Booking booking = bookingUpdateList.get(0);
+            String SQLString = "SELECT WaitingPos,ver_no from bookingstatus where bookingid = ? AND guestno = ?";
+            String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
+            String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1),Ver_no = ?  where bookingid = ? AND  waitingpos > ? and ver_no = ?";
 
-            statement = con.prepareStatement(SQLString);
+            int currentWaitingPost = -1;
+            int currentVersion = 0;
 
-            statement.setInt(1, booking.getBookingId());
-            statement.setString(2, booking.getGuestno());
-
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next())
+            try
             {
-                currentWaitingPost = rs.getInt(1);
-                currentVersion = rs.getInt(2);
+                con.setAutoCommit(false);
+//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
+                PreparedStatement statement = null;
+
+                statement = con.prepareStatement(SQLString);
+
+                statement.setInt(1, booking.getBookingId());
+                statement.setString(2, booking.getGuestno());
+
+                ResultSet rs = statement.executeQuery();
+
+                if (rs.next())
+                {
+                    currentWaitingPost = rs.getInt(1);
+                    currentVersion = rs.getInt(2);
+                }
+
+                System.out.println("currentWaitingpost is" + currentWaitingPost);
+
+                statement = con.prepareStatement(SQLString2);
+
+                statement.setInt(1, booking.getBookingId());
+                statement.setString(2, booking.getGuestno());
+
+                int rowdeleted = statement.executeUpdate();
+                System.out.println(rowdeleted + " row is deleted");
+
+                statement = con.prepareStatement(SQLString3);
+
+                statement.setInt(1, currentVersion + 1);
+                statement.setInt(2, booking.getBookingId());
+                statement.setInt(3, currentWaitingPost);
+                statement.setInt(4, currentVersion);
+
+                int rowchanged = statement.executeUpdate();
+                System.out.println(rowchanged + " row is changed");
+
+                con.commit();
             }
 
-            System.out.println("currentWaitingpost is" + currentWaitingPost);
+            catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - ERROR IN BOOKING");
+                System.out.println(e.getMessage());
+            }
 
-            statement = con.prepareStatement(SQLString2);
-
-             statement.setInt(1, booking.getBookingId());
-            statement.setString(2, booking.getGuestno());
-
-            int rowdeleted = statement.executeUpdate();
-            System.out.println(rowdeleted + " row is deleted");
-
-            statement = con.prepareStatement(SQLString3);
-
-            statement.setInt(1, currentVersion+1);
-            statement.setInt(2, booking.getBookingId());
-            statement.setInt(3, currentWaitingPost);
-            statement.setInt(4, currentVersion);
-
-            int rowchanged = statement.executeUpdate();
-            System.out.println(rowchanged + " row is changed");
-
-            con.commit();
+            return true;
         }
-        
-        catch (SQLException e)
-        {
-            System.out.println("Fail in DataMapper - ERROR IN BOOKING");
-            System.out.println(e.getMessage());
-        }
-
-        return true;
     }
 
     //return true if a guest have more than 4 booking per day.
@@ -390,15 +391,16 @@ public class DataMapperForFacility
                 if (bookingno == 0)
                 {
                     bookingno = getNextBookingNo(con);
-                                
-                java.sql.Date sqldate = new java.sql.Date(booking.getBookingdate().getTime());
-                System.out.println("new bookingno " + bookingno);
-                statement.setInt(1, bookingno);
-                statement.setInt(2, booking.getFacilityId());
-                statement.setDate(3, sqldate);
-                statement.setInt(4, booking.getBookingtime());
-                rowsInserted += statement.executeUpdate();
-                System.out.println("rows inserted = " + rowsInserted);}
+
+                    java.sql.Date sqldate = new java.sql.Date(booking.getBookingdate().getTime());
+                    System.out.println("new bookingno " + bookingno);
+                    statement.setInt(1, bookingno);
+                    statement.setInt(2, booking.getFacilityId());
+                    statement.setDate(3, sqldate);
+                    statement.setInt(4, booking.getBookingtime());
+                    rowsInserted += statement.executeUpdate();
+                    System.out.println("rows inserted = " + rowsInserted);
+                }
             }
             statement = con.prepareStatement(SQLString2);
 
@@ -555,9 +557,10 @@ public class DataMapperForFacility
         };
         return bdetailarray;
     }
+
     public ArrayList<String> getTypes(Connection con)
     {
-         ArrayList<String> typeArray = new ArrayList();
+        ArrayList<String> typeArray = new ArrayList();
 
         String SQLString = "SELECT type from type";
 
@@ -583,10 +586,8 @@ public class DataMapperForFacility
 
     boolean insertNewBooking(ArrayList<Booking> newBooking, Connection con)
     {
-return true;        
-        
-        
-        
+        return true;
+
     }
 
 }
