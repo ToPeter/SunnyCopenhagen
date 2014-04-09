@@ -145,6 +145,7 @@ public class Controller
 
 //       facade.startProcessGuestBusinessTransaction();
 //        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
+        
         if (reservationNo != 0)
         {
             processingGuest = true;
@@ -203,6 +204,7 @@ public class Controller
         return result;
     }
 
+    
     public void commit()
     {
         facade.commitProcessGuestBusinessTransaction();
@@ -353,7 +355,8 @@ public class Controller
 
     public boolean updateWaitingPos(int bookingno, String guestno)
     {
-        return facadeF.updateWaitingPos(bookingno, guestno);
+        Booking booking = new Booking (bookingno, guestno);
+        return facadeF.updateWaitingPos(booking);
     }
 
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)

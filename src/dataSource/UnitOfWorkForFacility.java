@@ -19,14 +19,16 @@ import java.util.ArrayList;
  */
 public class UnitOfWorkForFacility
 {    
-        private final DataMapperForFacility dmf;
+    private final DataMapperForFacility dmf;
     private final ArrayList<Booking> delBooking; 
+    private final ArrayList<Booking> newBooking; 
     
    
     public UnitOfWorkForFacility (DataMapperForFacility dmf)
     {
         this.dmf = dmf;
         delBooking = new ArrayList<>();
+        newBooking = new ArrayList<>();
     }
 
     public boolean commit(Connection con)
@@ -36,7 +38,14 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-//            status = status && dmf.updateWaitingPos(con);
+            
+            status = status && dmf.insertNewBooking(newBooking,con);
+            
+            status = status && dmf.updateWaitingPos(delBooking,con);
+
+            
+            
+            
 
             if (!status)
             {
@@ -61,7 +70,18 @@ public class UnitOfWorkForFacility
         return status;
     }
     
-     public void registerDirtyBooking(Booking booking)
+    
+    
+     public void registerNewBooking(Booking booking)
+    {
+        if ( !newBooking.contains(booking)) // if not all ready registered in any list
+              
+        {
+            newBooking.add(booking);
+        }
+    }
+     
+        public void registerDeleteBooking(Booking booking)
     {
         if ( !delBooking.contains(booking)) // if not all ready registered in any list
               

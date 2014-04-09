@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -21,19 +21,31 @@ import java.util.LinkedHashMap;
  *
  * @author Tomoe
  */
-public class DataMapperForFacility
+public class DataMapperForFacility 
 {
 
     private final Connection con;
     private Date parsedFrom;
     private Date parsedTo;
     Calendar c = Calendar.getInstance();
+    Booking booking;
     LinkedHashMap<Date, Integer> oneweekmap;
+    private final ArrayList<Booking> delBooking; 
+    private final ArrayList<Booking> newBooking; 
 
     public DataMapperForFacility(Connection con)
     {
+
         this.con = con;
+        delBooking = new ArrayList<>();
+        newBooking = new ArrayList<>(); 
     }
+
+ 
+ 
+
+    
+    
 
     public ArrayList<Booking> getBookedfac(String type, Date bookingdate, int bookingtime, Connection con)
     {
@@ -250,14 +262,16 @@ public class DataMapperForFacility
         return answer;
     }
 
-    public boolean updateWaitingPos(int bookingno, String guestno, Connection con)
+    public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList, Connection con)
     {
-        String SQLString = "SELECT WaitingPos from bookingstatus where bookingid = ? AND guestno = ?";
+        Booking booking = bookingUpdateList.get(0);
+        String SQLString = "SELECT WaitingPos,ver_no from bookingstatus where bookingid = ? AND guestno = ?";
         String SQLString2 = "DELETE FROM BOOKINGSTATUS where bookingid = ? AND guestno = ?";
-        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1) where bookingid = ? AND  waitingpos > ?";
+        String SQLString3 = "UPDATE BOOKINGSTATUS SET Waitingpos = (Waitingpos - 1),Ver_no = ?  where bookingid = ? AND  waitingpos > ? and ver_no = ?";
 
         int currentWaitingPost = -1;
-
+        int currentVersion = 0;
+       
         try
         {
             con.setAutoCommit(false);
@@ -266,36 +280,40 @@ public class DataMapperForFacility
 
             statement = con.prepareStatement(SQLString);
 
-            statement.setInt(1, bookingno);
-            statement.setString(2, guestno);
+            statement.setInt(1, booking.getBookingId());
+            statement.setString(2, booking.getGuestno());
 
             ResultSet rs = statement.executeQuery();
 
             if (rs.next())
             {
                 currentWaitingPost = rs.getInt(1);
+                currentVersion = rs.getInt(2);
             }
 
             System.out.println("currentWaitingpost is" + currentWaitingPost);
 
             statement = con.prepareStatement(SQLString2);
 
-            statement.setInt(1, bookingno);
-            statement.setString(2, guestno);
+             statement.setInt(1, booking.getBookingId());
+            statement.setString(2, booking.getGuestno());
 
             int rowdeleted = statement.executeUpdate();
             System.out.println(rowdeleted + " row is deleted");
 
             statement = con.prepareStatement(SQLString3);
 
-            statement.setInt(1, bookingno);
-            statement.setInt(2, currentWaitingPost);
+            statement.setInt(1, currentVersion+1);
+            statement.setInt(2, booking.getBookingId());
+            statement.setInt(3, currentWaitingPost);
+            statement.setInt(4, currentVersion);
 
             int rowchanged = statement.executeUpdate();
             System.out.println(rowchanged + " row is changed");
 
             con.commit();
         }
+        
         catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
@@ -523,6 +541,15 @@ public class DataMapperForFacility
             System.out.println(e.getMessage());
         }
         return typeArray;
+    }
+
+    boolean insertNewBooking(ArrayList<Booking> newBooking, Connection con)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        
+        
     }
 
 }

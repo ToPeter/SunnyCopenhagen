@@ -341,7 +341,7 @@ public class DataMapper implements DataMapperInterface
         {
             PreparedStatement statement = null;
             statement = con.prepareStatement(lock);
-            statement.executeUpdate();
+         statement.executeUpdate();
 
         } catch (SQLException e)
         {
@@ -585,7 +585,9 @@ public class DataMapper implements DataMapperInterface
 //        }
         return (rowsUpdated == updateList.size());    // false if any conflict in version number
     }
-
+    
+    
+   
 //http://www.w3schools.com/sql/sql_autoincrement.asp    
 //CREATE SEQUENCE seq_resno 
 //MINVALUE 1
