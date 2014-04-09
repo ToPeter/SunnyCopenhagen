@@ -32,7 +32,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private ArrayList<Guest> waitingarray;
     private String type;
     private String username;
-    Date minDate, dd, weekfwd;
+    Date today, dd, weekfwd;
 
     public CasablancaFacilities() //should be updated and used only for employees
     {
@@ -47,12 +47,18 @@ public class CasablancaFacilities extends javax.swing.JFrame
         type = null;
         Calendar c = Calendar.getInstance();
         // c.add(Calendar.DAY_OF_MONTH, -1);
-        minDate = c.getTime();
+        today = c.getTime();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        for (int i = hour + 2; i <= 20; i++)
+        {
+            jComboBoxBookingHour.addItem(i);
+        }
+        System.out.println(hour);
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
-        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
-        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+        jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
 
     }
 
@@ -70,12 +76,17 @@ public class CasablancaFacilities extends javax.swing.JFrame
         type = null;
         username = user;
         Calendar c = Calendar.getInstance();
-        minDate = c.getTime();
+        today = c.getTime();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        for (int i = hour + 2; i <= 20; i++)
+        {
+            jComboBoxBookingHour.addItem(i);
+        }
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
-        jDateChooserFacilityBooking.setMinSelectableDate(minDate);
+        jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
-        jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+        jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
     }
 
     /**
@@ -91,7 +102,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jComboBoxFacilityType = new javax.swing.JComboBox();
         jDateChooserFacilityBooking = new com.toedter.calendar.JDateChooser();
-        jTextFieldFacilityBookingHour = new javax.swing.JTextField();
         jLabelFacilityType = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -100,6 +110,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jComboBoxBookingHour = new javax.swing.JComboBox();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListSearchGuestFacilities = new javax.swing.JList();
@@ -126,19 +137,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setDateFormatString("dd-MM-yy");
         jDateChooserFacilityBooking.setFocusCycleRoot(true);
 
-        jTextFieldFacilityBookingHour.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextFieldFacilityBookingHourActionPerformed(evt);
-            }
-        });
-
         jLabelFacilityType.setText("Facility type");
 
         jLabel1.setText("Date");
 
-        jLabel2.setText("Hour (8-20)");
+        jLabel2.setText("Hour");
 
         jListAvailableFacilities.setModel(new javax.swing.AbstractListModel()
         {
@@ -192,8 +195,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,8 +216,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldFacilityBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooserFacilityBooking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxFacilityType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -228,7 +231,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         );
         jLayeredPane1.setLayer(jComboBoxFacilityType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jDateChooserFacilityBooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jTextFieldFacilityBookingHour, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabelFacilityType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -236,6 +238,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jComboBoxBookingHour, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jScrollPane2.setViewportView(jListSearchGuestFacilities);
 
@@ -349,11 +352,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         System.out.println(facilityType);
     }//GEN-LAST:event_jComboBoxFacilityTypeActionPerformed
 
-    private void jTextFieldFacilityBookingHourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldFacilityBookingHourActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldFacilityBookingHourActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFacilityBookingHourActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         model.clear();
@@ -382,10 +380,9 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        int hour = Integer.parseInt(jTextFieldFacilityBookingHour.getText());
+        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
         System.out.println("type=" + type);
         System.out.println(dd.toString());
-        System.out.println(hour);
         facArray = control.getFacArrayForJlist(type, dd, hour);
 
         for (int i = 0; i < facArray.size(); i++)
@@ -427,7 +424,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        control.createFacilityBooking(fac, type, username, dd, Integer.parseInt(jTextFieldFacilityBookingHour.getText()), 0);
+        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+        control.createFacilityBooking(fac, type, username, dd, hour, 0);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -437,7 +435,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(typeIndex);
-        waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), Integer.parseInt(jTextFieldFacilityBookingHour.getText()));
+        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+        waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), hour);
         System.out.println("waitingarray size " + waitingarray.size());
         model.clear();
         for (int i = 0; i < waitingarray.size(); i++)
@@ -498,16 +497,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -528,6 +531,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonSearchGuestFacilities;
+    private javax.swing.JComboBox jComboBoxBookingHour;
     private javax.swing.JComboBox jComboBoxFacilityType;
     private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking;
     private javax.swing.JLabel jLabel1;
@@ -545,7 +549,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextFieldFacilityBookingHour;
     private javax.swing.JTextField jTextFieldGuestIDSearchFacilities;
     // End of variables declaration//GEN-END:variables
 }
