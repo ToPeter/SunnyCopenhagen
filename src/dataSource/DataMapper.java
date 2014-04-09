@@ -73,16 +73,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("gotreservation");
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -127,16 +130,19 @@ public class DataMapper implements DataMapperInterface
 
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -174,16 +180,19 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("adding");
                 roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -227,16 +236,19 @@ public class DataMapper implements DataMapperInterface
                 roomAvailableList.add(number);
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - doublecheckRoomAvailable");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getRoomAvailable");
                 System.out.println(e.getMessage());
@@ -269,16 +281,19 @@ public class DataMapper implements DataMapperInterface
                 result = rs.getString(2);
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getreservation");
                 System.out.println(e.getMessage());
@@ -312,16 +327,19 @@ public class DataMapper implements DataMapperInterface
 //                System.out.println("adding");
 //                roomAvailableList.add(tempRoom);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getPriceList");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        }
+        finally														// must close statement
         {
             try
             {
                 statement.close();
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 System.out.println("Fail in DataMapper - getPriceList");
                 System.out.println(e.getMessage());
@@ -341,9 +359,10 @@ public class DataMapper implements DataMapperInterface
         {
             PreparedStatement statement = null;
             statement = con.prepareStatement(lock);
-         statement.executeUpdate();
+            statement.executeUpdate();
 
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             System.out.println("Fail in lokinc");
             System.out.println(e.getMessage());
@@ -383,7 +402,8 @@ public class DataMapper implements DataMapperInterface
 
             System.out.println("printing statement " + rowsInserted);
             con.commit();
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
             System.out.println(e.getMessage());
@@ -425,7 +445,8 @@ public class DataMapper implements DataMapperInterface
 
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in OrderMapper - getGuest");
             System.out.println(e.getMessage());
@@ -585,9 +606,7 @@ public class DataMapper implements DataMapperInterface
 //        }
         return (rowsUpdated == updateList.size());    // false if any conflict in version number
     }
-    
-    
-   
+
 //http://www.w3schools.com/sql/sql_autoincrement.asp    
 //CREATE SEQUENCE seq_resno 
 //MINVALUE 1
@@ -606,7 +625,8 @@ public class DataMapper implements DataMapperInterface
             {
                 nextReservationNo = rs.getInt(1);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());
@@ -633,7 +653,8 @@ public class DataMapper implements DataMapperInterface
                 result = true;
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_Guest");
             System.out.println(e.getMessage());
@@ -661,7 +682,8 @@ public class DataMapper implements DataMapperInterface
                 result = true;
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_EMP");
             System.out.println(e.getMessage());
@@ -703,7 +725,8 @@ public class DataMapper implements DataMapperInterface
                 guestListID.add(guestIDobject);
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in OrderMapper - getOrder");
             System.out.println(e.getMessage());
@@ -754,7 +777,8 @@ public class DataMapper implements DataMapperInterface
                 System.out.println("insertOrders(): " + (rowsInserted == guestListID.size())); // for test
             }
 
-        } catch (SQLException ex)
+        }
+        catch (SQLException ex)
         {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -780,7 +804,8 @@ public class DataMapper implements DataMapperInterface
                 name = rs.getString(1);;
                 //  result = true;
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_EMP");
             System.out.println(e.getMessage());
@@ -806,7 +831,8 @@ public class DataMapper implements DataMapperInterface
             {
                 name = rs.getString(1);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - LogIn_Guest");
             System.out.println(e.getMessage());
@@ -842,7 +868,8 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(7));
 
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - SerachGuest");
             System.out.println(e.getMessage());
@@ -880,7 +907,8 @@ public class DataMapper implements DataMapperInterface
                         rs.getString(7));
                 guestIDArray.add(guestID);
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Fail in DataMapper - searchGuestByReservationNO");
             System.out.println(e.getMessage());

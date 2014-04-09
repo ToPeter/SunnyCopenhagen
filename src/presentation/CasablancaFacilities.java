@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,7 +49,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         facArray = new ArrayList();
         bookingsarray = new ArrayList();
         waitingarray = new ArrayList();
-        model.clear();
         type = null;
         c = Calendar.getInstance();
         // c.add(Calendar.DAY_OF_MONTH, -1);
@@ -86,7 +86,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
-    }
+            }
 
     public void populateComboBox()
     {
@@ -481,7 +481,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
 
         int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
-        control.createFacilityBooking(fac, type, username, dd, hour, 0);
+        if (!control.fourBookingPerDay(username, dd))
+        {
+            control.createFacilityBooking(fac, type, username, dd, hour, 0);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error", "You can only have 4 booking per day", JOptionPane.OK_OPTION);
+        }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -592,7 +599,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        
+
         int jListSelectedIndex = jListShowInfoOnreservation.getSelectedIndex();
 
         System.out.println("index: " + jListSelectedIndex);
@@ -612,7 +619,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jListShowInfoOnreservation.setModel(infoOfBookingModel);
         control.commitFac();
 
-       
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -635,16 +642,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

@@ -166,4 +166,6 @@ public class DBFacadeForFacility
         return status;
     }
 
+    public boolean fourBookingPerDay(String guestno, Date date)
+    { return facilityMapper.fourBookingPerDay(guestno, date, con);}
 }
