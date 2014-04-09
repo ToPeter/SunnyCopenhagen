@@ -33,6 +33,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private String type;
     private String username;
     Date today, dd, weekfwd;
+    Calendar c;
 
     public CasablancaFacilities() //should be updated and used only for employees
     {
@@ -47,15 +48,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
         waitingarray = new ArrayList();
         model.clear();
         type = null;
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         // c.add(Calendar.DAY_OF_MONTH, -1);
         today = c.getTime();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        for (int i = hour + 2; i <= 20; i++)
-        {
-            jComboBoxBookingHour.addItem(i);
-        }
-        System.out.println(hour);
+        populateComboBox();
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
         jDateChooserFacilityBooking.setMinSelectableDate(today);
@@ -79,18 +75,24 @@ public class CasablancaFacilities extends javax.swing.JFrame
         model.clear();
         type = null;
         username = user;
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         today = c.getTime();
         int hour = c.get(Calendar.HOUR_OF_DAY);
-        for (int i = hour + 2; i <= 20; i++)
-        {
-            jComboBoxBookingHour.addItem(i);
-        }
+        populateComboBox();
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
         jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
+    }
+
+    public void populateComboBox()
+    {
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        for (int i = hour + 2; i <= 20; i++)
+        {
+            jComboBoxBookingHour.addItem(i);
+        }
     }
 
     /**
@@ -522,7 +524,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         {
             int jListSelectedIndex = jListAvailableFacilities.getSelectedIndex();
             Facility facid = facArray.get(jListSelectedIndex);
- int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+            int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
             int bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), hour);
             System.out.println("bookingid: " + bookingid);
             ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
@@ -570,20 +572,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
