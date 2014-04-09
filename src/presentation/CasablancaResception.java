@@ -1803,8 +1803,10 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         }
         else
+        {
             firstNameSearchGuest.setText("****");
             adressSearchGuest.setText(" NO GUEST FOUND ");
+        }
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
