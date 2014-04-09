@@ -53,12 +53,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
         c = Calendar.getInstance();
         // c.add(Calendar.DAY_OF_MONTH, -1);
         today = c.getTime();
-        populateComboBox();
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
         jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
+        jDateChooserFacilityBooking.setDate(today);
 
     }
 
@@ -80,20 +80,31 @@ public class CasablancaFacilities extends javax.swing.JFrame
         c = Calendar.getInstance();
         today = c.getTime();
         int hour = c.get(Calendar.HOUR_OF_DAY);
-        populateComboBox();
         c.add(Calendar.DAY_OF_MONTH, 7);
         weekfwd = c.getTime();
         jDateChooserFacilityBooking.setMinSelectableDate(today);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
+        jDateChooserFacilityBooking.setDate(today);
     }
 
     public void populateComboBox()
     {
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        for (int i = hour + 2; i <= 20; i++)
+        jComboBoxBookingHour.removeAllItems();
+        int hour = c.get(c.HOUR_OF_DAY);
+        if (today.before(jDateChooserFacilityBooking.getDate()))
         {
-            jComboBoxBookingHour.addItem(i);
+            for (int i = 8; i <= 20; i++)
+            {
+                jComboBoxBookingHour.addItem(i);
+            }
+        }
+        else
+        {
+            for (int i = hour + 2; i <= 20; i++)
+            {
+                jComboBoxBookingHour.addItem(i);
+            }
         }
     }
 
@@ -136,6 +147,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLayeredPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+        {
+            public void mouseMoved(java.awt.event.MouseEvent evt)
+            {
+                jLayeredPane1MouseMoved(evt);
+            }
+        });
 
         jComboBoxFacilityType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tennis", "Badminton", "Volleyball", "Handball", "Fitness" }));
         jComboBoxFacilityType.addActionListener(new java.awt.event.ActionListener()
@@ -483,7 +502,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
         control.createFacilityBooking(fac, type, username, dd, hour, 0);
 
-// TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
@@ -592,7 +611,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        
+
         int jListSelectedIndex = jListShowInfoOnreservation.getSelectedIndex();
 
         System.out.println("index: " + jListSelectedIndex);
@@ -612,8 +631,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jListShowInfoOnreservation.setModel(infoOfBookingModel);
         control.commitFac();
 
-       
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLayeredPane1MouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jLayeredPane1MouseMoved
+    {//GEN-HEADEREND:event_jLayeredPane1MouseMoved
+        // TODO add your handling code here:
+        populateComboBox();
+    }//GEN-LAST:event_jLayeredPane1MouseMoved
 
     /**
      * @param args the command line arguments
@@ -635,16 +660,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

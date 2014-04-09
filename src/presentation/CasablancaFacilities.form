@@ -77,6 +77,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JLayeredPane" name="jLayeredPane1">
+      <Events>
+        <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jLayeredPane1MouseMoved"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
