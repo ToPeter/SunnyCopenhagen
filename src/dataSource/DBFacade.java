@@ -233,4 +233,16 @@ public class DBFacade
         String name = dm.getGuestLogInName(userName, con);
         return name;
     }
+
+    public GuestID searchGuest(String guestno)
+    {
+        return dm.searchGuest(guestno, con);
+
+    }
+
+    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO)
+    {
+        return dm.searchGuestByReservationNO(reservationNO, con);
+
+    }
 }

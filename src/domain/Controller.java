@@ -22,7 +22,7 @@ public class Controller
     private Mail mailsender;
     private final DBFacadeForFacility facadeF;
     private boolean processingGuestID;
-    private ArrayList<GuestID> guestsID;
+    private ArrayList<GuestID> guestsID, arrayOfGuestID;
 
     public Controller()
     {
@@ -226,11 +226,9 @@ public class Controller
     public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation, String roomType, int roomPrice) throws MessagingException
     {
 
-        
-            return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
-        
+        return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
+
     }
-    
 
     public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation, String roomType) throws MessagingException
     {
@@ -262,8 +260,7 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -278,8 +275,7 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -354,18 +350,21 @@ public class Controller
     {
 
     }
-   
-    public boolean updateWaitingPos(int bookingno,String guestno)
-    {return facadeF.updateWaitingPos(bookingno, guestno);}
-            
+
+    public boolean updateWaitingPos(int bookingno, String guestno)
+    {
+        return facadeF.updateWaitingPos(bookingno, guestno);
+    }
+
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
-        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
+        return facadeF.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno);
     }
-    
+
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
-    return facadeF.getBookingno(facId, bookingdate, bookingtime);}
+        return facadeF.getBookingno(facId, bookingdate, bookingtime);
+    }
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
@@ -382,7 +381,7 @@ public class Controller
         String name = facade.getGuestLogInName(userName);
         return name;
     }
-    
+
     public String getEmpNameLogIn(String userName)
     {
         String name = facade.getEmpLogInName(userName);
@@ -393,14 +392,66 @@ public class Controller
     {
         return facadeF.getBookingList(guestno);
     }
-    
-    public String getBookingListString (Booking booking)
+
+    public String getBookingListString(Booking booking)
     {
-        return "Booking ID: " + booking.bookingId + " Booking date: "+booking.bookingdate+ " Booking time: "+booking.bookingtime;
+        return "Booking ID: " + booking.bookingId + " Booking date: " + booking.bookingdate + " Booking time: " + booking.bookingtime;
     }
 
     public ArrayList<Booking> getBookingDetails(int bookingid)
     {
         return facadeF.getBookingDetails(bookingid);
+    }
+
+    public boolean searchGuestID(String guestno)
+    {
+        boolean result = false;
+        currentGuestID = facade.searchGuest(guestno);
+        if (currentGuestID != null)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    public int getCurrentGuestIDid()
+    {
+        return currentGuestID.getId();
+    }
+    
+    public void changeCurrentGuestID(int index)
+    {
+        if(arrayOfGuestID.size()>1)
+        {
+            currentGuestID = arrayOfGuestID.get(index);
+        }
+    }
+
+    public boolean searchGuestByReservationNO(int reservationNO)
+    {
+
+    boolean result = false;
+        arrayOfGuestID = facade.searchGuestByReservationNO(reservationNO);
+        if (arrayOfGuestID != null)
+        {
+            currentGuestID = arrayOfGuestID.get(0);
+            result = true;
+        }
+        return result;
+    }
+    public int getSizeOfArrayOfGuestID()
+    {
+        return arrayOfGuestID.size();
+    }
+    public ArrayList<String> getNamesInArrayOfGuest()
+    {
+        ArrayList<String> arrayOfNames = new ArrayList<>();
+        for (int i = 0; i < arrayOfGuestID.size(); i++)
+        {
+            GuestID guestID = arrayOfGuestID.get(i);
+            String name = guestID.getGuestFirstName();
+            arrayOfNames.add(name);
+        }
+        return arrayOfNames;
     }
 }

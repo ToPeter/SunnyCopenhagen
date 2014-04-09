@@ -360,7 +360,7 @@ public class DataMapperForFacility
             statement.setString(2, guestNo);//guestno should be got
             statement.setInt(3, waitingpos);
             statement.setInt(4, inno);//inno should be got
-            statement.setInt(5, inno);
+            statement.setInt(5, inno);// is ver_no
             rowsInserted += statement.executeUpdate();
 
             System.out.println("Booking created rows inserted = " + rowsInserted);
