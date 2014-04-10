@@ -163,6 +163,8 @@ public class LogIn extends javax.swing.JFrame
             PasswordField.setText("");
         }
         
+           // --------------------- CHECKS GUEST------------------------
+        
         else if (UserNameField.getText().contains("-")) // it figure out if it is guest or emp.
         {                                           // enters loop if guest and checks if all is good + make check
 
@@ -197,9 +199,49 @@ public class LogIn extends javax.swing.JFrame
             }
             
         }
+        
+        
+         // --------------------- CHECKS ADMIN------------------------
+        
+        else if (UserNameField.getText().length() == 5)           
+        {
+            userName = UserNameField.getText();
+            password = PasswordField.getText();
+            // CHECKS HERE IF ADMIN = PASSWORD 
+            
+           logInResult = control.checkLogInForAdmin(userName, password);
+            
+            if (logInResult == true)
+            {
+                
+                String adminName = control.getEmpNameLogIn(userName);
+                JOptionPane.showMessageDialog(null, "Welcome dear ADMIN: " + adminName);
+                
+                java.awt.EventQueue.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        new CasablancaResception().setVisible(true);
+                    }
+                });
+                this.setVisible(false);
+                
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Invalid password");
+                UserNameField.setText("");
+                PasswordField.setText("");
+                
+            }
+            
+            
+            
+        }
+        
         // --------------------- CHECKS EMP------------------------
 
-        else
+        else 
         {
             userName = UserNameField.getText();
             password = PasswordField.getText();
@@ -231,6 +273,10 @@ public class LogIn extends javax.swing.JFrame
                 
             }
         }
+        
+        
+        
+        
         
 
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -916,4 +916,33 @@ public class DataMapper implements DataMapperInterface
 
         return guestIDArray;
     }
+
+    @Override
+    public boolean getAdminInfo(String userName, String password, Connection con)
+    {
+        boolean result = false;
+        String SQLString = "select empid from employee where password = ? and empid = ?";
+        PreparedStatement statement = null;
+
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, password);
+            statement.setString(2, userName);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                result = true;
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - LogIn_Admin");
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
 }

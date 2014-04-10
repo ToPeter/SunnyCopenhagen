@@ -245,4 +245,9 @@ public class DBFacade
         return dm.searchGuestByReservationNO(reservationNO, con);
 
     }
+
+    public boolean getAdminInfo(String userName, String password)
+    {
+        return dm.getAdminInfo(userName, password, con);
+    }
 }

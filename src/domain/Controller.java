@@ -525,4 +525,22 @@ public class Controller
         return facadeF.fourBookingPerDay(guestno, date);
     }
 
+    public boolean checkLogInForAdmin(String userName, String password)
+    {
+        boolean result = false;
+        try
+        {
+
+         //   facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
+            result = facade.getAdminInfo(userName, password);
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
+
+        return result;
+        
+    }
+
 }
