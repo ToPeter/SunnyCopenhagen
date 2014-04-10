@@ -507,7 +507,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Error", "You can only have 4 booking per day", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null,  "You can only have 4 booking per day","Error", JOptionPane.OK_OPTION);
         }
 
         
