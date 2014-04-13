@@ -68,7 +68,12 @@ public class DataMapperForFacility
             {
                 booking = new Booking(
                         rs.getInt(1),
-                        rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getInt(7));
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getString(4), 
+                        rs.getInt(5), 
+                        rs.getDate(6),
+                        rs.getInt(7));
 
                 bookedlist.add(booking);
             }
@@ -584,10 +589,5 @@ public class DataMapperForFacility
         return typeArray;
     }
 
-    boolean insertNewBooking(ArrayList<Booking> newBooking, Connection con)
-    {
-        return true;
-
-    }
 
 }
