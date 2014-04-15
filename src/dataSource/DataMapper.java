@@ -373,7 +373,7 @@ public class DataMapper implements DataMapperInterface
         if (!availRoomNumbers.contains(roomNo))
         {
             System.out.println("doublebooked: " + roomNo);
-            return false;
+         return doublebooked;
         }
         int rowsInserted = 0;
         String SQLString = "insert into reservation values (?,?,?,?,?,?,?,?) ";
@@ -402,6 +402,7 @@ public class DataMapper implements DataMapperInterface
 
             System.out.println("printing statement " + rowsInserted);
             con.commit();
+            doublebooked = true;
         }
         catch (SQLException e)
         {

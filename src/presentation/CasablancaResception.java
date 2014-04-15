@@ -1436,7 +1436,7 @@ public class CasablancaResception extends javax.swing.JFrame
         roomNo = Integer.parseInt(roomNoSelected.toString());
         jLabelShowRoomChosen.setText(roomNoSelected.toString());
 
-        currentPane.setVisible(false);
+       
         jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
         jLabelToDate.setText(endDateStr);
         jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -1445,11 +1445,23 @@ public class CasablancaResception extends javax.swing.JFrame
         reservationNo = control.getNextReservationNo();
         jLabelReservationNo.setText(Integer.toString(reservationNo));
 
-        currentPane = jLayeredPaneReservation;
-
-        currentPane.setVisible(true);
-
         boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+
+        //= if room is free
+        if (result)
+        {
+
+            JOptionPane.showMessageDialog(null, "Room " + roomNo + " booked\nwith reservation no: " + reservationNo, "Room " + roomNo + " booked", 1);
+             currentPane.setVisible(false);
+            currentPane = jLayeredPaneReservation;
+
+            currentPane.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Room " + roomNo + " is not available\nIt might allready have been booked\n\nSearch Again", "Room not available", 0);
+            jButton1ActionPerformed(evt);
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1628,7 +1640,7 @@ public class CasablancaResception extends javax.swing.JFrame
         if (!jTextFieldID.getText().isEmpty() && !jTextFieldfFirstName.getText().isEmpty() && !jTextFieldlLastName.getText().isEmpty()
                 && !jTextFieldAdress.getText().isEmpty() && !jTextFieldcountry.getText().isEmpty() && !jTextFieldphoneNo.getText().isEmpty()
                 && !jTextFieldemail.getText().isEmpty())
-            
+
         {
             Random ran = new Random();
             String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
@@ -1756,17 +1768,19 @@ public class CasablancaResception extends javax.swing.JFrame
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
 
-        choseSearchGuest.removeAllItems();
         boolean guestfound = false;
-        String guestno = guestNOSearchGuest.getText();
 
+        //=if guest no is inserted
         if (!guestNOSearchGuest.getText().equals(""))
         {
+            control.clearArrayOfGuestID();
+            String guestno = guestNOSearchGuest.getText();
             choseSearchGuest.setVisible(false);
             //= lookup by guestno
             guestfound = control.searchGuestID(guestno);
             if (guestfound)
             {
+
                 idSearchGuest.setText("" + control.getCurrentGuestIDid());
                 firstNameSearchGuest.setText(control.getCurrentGuestIDFirstName());
                 LastNameSearchGuest.setText(control.getCurrentGuestIDLastName());
@@ -1776,6 +1790,7 @@ public class CasablancaResception extends javax.swing.JFrame
                 mailSearchGuest.setText(control.getCurrentGuestIDEmail());
 
             }
+
             //= lookup by reservationNO
         }
         else if (!reservationNOSearchGuest.getText().equals(""))
@@ -1784,6 +1799,7 @@ public class CasablancaResception extends javax.swing.JFrame
             guestfound = control.searchGuestByReservationNO(reservationNO);
             if (guestfound)
             {
+                choseSearchGuest.removeAllItems();
                 choseSearchGuest.setVisible(true);
                 System.out.println("size: " + control.getSizeOfArrayOfGuestID());
                 for (int i = 0; i < control.getSizeOfArrayOfGuestID(); i++)
@@ -1805,6 +1821,9 @@ public class CasablancaResception extends javax.swing.JFrame
         }
         else
         {
+            control.resetGuest();
+            choseSearchGuest.setVisible(false);
+
             firstNameSearchGuest.setText("****");
             adressSearchGuest.setText(" NO GUEST FOUND ");
         }
@@ -1813,7 +1832,9 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void choseSearchGuestActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_choseSearchGuestActionPerformed
     {//GEN-HEADEREND:event_choseSearchGuestActionPerformed
-        control.changeCurrentGuestID(choseSearchGuest.getSelectedIndex());
+        int shownguetsNum = 0;
+        shownguetsNum = choseSearchGuest.getSelectedIndex();
+        control.changeCurrentGuestID(shownguetsNum);
         idSearchGuest.setText("" + control.getCurrentGuestIDid());
         firstNameSearchGuest.setText(control.getCurrentGuestIDFirstName());
         LastNameSearchGuest.setText(control.getCurrentGuestIDLastName());

@@ -61,6 +61,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
+        populateComboBox();
 
     }
 
@@ -88,26 +89,27 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
-            }
+        populateComboBox();
+    }
 
     public void populateComboBox()
     {
         jComboBoxBookingHour.removeAllItems();
-        int hour = c.get(c.HOUR_OF_DAY);
-        if (today.before(jDateChooserFacilityBooking.getDate()))
-        {
+//        int hour = c.get(c.HOUR_OF_DAY);
+//        if (today.before(jDateChooserFacilityBooking.getDate() || today.equals(jDateChooserFacilityBooking.getDate())))
+//        {
             for (int i = 8; i <= 20; i++)
             {
-                jComboBoxBookingHour.addItem(i);
+                jComboBoxBookingHour.addItem(i+":00-"+(i+1+":00"));
             }
-        }
-        else
-        {
-            for (int i = hour + 2; i <= 20; i++)
-            {
-                jComboBoxBookingHour.addItem(i);
-            }
-        }
+//        }
+//        else
+//        {
+//            for (int i = hour + 2; i <= 20; i++)
+//            {
+//                jComboBoxBookingHour.addItem(i);
+//            }
+//        }
     }
 
     /**
@@ -218,6 +220,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
+        jComboBoxBookingHour.setMinimumSize(new java.awt.Dimension(100, 25));
+        jComboBoxBookingHour.setPreferredSize(new java.awt.Dimension(100, 25));
         jComboBoxBookingHour.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -244,7 +248,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +353,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jScrollPane3.setViewportView(jListShowInfoOnreservation);
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Update List");
         jButton4.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -465,10 +469,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+        String hour = (String) jComboBoxBookingHour.getSelectedItem();
+        int hourint = Integer.parseInt(hour.substring(0, 1));
+        System.out.println("printing hourint "+hourint);
         System.out.println("type=" + type);
         System.out.println(dd.toString());
-        facArray = control.getFacArrayForJlist(type, dd, hour);
+        facArray = control.getFacArrayForJlist(type, dd, hourint);
 
         for (int i = 0; i < facArray.size(); i++)
         {
@@ -517,10 +523,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         else
         {
-            JOptionPane.showMessageDialog(null,  "You can only have 4 booking per day","Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "You can only have 4 booking per day", "Error", JOptionPane.OK_OPTION);
         }
 
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
@@ -655,8 +661,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jLayeredPane1MouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jLayeredPane1MouseMoved
     {//GEN-HEADEREND:event_jLayeredPane1MouseMoved
         // TODO add your handling code here:
-        if (!selected)
-        populateComboBox();
+//        if (!selected)
+//        populateComboBox();
     }//GEN-LAST:event_jLayeredPane1MouseMoved
 
     private void jComboBoxBookingHourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxBookingHourActionPerformed
@@ -685,20 +691,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex)
+        } catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
+        } catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(CasablancaFacilities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

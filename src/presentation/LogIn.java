@@ -280,7 +280,7 @@ public class LogIn extends javax.swing.JFrame
         {
             public void run()
             {
-                new LogIn().setVisible(true);
+                new LogIn().setVisible(true)    ;
             }
         });
     }

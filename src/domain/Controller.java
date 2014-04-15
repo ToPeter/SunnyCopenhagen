@@ -193,11 +193,11 @@ public class Controller
 
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
-
+ boolean result = false;
         Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid, 1111, 0);
-        facade.bookRoom(reservation);
+     result =   facade.bookRoom(reservation);
 
-        boolean result = true;
+       
 
         System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
 
@@ -261,8 +261,7 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -277,8 +276,7 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -479,9 +477,13 @@ public class Controller
 
     public void changeCurrentGuestID(int index)
     {
-        if (arrayOfGuestID.size() > 1)
+        if (index != -1)
         {
-            currentGuestID = arrayOfGuestID.get(index);
+
+            if (arrayOfGuestID.size() >= 2)
+            {
+                currentGuestID = arrayOfGuestID.get(index);
+            }
         }
     }
 
@@ -490,7 +492,7 @@ public class Controller
 
         boolean result = false;
         arrayOfGuestID = facade.searchGuestByReservationNO(reservationNO);
-        if (arrayOfGuestID != null)
+        if (!arrayOfGuestID.isEmpty())
         {
             currentGuestID = arrayOfGuestID.get(0);
             result = true;
@@ -513,6 +515,11 @@ public class Controller
             arrayOfNames.add(name);
         }
         return arrayOfNames;
+    }
+
+    public void clearArrayOfGuestID()
+    {
+        arrayOfGuestID.clear();
     }
 
     public void commitFac()
