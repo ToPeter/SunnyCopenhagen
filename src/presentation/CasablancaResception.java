@@ -818,6 +818,13 @@ public class CasablancaResception extends javax.swing.JFrame
         });
 
         jButton6.setText("Save");
+        jButton6.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -911,7 +918,7 @@ public class CasablancaResception extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4))
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPaneSearchGuestLayout.setVerticalGroup(
             jLayeredPaneSearchGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -922,7 +929,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPaneSearchGuest.setLayer(jPanel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchGuest.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1456,6 +1463,7 @@ public class CasablancaResception extends javax.swing.JFrame
             currentPane = jLayeredPaneReservation;
 
             currentPane.setVisible(true);
+            jButton1ActionPerformed(evt);
         }
         else
         {
@@ -1842,6 +1850,22 @@ public class CasablancaResception extends javax.swing.JFrame
         countrySearchGuest.setText(control.getCurrentGuestIDCountry());
         mailSearchGuest.setText(control.getCurrentGuestIDEmail());
     }//GEN-LAST:event_choseSearchGuestActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
+    {//GEN-HEADEREND:event_jButton6ActionPerformed
+//    
+control.updateGuestID(Integer.parseInt(idSearchGuest.getText()),firstNameSearchGuest.getText(), LastNameSearchGuest.getText(), adressSearchGuest.getText(),countrySearchGuest.getText(),Integer.parseInt(phoneSearchGuest.getText()), mailSearchGuest.getText());
+control.commit();
+//            }
+//            else
+//            {
+//                control.createGuestID(Integer.parseInt(jTextFieldID.getText()), jTextFieldfFirstName.getText(), jTextFieldlLastName.getText(), jTextFieldAdress.getText(),
+//                        jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText());
+//                //      control.commit();
+//
+//                control.createGuest(reservationNo, guestNo, password, jTextFieldtrvlAgncy.getText());
+//            }   
+    }//GEN-LAST:event_jButton6ActionPerformed
     /**
      * @param args the command line arguments
      */

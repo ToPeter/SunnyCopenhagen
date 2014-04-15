@@ -245,4 +245,10 @@ public class DBFacade
         return dm.searchGuestByReservationNO(reservationNO, con);
 
     }
+
+    public boolean updateGuestID(GuestID currentGuestID)
+    {
+       unitOfWork.updateGuestID(currentGuestID);
+       return true;
+    }
 }

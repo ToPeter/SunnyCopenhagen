@@ -59,4 +59,6 @@ public interface DataMapperInterface
     public GuestID searchGuest(String guestno, Connection con);
 
     public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO, Connection con);
+
+    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID, Connection con);
 }

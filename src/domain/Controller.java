@@ -193,11 +193,9 @@ public class Controller
 
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
- boolean result = false;
+        boolean result = false;
         Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid, 1111, 0);
-     result =   facade.bookRoom(reservation);
-
-       
+        result = facade.bookRoom(reservation);
 
         System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
 
@@ -519,7 +517,11 @@ public class Controller
 
     public void clearArrayOfGuestID()
     {
-        arrayOfGuestID.clear();
+        if (arrayOfGuestID != null)
+        {
+            arrayOfGuestID.clear();
+        }
+
     }
 
     public void commitFac()
@@ -530,6 +532,14 @@ public class Controller
     public boolean fourBookingPerDay(String guestno, Date date)
     {
         return facadeF.fourBookingPerDay(guestno, date);
+    }
+
+    public void updateGuestID(int parseInt, String firstName, String lastName, String adress, String country, int phonoNo, String mail)
+    {
+        boolean result;
+        facade.startProcessGuestBusinessTransaction();
+        currentGuestID = new GuestID(parseInt, firstName, lastName, adress, country, phonoNo, mail);
+        result = facade.updateGuestID(currentGuestID);
     }
 
 }

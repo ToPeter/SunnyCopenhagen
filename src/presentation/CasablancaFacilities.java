@@ -98,10 +98,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
 //        int hour = c.get(c.HOUR_OF_DAY);
 //        if (today.before(jDateChooserFacilityBooking.getDate() || today.equals(jDateChooserFacilityBooking.getDate())))
 //        {
-            for (int i = 8; i <= 20; i++)
-            {
-                jComboBoxBookingHour.addItem(i+":00-"+(i+1+":00"));
-            }
+        for (int i = 8; i <= 20; i++)
+        {
+
+        //    jComboBoxBookingHour.addItem(i);
+             jComboBoxBookingHour.addItem(i+":00-"+(i+1+":00"));
+        }
 //        }
 //        else
 //        {
@@ -110,6 +112,21 @@ public class CasablancaFacilities extends javax.swing.JFrame
 //                jComboBoxBookingHour.addItem(i);
 //            }
 //        }
+    }
+    
+    public int getSelectedHour()
+    {
+        String hour = (String) jComboBoxBookingHour.getSelectedItem();
+        int hourint = 0;
+        if (hour.startsWith("1") || hour.startsWith("2"))
+        {
+            hourint = Integer.parseInt(hour.substring(0, 2));
+        }
+        else
+        {
+            hourint = Integer.parseInt(hour.substring(0, 1));
+        }
+        return hourint;
     }
 
     /**
@@ -443,6 +460,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+
         model.clear();
 
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
@@ -469,21 +487,32 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        String hour = (String) jComboBoxBookingHour.getSelectedItem();
-        int hourint = Integer.parseInt(hour.substring(0, 1));
-        System.out.println("printing hourint "+hourint);
-        System.out.println("type=" + type);
-        System.out.println(dd.toString());
-        facArray = control.getFacArrayForJlist(type, dd, hourint);
+//        String hour = (String) jComboBoxBookingHour.getSelectedItem();
+//        int hourint = 0;
+//        if (hour.startsWith("1") || hour.startsWith("2"))
+//        {
+//            hourint = Integer.parseInt(hour.substring(0, 2));
+//        }
+//        else
+//        {
+//            hourint = Integer.parseInt(hour.substring(0, 1));
+//        }
+//        
+//            
+//                System.out.println("printing hourint " + hourint);
+//                System.out.println("type=" + type);
+//                System.out.println(dd.toString());
+                facArray = control.getFacArrayForJlist(type, dd, getSelectedHour());
 
-        for (int i = 0; i < facArray.size(); i++)
-        {
-            Facility facility = facArray.get(i);
-            String facstring = control.getString(facility);
-            model.addElement(facstring);
-        }
-        jListAvailableFacilities.setModel(model);
-        selected = false;
+                for (int i = 0; i < facArray.size(); i++)
+                {
+                    Facility facility = facArray.get(i);
+                    String facstring = control.getString(facility);
+                    model.addElement(facstring);
+                }
+                jListAvailableFacilities.setModel(model);
+                selected = false;
+            
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -516,10 +545,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+       // int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
         if (!control.fourBookingPerDay(username, dd))
         {
-            control.createFacilityBooking(fac, type, username, dd, hour, 0);
+            control.createFacilityBooking(fac, type, username, dd, getSelectedHour(), 0);
         }
         else
         {
@@ -534,8 +563,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(typeIndex);
-        int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
-        waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), hour);
+    //    int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
+        waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
         System.out.println("waitingarray size " + waitingarray.size());
         model.clear();
         for (int i = 0; i < waitingarray.size(); i++)
@@ -585,7 +614,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             int jListSelectedIndex = jListAvailableFacilities.getSelectedIndex();
             Facility facid = facArray.get(jListSelectedIndex);
             int hour = (Integer) jComboBoxBookingHour.getSelectedItem();
-            bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), hour);
+            bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
             System.out.println("bookingid: " + bookingid);
             arrayBookingInfo = control.getBookingDetails(bookingid);
 
@@ -636,6 +665,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
 
+        JOptionPane.showConfirmDialog(this, "Do you wanto remove the person?", "Confirm", 0, 3);
+       // JOptionPane.showMessageDialog(null, "Do you wanto remove the person?", "Confirm", JOptionPane.QUESTION_MESSAGE, null);
+        //JOptionPane.showMessageDialog(null, "You can only have 4 booking per day", "Error", JOptionPane.OK_OPTION);
+
         int jListSelectedIndex = jListShowInfoOnreservation.getSelectedIndex();
 
         System.out.println("index: " + jListSelectedIndex);
@@ -654,7 +687,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         jListShowInfoOnreservation.setModel(infoOfBookingModel);
         control.commitFac();
-
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
