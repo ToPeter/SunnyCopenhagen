@@ -18,6 +18,9 @@ public class DBConnector
 {// connecting testDB
   private static final String id = "SEM2_TEST_GR21"; 
   private static final String pw = "SEM2_TEST_GR21";
+  private static final String idtest = "SEM2_TEST_GR21"; 
+  private static final String pwtest = "SEM2_TEST_GR21";
+
   private static Connection connection;
 
   private static void intializeConnection() {
@@ -28,7 +31,16 @@ public class DBConnector
       System.out.println("Could not create a Connection in DBConnector.getConnection(): " + e);
     }
   }
+  private static void intializeTestConnection() {
+    try {
+      connection = DriverManager.getConnection("jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat", idtest, pwtest);
+    } catch (SQLException e) {
+      System.out.println("\n*** Remember to insert your Oracle ID and PW in the DBConnector class! ***\n");
+      System.out.println("Could not create a Connection in DBConnector.getConnection(): " + e);
+    }
+  }
 
+  
   public static Connection getConnection() {
     if (connection == null) {
       intializeConnection();
@@ -36,6 +48,13 @@ public class DBConnector
     return connection;
   }
 
+  public static Connection getTestConnection() {
+    if (connection == null) {
+      intializeTestConnection();
+    }
+    return connection;
+  }
+  
   public static void releaseConnection(Connection con) {
     try {
       connection.close();

@@ -41,10 +41,20 @@ public class DataMapperForFacilityTest
     @Before
     public void setUp()
     {
-        con = DBConnector.getConnection();
+        con = DBConnector.getTestConnection();
         facilitymapper = new DataMapperForFacility(con);
         format = new SimpleDateFormat("dd-MM-yy");
         bookingUpdateList = new ArrayList();
+    
+     /* excute following script before testing. delete from bookingstatus where
+     * bookingid=1000; delete from booking where bookingid=1000; insert into
+     * booking values (1000,101,'01-04-14',19); insert into bookingstatus
+     * values(1000,'10000-1',1,0,0); insert into bookingstatus
+     * values(1000,'10000-2',2,0,0);
+     *
+     * commit;
+     */
+    
     }
 
     /**
@@ -91,8 +101,7 @@ public class DataMapperForFacilityTest
      */
     @Test
     public void testGetfacilitylist()
-    {// Facility(int facID, String type, int minUsers, int maxUsers)
-        System.out.println("getfacilitylist");
+    {   System.out.println("getfacilitylist");
         String type = "badminton";
 
         ArrayList<Facility> result = facilitymapper.getfacilitylist(type, con);
@@ -155,14 +164,7 @@ public class DataMapperForFacilityTest
     }
 
     /**
-     * Test of updateWaitingPos method, of class DataMapperForFacility. excute
-     * following script before testing. delete from bookingstatus where
-     * bookingid=1000; delete from booking where bookingid=1000; insert into
-     * booking values (1000,101,'01-04-14',19); insert into bookingstatus
-     * values(1000,'10000-1',1,0,0); insert into bookingstatus
-     * values(1000,'10000-2',2,0,0);
-     *
-     * commit;
+     * Test of updateWaitingPos method, of class DataMapperForFacility. 
      */
     @Test
     public void testUpdateWaitingPos()
@@ -243,7 +245,7 @@ public class DataMapperForFacilityTest
     public void testGetFacArrayForJlist()
     {
         System.out.println("getFacArrayForJlist");
-//this method is just for showing info. 
+       //this method is just for showing info. 
         //testing is not needed.
     }
 

@@ -349,9 +349,9 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public boolean createReservation(Reservation res, Connection con)
+    public boolean createReservation(Reservation res, Connection con) //return false if it is not doublebooked.
     {
-        boolean doublebooked = false;
+        boolean booked = true;
         int roomNo = res.getRoomNo();
         String lock = "Lock table reservation in exclusive mode";
 
@@ -366,6 +366,7 @@ public class DataMapper implements DataMapperInterface
         {
             System.out.println("Fail in lokinc");
             System.out.println(e.getMessage());
+            return false;
         }
 
         ArrayList<Integer> availRoomNumbers = doubleCheckRoomAvailable(res.getFromDate(), res.getEndDate(), con);
@@ -407,8 +408,9 @@ public class DataMapper implements DataMapperInterface
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING");
             System.out.println(e.getMessage());
+            return false;
         }
-        return doublebooked;
+        return booked;
     }
     //======  Methods to read from DB =======================================================
 // Retrieve a specific order and related order details
