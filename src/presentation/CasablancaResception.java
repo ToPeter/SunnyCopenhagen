@@ -72,6 +72,12 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
     }
+    public void swicthPane(JLayeredPane newPane, JLayeredPane oldPane)
+    {
+        oldPane.setVisible(false);
+        currentPane = newPane;
+        newPane.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -501,9 +507,9 @@ public class CasablancaResception extends javax.swing.JFrame
 
         jLabel6.setText("From");
 
-        jLabelSelectedStartDate.setText("jLabel6");
+        jLabelSelectedStartDate.setText(" ");
 
-        jLabelToDate.setText("jLabel8");
+        jLabelToDate.setText(" ");
 
         jLabel7.setText("To");
 
@@ -537,13 +543,16 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        jLabelNumOfGuestReser.setText("jLabel8");
+        jLabelNumOfGuestReser.setText(" ");
+        jLabelNumOfGuestReser.setMaximumSize(new java.awt.Dimension(48, 16));
+        jLabelNumOfGuestReser.setMinimumSize(new java.awt.Dimension(48, 16));
+        jLabelNumOfGuestReser.setPreferredSize(new java.awt.Dimension(48, 16));
 
         jLabel8.setText("Num. Of Guest");
 
         jLabel9.setText("Type");
 
-        jLabelShowType.setText("jLabel10");
+        jLabelShowType.setText(" ");
 
         jLabelPriceReservation.setText("jLabel10");
 
@@ -567,9 +576,9 @@ public class CasablancaResception extends javax.swing.JFrame
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelShowType)
-                            .addComponent(jLabelNumOfGuestReser)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelShowType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNumOfGuestReser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabelPriceReservation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -582,19 +591,19 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabelNumOfGuestReser))
+                    .addComponent(jLabelNumOfGuestReser, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jLabelShowType))
+                    .addComponent(jLabelShowType, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPriceReservation)
                     .addComponent(jCheckBox1))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabelReservationNo.setText("jLabel10");
+        jLabelReservationNo.setText("Booking num");
 
         jButton3.setText("Continue");
         jButton3.addActionListener(new java.awt.event.ActionListener()
@@ -1299,7 +1308,7 @@ public class CasablancaResception extends javax.swing.JFrame
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jLayeredPaneReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 91, Short.MAX_VALUE)))
+                    .addGap(0, 471, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -1459,10 +1468,12 @@ public class CasablancaResception extends javax.swing.JFrame
         {
 
             JOptionPane.showMessageDialog(null, "Room " + roomNo + " booked\nwith reservation no: " + reservationNo, "Room " + roomNo + " booked", 1);
-             currentPane.setVisible(false);
-            currentPane = jLayeredPaneReservation;
-
-            currentPane.setVisible(true);
+            
+            swicthPane(jLayeredPaneReservation, currentPane);
+//            currentPane.setVisible(false);
+//            currentPane = jLayeredPaneReservation;
+//
+//            currentPane.setVisible(true);
             jButton1ActionPerformed(evt);
         }
         else
@@ -1481,9 +1492,12 @@ public class CasablancaResception extends javax.swing.JFrame
 //        }
 //
 //        control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneEnterGuestInfo;
-        currentPane.setVisible(true);
+        
+  
+        swicthPane(jLayeredPaneEnterGuestInfo, currentPane);
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneEnterGuestInfo;
+//        currentPane.setVisible(true);
         CasablancaResception.this.setPreferredSize(new Dimension(450, 600));
         CasablancaResception.this.pack();
         jTextFieldnoOfnights.setText(String.valueOf(numberOfDays));
@@ -1500,9 +1514,10 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneReservationInfo;
-        currentPane.setVisible(true);
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneReservationInfo;
+//        currentPane.setVisible(true);
+        swicthPane(jLayeredPaneReservationInfo,currentPane);
         CasablancaResception.this.setPreferredSize(new Dimension(290, 400));
         CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -1520,9 +1535,11 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneSearchRoome;
-        currentPane.setVisible(true);
+        
+        swicthPane(jLayeredPaneSearchRoome, currentPane);
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneSearchRoome;
+//        currentPane.setVisible(true);
         CasablancaResception.this.setPreferredSize(new Dimension(575, 400));
         CasablancaResception.this.pack();
         choseSearchGuest.setVisible(false);
@@ -1530,9 +1547,11 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneSearchGuest;
-        currentPane.setVisible(true);
+        
+        swicthPane(jLayeredPaneSearchGuest, currentPane);
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneSearchGuest;
+//        currentPane.setVisible(true);
         CasablancaResception.this.setPreferredSize(new Dimension(260, 440));
         CasablancaResception.this.pack();
         choseSearchGuest.setVisible(false);
@@ -1540,9 +1559,11 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneEnterGuestInfo;
-        currentPane.setVisible(true);
+        swicthPane(jLayeredPaneEnterGuestInfo, currentPane);
+        
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneEnterGuestInfo;
+//        currentPane.setVisible(true);
         CasablancaResception.this.setPreferredSize(new Dimension(450, 600));
         CasablancaResception.this.pack();
         choseSearchGuest.setVisible(false);
@@ -1567,9 +1588,11 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
-        currentPane.setVisible(false);
-        currentPane = jLayeredPaneShowOpenReservations;
-        currentPane.setVisible(true);
+       
+        swicthPane(jLayeredPaneShowOpenReservations, currentPane);
+//        currentPane.setVisible(false);
+//        currentPane = jLayeredPaneShowOpenReservations;
+//        currentPane.setVisible(true);
         CasablancaResception.this.setPreferredSize(new Dimension(350, 470));
         CasablancaResception.this.pack();
         getOpenReservations();
@@ -1680,9 +1703,11 @@ public class CasablancaResception extends javax.swing.JFrame
             {
 
                 guestcounter = 0;
-                currentPane.setVisible(false);
-                currentPane = jLayeredPaneSearchRoome;
-                currentPane.setVisible(true);
+                
+                swicthPane(jLayeredPaneSearchRoome, currentPane);
+//                currentPane.setVisible(false);
+//                currentPane = jLayeredPaneSearchRoome;
+//                currentPane.setVisible(true);
                 CasablancaResception.this.setPreferredSize(new Dimension(575, 400));
                 CasablancaResception.this.pack();
                 //for mail
@@ -1725,7 +1750,7 @@ public class CasablancaResception extends javax.swing.JFrame
             Object roomNoSelected = model.getElementAt(jListSelectedIndex);
             roomNo = Integer.parseInt(roomNoSelected.toString());
             jLabelShowRoomChosen.setText(roomNoSelected.toString());
-            currentPane.setVisible(false);
+            
             jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
             jLabelToDate.setText(endDateStr);
             jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -1733,8 +1758,12 @@ public class CasablancaResception extends javax.swing.JFrame
             jLabelPriceReservation.setText(Integer.toString(totalPriceForRoom));
             reservationNo = control.getNextReservationNo();
             jLabelReservationNo.setText(Integer.toString(reservationNo));
-            currentPane = jLayeredPaneReservation;
-            currentPane.setVisible(true);
+            
+            swicthPane(jLayeredPaneReservation, currentPane);
+//            currentPane.setVisible(false);
+//            currentPane = jLayeredPaneReservation;
+//            currentPane.setVisible(true);
+            
             boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
         }
     }//GEN-LAST:event_jList1MouseClicked

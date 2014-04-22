@@ -63,8 +63,8 @@ public class Controller
         priceList = facade.getPriceList();
         return priceList;
     }
-
-    // ----------------------------- Unit Of Work ----------------------------
+    
+        // ----------------------------- Unit Of Work ----------------------------
     public boolean getGuest(int guestID)
     {
         boolean guestFound = false;
@@ -388,32 +388,11 @@ public class Controller
 
         //  return true;
     }
-//    }
-//     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
-//    {
-//        if (processingGuest)
-//        {
-//            return null;
-//        }
-//
-////       facade.startProcessGuestBusinessTransaction();
-////        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
-//        if (reservationNo != 0)
-//        {
-//            processingGuest = true;
-//
-//            currentGuest = new Guest(reservationNo, guestNo, password, agency, currentGuestID.getId());
-//            facade.registerNewGuest(currentGuest);
-//            processingGuest = false;
-//        }
-//        else
-//        {
-//
-//            currentGuest = null;
-//        }
-//
-//        return currentGuest;
-//    }
+    
+    public boolean addInstructor(String name, String type)
+    {
+      return  facadeF.addInstructor(name,type);
+    }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {

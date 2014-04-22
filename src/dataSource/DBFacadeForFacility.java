@@ -168,4 +168,9 @@ public class DBFacadeForFacility
 
     public boolean fourBookingPerDay(String guestno, Date date)
     { return facilityMapper.fourBookingPerDay(guestno, date, con);}
+
+    public boolean addInstructor(String name, String type)
+    {
+      return facilityMapper.addInstructor (name, type);  
+    }
 }
