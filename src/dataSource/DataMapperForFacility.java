@@ -68,10 +68,10 @@ public class DataMapperForFacility
             {
                 booking = new Booking(
                         rs.getInt(1),
-                        rs.getInt(2), 
-                        rs.getInt(3), 
-                        rs.getString(4), 
-                        rs.getInt(5), 
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5),
                         rs.getDate(6),
                         rs.getInt(7));
 
@@ -376,7 +376,7 @@ public class DataMapperForFacility
     {
         int rowsInserted = 0;
         int bookingno = -1;
-        Date bookingDate=c.getTime();
+        Date bookingDate = c.getTime();
         String SQLString1 = "insert into booking values(?,?,?,?)";
         String SQLString2 = "insert into bookingstatus values (?,?,?,?,?)";
 
@@ -391,7 +391,7 @@ public class DataMapperForFacility
             for (int i = 0; i < bookingSql1.size(); i++)
             {
                 Booking booking = bookingSql1.get(i);
-                bookingDate=booking.getBookingdate();
+                bookingDate = booking.getBookingdate();
                 bookingno = booking.getBookingId();
                 if (bookingno == 0)
                 {
@@ -412,9 +412,11 @@ public class DataMapperForFacility
             for (int i = 0; i < bookingSql2.size(); i++)
             {
                 Booking booking2 = bookingSql2.get(i);
-                if(fourBookingPerDay(booking2.getGuestno(),bookingDate, con))
-                {System.out.println("more than 4 bookings!");
-                    return false;}
+                if (fourBookingPerDay(booking2.getGuestno(), bookingDate, con))
+                {
+                    System.out.println("more than 4 bookings!");
+                    return false;
+                }
 
                 statement.setInt(1, bookingno);
                 statement.setString(2, booking2.getGuestno());
@@ -451,7 +453,7 @@ public class DataMapperForFacility
 
             result.add(newfac);
         }
-      
+
         return result;
     }
 
@@ -589,5 +591,46 @@ public class DataMapperForFacility
         return typeArray;
     }
 
+    public void createNewFacility(int facNum, String type)
+    {
+        String SQLString = "insert into facility values (?,?)";
+        PreparedStatement statement;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setInt(1, facNum);
+            statement.setString(2, type);
+            statement.executeUpdate();
+            //con.commit();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("fail in DataMapperForFacility - createNewFacility");
+            System.out.println(e.getMessage());
+            System.out.println(e.getErrorCode());
+        }
+    }
 
+    public int getFacilityNumber(String type)
+    {
+        int facNum = 0;
+        String SQLString = "SELECT MAX (ID) FROM FACILITY WHERE TYPE = ?";
+        PreparedStatement statement;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, type);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            facNum = rs.getInt(1);
+            return facNum+1;
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapperForFacility - getFacilityNumber");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 }
