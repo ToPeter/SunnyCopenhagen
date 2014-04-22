@@ -101,19 +101,35 @@ public class DBFacadeForFacility
         }
     }
 
+    public ArrayList<String> getFacilityTypes()
+    {
+        return facilityMapper.getTypes(con);
+    }
+
+    public void createNewFacility(int facNum, String type)
+    {
+        facilityMapper.createNewFacility(facNum, type);
+    }
+
+    public int getFacilityNumber(String type)
+    {
+        return facilityMapper.getFacilityNumber(type);
+    }
+
     public boolean updateWaitingPos(Booking booking)
     {
-        System.out.println("booking: "+booking.getGuestno());
-        
+        System.out.println("booking: " + booking.getGuestno());
+
         uowFacility.registerDeleteBooking(booking);
-       
+
         return true;
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
-    {  int bookingno=facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
-      
-       return bookingno;
+    {
+        int bookingno = facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+
+        return bookingno;
     }
 
     public ArrayList<Booking> getBookingList(String guestno)
@@ -129,34 +145,34 @@ public class DBFacadeForFacility
 
     public void registerNewBooking(Booking bookingSQL1)
     {
-    if (uowFacility != null)
+        if (uowFacility != null)
         {
             uowFacility.registerNewBooking(bookingSQL1);
         }
-    
+
     }
-    
+
     public void registerNewBookingStatus(Booking bookingSQL2)
     {
-    if (uowFacility != null)
+        if (uowFacility != null)
         {
             uowFacility.registerNewBookingStatus(bookingSQL2);
         }
-    
+
     }
-    
+
     public void registerDeletBooking(Booking deleteSql)
     {
-    if (uowFacility != null)
+        if (uowFacility != null)
         {
             uowFacility.registerDeleteBooking(deleteSql);
         }
-    
+
     }
 
     public boolean commitProcessBookingBusinessTransaction()
     {
-      boolean status = false;
+        boolean status = false;
         if (uowFacility != null)
         {
             status = uowFacility.commit(con);
@@ -167,7 +183,7 @@ public class DBFacadeForFacility
     }
 
     public boolean fourBookingPerDay(String guestno, Date date)
-    { return facilityMapper.fourBookingPerDay(guestno, date, con);}
+    {
 
     public boolean addInstructor(String name, String type)
     {

@@ -40,14 +40,10 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-            if (newBooking.size()!=0&& newBookingStatus.size() != 0)
-            {
                 status = status && dmf.createFacilityBooking(newBooking, newBookingStatus, con);
-            }
-            if (delBooking.size()!=0)
-            {
+           
                 status = status && dmf.updateWaitingPos(delBooking, con);
-            }
+           
 
             if (!status)
             {

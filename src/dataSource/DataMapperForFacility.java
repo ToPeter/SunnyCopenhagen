@@ -68,7 +68,12 @@ public class DataMapperForFacility
             {
                 booking = new Booking(
                         rs.getInt(1),
-                        rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getInt(7));
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getDate(6),
+                        rs.getInt(7));
 
                 bookedlist.add(booking);
             }
@@ -567,10 +572,24 @@ public class DataMapperForFacility
         return typeArray;
     }
 
-    boolean insertNewBooking(ArrayList<Booking> newBooking, Connection con)
+    public void createNewFacility(int facNum, String type)
     {
-        return true;
-
+        String SQLString = "insert into facility values (?,?)";
+        PreparedStatement statement;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setInt(1, facNum);
+            statement.setString(2, type);
+            statement.executeUpdate();
+            //con.commit();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("fail in DataMapperForFacility - createNewFacility");
+            System.out.println(e.getMessage());
+            System.out.println(e.getErrorCode());
+        }
     }
 
     boolean addInstructor(String name, String type)
@@ -611,4 +630,26 @@ public class DataMapperForFacility
         return rowsInserted != 0;
     }
 
+    public int getFacilityNumber(String type)
+    {
+        int facNum = 0;
+        String SQLString = "SELECT MAX (ID) FROM FACILITY WHERE TYPE = ?";
+        PreparedStatement statement;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, type);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            facNum = rs.getInt(1);
+            return facNum+1;
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapperForFacility - getFacilityNumber");
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 }

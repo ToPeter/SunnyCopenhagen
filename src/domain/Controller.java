@@ -137,6 +137,24 @@ public class Controller
         return currentGuest;
     }
 
+    public ArrayList <String> getFacilityTypes ()
+    {
+        return facadeF.getFacilityTypes();
+    }
+    public void createNewFacility (String type)
+    {
+        int num;
+        num = getFacilityNumber(type);
+        if (!type.equalsIgnoreCase("new"))
+        {
+            facadeF.createNewFacility(num, type);
+        }
+    }
+    
+    public int getFacilityNumber (String type)
+    {
+        return facadeF.getFacilityNumber(type);
+    }
     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
     {
         if (processingGuest)

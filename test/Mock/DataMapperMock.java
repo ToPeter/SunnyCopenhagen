@@ -192,6 +192,19 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    @Override
+    public GuestID searchGuest(String guestno, Connection con)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO, Connection con)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
 
     
     
@@ -258,6 +271,6 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     {
         this.pricearray = pricearray;
     }
-    
+
 
 }
