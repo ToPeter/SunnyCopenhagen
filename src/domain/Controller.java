@@ -525,4 +525,6 @@ public class Controller
         return facadeF.fourBookingPerDay(guestno, date);
     }
 
+    public ArrayList<Booking> getBookingForJlist(String username, Date bookingdate, int bookingtime)
+    {return facadeF.getBookedfac(username, bookingdate, bookingtime);}
 }

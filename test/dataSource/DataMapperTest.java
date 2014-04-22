@@ -43,21 +43,15 @@ public class DataMapperTest
     {
         con = DBConnector.getTestConnection();
         datamapper = new DataMapper(con);
-        format = new SimpleDateFormat("dd-MM-yy");
-        /**
-         * run the following script on SQL before testing 
-         * delete from reservation where reservationno = 55555; 
-         * update reservation set depositpaid = 0 where reservationno = 1111;
-         * update reservation set Ver_No = 0 where reservationno = 1111;
-         * delete from guestID where guestid = 4321; commit;
-         */
-
+        SetUpDM.setUpForTest(con);
+        format = new SimpleDateFormat("dd-MM-yy"); 
+        
     }
 
     @After
     public void tearDown()
-    {
-    }
+    {//DBConnector.releaseConnection();
+         }
 
     /**
      * Test of getreservation method, of class DataMapper.
@@ -160,9 +154,7 @@ public class DataMapperTest
     }
 
     /**
-     * Test of createReservation method, of class DataMapper. before testing,
-     * run the following script. delete from reservation where
-     * reservationno=55555; commit;
+     * Test of createReservation method, of class DataMapper. 
      */
     @Test
     public void testCreateReservation() throws ParseException

@@ -1638,7 +1638,7 @@ public class CasablancaResception extends javax.swing.JFrame
             if (control.getGuest(Integer.parseInt(jTextFieldID.getText())))
             {
                 control.createGuest(reservationNo, guestNo, password, jTextFieldtrvlAgncy.getText());
-
+                 
             }
             else
             {
