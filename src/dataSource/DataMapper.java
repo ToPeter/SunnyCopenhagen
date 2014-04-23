@@ -334,6 +334,7 @@ public class DataMapper implements DataMapperInterface
     public boolean createReservation(Reservation res, Connection con) //return false if it is not doublebooked.
     {
         boolean booked = true;
+        boolean doublebooked = false;
         int roomNo = res.getRoomNo();
         String lock = "Lock table reservation in exclusive mode";
 

@@ -97,10 +97,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     public void populateAnotherComboBoxBcuzWhyNot()
     {
-        jComboBox1.removeAllItems();
+        jComboBoxAddFacility.removeAllItems();
+        jComboBoxChoseTypeInstructor.removeAllItems();
         for (int i = 0; i < control.getFacilityTypes().size(); i++)
         {
-            jComboBox1.addItem(control.getFacilityTypes().get(i));
+            jComboBoxAddFacility.addItem(control.getFacilityTypes().get(i));
+            jComboBoxChoseTypeInstructor.addItem(control.getFacilityTypes().get(i));
         }
     }
     public void populateComboBox()
@@ -176,9 +178,13 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBoxAddFacility = new javax.swing.JComboBox();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jTextFieldInstructorName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxChoseTypeInstructor = new javax.swing.JComboBox();
+        jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -420,9 +426,18 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookingDetails.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Admin menu"));
+
         jLabel3.setText("Facility Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAddFacility.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAddFacility.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jComboBoxAddFacilityActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Add Facility");
         jButton5.addActionListener(new java.awt.event.ActionListener()
@@ -438,43 +453,71 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel3)
-                        .addGap(49, 49, 49)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(jButton5)))
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxAddFacility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(jButton5)
-                .addContainerGap(214, Short.MAX_VALUE))
+                    .addComponent(jComboBoxAddFacility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Add Facility", jPanel1);
+
+        jTextFieldInstructorName.setMaximumSize(new java.awt.Dimension(48, 4));
+        jTextFieldInstructorName.setMinimumSize(new java.awt.Dimension(48, 4));
+
+        jLabel4.setText("Name");
+
+        jComboBoxChoseTypeInstructor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton6.setText("Add");
+        jButton6.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27)
+                .addComponent(jTextFieldInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxChoseTypeInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addContainerGap(320, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 345, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxChoseTypeInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Add instructor", jPanel2);
 
         javax.swing.GroupLayout jLayeredPaneAddFacilityLayout = new javax.swing.GroupLayout(jLayeredPaneAddFacility);
         jLayeredPaneAddFacility.setLayout(jLayeredPaneAddFacilityLayout);
@@ -482,13 +525,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
             jLayeredPaneAddFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneAddFacilityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jLayeredPaneAddFacilityLayout.setVerticalGroup(
             jLayeredPaneAddFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneAddFacilityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jLayeredPaneAddFacility.setLayer(jTabbedPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -622,7 +667,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     model.addElement(facstring);
                 }
                 jListAvailableFacilities.setModel(model);
-                selected = false;
+                //selected = false;
             
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -813,7 +858,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
     {//GEN-HEADEREND:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        control.createNewFacility(jComboBox1.getSelectedItem().toString());
+        control.createNewFacility(jComboBoxAddFacility.getSelectedItem().toString());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -823,6 +868,21 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneAddFacility.setVisible(true);
         currentPane = jLayeredPaneAddFacility;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jComboBoxBookingHourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxBookingHourActionPerformed
+    {//GEN-HEADEREND:event_jComboBoxBookingHourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxBookingHourActionPerformed
+
+    private void jComboBoxAddFacilityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxAddFacilityActionPerformed
+    {//GEN-HEADEREND:event_jComboBoxAddFacilityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxAddFacilityActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
+    {//GEN-HEADEREND:event_jButton6ActionPerformed
+       control.addInstructor(jTextFieldInstructorName.getText(), jComboBoxChoseTypeInstructor.getSelectedItem().toString());
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -875,14 +935,17 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonSearchGuestFacilities;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxAddFacility;
     private javax.swing.JComboBox jComboBoxBookingHour;
+    private javax.swing.JComboBox jComboBoxChoseTypeInstructor;
     private javax.swing.JComboBox jComboBoxFacilityType;
     private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelFacilityType;
     private javax.swing.JLabel jLabelGuestIDSearchFacilities;
     private javax.swing.JLayeredPane jLayeredPane1;
@@ -905,5 +968,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldGuestIDSearchFacilities;
+    private javax.swing.JTextField jTextFieldInstructorName;
     // End of variables declaration//GEN-END:variables
 }
