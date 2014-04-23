@@ -882,19 +882,19 @@ public class CasablancaFacilities extends javax.swing.JFrame
         bookingsarray = control.getFacArrayForBookingInstructorJlist(dd, hour,username); ;  
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(type,dd, hour,username);
 
-        
-        
-        
+        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
+        boolean checkResult = control.checkInstructorAlreadyThere(dd,hour,username);
+        if (checkResult != true)
+        {
+           JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");  
+        }
+
         if (bookingsArrayForInstructor.isEmpty())
         {
            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR "); 
         }
-        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
         
-      //  if ()
-        boolean control.checkInstructorAlready();
-        
-        else
+        if (!bookingsArrayForInstructor.isEmpty())
         {
           System.out.println("Gettin 0: "+bookingsArrayForInstructor.get(0));
           

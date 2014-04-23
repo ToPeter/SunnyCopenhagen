@@ -144,6 +144,15 @@ public class DBFacadeForFacility
         facilityMapper.saveInstructorBooking(booking);
     }
 
+    public boolean checkInstructorAlreadyThere(Date dd, int hour, String username)
+    {
+        return facilityMapper.checkInstructorAlreadyThere(dd,hour,username);
+    }
+
+  
+
+ 
+
    
     
 

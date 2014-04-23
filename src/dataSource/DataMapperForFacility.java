@@ -505,108 +505,6 @@ public class DataMapperForFacility
         return bdetailarray;
     }
 
-//    boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno, Connection con)
-//    {
-//       boolean bookingInstructorTaken = true;
-//       java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
-      
-       // -- CHECKING IF THERE IS ANY AVAILABLE INSTRUCTOR FOR SELECTED: TYPE,DATE,TIME
-   //    
-//       bookingInstructorTaken = getInstructorInfo (inno,sqlBookingdate, bookingtime, con);
-//            if (bookingInstructorTaken = true)
-//            {
-//                JOptionPane.showMessageDialog(null, "Instructor is taken");
-//            }
-//       
-//        else
-        
-       
-   //    String SQLString = "insert into bookingid from bookingstatus value ()";
-      
-       
-       
-   // }
-
-//    public boolean getInstructorInfo(int inno, Date bookingdate, int bookingtime, Connection con)
-//    {
-//        boolean result = false;
-//        java.sql.Date sqlBookingdate = new java.sql.Date(bookingdate.getTime());
-//        String SQLString = "select bookingid from booking "
-//                         + "where facilityid=? and bookingdate=? and bookingtime=?";
-//        PreparedStatement statement = null;
-//        try
-//        {
-//            statement = con.prepareStatement(SQLString);
-//            statement.setInt(1, facId);
-//            statement.setDate(2, sqlBookingdate);
-//            statement.setInt(3, bookingtime);
-//
-//            ResultSet rs = statement.executeQuery();
-//            boolean result = rs.next();
-//            if (result)
-//            {
-//                bookingNo = rs.getInt(1);
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println("Fail in DataMapper - getInstructorInfo");
-//            System.out.println(e.getMessage());
-//        }
-//        
-//       
-//        
-//        return result;
-//   
-//    }
-
-//    ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username,Connection con)
-//    {
-//        
-//       username =  "10000-1" ; 
-//        
-//        ArrayList<Booking> result = new ArrayList();
-//      
-//      //  ArrayList<Facility> facList = getfacilitylist(type, con);
-//       java.sql.Date sqlbookingdate = new java.sql.Date(bookingdate.getTime());
-//        
-//       String SQLString = "select * from bookingstatus bs , booking b where b.bookingid=bs.bookingid "
-//               + " and bs.guestno=? and b.bookingdate=? and b.bookingtime=? ";
-//       PreparedStatement statement = null;
-//       
-//      
-//        try
-//        {
-//            
-//            statement = con.prepareStatement(SQLString);
-//            statement.setString(1,username);
-//            statement.setDate(2, sqlbookingdate);
-//            statement.setInt(3, bookingtime);
-//            ResultSet rs = statement.executeQuery();
-//          
-//            
-//             while (rs.next())
-//            {
-//                Booking booking;
-//                int bookingId = rs.getInt(1);
-//                int facilityId = rs.getInt(7);
-//                booking = new Booking(bookingId,facilityId, bookingdate, bookingtime);
-//                result.add(booking);
-//            }
-//         
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println("Fail in DataMapper - getNextBookingINN");
-//            System.out.println(e.getMessage());
-//        }
-//          
-//
-//       
-//       System.out.println(result.toString());
-//       return result;
-//    
-//    }
 
       public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime,String username)
     {
@@ -697,9 +595,7 @@ public class DataMapperForFacility
 
             statement = con.prepareStatement(SQLString);
             statement.setInt(1, booking.getInno());
-            System.out.println("booking.getInno() "+booking.getInno());
             statement.setInt(2, booking.getBookingId());
-            System.out.println("booking.getBookingId() "+booking.getBookingId());
             statement.setString(3,"10000-1");
             
             //ResultSet rs = statement.executeQuery();
@@ -720,5 +616,51 @@ public class DataMapperForFacility
             System.out.println(e.getMessage());
         }
            JOptionPane.showMessageDialog(null, "You book an INSTRUCTOR");
+    }
+
+    boolean checkInstructorAlreadyThere(Date dd, int hour, String username)
+    {
+       boolean result = false;
+       java.sql.Date sqlBookingdate = new java.sql.Date(dd.getTime());
+       
+       String SQLString  = "select INNO from BOOKINGSTATUS where guestno = ? and bookingid = "
+                             + "(select bookingid from booking where" 
+                             + "bookingdate=? and bookingtime=? )";
+       
+          try
+        {
+            con.setAutoCommit(false);
+            PreparedStatement statement = null;
+
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, "10000-1");
+            statement.setDate(2, sqlBookingdate);
+            statement.setInt(3,hour);
+            
+           ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                int number = rs.getInt(1);
+                if (number !=0)
+                {
+                    result = true;
+                }
+            }
+
+
+           
+
+          //  int rowchanged = statement.executeUpdate();
+          //  System.out.println(rowchanged + " row is changed");
+
+            con.commit();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
+            System.out.println(e.getMessage());
+        }
+
+       return result;
     }
 }
