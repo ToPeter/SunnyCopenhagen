@@ -314,6 +314,8 @@ public class Controller
     {
         return facadeF.getFacArrayForJlist(type, bookingdate, bookingtime);
     }
+    
+  
 
     public String getString(Facility fac)
     {
@@ -358,10 +360,7 @@ public class Controller
     public boolean updateWaitingPos(int bookingno,String guestno)
     {return facadeF.updateWaitingPos(bookingno, guestno);}
             
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
-    }
+  
     
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
@@ -403,4 +402,43 @@ public class Controller
     {
         return facadeF.getBookingDetails(bookingid);
     }
+
+  
+
+//    public boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+//    {
+//       return facadeF.createInstructorBooking(facility,type ,guestNo, bookingdate,inno, bookingtime);
+//    }
+    
+    
+    
+      public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
+    }
+
+ 
+
+    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
+    {
+        return facadeF.getFacArrayForBookingInstructorJlist(dd, hour,username);
+    }
+
+   
+    //    return facadeF.getFacArrayForBookingInstructorJlist(dd, hour,username);
+
+    public ArrayList<Booking> getFacArrayForShowingAvailableInstructor(String type, Date dd, int hour, String username)
+    {
+        return facadeF.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
+    }
+
+    public void saveInstructorBooking(Booking booking)
+    {
+         facadeF.saveInstructorBooking(booking);
+    }
+
+
+
+ 
+    
 }

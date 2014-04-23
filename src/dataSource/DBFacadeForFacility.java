@@ -67,10 +67,7 @@ public class DBFacadeForFacility
         return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
     }
 
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-    }
+    
 
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
@@ -81,6 +78,8 @@ public class DBFacadeForFacility
     {
         return facilityMapper.getFacArrayForJlist(type, bookingdate, bookingtime);
     }
+    
+
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
@@ -119,4 +118,33 @@ public class DBFacadeForFacility
     {
         return facilityMapper.getBookingDetails(bookingid, con);
     }
+
+//    public boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int inno, int bookingtime)
+//    {
+//        return facilityMapper.createInstructorBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
+//    }
+    
+    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
+    }
+
+    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username)
+    {
+       return facilityMapper.getFacArrayForBookingInstructorJlist(bookingdate, bookingtime,username);
+    }
+
+    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(String type, Date dd, int hour, String username)
+    {
+        return facilityMapper.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
+    }
+
+    public void saveInstructorBooking(Booking booking)
+    {
+        facilityMapper.saveInstructorBooking(booking);
+    }
+
+   
+    
+
 }

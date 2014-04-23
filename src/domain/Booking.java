@@ -26,7 +26,16 @@ public class Booking
     String guestno;
     int inno;
     int waitingpos;
+    String instructorName;
 
+    public Booking(String type, int inno, String instructorName)
+    {
+        this.type = type;
+        this.inno = inno;
+        this.instructorName = instructorName;
+    }
+    
+    
     public Booking(int bookingId, Date bookingdate, int bookingtime)
     {
         this.bookingId = bookingId;
@@ -52,6 +61,14 @@ public class Booking
         this.waitingpos = waitingpos;
     }
 
+    public Booking(int bookingId, int facilityId, Date bookingdate, int bookingtime)
+    {
+        this.bookingId = bookingId;
+        this.facilityId = facilityId;
+        this.bookingdate = bookingdate;
+        this.bookingtime = bookingtime;
+    }
+    
     public int getBookingId()
     {
         return bookingId;
@@ -141,5 +158,16 @@ public class Booking
     {
         return waitingpos;
     }
+
+    public Object toStringInstructor()
+    {
+      return "Booking{" + "bookingId=" + bookingId +  ", facilityId=" + facilityId + ", bookingdate=" + bookingdate + ", bookingtime=" + bookingtime + '}';
+  
+    }
      
+    public Object toStringInstructorAvailable()
+    {
+      return "Booking{" + "type=" + type +  ", inno=" + inno + ", instructorName=" + instructorName  + '}';
+  
+    }
 }
