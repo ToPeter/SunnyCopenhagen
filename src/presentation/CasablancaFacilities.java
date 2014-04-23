@@ -854,7 +854,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
      //   Facility fac = facArray.get(listIndex);
 
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        dd = jDateChooserFacilityBooking.getDate();
+        dd = jDateChooserFacilityBooking1.getDate();
 
         if (typeIndex == 0)
         {
@@ -879,24 +879,44 @@ public class CasablancaFacilities extends javax.swing.JFrame
        
         
         int hour = Integer.parseInt(jTextFieldFacilityBookingHour1.getText());
-    //    bookingsarray = control.getFacArrayForBookingInstructorJlist(dd, hour,username); 
-      //  System.out.println("ARRAY1 "+bookingsarray.toString());
+        bookingsarray = control.getFacArrayForBookingInstructorJlist(dd, hour,username); ;  
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(type,dd, hour,username);
-        System.out.println("ARRAY2 "+bookingsArrayForInstructor.toString());
+
         
-        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR AND CHANGE STATUS
         
         
         if (bookingsArrayForInstructor.isEmpty())
         {
            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR "); 
         }
+        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
+        
+      //  if ()
+        boolean control.checkInstructorAlready();
         
         else
         {
-          System.out.println("Gettin 0"+bookingsArrayForInstructor.get(0));
+          System.out.println("Gettin 0: "+bookingsArrayForInstructor.get(0));
+          
           Booking booking = bookingsArrayForInstructor.get(0); 
+          //booking = bookingsarray.get(0);
+        
+        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
+        {
+            Booking tempBooking = bookingsArrayForInstructor.get(i);
+            int tempBookingId = tempBooking.getInno();
+            int tempInno = 0;
+            for (int j = 0; j < bookingsarray.size(); j++)
+                {
+                 Booking tempBooking1 = bookingsarray.get(j);
+                 tempInno = tempBooking1.getBookingId();  
+                }
+
+             booking = new Booking (tempInno, tempBookingId);
+        }
+        
           control.saveInstructorBooking(booking);
+        
           System.out.println("DONE");
         }
 

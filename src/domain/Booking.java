@@ -34,6 +34,13 @@ public class Booking
         this.inno = inno;
         this.instructorName = instructorName;
     }
+
+    public Booking(int bookingId, int inno)
+    {
+        this.bookingId = bookingId;
+        this.inno = inno;
+     //   this.instructorName = instructorName;
+    }
     
     
     public Booking(int bookingId, Date bookingdate, int bookingtime)
