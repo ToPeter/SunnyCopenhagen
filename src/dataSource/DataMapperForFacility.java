@@ -786,8 +786,9 @@ public class DataMapperForFacility
         return typeArray;
     }
 
-    public void createNewFacility(int facNum, String type)
+    public boolean createNewFacility(int facNum, String type)
     {
+        boolean result = false;
         String SQLString = "insert into facility values (?,?)";
         PreparedStatement statement;
         try
@@ -802,7 +803,10 @@ public class DataMapperForFacility
             System.out.println("fail in DataMapperForFacility - createNewFacility");
             System.out.println(e.getMessage());
             System.out.println(e.getErrorCode());
+            return result;
         }
+        result = true;
+        return result;
     }
 
     boolean addInstructor(String name, String type)

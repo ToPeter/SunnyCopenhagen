@@ -105,9 +105,9 @@ public class DBFacadeForFacility
         return facilityMapper.getTypes(con);
     }
 
-    public void createNewFacility(int facNum, String type)
+    public boolean createNewFacility(int facNum, String type)
     {
-        facilityMapper.createNewFacility(facNum, type);
+       return facilityMapper.createNewFacility(facNum, type);
     }
 
     public int getFacilityNumber(String type)

@@ -141,14 +141,15 @@ public class Controller
     {
         return facadeF.getFacilityTypes();
     }
-    public void createNewFacility (String type)
+    public boolean createNewFacility (String type)
     {
         int num;
         num = getFacilityNumber(type);
         if (!type.equalsIgnoreCase("new"))
         {
-            facadeF.createNewFacility(num, type);
+          return facadeF.createNewFacility(num, type);
         }
+        return false;
     }
     
     public int getFacilityNumber (String type)
