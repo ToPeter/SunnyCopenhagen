@@ -67,10 +67,10 @@ public class DBFacadeForFacility
         return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
     }
 
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-    }
+//    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+//    {
+//        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
+//    }
 
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
@@ -195,10 +195,10 @@ public class DBFacadeForFacility
 //    {
 //        return facilityMapper.createInstructorBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
 //    }
-    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-    }
+//    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+//    {
+//        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
+//    }
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username)
     {
