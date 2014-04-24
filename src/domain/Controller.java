@@ -413,7 +413,7 @@ public class Controller
     public boolean addInstructor(String name, String type)
     {
       return  facadeF.addInstructor(name,type);
-
+    }
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
         return facadeF.getBookingno(facId, bookingdate, bookingtime);
@@ -471,10 +471,10 @@ public class Controller
     {
         return currentGuestID.getId();
     }
-  public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-    {
-        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
-    }
+//  public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+//    {
+//        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
+//    }
 
      public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
     {
@@ -498,7 +498,10 @@ public class Controller
 
     }
 
-    
+    public ArrayList<Booking> getFacArrayForShowingAvailableInstructor(String type, Date dd, int hour, String username)
+    {
+        return facadeF.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
+    }
     public void changeCurrentGuestID(int index)
     {
         if (index != -1)

@@ -100,7 +100,7 @@ public class Booking
         this.inno = inno;
         this.waitingpos = waitingpos;
     }
-    }
+    
     
 public int getBookingId()
     {
