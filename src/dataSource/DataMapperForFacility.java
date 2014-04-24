@@ -517,7 +517,7 @@ public class DataMapperForFacility
         try
         {
             statement = con.prepareStatement(SQLString);
-            statement.setString(1, "10000-1");
+            statement.setString(1, username);
             statement.setDate(2, sqlBookingdate);
             statement.setInt(3, bookingtime);
 
@@ -536,7 +536,7 @@ public class DataMapperForFacility
         {
             System.out.println("Fail in DataMapper - makiingbookingarray");
             System.out.println(e.getMessage());
-        };
+        }
         return bookingarray;
     }
 
@@ -587,16 +587,19 @@ public class DataMapperForFacility
     {
         String SQLString  = "UPDATE BOOKINGSTATUS SET INNO = ? WHERE BOOKINGID = ? AND GUESTNO = ?";
        // booking.getBookingId();
-        
+         PreparedStatement statement = null;
         try
         {
-            con.setAutoCommit(false);
-            PreparedStatement statement = null;
+           con.setAutoCommit(false);
+            System.out.println(booking.getInno());
+            System.out.println(booking.getBookingId());
+            System.out.println(booking.getGuestno());
 
             statement = con.prepareStatement(SQLString);
+            
             statement.setInt(1, booking.getInno());
             statement.setInt(2, booking.getBookingId());
-            statement.setString(3,"10000-1");
+            statement.setString(3,booking.getGuestno());
             
             //ResultSet rs = statement.executeQuery();
 
@@ -615,7 +618,7 @@ public class DataMapperForFacility
             System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
             System.out.println(e.getMessage());
         }
-           JOptionPane.showMessageDialog(null, "You book an INSTRUCTOR");
+      //     JOptionPane.showMessageDialog(null, "You book an INSTRUCTOR"); // REMOVES!
     }
 
     boolean checkInstructorAlreadyThere(Date dd, int hour, String username)
@@ -624,7 +627,7 @@ public class DataMapperForFacility
        java.sql.Date sqlBookingdate = new java.sql.Date(dd.getTime());
        
        String SQLString  = "select INNO from BOOKINGSTATUS where guestno = ? and bookingid = "
-                             + "(select bookingid from booking where" 
+                             + "(select bookingid from booking where " 
                              + "bookingdate=? and bookingtime=? )";
        
           try
@@ -633,7 +636,7 @@ public class DataMapperForFacility
             PreparedStatement statement = null;
 
             statement = con.prepareStatement(SQLString);
-            statement.setString(1, "10000-1");
+            statement.setString(1, username);
             statement.setDate(2, sqlBookingdate);
             statement.setInt(3,hour);
             

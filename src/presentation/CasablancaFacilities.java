@@ -58,6 +58,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setMinSelectableDate(minDate);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+        username = "10000-2"; // used for testing when running file directly in netbeans
 
     }
 
@@ -418,7 +419,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                         .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxFacilityType1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,22 +431,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addGap(84, 84, 84)
                         .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                                .addComponent(jButtonBookIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                    .addComponent(jButtonBookIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonBookIN2)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonBookIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonBookIN2)
+                            .addComponent(jButtonBookIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetailsLayout.setVerticalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,28 +458,23 @@ public class CasablancaFacilities extends javax.swing.JFrame
                             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jDateChooserFacilityBooking1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43))
+                        .addGap(69, 69, 69))
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(jLabel4)
-                        .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 44, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonBookIN1)
-                                .addGap(6, 6, 6)))))
-                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButtonBookIN2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonBookIN)
                         .addGap(18, 18, 18)
+                        .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(jButtonBookIN1)
+                        .addGap(2, 2, 2)))
+                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
+                        .addComponent(jButtonBookIN2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonBookIN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonRemoveIN))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(79, 79, 79))
         );
         jLayeredPaneBookingDetails.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -889,7 +879,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
            JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");  
         }
 
-        if (bookingsArrayForInstructor.isEmpty())
+        else if (bookingsArrayForInstructor.isEmpty())
         {
            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR "); 
         }
@@ -898,22 +888,23 @@ public class CasablancaFacilities extends javax.swing.JFrame
         {
           System.out.println("Gettin 0: "+bookingsArrayForInstructor.get(0));
           
-          Booking booking = bookingsArrayForInstructor.get(0); 
+      //    Booking booking = bookingsArrayForInstructor.get(0); 
           //booking = bookingsarray.get(0);
         
-        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
-        {
-            Booking tempBooking = bookingsArrayForInstructor.get(i);
-            int tempBookingId = tempBooking.getInno();
-            int tempInno = 0;
+//        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
+//        {
+            Booking tempBooking = bookingsArrayForInstructor.get(0);
+            int tempBookingInno = tempBooking.getInno();
+            //String user = tempBooking.getGuestno();
+            int tempBookingID = 0;
             for (int j = 0; j < bookingsarray.size(); j++)
                 {
                  Booking tempBooking1 = bookingsarray.get(j);
-                 tempInno = tempBooking1.getBookingId();  
+                 tempBookingID = tempBooking1.getBookingId();  
                 }
 
-             booking = new Booking (tempInno, tempBookingId);
-        }
+           Booking  booking = new Booking (tempBookingID, tempBookingInno, username);
+//        }
         
           control.saveInstructorBooking(booking);
         

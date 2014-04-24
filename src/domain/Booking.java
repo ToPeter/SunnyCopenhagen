@@ -35,10 +35,11 @@ public class Booking
         this.instructorName = instructorName;
     }
 
-    public Booking(int bookingId, int inno)
+    public Booking(int bookingId, int inno, String guestno)
     {
         this.bookingId = bookingId;
         this.inno = inno;
+        this.guestno = guestno;
      //   this.instructorName = instructorName;
     }
     
