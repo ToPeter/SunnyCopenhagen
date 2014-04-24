@@ -21,8 +21,7 @@ public class Booking
     int facilityId;
     Date bookingdate;
     int bookingtime;
-
-   
+    int ver_no;
     String guestno;
     int inno;
     int waitingpos;
@@ -58,7 +57,16 @@ public class Booking
         this.bookingId = bookingId;
         this.bookingdate = bookingdate;
         this.bookingtime = bookingtime;
+
     }
+
+    public Booking(int bookingId, String guestno)
+    {
+        this.bookingId = bookingId;
+        this.guestno = guestno;
+        
+    }
+    
     
     public Booking(int bookingId, int bookedNumOfUsers, int maxUsers, String type, int facilityId, Date bookingdate, int bookingtime)
     {
@@ -71,13 +79,6 @@ public class Booking
         this.bookingtime = bookingtime;
     }
 
-    public Booking(String guestno, int inno, int waitingpos)
-    {
-        this.guestno = guestno;
-        this.inno = inno;
-        this.waitingpos = waitingpos;
-    }
-
     public Booking(int bookingId, int facilityId, Date bookingdate, int bookingtime)
     {
         this.bookingId = bookingId;
@@ -85,8 +86,23 @@ public class Booking
         this.bookingdate = bookingdate;
         this.bookingtime = bookingtime;
     }
+
+    public Booking(String guestno, int inno, int waitingpos)
+    {
+        this.guestno = guestno;
+        this.inno = inno;
+        this.waitingpos = waitingpos;
+    }
+    public Booking(int bookingId, String guestno, int waitingpos, int inno)
+    {
+        this.bookingId = bookingId;
+        this.guestno = guestno;
+        this.inno = inno;
+        this.waitingpos = waitingpos;
+    }
+    }
     
-    public int getBookingId()
+public int getBookingId()
     {
         return bookingId;
     }

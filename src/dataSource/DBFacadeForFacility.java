@@ -67,6 +67,11 @@ public class DBFacadeForFacility
         return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
     }
 
+    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
+    }
+
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
         return facilityMapper.remaingPlace(type, bookingdate, bookingtime, facid);
@@ -95,14 +100,35 @@ public class DBFacadeForFacility
         }
     }
 
-    public boolean updateWaitingPos(int bookingno, String guestno)
+    public ArrayList<String> getFacilityTypes()
     {
-        return facilityMapper.updateWaitingPos(bookingno, guestno, con);
+        return facilityMapper.getTypes(con);
+    }
+
+    public void createNewFacility(int facNum, String type)
+    {
+        facilityMapper.createNewFacility(facNum, type);
+    }
+
+    public int getFacilityNumber(String type)
+    {
+        return facilityMapper.getFacilityNumber(type);
+    }
+
+    public boolean updateWaitingPos(Booking booking)
+    {
+        System.out.println("booking: " + booking.getGuestno());
+
+        uowFacility.registerDeleteBooking(booking);
+
+        return true;
     }
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
-        return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+        int bookingno = facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+
+        return bookingno;
     }
 
     public ArrayList<Booking> getBookingList(String guestno)
@@ -113,6 +139,56 @@ public class DBFacadeForFacility
     public ArrayList<Booking> getBookingDetails(int bookingid)
     {
         return facilityMapper.getBookingDetails(bookingid, con);
+
+    }
+
+    public void registerNewBooking(Booking bookingSQL1)
+    {
+        if (uowFacility != null)
+        {
+            uowFacility.registerNewBooking(bookingSQL1);
+        }
+
+    }
+
+    public void registerNewBookingStatus(Booking bookingSQL2)
+    {
+        if (uowFacility != null)
+        {
+            uowFacility.registerNewBookingStatus(bookingSQL2);
+        }
+
+    }
+
+    public void registerDeletBooking(Booking deleteSql)
+    {
+        if (uowFacility != null)
+        {
+            uowFacility.registerDeleteBooking(deleteSql);
+        }
+
+    }
+
+    public boolean commitProcessBookingBusinessTransaction()
+    {
+        boolean status = false;
+        if (uowFacility != null)
+        {
+            status = uowFacility.commit(con);
+            uowFacility = null;
+
+        }
+        return status;
+    }
+
+    public boolean fourBookingPerDay(String guestno, Date date)
+    {
+        return facilityMapper.fourBookingPerDay(guestno, date, con);
+    }
+
+    public boolean addInstructor(String name, String type)
+    {
+      return facilityMapper.addInstructor (name, type);  
     }
 
 //    public boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int inno, int bookingtime)

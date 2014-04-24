@@ -13,7 +13,7 @@ import javax.mail.MessagingException;
 public class Controller
 {
 
-    private boolean processingGuest, processingReservation;        // Represent state of business transaction
+    private boolean processingGuest, processingReservation, processingBooking;        // Represent state of business transaction
     private Guest currentGuest;             // Guest in focus
     private GuestID currentGuestID;
     private Reservation currentReservation; //Reservation in focus
@@ -22,13 +22,14 @@ public class Controller
     private Mail mailsender;
     private final DBFacadeForFacility facadeF;
     private boolean processingGuestID;
-    private ArrayList<GuestID> guestsID;
+    private ArrayList<GuestID> guestsID, arrayOfGuestID;
 
     public Controller()
     {
         processingGuest = false;
         processingGuestID = false;
         processingReservation = false;
+        processingBooking = false;
         currentGuest = null;
         facade = DBFacade.getInstance();
         facadeF = DBFacadeForFacility.getInstance();
@@ -62,8 +63,8 @@ public class Controller
         priceList = facade.getPriceList();
         return priceList;
     }
-
-    // ----------------------------- Unit Of Work ----------------------------
+    
+        // ----------------------------- Unit Of Work ----------------------------
     public boolean getGuest(int guestID)
     {
         boolean guestFound = false;
@@ -136,6 +137,24 @@ public class Controller
         return currentGuest;
     }
 
+    public ArrayList <String> getFacilityTypes ()
+    {
+        return facadeF.getFacilityTypes();
+    }
+    public void createNewFacility (String type)
+    {
+        int num;
+        num = getFacilityNumber(type);
+        if (!type.equalsIgnoreCase("new"))
+        {
+            facadeF.createNewFacility(num, type);
+        }
+    }
+    
+    public int getFacilityNumber (String type)
+    {
+        return facadeF.getFacilityNumber(type);
+    }
     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
     {
         if (processingGuest)
@@ -192,11 +211,9 @@ public class Controller
 
     public boolean bookRoom(int roomNo, int reservationNo, Date fromDate, Date endDate, Date boookingDate, int depositPaid)
     {
-
+        boolean result = false;
         Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid, 1111, 0);
-        facade.bookRoom(reservation);
-
-        boolean result = true;
+        result = facade.bookRoom(reservation);
 
         System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
 
@@ -226,11 +243,9 @@ public class Controller
     public boolean sendInvoice(ArrayList<Guest> guestarray, Reservation reservation, String roomType, int roomPrice) throws MessagingException
     {
 
-        
-            return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
-        
+        return mailsender.sendInvoice(guestarray, reservation, roomType, roomPrice);
+
     }
-    
 
     public boolean sendConfirmation(ArrayList<Guest> guestarray, Reservation reservation, String roomType) throws MessagingException
     {
@@ -262,8 +277,7 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -278,8 +292,7 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
         }
@@ -356,15 +369,55 @@ public class Controller
     {
 
     }
-   
-    public boolean updateWaitingPos(int bookingno,String guestno)
-    {return facadeF.updateWaitingPos(bookingno, guestno);}
-            
+
+    public boolean updateWaitingPos(int bookingno, String guestno)
+    {
+        facadeF.startProcessGuestBusinessTransaction();
+        boolean result;
+        Booking booking = new Booking(bookingno, guestno);
+
+        result = facadeF.updateWaitingPos(booking);
+        facadeF.commitProcessBookingBusinessTransaction();
+        return result;
+    }
+
   
+    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+    {
+        int waitingpos;
+        int remainroom = facadeF.remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
+
+        if (remainroom <= 0)
+        {
+            waitingpos = Math.abs(remainroom - 1);
+        }
+        else
+        {
+            waitingpos = 0;
+        }
+
+        facadeF.startProcessGuestBusinessTransaction();
+        int bookingno = facadeF.getBookingno(facility.getFacID(), bookingdate, bookingtime);
+
+        Booking bookingSQL1 = new Booking(bookingno, facility.getFacID(), bookingdate, bookingtime);
+        facadeF.registerNewBooking(bookingSQL1);
+        System.out.println("guestno " + guestNo);
+        Booking bookingSQL2 = new Booking(bookingno, guestNo, waitingpos, inno);
+        facadeF.registerNewBookingStatus(bookingSQL2);
+
+        return facadeF.commitProcessBookingBusinessTransaction(); // return boolean if commit was or wasNOT succesful
+
+        //  return true;
+    }
     
+    public boolean addInstructor(String name, String type)
+    {
+      return  facadeF.addInstructor(name,type);
+
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
-    return facadeF.getBookingno(facId, bookingdate, bookingtime);}
+        return facadeF.getBookingno(facId, bookingdate, bookingtime);
+    }
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
@@ -381,7 +434,7 @@ public class Controller
         String name = facade.getGuestLogInName(userName);
         return name;
     }
-    
+
     public String getEmpNameLogIn(String userName)
     {
         String name = facade.getEmpLogInName(userName);
@@ -392,10 +445,10 @@ public class Controller
     {
         return facadeF.getBookingList(guestno);
     }
-    
-    public String getBookingListString (Booking booking)
+
+    public String getBookingListString(Booking booking)
     {
-        return "Booking ID: " + booking.bookingId + " Booking date: "+booking.bookingdate+ " Booking time: "+booking.bookingtime;
+        return "Booking ID: " + booking.bookingId + " Booking date: " + booking.bookingdate + " Booking time: " + booking.bookingtime;
     }
 
     public ArrayList<Booking> getBookingDetails(int bookingid)
@@ -403,36 +456,33 @@ public class Controller
         return facadeF.getBookingDetails(bookingid);
     }
 
-  
+    public boolean searchGuestID(String guestno)
+    {
+        boolean result = false;
+        currentGuestID = facade.searchGuest(guestno);
+        if (currentGuestID != null)
+        {
+            result = true;
+        }
+        return result;
+    }
 
-//    public boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-//    {
-//       return facadeF.createInstructorBooking(facility,type ,guestNo, bookingdate,inno, bookingtime);
-//    }
-    
-    
-    
-      public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
+    public int getCurrentGuestIDid()
+    {
+        return currentGuestID.getId();
+    }
+  public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
         return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
     }
 
- 
-
-    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
+     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
     {
         return facadeF.getFacArrayForBookingInstructorJlist(dd, hour,username);
     }
-
-   
-    //    return facadeF.getFacArrayForBookingInstructorJlist(dd, hour,username);
-
-    public ArrayList<Booking> getFacArrayForShowingAvailableInstructor(String type, Date dd, int hour, String username)
-    {
-        return facadeF.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
-    }
-
-    public boolean saveInstructorBooking(Booking booking, String username)
+ 
+ 
+ public boolean saveInstructorBooking(Booking booking, String username)
     {
         return facadeF.saveInstructorBooking(booking, username);
     }
@@ -448,8 +498,74 @@ public class Controller
 
     }
 
-
-
- 
     
+    public void changeCurrentGuestID(int index)
+    {
+        if (index != -1)
+        {
+
+            if (arrayOfGuestID.size() >= 2)
+            {
+                currentGuestID = arrayOfGuestID.get(index);
+            }
+        }
+    }
+
+    public boolean searchGuestByReservationNO(int reservationNO)
+    {
+
+        boolean result = false;
+        arrayOfGuestID = facade.searchGuestByReservationNO(reservationNO);
+        if (!arrayOfGuestID.isEmpty())
+        {
+            currentGuestID = arrayOfGuestID.get(0);
+            result = true;
+        }
+        return result;
+    }
+
+    public int getSizeOfArrayOfGuestID()
+    {
+        return arrayOfGuestID.size();
+    }
+
+    public ArrayList<String> getNamesInArrayOfGuest()
+    {
+        ArrayList<String> arrayOfNames = new ArrayList<>();
+        for (int i = 0; i < arrayOfGuestID.size(); i++)
+        {
+            GuestID guestID = arrayOfGuestID.get(i);
+            String name = guestID.getGuestFirstName();
+            arrayOfNames.add(name);
+        }
+        return arrayOfNames;
+    }
+
+    public void clearArrayOfGuestID()
+    {
+        if (arrayOfGuestID != null)
+        {
+            arrayOfGuestID.clear();
+        }
+
+    }
+
+    public void commitFac()
+    {
+        facadeF.commitProcessBookingBusinessTransaction();
+    }
+
+    public boolean fourBookingPerDay(String guestno, Date date)
+    {
+        return facadeF.fourBookingPerDay(guestno, date);
+    }
+
+    public void updateGuestID(int parseInt, String firstName, String lastName, String adress, String country, int phonoNo, String mail)
+    {
+        boolean result;
+        facade.startProcessGuestBusinessTransaction();
+        currentGuestID = new GuestID(parseInt, firstName, lastName, adress, country, phonoNo, mail);
+        result = facade.updateGuestID(currentGuestID);
+    }
+
 }
