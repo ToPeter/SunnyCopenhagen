@@ -14,6 +14,10 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -32,6 +36,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private ArrayList<Booking> bookingsarray;
     private ArrayList<Booking> bookingsArrayForInstructor;
     private ArrayList<Guest> waitingarray;
+    ArrayList<Booking> arr ;
     private String type;
     private String username;
     Date minDate, dd, weekfwd;
@@ -58,7 +63,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setMinSelectableDate(minDate);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
-        username = "10000-2"; // used for testing when running file directly in netbeans
+        username = "10000-1"; // used for testing when running file directly in netbeans
 
     }
 
@@ -83,6 +88,32 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setMinSelectableDate(minDate);
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(minDate, weekfwd);
+    }
+
+    public void updateJtable(String username)
+    {
+        String[] nameOFcullums =
+        {
+            "bookingID", "Type", "Inno", "booking Date", "Booking Time"
+        };
+        arr = control.getBookingList(username);
+        Object[][] data = new Object[arr.size()][5];
+
+        for (int i = 0; i < arr.size(); i++)
+        {
+            Booking booking = arr.get(i);
+
+            data[i][0] = booking.getBookingId();
+            data[i][1] = booking.getType();
+            data[i][2] = booking.getInno();
+            data[i][3] = booking.getBookingdate();
+            data[i][4] = booking.getBookingtime();
+
+           
+        }
+        DefaultTableModel tm = new DefaultTableModel(data, nameOFcullums);
+        jTableShowBookings.setModel(tm);
+
     }
 
     /**
@@ -115,18 +146,13 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jButtonSearchGuestFacilities = new javax.swing.JButton();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLayeredPaneBookingDetails = new javax.swing.JLayeredPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jListShowInfoOnreservation = new javax.swing.JList();
         jButtonRemoveIN = new javax.swing.JButton();
         jButtonBookIN = new javax.swing.JButton();
-        jComboBoxFacilityType1 = new javax.swing.JComboBox();
-        jDateChooserFacilityBooking1 = new com.toedter.calendar.JDateChooser();
-        jTextFieldFacilityBookingHour1 = new javax.swing.JTextField();
-        jLabelFacilityType1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jTextFieldGuestNameInstructor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButtonBookIN1 = new javax.swing.JButton();
-        jButtonBookIN2 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableShowBookings = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -336,21 +362,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPane2.setLayer(jButtonSearchGuestFacilities, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLayeredPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jListShowInfoOnreservation.setModel(new javax.swing.AbstractListModel()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jListShowInfoOnreservation.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jListShowInfoOnreservationMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jListShowInfoOnreservation);
-
         jButtonRemoveIN.setText("Remove INSTRUCTOR");
         jButtonRemoveIN.addActionListener(new java.awt.event.ActionListener()
         {
@@ -369,31 +380,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
-        jComboBoxFacilityType1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tennis", "Badminton", "Golf", "Swimming" }));
-        jComboBoxFacilityType1.addActionListener(new java.awt.event.ActionListener()
+        jTextFieldGuestNameInstructor.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jComboBoxFacilityType1ActionPerformed(evt);
+                jTextFieldGuestNameInstructorActionPerformed(evt);
             }
         });
 
-        jDateChooserFacilityBooking1.setDateFormatString("dd-MM-yy");
-        jDateChooserFacilityBooking1.setFocusCycleRoot(true);
-
-        jTextFieldFacilityBookingHour1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextFieldFacilityBookingHour1ActionPerformed(evt);
-            }
-        });
-
-        jLabelFacilityType1.setText("Facility type");
-
-        jLabel3.setText("Date");
-
-        jLabel4.setText("Hour (8-20)");
+        jLabel4.setText("Guest Number");
 
         jButtonBookIN1.setText("Search");
         jButtonBookIN1.addActionListener(new java.awt.event.ActionListener()
@@ -404,90 +399,53 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
-        jButtonBookIN2.setText("Show available INSTRUCTORS");
-        jButtonBookIN2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonBookIN2ActionPerformed(evt);
-            }
-        });
+        jScrollPane4.setViewportView(jTableShowBookings);
 
         javax.swing.GroupLayout jLayeredPaneBookingDetailsLayout = new javax.swing.GroupLayout(jLayeredPaneBookingDetails);
         jLayeredPaneBookingDetails.setLayout(jLayeredPaneBookingDetailsLayout);
         jLayeredPaneBookingDetailsLayout.setHorizontalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
                 .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxFacilityType1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFacilityType1))
-                        .addGap(99, 99, 99)
-                        .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserFacilityBooking1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(84, 84, 84)
-                        .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel4)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextFieldGuestNameInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButtonBookIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(57, 57, 57)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonBookIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBookIN2)
-                            .addComponent(jButtonBookIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                            .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetailsLayout.setVerticalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldGuestNameInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBookIN1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabelFacilityType1)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxFacilityType1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jDateChooserFacilityBooking1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(69, 69, 69))
-                    .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldFacilityBookingHour1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jButtonBookIN1)
-                        .addGap(2, 2, 2)))
-                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                        .addComponent(jButtonBookIN2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonBookIN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonRemoveIN))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(79, 79, 79))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(178, 178, 178))
         );
-        jLayeredPaneBookingDetails.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jButtonRemoveIN, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jButtonBookIN, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jComboBoxFacilityType1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jDateChooserFacilityBooking1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jTextFieldFacilityBookingHour1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jLabelFacilityType1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookingDetails.setLayer(jTextFieldGuestNameInstructor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jButtonBookIN1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookingDetails.setLayer(jButtonBookIN2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookingDetails.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("File");
 
@@ -681,7 +639,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPane1.setVisible(true);
         jLayeredPane2.setVisible(false);
         jLayeredPaneBookingDetails.setVisible(false);
-        
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -723,11 +681,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
                 Booking booking = arrayBookingInfo.get(i);
                 String resutl = "" + booking.getGuestno() + " Waiting: " + booking.getWaitingpos() + " instructor: " + booking.getInno();
                 System.out.println(resutl);
-                
+
                 infoOfBookingModel.addElement(resutl);
 
             }
-            jListShowInfoOnreservation.setModel(infoOfBookingModel);
             jLayeredPane1.setVisible(false);
             jLayeredPaneBookingDetails.setVisible(true);
         }
@@ -735,8 +692,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     }//GEN-LAST:event_jListAvailableFacilitiesMouseClicked
 
-    
-    
+
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
         jLayeredPane1.setVisible(false);
@@ -744,184 +700,96 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookingDetails.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButtonBookIN2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookIN2ActionPerformed
-    {//GEN-HEADEREND:event_jButtonBookIN2ActionPerformed
-        model.clear();
-        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        dd = jDateChooserFacilityBooking1.getDate();
-
-        if (typeIndex == 0)
-        {
-            type = "tennis";
-        }
-        else if (typeIndex == 1)
-        {
-            type = "badminton";
-        }
-        else if (typeIndex == 2)
-        {
-            type = "volleyball";
-        }
-        else if (typeIndex == 3)
-        {
-            type = "golf";
-        }
-        else if (typeIndex == 4)
-        {
-            type = "swimming";
-        }
-
-        int hour = Integer.parseInt(jTextFieldFacilityBookingHour1.getText());
-        bookingsarray = control.getFacArrayForShowingAvailableInstructor(type,dd, hour,username);
-
-        for (int i = 0; i < bookingsarray.size(); i++)
-        {
-            Booking booking = bookingsarray.get(i);
-            //   String facstring = control.getString(booking);
-            model.addElement(booking.toStringInstructorAvailable());
-        }
-        System.out.println("Array for INSTRUCTOR_AVAILABLE"+bookingsarray.toString());
-        jListShowInfoOnreservation.setModel(model);
-
-    }//GEN-LAST:event_jButtonBookIN2ActionPerformed
-
     private void jButtonBookIN1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookIN1ActionPerformed
     {//GEN-HEADEREND:event_jButtonBookIN1ActionPerformed
         model.clear();
-        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        dd = jDateChooserFacilityBooking1.getDate();
+        updateJtable(jTextFieldGuestNameInstructor.getText());
 
-        if (typeIndex == 0)
-        {
-            type = "tennis";
-        }
-        else if (typeIndex == 1)
-        {
-            type = "badminton";
-        }
-        else if (typeIndex == 2)
-        {
-            type = "volleyball";
-        }
-        else if (typeIndex == 3)
-        {
-            type = "golf";
-        }
-        else if (typeIndex == 4)
-        {
-            type = "swimming";
-        }
-
-        int hour = Integer.parseInt(jTextFieldFacilityBookingHour1.getText());
-        bookingsarray = control.getFacArrayForBookingInstructorJlist(dd, hour,username);
-
+        bookingsarray = control.getBookingList(jTextFieldGuestNameInstructor.getText());
         for (int i = 0; i < bookingsarray.size(); i++)
         {
             Booking booking = bookingsarray.get(i);
             //   String facstring = control.getString(booking);
-            model.addElement(booking.toStringInstructor());
-            System.out.println("Array for INSTRUCTOR"+booking.toStringInstructor());
+            model.addElement(booking.getBookingId()+" "+booking.getType()+" "+booking.getInno());
         }
-        jListShowInfoOnreservation.setModel(model);
 
     }//GEN-LAST:event_jButtonBookIN1ActionPerformed
 
-    private void jTextFieldFacilityBookingHour1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldFacilityBookingHour1ActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldFacilityBookingHour1ActionPerformed
+    private void jTextFieldGuestNameInstructorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldGuestNameInstructorActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldGuestNameInstructorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFacilityBookingHour1ActionPerformed
-
-    private void jComboBoxFacilityType1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxFacilityType1ActionPerformed
-    {//GEN-HEADEREND:event_jComboBoxFacilityType1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxFacilityType1ActionPerformed
+    }//GEN-LAST:event_jTextFieldGuestNameInstructorActionPerformed
 
     private void jButtonBookINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookINActionPerformed
     {//GEN-HEADEREND:event_jButtonBookINActionPerformed
 
+        int index = jTableShowBookings.getSelectedRow();
         
-        int listIndex = jListAvailableFacilities.getSelectedIndex();
-     //   Facility fac = facArray.get(listIndex);
-
-        int typeIndex = jComboBoxFacilityType.getSelectedIndex();
-        dd = jDateChooserFacilityBooking1.getDate();
-
-        if (typeIndex == 0)
-        {
-            type = "tennis";
-
-        }
-        else if (typeIndex == 1)
-        {
-            type = "badminton";
-
-        }
-        if (typeIndex == 2)
-        {
-            type = "golf";
-
-        }
-        else if (typeIndex == 3)
-        {
-            type = "swimming";
-        }
-        
+       Booking booking = arr.get(index);
        
+        System.out.println(booking.toString());
         
-        int hour = Integer.parseInt(jTextFieldFacilityBookingHour1.getText());
-        bookingsarray = control.getFacArrayForBookingInstructorJlist(dd, hour,username); ;  
-        bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(type,dd, hour,username);
+       boolean hasInstructor = control.saveInstructorBooking(booking, jTextFieldGuestNameInstructor.getText());
+      bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), username);
 
         //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
-        boolean checkResult = control.checkInstructorAlreadyThere(dd,hour,username);
-        if (checkResult != true)
+       // boolean checkResult = control.checkInstructorAlreadyThere(dd, hour, username);
+
+        if (bookingsArrayForInstructor.isEmpty())
         {
-           JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");  
+            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR ");
+        }
+        else if (hasInstructor != true)
+        {
+            JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
+        }
+        else if (hasInstructor == true)
+        {
+            JOptionPane.showMessageDialog(null, "Instructor booked");
+            updateJtable(jTextFieldGuestNameInstructor.getText());
+            
         }
 
-        else if (bookingsArrayForInstructor.isEmpty())
-        {
-           JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR "); 
-        }
-        
-        if (!bookingsArrayForInstructor.isEmpty())
-        {
-          System.out.println("Gettin 0: "+bookingsArrayForInstructor.get(0));
-          
-      //    Booking booking = bookingsArrayForInstructor.get(0); 
-          //booking = bookingsarray.get(0);
-        
-//        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
+//        if (!bookingsArrayForInstructor.isEmpty())
 //        {
-            Booking tempBooking = bookingsArrayForInstructor.get(0);
-            int tempBookingInno = tempBooking.getInno();
-            //String user = tempBooking.getGuestno();
-            int tempBookingID = 0;
-            for (int j = 0; j < bookingsarray.size(); j++)
-                {
-                 Booking tempBooking1 = bookingsarray.get(j);
-                 tempBookingID = tempBooking1.getBookingId();  
-                }
-
-           Booking  booking = new Booking (tempBookingID, tempBookingInno, username);
+//            System.out.println("Gettin 0: " + bookingsArrayForInstructor.get(0));
+//
+//            //    Booking booking = bookingsArrayForInstructor.get(0); 
+//            //booking = bookingsarray.get(0);
+////        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
+////        {
+//            Booking tempBooking = bookingsArrayForInstructor.get(0);
+//            int tempBookingInno = tempBooking.getInno();
+//            //String user = tempBooking.getGuestno();
+//            int tempBookingID = 0;
+//            for (int j = 0; j < bookingsarray.size(); j++)
+//            {
+//                Booking tempBooking1 = bookingsarray.get(j);
+//                tempBookingID = tempBooking1.getBookingId();
+//            }
+//
+//            Booking booking = new Booking(tempBookingID, tempBookingInno, username);
 //        }
+
+//            control.saveInstructorBooking(booking);
+
+            System.out.println("DONE");
         
-          control.saveInstructorBooking(booking);
-        
-          System.out.println("DONE");
-        }
 
     }//GEN-LAST:event_jButtonBookINActionPerformed
 
     private void jButtonRemoveINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveINActionPerformed
     {//GEN-HEADEREND:event_jButtonRemoveINActionPerformed
-        // TODO add your handling code here:
+       int index = jTableShowBookings.getSelectedRow();
+       Booking booking = arr.get(index);
+        
+        boolean instructorRemoved = control.removeInstructor(booking.getBookingId(),jTextFieldGuestNameInstructor.getText());
+                if(instructorRemoved)
+                {
+                    JOptionPane.showMessageDialog(null, "Instructor succesfully removed");
+                    updateJtable(jTextFieldGuestNameInstructor.getText());
+                }
     }//GEN-LAST:event_jButtonRemoveINActionPerformed
-
-    private void jListShowInfoOnreservationMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListShowInfoOnreservationMouseClicked
-    {//GEN-HEADEREND:event_jListShowInfoOnreservationMouseClicked
-
-    }//GEN-LAST:event_jListShowInfoOnreservationMouseClicked
 
     /**
      * @param args the command line arguments
@@ -974,19 +842,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonBookIN;
     private javax.swing.JButton jButtonBookIN1;
-    private javax.swing.JButton jButtonBookIN2;
     private javax.swing.JButton jButtonRemoveIN;
     private javax.swing.JButton jButtonSearchGuestFacilities;
     private javax.swing.JComboBox jComboBoxFacilityType;
-    private javax.swing.JComboBox jComboBoxFacilityType1;
     private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking;
-    private com.toedter.calendar.JDateChooser jDateChooserFacilityBooking1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelFacilityType;
-    private javax.swing.JLabel jLabelFacilityType1;
     private javax.swing.JLabel jLabelGuestIDSearchFacilities;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
@@ -994,7 +857,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JLayeredPane jLayeredPaneBookingDetails;
     private javax.swing.JList jListAvailableFacilities;
     private javax.swing.JList jListSearchGuestFacilities;
-    private javax.swing.JList jListShowInfoOnreservation;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1003,9 +865,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTableShowBookings;
     private javax.swing.JTextField jTextFieldFacilityBookingHour;
-    private javax.swing.JTextField jTextFieldFacilityBookingHour1;
     private javax.swing.JTextField jTextFieldGuestIDSearchFacilities;
+    private javax.swing.JTextField jTextFieldGuestNameInstructor;
     // End of variables declaration//GEN-END:variables
+
 }

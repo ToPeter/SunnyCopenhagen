@@ -67,8 +67,6 @@ public class DBFacadeForFacility
         return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
     }
 
-    
-
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
         return facilityMapper.remaingPlace(type, bookingdate, bookingtime, facid);
@@ -78,8 +76,6 @@ public class DBFacadeForFacility
     {
         return facilityMapper.getFacArrayForJlist(type, bookingdate, bookingtime);
     }
-    
-
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
@@ -123,7 +119,6 @@ public class DBFacadeForFacility
 //    {
 //        return facilityMapper.createInstructorBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
 //    }
-    
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
         return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
@@ -131,29 +126,27 @@ public class DBFacadeForFacility
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username)
     {
-       return facilityMapper.getFacArrayForBookingInstructorJlist(bookingdate, bookingtime,username);
+        return facilityMapper.getFacArrayForBookingInstructorJlist(bookingdate, bookingtime, username);
     }
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(String type, Date dd, int hour, String username)
     {
-        return facilityMapper.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
+        return facilityMapper.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
     }
 
-    public void saveInstructorBooking(Booking booking)
+    public boolean saveInstructorBooking(Booking booking, String username)
     {
-        facilityMapper.saveInstructorBooking(booking);
+        return facilityMapper.saveInstructorBooking(booking, username);
     }
 
-    public boolean checkInstructorAlreadyThere(Date dd, int hour, String username)
+    public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {
-        return facilityMapper.checkInstructorAlreadyThere(dd,hour,username);
+        return facilityMapper.checkInstructorAlreadyThere(bookingId, username);
     }
 
-  
-
- 
-
-   
-    
+    public boolean removeInstructor(int bookingId, String username)
+    {
+        return facilityMapper.removeInstructorFromBooking(username, bookingId);
+    }
 
 }

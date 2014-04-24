@@ -432,14 +432,20 @@ public class Controller
         return facadeF.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
     }
 
-    public void saveInstructorBooking(Booking booking)
+    public boolean saveInstructorBooking(Booking booking, String username)
     {
-         facadeF.saveInstructorBooking(booking);
+        return facadeF.saveInstructorBooking(booking, username);
     }
 
-    public boolean checkInstructorAlreadyThere(Date dd, int hour, String username)
+    public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {
-        return facadeF.checkInstructorAlreadyThere(dd, hour,username);
+        return facadeF.checkInstructorAlreadyThere(bookingId,username);
+    }
+
+    public boolean removeInstructor(int bookingId, String username)
+    {
+        return facadeF.removeInstructor(bookingId, username);
+
     }
 
 

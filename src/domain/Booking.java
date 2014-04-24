@@ -43,6 +43,15 @@ public class Booking
      //   this.instructorName = instructorName;
     }
     
+    public Booking(int bookingId, String type, int inno, Date bookingdate, int bookingtime)
+    {
+        this.bookingId = bookingId;
+        this.type = type;
+        this.inno = inno;
+        this.bookingdate=bookingdate;
+        this.bookingtime = bookingtime;
+    }
+    
     
     public Booking(int bookingId, Date bookingdate, int bookingtime)
     {
