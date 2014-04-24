@@ -212,6 +212,13 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         jDateChooserFacilityBooking.setDateFormatString("dd-MM-yy");
         jDateChooserFacilityBooking.setFocusCycleRoot(true);
+        jDateChooserFacilityBooking.addPropertyChangeListener(new java.beans.PropertyChangeListener()
+        {
+            public void propertyChange(java.beans.PropertyChangeEvent evt)
+            {
+                jDateChooserFacilityBookingPropertyChange(evt);
+            }
+        });
 
         jLabelFacilityType.setText("Facility type");
 
@@ -882,6 +889,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton6ActionPerformed
        control.addInstructor(jTextFieldInstructorName.getText(), jComboBoxChoseTypeInstructor.getSelectedItem().toString());
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jDateChooserFacilityBookingPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jDateChooserFacilityBookingPropertyChange
+    {//GEN-HEADEREND:event_jDateChooserFacilityBookingPropertyChange
+      if(jDateChooserFacilityBooking.getDate()!=null)
+      {populateComboBox();}
+    }//GEN-LAST:event_jDateChooserFacilityBookingPropertyChange
 
     /**
      * @param args the command line arguments
