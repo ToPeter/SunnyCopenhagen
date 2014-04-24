@@ -108,23 +108,22 @@ public class CasablancaFacilities extends javax.swing.JFrame
     public void populateComboBox()
     {
         jComboBoxBookingHour.removeAllItems();
-//        int hour = c.get(c.HOUR_OF_DAY);
-//        if (today.before(jDateChooserFacilityBooking.getDate() || today.equals(jDateChooserFacilityBooking.getDate())))
-//        {
+        int hour = c.get(c.HOUR_OF_DAY);
+        if (today.before(jDateChooserFacilityBooking.getDate()))
+        {
         for (int i = 8; i <= 20; i++)
         {
 
-        //    jComboBoxBookingHour.addItem(i);
              jComboBoxBookingHour.addItem(i+":00-"+(i+1+":00"));
         }
-//        }
-//        else
-//        {
-//            for (int i = hour + 2; i <= 20; i++)
-//            {
-//                jComboBoxBookingHour.addItem(i);
-//            }
-//        }
+        }
+        else
+        {
+            for (int i = hour + 2; i <= 20; i++)
+            {
+                jComboBoxBookingHour.addItem(i+":00-"+(i+1+":00"));
+            }
+        }
     }
     
     public int getSelectedHour()
