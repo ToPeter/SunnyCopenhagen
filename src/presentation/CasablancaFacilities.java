@@ -378,6 +378,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
+        jComboBoxBookingHour.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jComboBoxBookingHourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLayeredPaneBookFacilityLayout = new javax.swing.GroupLayout(jLayeredPaneBookFacility);
         jLayeredPaneBookFacility.setLayout(jLayeredPaneBookFacilityLayout);
         jLayeredPaneBookFacilityLayout.setHorizontalGroup(
@@ -1245,6 +1253,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenu1MouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jComboBoxBookingHourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxBookingHourActionPerformed
+    {//GEN-HEADEREND:event_jComboBoxBookingHourActionPerformed
+       jButtonShowActionPerformed(evt);
+    }//GEN-LAST:event_jComboBoxBookingHourActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

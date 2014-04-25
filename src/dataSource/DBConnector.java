@@ -16,8 +16,8 @@ import java.sql.SQLException;
  */
 public class DBConnector
 {// connecting testDB
-  private static final String id = "SEM2_TEST_GR21"; 
-  private static final String pw = "SEM2_TEST_GR21";
+  private static final String id = "SEM2_GR21"; 
+  private static final String pw = "SEM2_GR21";
   private static final String idtest = "SEM2_TEST_GR21"; 
   private static final String pwtest = "SEM2_TEST_GR21";
 
