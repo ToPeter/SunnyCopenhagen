@@ -240,7 +240,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListAvailableFacilities = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        jButtonShow = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBoxBookingHour = new javax.swing.JComboBox();
@@ -325,12 +325,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jScrollPane1.setViewportView(jListAvailableFacilities);
 
-        jButton1.setText("Show");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        jButtonShow.setText("Show");
+        jButtonShow.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                jButtonShowActionPerformed(evt);
             }
         });
 
@@ -372,7 +372,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                             .addComponent(jLabel2)
                             .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonShow))
                     .addGroup(jLayeredPaneBookFacilityLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +393,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPaneBookFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jLayeredPaneBookFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonShow)
                         .addComponent(jComboBoxBookingHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooserFacilityBooking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxFacilityType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -414,7 +414,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookFacility.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneBookFacility.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacility.setLayer(jButtonShow, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jComboBoxBookingHour, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -838,8 +838,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         System.out.println(facilityType);
     }//GEN-LAST:event_jComboBoxFacilityTypeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void jButtonShowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonShowActionPerformed
+    {//GEN-HEADEREND:event_jButtonShowActionPerformed
         model.clear();
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
         dd = jDateChooserFacilityBooking.getDate();
@@ -875,7 +875,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         jListAvailableFacilities.setModel(model);
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonShowActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
@@ -907,6 +907,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
 
         control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
+        jButtonShowActionPerformed(evt);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1225,7 +1226,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1236,6 +1236,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButtonCancelActivity;
     private javax.swing.JButton jButtonRemoveIN;
     private javax.swing.JButton jButtonSearchGuestFacilities;
+    private javax.swing.JButton jButtonShow;
     private javax.swing.JComboBox jComboBoxAddFacility;
     private javax.swing.JComboBox jComboBoxBookingHour;
     private javax.swing.JComboBox jComboBoxChoseTypeInstructor;
