@@ -868,6 +868,50 @@ public class DataMapperForFacility
         }
        
     }
+    
+    //return false if a guest have one booking at the same date & time.
+    public boolean checkOnlyOneBooking(String guestno, String type, Date dd, int selectedHour)
+    {
+        java.sql.Date sqldate = new java.sql.Date(dd.getTime());
+
+        String SQLString = "select Count(bs.guestno) from booking b , bookingstatus bs "
+                + "where bs.guestno=? and bs.bookingid=b.bookingid and b.bookingdate=? and b.bookingtime=?";
+                
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(SQLString);
+            statement.setString(1, guestno);
+            statement.setDate(2, sqldate);
+            statement.setInt(3, selectedHour);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+               
+                if (rs.getInt(1) > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return true; //there is no resultset  - no booking
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - getNextReservationNo");
+            System.out.println(e.getMessage());
+        };
+        return false;
+    }
 
 //    public boolean saveInstructorBooking(Booking booking, String username)
 //    {

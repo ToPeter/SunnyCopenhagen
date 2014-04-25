@@ -569,4 +569,11 @@ public class Controller
         result = facade.updateGuestID(currentGuestID);
     }
 
+    public boolean checkOnlyOneBooking(String type, String guestNo, Date dd, int selectedHour)
+    {
+        
+     
+       return facadeF.checkOnlyOneBooking(type, guestNo, dd, selectedHour);
+    }
+
 }

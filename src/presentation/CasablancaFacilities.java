@@ -931,6 +931,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
+        
+        
         int listIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(listIndex);
 
@@ -958,8 +960,25 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-        control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
-        jButtonShowActionPerformed(evt);
+      boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
+      if(result)
+      {
+       boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
+        
+       if(fourbookings)
+       {
+         JOptionPane.showMessageDialog(null, type+ " Facility booked ");
+           jButtonShowActionPerformed(evt);
+       }
+       else
+       {
+            JOptionPane.showMessageDialog(null, "You allready have four bookings for this day: "+dd);
+       }
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
+      }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

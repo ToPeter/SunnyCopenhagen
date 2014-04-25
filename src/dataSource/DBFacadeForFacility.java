@@ -225,4 +225,9 @@ public class DBFacadeForFacility
         return facilityMapper.removeInstructorFromBooking(username, bookingId);
     }
 
+    public boolean checkOnlyOneBooking(String type, String guestNo, Date dd, int selectedHour)
+    {
+       return facilityMapper.checkOnlyOneBooking(guestNo, type, dd, selectedHour);
+    }
+
 }
