@@ -46,11 +46,12 @@ public class CasablancaResception extends javax.swing.JFrame
     private int guestcounter = 0;
     private int numberOfDays;
     private int empNo;
+    private CasablancaFacilities cbF;
 
     /**
      * Creates new form CasablancaResception
      */
-    public CasablancaResception(String userName)
+    public CasablancaResception(String userName, CasablancaFacilities cbF)
     {
         Calendar c = Calendar.getInstance();
         today = c.getTime();
@@ -73,6 +74,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
         empNo = Integer.parseInt(userName);
+        this.cbF = cbF;
     }
     public void swicthPane(JLayeredPane newPane, JLayeredPane oldPane)
     {
@@ -205,6 +207,7 @@ public class CasablancaResception extends javax.swing.JFrame
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLogOut = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -1252,6 +1255,16 @@ public class CasablancaResception extends javax.swing.JFrame
         });
         jMenu1.add(jMenuItemLogOut);
 
+        jMenuItem7.setText("Switch to Facility");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
         jMenuBar.add(jMenu1);
 
         jMenu3.setText("Help");
@@ -1324,7 +1337,7 @@ public class CasablancaResception extends javax.swing.JFrame
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLayeredPaneEnterGuestInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLayeredPaneEnterGuestInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -1898,6 +1911,12 @@ control.commit();
 //            }   
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem7ActionPerformed
+        this.setVisible(false);
+        cbF.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     public void getOpenReservations()
     {
 
@@ -2013,6 +2032,7 @@ control.commit();
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItemLogOut;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

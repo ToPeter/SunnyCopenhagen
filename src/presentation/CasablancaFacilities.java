@@ -17,6 +17,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Milkman
@@ -42,6 +43,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     JLayeredPane currentPane;
     private String selectedUser = "";
     private int bookingid;
+    private CasablancaResception cbR;
 
     public CasablancaFacilities() //should be updated and used only for employees
     {
@@ -70,6 +72,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         guestNo = "10000-1"; // used for testing when running file directly in netbeans
         populateComboBox();
         populateAnotherComboBoxBcuzWhyNot();
+        this.cbR = cbR;
 
     }
 
@@ -77,7 +80,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {
         initComponents();
         setupPanes();
-
+jMenu1.setVisible(false);
         jMenuAdmin.setEnabled(false);
         model = new DefaultListModel();
         infoOfBookingModel = new DefaultListModel();
@@ -220,26 +223,26 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jTable1.setModel(tm);
 
     }
+
     public void setupDetailJtable(int bookingid)
     {
-      
-       
+
         ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
-         Object[][] twoArray = new Object[arrayBookingInfo.size()][3];
-            String[] names =
-            {
-                "GuestNO", "WaitingPosition", "Instructor"
-            };
-            for (int i = 0; i < arrayBookingInfo.size(); i++)
-            {
-                Booking booking = arrayBookingInfo.get(i);
-                twoArray[i][0] = booking.getGuestno();
-                twoArray[i][1] = booking.getWaitingpos();
-                twoArray[i][2] = booking.getInno();
-            }
-            DefaultTableModel tm = new DefaultTableModel(twoArray, names);
-            jTableBookingDetails.setModel(tm);
-          arrayBookingInfo.clear();
+        Object[][] twoArray = new Object[arrayBookingInfo.size()][3];
+        String[] names =
+        {
+            "GuestNO", "WaitingPosition", "Instructor"
+        };
+        for (int i = 0; i < arrayBookingInfo.size(); i++)
+        {
+            Booking booking = arrayBookingInfo.get(i);
+            twoArray[i][0] = booking.getGuestno();
+            twoArray[i][1] = booking.getWaitingpos();
+            twoArray[i][2] = booking.getInno();
+        }
+        DefaultTableModel tm = new DefaultTableModel(twoArray, names);
+        jTableBookingDetails.setModel(tm);
+        arrayBookingInfo.clear();
     }
 
     /**
@@ -931,8 +934,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        
-        
+
         int listIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(listIndex);
 
@@ -960,25 +962,25 @@ public class CasablancaFacilities extends javax.swing.JFrame
             type = "fitness";
         }
 
-      boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
-      if(result)
-      {
-       boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
-        
-       if(fourbookings)
-       {
-         JOptionPane.showMessageDialog(null, type+ " Facility booked ");
-           jButtonShowActionPerformed(evt);
-       }
-       else
-       {
-            JOptionPane.showMessageDialog(null, "You allready have four bookings for this day: "+dd);
-       }
-      }
-      else
-      {
-        JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
-      }
+        boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
+        if (result)
+        {
+            boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
+
+            if (fourbookings)
+            {
+                JOptionPane.showMessageDialog(null, type + " Facility booked ");
+                jButtonShowActionPerformed(evt);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "You allready have four bookings for this day: " + dd);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
+        }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1054,18 +1056,17 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jListAvailableFacilitiesMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListAvailableFacilitiesMouseClicked
     {//GEN-HEADEREND:event_jListAvailableFacilitiesMouseClicked
-        if (evt.getClickCount() == 2)   
+        if (evt.getClickCount() == 2)
         {
             int jListSelectedIndex = jListAvailableFacilities.getSelectedIndex();
             Facility facid = facArray.get(jListSelectedIndex);
 
             this.bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
-           // ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
-
+            // ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
 
             setupDetailJtable(bookingid);
-             swicthPane(jLayeredPaneBookingDetails, currentPane);
-           
+            swicthPane(jLayeredPaneBookingDetails, currentPane);
+
         }
 
 
@@ -1102,14 +1103,13 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButtonBookINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookINActionPerformed
     {//GEN-HEADEREND:event_jButtonBookINActionPerformed
-
+        boolean noInstructor = true;
         int index = jTableShowBookings.getSelectedRow();
 
         Booking booking = arr.get(index);
 
         System.out.println(booking.toString());
 
-        boolean hasInstructor = control.saveInstructorBooking(booking, jTextFieldGuestNameInstructor.getText());
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 
         //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
@@ -1118,15 +1118,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR ");
         }
-        else if (hasInstructor != true)
+        else
         {
-            JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
-        }
-        else if (hasInstructor == true)
-        {
-            JOptionPane.showMessageDialog(null, "Instructor booked");
-            updateJtable(jTextFieldGuestNameInstructor.getText());
+            noInstructor = control.saveInstructorBooking(booking, jTextFieldGuestNameInstructor.getText());
 
+            if (!noInstructor)
+            {
+                JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
+            }
+            else if (noInstructor)
+            {
+                JOptionPane.showMessageDialog(null, "Instructor booked");
+                updateJtable(jTextFieldGuestNameInstructor.getText());
+
+            }
         }
 
 //        if (!bookingsArrayForInstructor.isEmpty())
@@ -1214,12 +1219,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButtonCancelActivityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCancelActivityActionPerformed
     {//GEN-HEADEREND:event_jButtonCancelActivityActionPerformed
-       
+
         Booking booking = null;
-        
+
         if (jButtonSearchGuestFacilities.isEnabled())
         {
-           selectedUser = jTextFieldGuestIDSearchFacilities.getText();
+            selectedUser = jTextFieldGuestIDSearchFacilities.getText();
         }
         else
         {
@@ -1235,16 +1240,23 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButtonBookInDetailsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookInDetailsActionPerformed
     {//GEN-HEADEREND:event_jButtonBookInDetailsActionPerformed
         jButton2ActionPerformed(evt);
-        
-        System.out.println("prinintng bID"+ bookingid);
+
+        System.out.println("prinintng bID" + bookingid);
         setupDetailJtable(bookingid);
-        
+
     }//GEN-LAST:event_jButtonBookInDetailsActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jMenu1MouseClicked
     {//GEN-HEADEREND:event_jMenu1MouseClicked
         this.setVisible(false);
+        cbR.setVisible(true);
+        
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    public void setCbR(CasablancaResception cbR)
+    {
+        this.cbR = cbR;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
