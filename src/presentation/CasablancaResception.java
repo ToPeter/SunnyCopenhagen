@@ -76,6 +76,7 @@ public class CasablancaResception extends javax.swing.JFrame
         empNo = Integer.parseInt(userName);
         this.cbF = cbF;
     }
+
     public void swicthPane(JLayeredPane newPane, JLayeredPane oldPane)
     {
         oldPane.setVisible(false);
@@ -1467,7 +1468,6 @@ public class CasablancaResception extends javax.swing.JFrame
         roomNo = Integer.parseInt(roomNoSelected.toString());
         jLabelShowRoomChosen.setText(roomNoSelected.toString());
 
-       
         jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
         jLabelToDate.setText(endDateStr);
         jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -1483,7 +1483,7 @@ public class CasablancaResception extends javax.swing.JFrame
         {
 
             JOptionPane.showMessageDialog(null, "Room " + roomNo + " booked\nwith reservation no: " + reservationNo, "Room " + roomNo + " booked", 1);
-            
+
             swicthPane(jLayeredPaneReservation, currentPane);
 //            currentPane.setVisible(false);
 //            currentPane = jLayeredPaneReservation;
@@ -1507,8 +1507,7 @@ public class CasablancaResception extends javax.swing.JFrame
 //        }
 //
 //        control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
-        
-  
+
         swicthPane(jLayeredPaneEnterGuestInfo, currentPane);
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneEnterGuestInfo;
@@ -1532,7 +1531,7 @@ public class CasablancaResception extends javax.swing.JFrame
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneReservationInfo;
 //        currentPane.setVisible(true);
-        swicthPane(jLayeredPaneReservationInfo,currentPane);
+        swicthPane(jLayeredPaneReservationInfo, currentPane);
         CasablancaResception.this.setPreferredSize(new Dimension(290, 400));
         CasablancaResception.this.pack();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -1550,7 +1549,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
-        
+
         swicthPane(jLayeredPaneSearchRoome, currentPane);
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneSearchRoome;
@@ -1562,7 +1561,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-        
+
         swicthPane(jLayeredPaneSearchGuest, currentPane);
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneSearchGuest;
@@ -1575,7 +1574,7 @@ public class CasablancaResception extends javax.swing.JFrame
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
         swicthPane(jLayeredPaneEnterGuestInfo, currentPane);
-        
+
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneEnterGuestInfo;
 //        currentPane.setVisible(true);
@@ -1603,7 +1602,7 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
-       
+
         swicthPane(jLayeredPaneShowOpenReservations, currentPane);
 //        currentPane.setVisible(false);
 //        currentPane = jLayeredPaneShowOpenReservations;
@@ -1702,7 +1701,7 @@ public class CasablancaResception extends javax.swing.JFrame
             {
                 control.createGuestID(Integer.parseInt(jTextFieldID.getText()), jTextFieldfFirstName.getText(), jTextFieldlLastName.getText(), jTextFieldAdress.getText(),
                         jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText());
-                //      control.commit();
+
 
                 control.createGuest(reservationNo, guestNo, password, jTextFieldtrvlAgncy.getText());
             }
@@ -1718,11 +1717,9 @@ public class CasablancaResception extends javax.swing.JFrame
             {
 
                 guestcounter = 0;
-                
+
                 swicthPane(jLayeredPaneSearchRoome, currentPane);
-//                currentPane.setVisible(false);
-//                currentPane = jLayeredPaneSearchRoome;
-//                currentPane.setVisible(true);
+
                 CasablancaResception.this.setPreferredSize(new Dimension(575, 400));
                 CasablancaResception.this.pack();
                 //for mail
@@ -1765,7 +1762,7 @@ public class CasablancaResception extends javax.swing.JFrame
             Object roomNoSelected = model.getElementAt(jListSelectedIndex);
             roomNo = Integer.parseInt(roomNoSelected.toString());
             jLabelShowRoomChosen.setText(roomNoSelected.toString());
-            
+
             jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
             jLabelToDate.setText(endDateStr);
             jLabelNumOfGuestReser.setText(Integer.toString(numOfGuest));
@@ -1773,12 +1770,10 @@ public class CasablancaResception extends javax.swing.JFrame
             jLabelPriceReservation.setText(Integer.toString(totalPriceForRoom));
             reservationNo = control.getNextReservationNo();
             jLabelReservationNo.setText(Integer.toString(reservationNo));
-            
+
             swicthPane(jLayeredPaneReservation, currentPane);
-//            currentPane.setVisible(false);
-//            currentPane = jLayeredPaneReservation;
-//            currentPane.setVisible(true);
-            
+
+
             boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid, empNo);
         }
     }//GEN-LAST:event_jList1MouseClicked
@@ -1897,18 +1892,9 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
-//    
-control.updateGuestID(Integer.parseInt(idSearchGuest.getText()),firstNameSearchGuest.getText(), LastNameSearchGuest.getText(), adressSearchGuest.getText(),countrySearchGuest.getText(),Integer.parseInt(phoneSearchGuest.getText()), mailSearchGuest.getText());
-control.commit();
-//            }
-//            else
-//            {
-//                control.createGuestID(Integer.parseInt(jTextFieldID.getText()), jTextFieldfFirstName.getText(), jTextFieldlLastName.getText(), jTextFieldAdress.getText(),
-//                        jTextFieldcountry.getText(), Integer.parseInt(jTextFieldphoneNo.getText()), jTextFieldemail.getText());
-//                //      control.commit();
-//
-//                control.createGuest(reservationNo, guestNo, password, jTextFieldtrvlAgncy.getText());
-//            }   
+        control.updateGuestID(Integer.parseInt(idSearchGuest.getText()), firstNameSearchGuest.getText(), LastNameSearchGuest.getText(), adressSearchGuest.getText(), countrySearchGuest.getText(), Integer.parseInt(phoneSearchGuest.getText()), mailSearchGuest.getText());
+        control.commit();
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed

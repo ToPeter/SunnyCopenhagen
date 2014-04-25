@@ -17,7 +17,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author Milkman
@@ -44,7 +43,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private String selectedUser = "";
     private int bookingid;
     private CasablancaResception cbR;
-
+    private boolean loggedinAsEmp;
+    
     public CasablancaFacilities() //should be updated and used only for employees
     {
         initComponents();
@@ -70,17 +70,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
         guestNo = "10000-1"; // used for testing when running file directly in netbeans
+        
+        loggedinAsEmp = true;
         populateComboBox();
         populateAnotherComboBoxBcuzWhyNot();
         this.cbR = cbR;
-
+        
+        
     }
-
+    
     public CasablancaFacilities(String user) //constructor for logging in as guest
     {
         initComponents();
         setupPanes();
-jMenu1.setVisible(false);
+        jMenu1.setVisible(false);
         jMenuAdmin.setEnabled(false);
         model = new DefaultListModel();
         infoOfBookingModel = new DefaultListModel();
@@ -103,10 +106,10 @@ jMenu1.setVisible(false);
         jDateChooserFacilityBooking.setDate(today);
         updateJtable(user);
         jButtonSearchGuestFacilities.setEnabled(false);
-
+        
         jTextFieldGuestIDSearchFacilities.setEnabled(false);
     }
-
+    
     public void populateAnotherComboBoxBcuzWhyNot()
     {
         jComboBoxAddFacility.removeAllItems();
@@ -117,16 +120,28 @@ jMenu1.setVisible(false);
             jComboBoxChoseTypeInstructor.addItem(control.getFacilityTypes().get(i));
         }
     }
-
+    
     public void populateComboBox()
     {
         jComboBoxBookingHour.removeAllItems();
+        
         int hour = c.get(c.HOUR_OF_DAY);
+        
+        if(loggedinAsEmp)
+        {
+             for (int i = 8; i <= 20; i++)
+            {
+                
+                jComboBoxBookingHour.addItem(i + ":00-" + (i + 1 + ":00"));
+            }
+        }
+        else
+        
         if (today.before(jDateChooserFacilityBooking.getDate()))
         {
             for (int i = 8; i <= 20; i++)
             {
-
+                
                 jComboBoxBookingHour.addItem(i + ":00-" + (i + 1 + ":00"));
             }
         }
@@ -138,7 +153,7 @@ jMenu1.setVisible(false);
             }
         }
     }
-
+    
     public int getSelectedHour()
     {
         String hour = (String) jComboBoxBookingHour.getSelectedItem();
@@ -153,7 +168,7 @@ jMenu1.setVisible(false);
         }
         return hourint;
     }
-
+    
     public void setupJtableWithBookedActivities(String guestNo)
     {
         bookingsarray.clear();
@@ -162,13 +177,13 @@ jMenu1.setVisible(false);
         {
             "bookingID", "Type", "Date", "Start Time"
         };
-
+        
         Object[][] data = new Object[bookingsarray.size()][4];
-
+        
         for (int i = 0; i < bookingsarray.size(); i++)
         {
             Booking booking = bookingsarray.get(i);
-
+            
             data[i][0] = booking.getBookingId();
             data[i][1] = booking.getType();
             data[i][2] = booking.getBookingdate();
@@ -177,7 +192,7 @@ jMenu1.setVisible(false);
         DefaultTableModel tm = new DefaultTableModel(data, nameOFcullums);
         jTable1.setModel(tm);
     }
-
+    
     public void setupPanes()
     {
         jLayeredPaneSearchFacility.setVisible(false);
@@ -186,14 +201,14 @@ jMenu1.setVisible(false);
         jLayeredPaneBookingDetails.setVisible(false);
         currentPane = jLayeredPaneBookFacility;
     }
-
+    
     public void swicthPane(JLayeredPane newPane, JLayeredPane oldPane)
     {
         oldPane.setVisible(false);
         currentPane = newPane;
         newPane.setVisible(true);
     }
-
+    
     public void updateJtable(String username)
     {
         if (arr != null)
@@ -206,27 +221,27 @@ jMenu1.setVisible(false);
         };
         arr = control.getBookingList(username);
         Object[][] data = new Object[arr.size()][5];
-
+        
         for (int i = 0; i < arr.size(); i++)
         {
             Booking booking = arr.get(i);
-
+            
             data[i][0] = booking.getBookingId();
             data[i][1] = booking.getType();
             data[i][2] = booking.getInno();
             data[i][3] = booking.getBookingdate();
             data[i][4] = booking.getBookingtime();
-
+            
         }
         DefaultTableModel tm = new DefaultTableModel(data, nameOFcullums);
         jTableShowBookings.setModel(tm);
         jTable1.setModel(tm);
-
+        
     }
-
+    
     public void setupDetailJtable(int bookingid)
     {
-
+        
         ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
         Object[][] twoArray = new Object[arrayBookingInfo.size()][3];
         String[] names =
@@ -898,7 +913,7 @@ jMenu1.setVisible(false);
         model.clear();
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
         dd = jDateChooserFacilityBooking.getDate();
-
+        
         if (typeIndex == 0)
         {
             type = "tennis";
@@ -919,9 +934,9 @@ jMenu1.setVisible(false);
         {
             type = "fitness";
         }
-
+        
         facArray = control.getFacArrayForJlist(type, dd, getSelectedHour());
-
+        
         for (int i = 0; i < facArray.size(); i++)
         {
             Facility facility = facArray.get(i);
@@ -929,18 +944,18 @@ jMenu1.setVisible(false);
             model.addElement(facstring);
         }
         jListAvailableFacilities.setModel(model);
-// TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonShowActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-
+        
         int listIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(listIndex);
-
+        
         int typeIndex = jComboBoxFacilityType.getSelectedIndex();
         dd = jDateChooserFacilityBooking.getDate();
-
+        
         if (typeIndex == 0)
         {
             type = "tennis";
@@ -961,12 +976,12 @@ jMenu1.setVisible(false);
         {
             type = "fitness";
         }
-
+        
         boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
         if (result)
         {
             boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
-
+            
             if (fourbookings)
             {
                 JOptionPane.showMessageDialog(null, type + " Facility booked ");
@@ -982,12 +997,12 @@ jMenu1.setVisible(false);
             JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
         }
 
-// TODO add your handling code here:
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-
+        
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(typeIndex);
         waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
@@ -998,59 +1013,24 @@ jMenu1.setVisible(false);
             Guest guest = waitingarray.get(i);
             model.addElement(guest.stringForWaitingList());
         }
-
+        
         jListAvailableFacilities.setModel(model);
-// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
-
         swicthPane(jLayeredPaneBookFacility, currentPane);
-// TODO add your handling code here:
-
-
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
         swicthPane(jLayeredPaneSearchFacility, currentPane);
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButtonSearchGuestFacilitiesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSearchGuestFacilitiesActionPerformed
     {//GEN-HEADEREND:event_jButtonSearchGuestFacilitiesActionPerformed
-
         updateJtable(jTextFieldGuestIDSearchFacilities.getText());
-
-//        bookingsarray = control.getBookingList(jTextFieldGuestIDSearchFacilities.getText());
-//        for (int i = 0; i < bookingsarray.size(); i++)
-//        {
-//            Booking booking = bookingsarray.get(i);
-//            String bookingString = control.getBookingListString(booking);
-//            model.addElement(bookingString);
-//        }
-//        jListSearchGuestFacilities.setModel(model);
-        //=SetupJtable
-//        String[] nameOFcullums =
-//        {
-//            "bookingID", "Type", "Date", "Time"
-//        };
-//        arr = control.getBookingList(username);
-//        Object[][] data = new Object[bookingsarray.size()][4];
-//
-//        for (int i = 0; i < bookingsarray.size(); i++)
-//        {
-//            Booking booking = bookingsarray.get(i);
-//
-//            data[i][0] = booking.getBookingId();
-//            data[i][1] = booking.getType();
-//            data[i][2] = booking.getBookingdate();
-//            data[i][3] = booking.getBookingtime();
-//        }
-//        DefaultTableModel tm = new DefaultTableModel(data, nameOFcullums);
-//        jTable1.setModel(tm);
 
     }//GEN-LAST:event_jButtonSearchGuestFacilitiesActionPerformed
 
@@ -1060,22 +1040,22 @@ jMenu1.setVisible(false);
         {
             int jListSelectedIndex = jListAvailableFacilities.getSelectedIndex();
             Facility facid = facArray.get(jListSelectedIndex);
-
+            
             this.bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
             // ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
 
             setupDetailJtable(bookingid);
             swicthPane(jLayeredPaneBookingDetails, currentPane);
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jListAvailableFacilitiesMouseClicked
-
+    
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-
+        
         swicthPane(jLayeredPaneBookInstructor, currentPane);
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -1084,7 +1064,7 @@ jMenu1.setVisible(false);
     {//GEN-HEADEREND:event_jButtonBookIN1ActionPerformed
         model.clear();
         updateJtable(jTextFieldGuestNameInstructor.getText());
-
+        
         bookingsarray = control.getBookingList(jTextFieldGuestNameInstructor.getText());
         for (int i = 0; i < bookingsarray.size(); i++)
         {
@@ -1105,11 +1085,11 @@ jMenu1.setVisible(false);
     {//GEN-HEADEREND:event_jButtonBookINActionPerformed
         boolean noInstructor = true;
         int index = jTableShowBookings.getSelectedRow();
-
+        
         Booking booking = arr.get(index);
-
+        
         System.out.println(booking.toString());
-
+        
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 
         //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
@@ -1121,7 +1101,7 @@ jMenu1.setVisible(false);
         else
         {
             noInstructor = control.saveInstructorBooking(booking, jTextFieldGuestNameInstructor.getText());
-
+            
             if (!noInstructor)
             {
                 JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
@@ -1130,7 +1110,7 @@ jMenu1.setVisible(false);
             {
                 JOptionPane.showMessageDialog(null, "Instructor booked");
                 updateJtable(jTextFieldGuestNameInstructor.getText());
-
+                
             }
         }
 
@@ -1156,7 +1136,7 @@ jMenu1.setVisible(false);
 //        }
 //            control.saveInstructorBooking(booking);
         System.out.println("DONE");
-
+        
 
     }//GEN-LAST:event_jButtonBookINActionPerformed
 
@@ -1164,7 +1144,7 @@ jMenu1.setVisible(false);
     {//GEN-HEADEREND:event_jButtonRemoveINActionPerformed
         int index = jTableShowBookings.getSelectedRow();
         Booking booking = arr.get(index);
-
+        
         boolean instructorRemoved = control.removeInstructor(booking.getBookingId(), jTextFieldGuestNameInstructor.getText());
         if (instructorRemoved)
         {
@@ -1219,9 +1199,9 @@ jMenu1.setVisible(false);
 
     private void jButtonCancelActivityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCancelActivityActionPerformed
     {//GEN-HEADEREND:event_jButtonCancelActivityActionPerformed
-
+        
         Booking booking = null;
-
+        
         if (jButtonSearchGuestFacilities.isEnabled())
         {
             selectedUser = jTextFieldGuestIDSearchFacilities.getText();
@@ -1230,7 +1210,7 @@ jMenu1.setVisible(false);
         {
             selectedUser = guestNo;
         }
-
+        
         int index = jTable1.getSelectedRow();
         booking = arr.get(index);
         control.updateWaitingPos(booking.getBookingId(), selectedUser);
@@ -1240,7 +1220,7 @@ jMenu1.setVisible(false);
     private void jButtonBookInDetailsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookInDetailsActionPerformed
     {//GEN-HEADEREND:event_jButtonBookInDetailsActionPerformed
         jButton2ActionPerformed(evt);
-
+        
         System.out.println("prinintng bID" + bookingid);
         setupDetailJtable(bookingid);
 
@@ -1252,7 +1232,7 @@ jMenu1.setVisible(false);
         cbR.setVisible(true);
         
     }//GEN-LAST:event_jMenu1MouseClicked
-
+    
     public void setCbR(CasablancaResception cbR)
     {
         this.cbR = cbR;
