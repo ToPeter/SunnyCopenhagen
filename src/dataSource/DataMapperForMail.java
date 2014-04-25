@@ -6,7 +6,6 @@
 package dataSource;
 
 import domain.Guest;
-import domain.GuestID;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
