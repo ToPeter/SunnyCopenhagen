@@ -3,11 +3,8 @@ package domain;
 import MailSender.Mail;
 import dataSource.DBFacade;
 import dataSource.DBFacadeForFacility;
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import javax.mail.MessagingException;
 
 public class Controller
