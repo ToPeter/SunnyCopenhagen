@@ -40,6 +40,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
     Date minDate, dd, weekfwd, today;
     Calendar c;
     JLayeredPane currentPane;
+    private String selectedUser = "";
+    private int bookingid;
 
     public CasablancaFacilities() //should be updated and used only for employees
     {
@@ -218,6 +220,27 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jTable1.setModel(tm);
 
     }
+    public void setupDetailJtable(int bookingid)
+    {
+      
+       
+        ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
+         Object[][] twoArray = new Object[arrayBookingInfo.size()][3];
+            String[] names =
+            {
+                "GuestNO", "WaitingPosition", "Instructor"
+            };
+            for (int i = 0; i < arrayBookingInfo.size(); i++)
+            {
+                Booking booking = arrayBookingInfo.get(i);
+                twoArray[i][0] = booking.getGuestno();
+                twoArray[i][1] = booking.getWaitingpos();
+                twoArray[i][2] = booking.getInno();
+            }
+            DefaultTableModel tm = new DefaultTableModel(twoArray, names);
+            jTableBookingDetails.setModel(tm);
+          arrayBookingInfo.clear();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,6 +252,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void initComponents()
     {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         jLayeredPaneBookFacility = new javax.swing.JLayeredPane();
         jComboBoxFacilityType = new javax.swing.JComboBox();
         jDateChooserFacilityBooking = new com.toedter.calendar.JDateChooser();
@@ -271,6 +295,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableBookingDetails = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        jButtonBookInDetails = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuBookInstructor = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -279,6 +304,9 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuTest = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -313,6 +341,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jListAvailableFacilities.setToolTipText("DoubleClick to see booking Details");
         jListAvailableFacilities.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
@@ -696,6 +725,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
+        jButtonBookInDetails.setText("Book this facility");
+        jButtonBookInDetails.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonBookInDetailsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLayeredPaneBookingDetailsLayout = new javax.swing.GroupLayout(jLayeredPaneBookingDetails);
         jLayeredPaneBookingDetails.setLayout(jLayeredPaneBookingDetailsLayout);
         jLayeredPaneBookingDetailsLayout.setHorizontalGroup(
@@ -703,21 +741,27 @@ public class CasablancaFacilities extends javax.swing.JFrame
             .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
+                    .addGroup(jLayeredPaneBookingDetailsLayout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonBookInDetails))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetailsLayout.setVerticalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneBookingDetailsLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addGroup(jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButtonBookInDetails))
                 .addGap(177, 177, 177))
         );
         jLayeredPaneBookingDetails.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookingDetails.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookingDetails.setLayer(jButtonBookInDetails, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuBookInstructor.setText("Guest");
 
@@ -770,6 +814,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenuTest.add(jMenuItem1);
 
         jMenuBar.add(jMenuTest);
+
+        jMenu1.setText("Reception");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar.add(jMenu1);
 
         setJMenuBar(jMenuBar);
 
@@ -833,6 +887,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         // TODO add your handling code here:
         facilityType = jComboBoxFacilityType.getSelectedIndex();
         System.out.println(facilityType);
+        jButtonShowActionPerformed(evt);
     }//GEN-LAST:event_jComboBoxFacilityTypeActionPerformed
 
     private void jButtonShowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonShowActionPerformed
@@ -980,37 +1035,18 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jListAvailableFacilitiesMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListAvailableFacilitiesMouseClicked
     {//GEN-HEADEREND:event_jListAvailableFacilitiesMouseClicked
-        if (evt.getClickCount() == 2)
+        if (evt.getClickCount() == 2)   
         {
             int jListSelectedIndex = jListAvailableFacilities.getSelectedIndex();
             Facility facid = facArray.get(jListSelectedIndex);
 
-            int bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
-            System.out.println("bookingid: " + bookingid);
-            ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
+            this.bookingid = control.getBookingno(facid.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
+           // ArrayList<Booking> arrayBookingInfo = control.getBookingDetails(bookingid);
 
-            System.out.println(arrayBookingInfo.size());
 
-            Object[][] twoArray = new Object[arrayBookingInfo.size()][3];
-            String[] names =
-            {
-                "GuestNO", "WaitingPosition", "Instructor"
-            };
-            for (int i = 0; i < arrayBookingInfo.size(); i++)
-            {
-
-                Booking booking = arrayBookingInfo.get(i);
-                twoArray[i][0] = booking.getGuestno();
-                twoArray[i][1] = booking.getWaitingpos();
-                twoArray[i][2] = booking.getInno();
-
-//                String resutl = "" + booking.getGuestno() + " Waiting: " + booking.getWaitingpos() + " instructor: " + booking.getInno();
-//                System.out.println(resutl);
-//                infoOfBookingModel.addElement(resutl);
-            }
-            DefaultTableModel tm = new DefaultTableModel(twoArray, names);
-            jTableBookingDetails.setModel(tm);
-            swicthPane(jLayeredPaneBookingDetails, currentPane);
+            setupDetailJtable(bookingid);
+             swicthPane(jLayeredPaneBookingDetails, currentPane);
+           
         }
 
 
@@ -1159,7 +1195,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButtonCancelActivityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCancelActivityActionPerformed
     {//GEN-HEADEREND:event_jButtonCancelActivityActionPerformed
-        String selectedUser = "";
+       
         Booking booking = null;
         
         if (jButtonSearchGuestFacilities.isEnabled())
@@ -1177,6 +1213,20 @@ public class CasablancaFacilities extends javax.swing.JFrame
         updateJtable(selectedUser);
     }//GEN-LAST:event_jButtonCancelActivityActionPerformed
 
+    private void jButtonBookInDetailsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookInDetailsActionPerformed
+    {//GEN-HEADEREND:event_jButtonBookInDetailsActionPerformed
+        jButton2ActionPerformed(evt);
+        
+        System.out.println("prinintng bID"+ bookingid);
+        setupDetailJtable(bookingid);
+        
+    }//GEN-LAST:event_jButtonBookInDetailsActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jMenu1MouseClicked
+    {//GEN-HEADEREND:event_jMenu1MouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1185,6 +1235,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonBookIN;
     private javax.swing.JButton jButtonBookIN1;
+    private javax.swing.JButton jButtonBookInDetails;
     private javax.swing.JButton jButtonCancelActivity;
     private javax.swing.JButton jButtonRemoveIN;
     private javax.swing.JButton jButtonSearchGuestFacilities;
@@ -1207,6 +1258,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JLayeredPane jLayeredPaneBookingDetails;
     private javax.swing.JLayeredPane jLayeredPaneSearchFacility;
     private javax.swing.JList jListAvailableFacilities;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuBookInstructor;
@@ -1214,6 +1266,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu jMenuTest;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
