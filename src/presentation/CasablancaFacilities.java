@@ -428,7 +428,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                                 .addComponent(jButtonSearchGuestFacilities))
                             .addComponent(jLabelGuestIDSearchFacilities)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 1410, Short.MAX_VALUE))
+                .addGap(29, 106, Short.MAX_VALUE))
         );
         jLayeredPaneSearchFacilityLayout.setVerticalGroup(
             jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

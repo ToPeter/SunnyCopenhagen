@@ -45,11 +45,12 @@ public class CasablancaResception extends javax.swing.JFrame
     private JLayeredPane currentPane;
     private int guestcounter = 0;
     private int numberOfDays;
+    private int empNo;
 
     /**
      * Creates new form CasablancaResception
      */
-    public CasablancaResception()
+    public CasablancaResception(String userName)
     {
         Calendar c = Calendar.getInstance();
         today = c.getTime();
@@ -71,6 +72,7 @@ public class CasablancaResception extends javax.swing.JFrame
         priceType = priceList[0];
         jLabelShowPrice.setText(Integer.toString(priceType));
         currentPane = jLayeredPaneSearchRoome;
+        empNo = Integer.parseInt(userName);
     }
     public void swicthPane(JLayeredPane newPane, JLayeredPane oldPane)
     {
@@ -1461,7 +1463,7 @@ public class CasablancaResception extends javax.swing.JFrame
         reservationNo = control.getNextReservationNo();
         jLabelReservationNo.setText(Integer.toString(reservationNo));
 
-        boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+        boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid, empNo);
 
         //= if room is free
         if (result)
@@ -1764,7 +1766,7 @@ public class CasablancaResception extends javax.swing.JFrame
 //            currentPane = jLayeredPaneReservation;
 //            currentPane.setVisible(true);
             
-            boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid);
+            boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid, empNo);
         }
     }//GEN-LAST:event_jList1MouseClicked
 
@@ -1936,13 +1938,13 @@ control.commit();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new CasablancaResception().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable()
+//        {
+//            public void run()
+//            {
+//                new CasablancaResception().setVisible(true);
+//            }
+//        });
     }
 
     public void getOpenReservations()

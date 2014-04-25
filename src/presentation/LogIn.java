@@ -212,14 +212,16 @@ public class LogIn extends javax.swing.JFrame
                 
                 String empName = control.getEmpNameLogIn(userName);
                 JOptionPane.showMessageDialog(null, "Welcome dear EMP: " + empName);
+               CasablancaResception cbR = new CasablancaResception(userName);
+               cbR.setVisible(logInResult);
                 
-                java.awt.EventQueue.invokeLater(new Runnable()
-                {
-                    public void run()
-                    {
-                        new CasablancaResception().setVisible(true);
-                    }
-                });
+//                java.awt.EventQueue.invokeLater(new Runnable()
+//                {
+//                    public void run()
+//                    {
+//                        new CasablancaResception().setVisible(true);
+//                    }
+//                });
                 this.setVisible(false);
                 
             }
