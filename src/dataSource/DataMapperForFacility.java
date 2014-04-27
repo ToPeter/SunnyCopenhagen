@@ -671,6 +671,22 @@ public class DataMapperForFacility
             return true;
         }
         boolean booked = false;
+        
+        String lock = "Lock table reservation in exclusive mode";
+        
+         try
+        {
+            PreparedStatement statement = null;
+            statement = con.prepareStatement(lock);
+            statement.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in lokinc");
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
         Booking bookingForSaving= booking.get(0);
         String username= bookingForSaving.getGuestno();
         boolean hasAlreadyInstructor = checkInstructorAlreadyThere(bookingForSaving.getBookingId(),username);
