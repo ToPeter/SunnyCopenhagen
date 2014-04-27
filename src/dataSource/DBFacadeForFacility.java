@@ -160,6 +160,15 @@ public class DBFacadeForFacility
 
     }
 
+        public void registerNewInstructorBooking(Booking booking)
+    {
+        if (uowFacility != null)
+        {
+            uowFacility.registerNewInstructorBooking(booking);
+        }
+
+    }
+
     public void registerDeletBooking(Booking deleteSql)
     {
         if (uowFacility != null)
@@ -210,10 +219,10 @@ public class DBFacadeForFacility
         return facilityMapper.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
     }
 
-    public boolean saveInstructorBooking(Booking booking, String username)
-    {
-        return facilityMapper.saveInstructorBooking(booking, username);
-    }
+//    public boolean saveInstructorBooking(Booking booking, String username)
+//    {
+//        return facilityMapper.saveInstructorBooking(booking);
+//    }
 
     public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {

@@ -315,7 +315,7 @@ public class DataMapperForFacility
                 System.out.println("Fail in DataMapper - ERROR IN BOOKING");
                 System.out.println(ex.getMessage());
             }
-                       return true;
+            return true;
         }
     }
 
@@ -507,7 +507,7 @@ public class DataMapperForFacility
                 Date bookingdate = rs.getDate(4);
                 int bookingtime = rs.getInt(5);
 
-                booking = new Booking(bookingid, type, inno, bookingdate, bookingtime);
+                booking = new Booking(bookingid, type, inno, bookingdate, bookingtime, guestno);
                 bookingarray.add(booking);
             }
         } catch (Exception e)
@@ -665,17 +665,37 @@ public class DataMapperForFacility
         return bookingarray;
     }
 
-    public boolean saveInstructorBooking(Booking booking, String username)
+    public boolean saveInstructorBooking(ArrayList<Booking> booking)
     {
+        if (booking.isEmpty())
+        {
+            return true;
+        }
         boolean booked = false;
-        boolean hasAlreadyInstructor = checkInstructorAlreadyThere(booking.getBookingId(), username);
+
+        Booking bookingForSaving = booking.get(0);
+        String username = bookingForSaving.getGuestno();
+        boolean hasAlreadyInstructor = checkInstructorAlreadyThere(bookingForSaving.getBookingId(), username);
 
         if (hasAlreadyInstructor)
         {
             return false;
         }//you have already booking!!!!!
+        String lock = "Lock table reservation in exclusive mode";
 
-        int inno = getInstructorNo(booking, username);
+        try
+        {
+            PreparedStatement statement = null;
+            statement = con.prepareStatement(lock);
+            statement.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in lokinc");
+            System.out.println(e.getMessage());
+            return false;
+        }
+        int inno = getInstructorNo(booking.get(0), username);
         System.out.println("inno: " + inno);
 
         String SQLString = "UPDATE BOOKINGSTATUS SET INNO = ? WHERE BOOKINGID = ? AND GUESTNO = ?";
@@ -687,7 +707,7 @@ public class DataMapperForFacility
             statement = con.prepareStatement(SQLString);
 
             statement.setInt(1, inno);
-            statement.setInt(2, booking.getBookingId());
+            statement.setInt(2, booking.get(0).getBookingId());
             statement.setString(3, username);
 
             int rowchanged = statement.executeUpdate();
@@ -866,9 +886,9 @@ public class DataMapperForFacility
             System.out.println(e.getMessage());
             return 0;
         }
-       
+
     }
-    
+
     //return false if a guest have one booking at the same date & time.
     public boolean checkOnlyOneBooking(String guestno, String type, Date dd, int selectedHour)
     {
@@ -876,7 +896,6 @@ public class DataMapperForFacility
 
         String SQLString = "select Count(bs.guestno) from booking b , bookingstatus bs "
                 + "where bs.guestno=? and bs.bookingid=b.bookingid and b.bookingdate=? and b.bookingtime=?";
-                
 
         PreparedStatement statement = null;
         try
@@ -890,7 +909,7 @@ public class DataMapperForFacility
 
             if (rs.next())
             {
-               
+
                 if (rs.getInt(1) > 0)
                 {
                     return false;
@@ -904,8 +923,7 @@ public class DataMapperForFacility
             {
                 return true; //there is no resultset  - no booking
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());
@@ -951,7 +969,6 @@ public class DataMapperForFacility
 //        booked = true;
 //        return booked;
 //    }
-
 //    public boolean checkInstructorAlreadyThere(int bookingId, String username)
 //    {
 //        boolean result = false;
@@ -986,7 +1003,6 @@ public class DataMapperForFacility
 //
 //        return result;
 //    }
-
 //    public boolean removeInstructorFromBooking(String username, int bookingid)
 //    {
 //        boolean result = false;

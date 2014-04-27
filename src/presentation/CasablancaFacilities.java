@@ -1111,8 +1111,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         else
         {
-            noInstructor = control.saveInstructorBooking(booking, jTextFieldGuestNameInstructor.getText());
-
+            noInstructor = control.saveInstructorBooking(booking);
+            
             if (!noInstructor)
             {
                 JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");

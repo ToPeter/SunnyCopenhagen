@@ -55,7 +55,7 @@ public class DBConnector
     return connection;
   }
   
-  public static void releaseConnection(Connection con) {
+  public static void releaseConnection() {
     try {
       connection.close();
     } catch (SQLException e) {

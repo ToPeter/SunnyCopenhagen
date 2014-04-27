@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 public class DataMapperTest
 {
 
-    private Connection con;
+    static Connection con;
     DataMapper datamapper;
     DateFormat format;
 
@@ -43,38 +43,38 @@ public class DataMapperTest
     {
         con = DBConnector.getTestConnection();
         datamapper = new DataMapper(con);
+        SetUpDM.setUpForTest(con);
         format = new SimpleDateFormat("dd-MM-yy");
-        /**
-         * run the following script on SQL before testing 
-         * delete from reservation where reservationno = 55555; 
-         * update reservation set depositpaid = 0 where reservationno = 1111;
-         * update reservation set Ver_No = 0 where reservationno = 1111;
-         * delete from guestID where guestid = 4321; commit;
-         */
 
     }
 
-    @After
-    public void tearDown()
+    @AfterClass
+    public static void closeConnection()
     {
+        DBConnector.releaseConnection();
     }
 
     /**
      * Test of getreservation method, of class DataMapper.
      */
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testGetreservation() throws ParseException
     {
         System.out.println("getreservation");
         int reservationNo = 10;
+        int notExistingreservationNO = 999;
 
         Reservation result = datamapper.getreservation(reservationNo, con);
+
+        datamapper.getreservation(notExistingreservationNO, con);//exception
+
         int roomNo = result.getRoomNo();
         Date fromDate = result.getFromDate();
         Date endDate = result.getEndDate();
         assertEquals(100, roomNo);
         assertEquals(format.parse("14-03-14"), fromDate);
         assertEquals(format.parse("14-03-14"), endDate);
+
     }
 
     /**
@@ -109,6 +109,7 @@ public class DataMapperTest
         Date fromDate1 = format.parse("12-03-14");
         Date endDate1 = format.parse("16-03-14");
         String type = "double";
+
         ArrayList<Room> result = datamapper.getRoomAvailable(fromDate1, endDate1, type, con);
         Date fromDate2 = format.parse("15-03-14");
         Date endDate2 = format.parse("17-03-14");
@@ -126,22 +127,37 @@ public class DataMapperTest
     }
 
     /**
-     * Test of getRoomType method, of class DataMapper.
+     * Test of getRoomType method, of class DataMapper. Single=no1-10 Double =
+     * no11-20 Family = no21-30
      */
-    @Test
+    @Test//(expected=Exception.class)
     public void testGetRoomType()
     {
         System.out.println("getRoomType");
-        int roomNoSingle = 1;
-        int roomNoDouble = 11;
-        int roomNoFamily = 21;
-        String resultSingle = datamapper.getRoomType(roomNoSingle, con);
-        String resultDouble = datamapper.getRoomType(roomNoDouble, con);
-        String resultFamily = datamapper.getRoomType(roomNoFamily, con);
+        int roomNoSingle1 = 1;
+        int roomNoSingle2 = 10;
+        int roomNoDouble1 = 11;
+        int roomNoDouble2 = 20;
+        int roomNoFamily1 = 21;
+        int roomNoFamily2 = 30;
+        int notExistingRoomno = 200;
+        String resultSingle1 = datamapper.getRoomType(roomNoSingle1, con);
+        String resultDouble1 = datamapper.getRoomType(roomNoDouble1, con);
+        String resultFamily1 = datamapper.getRoomType(roomNoFamily1, con);
+        String resultSingle2 = datamapper.getRoomType(roomNoSingle2, con);
+        String resultDouble2 = datamapper.getRoomType(roomNoDouble2, con);
+        String resultFamily2 = datamapper.getRoomType(roomNoFamily2, con);
 
-        assertEquals("single", resultSingle);
-        assertEquals("double", resultDouble);
-        assertEquals("family", resultFamily);
+        String noresult = datamapper.getRoomType(notExistingRoomno, con);//exeption
+
+        assertEquals("single", resultSingle1);
+        assertEquals("double", resultDouble1);
+        assertEquals("family", resultFamily1);
+        assertEquals("single", resultSingle2);
+        assertEquals("double", resultDouble2);
+        assertEquals("family", resultFamily2);
+        assertEquals(null, noresult);
+
     }
 
     /**
@@ -160,9 +176,7 @@ public class DataMapperTest
     }
 
     /**
-     * Test of createReservation method, of class DataMapper. before testing,
-     * run the following script. delete from reservation where
-     * reservationno=55555; commit;
+     * Test of createReservation method, of class DataMapper.
      */
     @Test
     public void testCreateReservation() throws ParseException
@@ -177,11 +191,11 @@ public class DataMapperTest
         assertEquals(expResult, result);
         Reservation res2 = new Reservation(21, 55554, fromDate1, endDate1, fromDate1, 0, 1111, 0);
         boolean expResult2 = false;
-        boolean result2 = datamapper.createReservation(res2, con);
+        boolean result2 = datamapper.createReservation(res2, con);//the same date, same room as res.no55555. should fail
         assertEquals(expResult2, result2);
         Reservation res3 = new Reservation(22, 55555, fromDate1, endDate1, fromDate1, 0, 1111, 0);
         boolean expResult3 = false;
-        boolean result3 = datamapper.createReservation(res3, con);//throw exception
+        boolean result3 = datamapper.createReservation(res3, con);//the same reservationno cannot be used
         assertEquals(expResult3, result3);
 
     }
@@ -194,12 +208,17 @@ public class DataMapperTest
     {
         System.out.println("getGuest");
         int id = 123;
+        int notExistingID = 333;
 
         GuestID result = datamapper.getGuest(id, con);
+        GuestID notExistingGuest = datamapper.getGuest(notExistingID, con);
+
         assertEquals("Peter", result.getGuestFirstName());
         assertEquals("Rasmusen", result.getGuestFamilyName());
         assertEquals("home", result.getAddress());
         assertEquals("denmark", result.getCountry());
+        assertNull(notExistingGuest);
+
     }
 
 //    /** ARE WE USING THIS????????????
@@ -222,15 +241,18 @@ public class DataMapperTest
     /**
      * Test of insertGuest method, of class DataMapper.
      */
-    @Test
+    @Test(expected = SQLException.class)
     public void testInsertGuest() throws Exception
     {
         System.out.println("insertGuest");
         ArrayList<Guest> guestList = new ArrayList();
+
         guestList.add(new Guest(2222, "22220-1", 1111, "agency", 1));
 
         boolean result = datamapper.insertGuest(guestList, con);
         assertEquals(true, result);
+
+        datamapper.insertGuest(guestList, con);//throw SQLException
     }
 
     /**
@@ -243,7 +265,11 @@ public class DataMapperTest
         ArrayList<Reservation> updateList = new ArrayList<>();
         updateList.add(new Reservation(4, 1111, format.parse("14-01-11"), format.parse("14-01-18"), format.parse("14-01-05"), 0, 1111, 0));
         boolean result = datamapper.updateDeposit(updateList, con);
+        Reservation res = datamapper.getreservation(1111, con);
+
         assertEquals(true, result);
+        assertEquals(1, res.isDepositPaid());
+
     }
 
     /**
@@ -322,8 +348,10 @@ public class DataMapperTest
         boolean expResult = true;
         boolean result = datamapper.insertGuestID(guestListID, con);
         GuestID guestid = datamapper.getGuest(4321, con);
+        
         assertEquals(expResult, result);
         assertEquals("testName", guestid.getGuestFirstName());
+        assertNotSame("address", guestid.getAddress());
     }
 
     /**
@@ -334,9 +362,13 @@ public class DataMapperTest
     {
         System.out.println("getEmpLogInName");
         String userName = "1111";
+        String notExistingUserName="5555";
         String expResult = "Darth";
         String result = datamapper.getEmpLogInName(userName, con);
+        String notExistingUNresult = datamapper.getEmpLogInName(notExistingUserName, con);
         assertEquals(expResult, result);
+        assertEquals("", notExistingUNresult);
+        
     }
 
     /**
@@ -347,9 +379,13 @@ public class DataMapperTest
     {
         System.out.println("getGuestLogInName");
         String userName = "10000-1";
+        String notExistingUserName = "11111-1";
+        
         String expResult = "t";
         String result = datamapper.getGuestLogInName(userName, con);
+        String notExistingUNresult = datamapper.getGuestLogInName(notExistingUserName, con);
         assertEquals(expResult, result);
+    assertEquals("", notExistingUNresult);
     }
 
     /**
@@ -360,9 +396,15 @@ public class DataMapperTest
     {
         System.out.println("searchGuest");
         String guestno = "10000-1";
+                String notExistingGuestno = "11111-1";
+
         GuestID result = datamapper.searchGuest(guestno, con);
+        GuestID notExisitingGNresult = datamapper.searchGuest(notExistingGuestno, con);
+
         assertEquals("t", result.getAddress());
         assertEquals(0, result.getPhoneNo());
+        assertNull(notExisitingGNresult);
+                
     }
 
     /**
@@ -373,9 +415,13 @@ public class DataMapperTest
     {
         System.out.println("searchGuestByReservationNO");
         int reservationNO = 10000;
+        int notExistingResNO = 111;
         ArrayList<GuestID> result = datamapper.searchGuestByReservationNO(reservationNO, con);
+        ArrayList<GuestID> notExistingResNoresult = datamapper.searchGuestByReservationNO(notExistingResNO, con);
         assertEquals(6, result.size());
         assertEquals("t", result.get(0).getGuestFirstName());
+        assertEquals(0,notExistingResNoresult.size());
+        
     }
 
 }

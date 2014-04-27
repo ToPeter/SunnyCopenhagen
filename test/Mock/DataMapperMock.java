@@ -272,5 +272,11 @@ public class DataMapperMock implements dataSource.DataMapperInterface
         this.pricearray = pricearray;
     }
 
+    @Override
+    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID, Connection con)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }

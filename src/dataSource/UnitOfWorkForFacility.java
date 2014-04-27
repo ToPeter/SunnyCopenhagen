@@ -21,6 +21,8 @@ public class UnitOfWorkForFacility
     private final ArrayList<Booking> delBooking;
     private final ArrayList<Booking> newBooking;
     private final ArrayList<Booking> newBookingStatus;
+    private final ArrayList<Booking> newBookingInstructor;
+    
     String type;
 
     public UnitOfWorkForFacility(DataMapperForFacility dmf)
@@ -29,6 +31,7 @@ public class UnitOfWorkForFacility
         delBooking = new ArrayList<>();
         newBooking = new ArrayList<>();
         newBookingStatus = new ArrayList<>();
+        newBookingInstructor = new ArrayList<>();
     }
 
     public boolean commit(Connection con)
@@ -39,9 +42,8 @@ public class UnitOfWorkForFacility
             //=== system transaction - starts
             con.setAutoCommit(false);
                 status = status && dmf.createFacilityBooking(newBooking, newBookingStatus, con);
-           
                 status = status && dmf.updateWaitingPos(delBooking, con);
-           
+                status = status && dmf.saveInstructorBooking(newBookingInstructor);
 
             if (!status)
             {
@@ -95,7 +97,7 @@ public class UnitOfWorkForFacility
 
     }
 
-    void registerNewBooking(Booking bookingSQL2)
+   public void registerNewBooking(Booking bookingSQL2)
     {
         if (!newBooking.contains(bookingSQL2)) // if not all ready registered in any list
 
@@ -112,4 +114,13 @@ public class UnitOfWorkForFacility
             newBookingStatus.add(bookingSQL1);
         }
     }
+   public void registerNewInstructorBooking(Booking booking)
+    {
+        if (!newBookingInstructor.contains(booking)) // if not all ready registered in any list
+
+        {
+            newBookingInstructor.add(booking);
+        }
+    }
+
 }
