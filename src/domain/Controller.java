@@ -482,10 +482,10 @@ public class Controller
  
  public boolean saveInstructorBooking(Booking booking)
     {
-        facade.startProcessGuestBusinessTransaction();
+        facadeF.startProcessGuestBusinessTransaction();
         //facade.registerDirtyReservation(currentReservation);
         facadeF.registerNewInstructorBooking(booking);
-        boolean result= facade.commitProcessGuestBusinessTransaction();
+        boolean result= facadeF.commitProcessBookingBusinessTransaction();
         return result;
 }
 
