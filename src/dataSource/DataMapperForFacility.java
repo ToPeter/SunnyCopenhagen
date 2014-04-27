@@ -507,7 +507,7 @@ public class DataMapperForFacility
                 Date bookingdate = rs.getDate(4);
                 int bookingtime = rs.getInt(5);
 
-                booking = new Booking(bookingid, type, inno, bookingdate, bookingtime);
+                booking = new Booking(bookingid, type, inno, bookingdate, bookingtime,guestno);
                 bookingarray.add(booking);
             }
         } catch (Exception e)
@@ -665,17 +665,22 @@ public class DataMapperForFacility
         return bookingarray;
     }
 
-    public boolean saveInstructorBooking(Booking booking, String username)
-    {
+    public boolean saveInstructorBooking(ArrayList<Booking> booking)
+    { if (booking.isEmpty())
+        {
+            return true;
+        }
         boolean booked = false;
-        boolean hasAlreadyInstructor = checkInstructorAlreadyThere(booking.getBookingId(), username);
+        Booking bookingForSaving= booking.get(0);
+        String username= bookingForSaving.getGuestno();
+        boolean hasAlreadyInstructor = checkInstructorAlreadyThere(bookingForSaving.getBookingId(),username);
 
         if (hasAlreadyInstructor)
         {
             return false;
         }//you have already booking!!!!!
 
-        int inno = getInstructorNo(booking, username);
+        int inno = getInstructorNo(booking.get(0), username);
         System.out.println("inno: " + inno);
 
         String SQLString = "UPDATE BOOKINGSTATUS SET INNO = ? WHERE BOOKINGID = ? AND GUESTNO = ?";
@@ -687,7 +692,7 @@ public class DataMapperForFacility
             statement = con.prepareStatement(SQLString);
 
             statement.setInt(1, inno);
-            statement.setInt(2, booking.getBookingId());
+            statement.setInt(2, booking.get(0).getBookingId());
             statement.setString(3, username);
 
             int rowchanged = statement.executeUpdate();

@@ -42,13 +42,14 @@ public class Booking
      //   this.instructorName = instructorName;
     }
     
-    public Booking(int bookingId, String type, int inno, Date bookingdate, int bookingtime)
+    public Booking(int bookingId, String type, int inno, Date bookingdate, int bookingtime, String username)
     {
         this.bookingId = bookingId;
         this.type = type;
         this.inno = inno;
         this.bookingdate=bookingdate;
         this.bookingtime = bookingtime;
+        this.guestno=username;
     }
     
     

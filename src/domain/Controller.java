@@ -480,10 +480,14 @@ public class Controller
     }
  
  
- public boolean saveInstructorBooking(Booking booking, String username)
+ public boolean saveInstructorBooking(Booking booking)
     {
-        return facadeF.saveInstructorBooking(booking, username);
-    }
+        facade.startProcessGuestBusinessTransaction();
+        //facade.registerDirtyReservation(currentReservation);
+        facadeF.registerNewInstructorBooking(booking);
+        boolean result= facade.commitProcessGuestBusinessTransaction();
+        return result;
+}
 
     public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {
