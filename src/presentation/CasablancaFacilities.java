@@ -9,6 +9,7 @@ import domain.Booking;
 import domain.Controller;
 import domain.Facility;
 import domain.Guest;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -104,9 +105,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
         updateJtable(user);
-        jButtonSearchGuestFacilities.setEnabled(false);
 
-        jTextFieldGuestIDSearchFacilities.setEnabled(false);
     }
 
     public void populateAnotherComboBoxBcuzWhyNot()
@@ -192,7 +191,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     public void setupPanes()
     {
-        jLayeredPaneSearchFacility.setVisible(false);
+        jLayeredPaneBookFacGuest.setVisible(false);
         jLayeredPaneBookInstructor.setVisible(false);
         jLayeredPaneAdmin.setVisible(false);
         jLayeredPaneBookingDetails.setVisible(false);
@@ -280,10 +279,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBoxBookingHour = new javax.swing.JComboBox();
-        jLayeredPaneSearchFacility = new javax.swing.JLayeredPane();
-        jTextFieldGuestIDSearchFacilities = new javax.swing.JTextField();
-        jLabelGuestIDSearchFacilities = new javax.swing.JLabel();
-        jButtonSearchGuestFacilities = new javax.swing.JButton();
+        jLayeredPaneBookFacGuest = new javax.swing.JLayeredPane();
         jButtonCancelActivity = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -325,6 +321,9 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(540, 360));
+
+        jLayeredPaneBookFacility.setPreferredSize(new java.awt.Dimension(535, 345));
 
         jComboBoxFacilityType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tennis", "Badminton", "Volleyball", "Handball", "Fitness" }));
         jComboBoxFacilityType.addActionListener(new java.awt.event.ActionListener()
@@ -448,7 +447,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                     .addGroup(jLayeredPaneBookFacilityLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jLayeredPaneBookFacility.setLayer(jComboBoxFacilityType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jDateChooserFacilityBooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -461,16 +460,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookFacility.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jComboBoxBookingHour, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabelGuestIDSearchFacilities.setText("Guest ID");
-
-        jButtonSearchGuestFacilities.setText("Search");
-        jButtonSearchGuestFacilities.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButtonSearchGuestFacilitiesActionPerformed(evt);
-            }
-        });
+        jLayeredPaneBookFacGuest.setPreferredSize(new java.awt.Dimension(500, 518));
 
         jButtonCancelActivity.setText("Cancel Activity");
         jButtonCancelActivity.addActionListener(new java.awt.event.ActionListener()
@@ -505,47 +495,37 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jLayeredPaneSearchFacilityLayout = new javax.swing.GroupLayout(jLayeredPaneSearchFacility);
-        jLayeredPaneSearchFacility.setLayout(jLayeredPaneSearchFacilityLayout);
-        jLayeredPaneSearchFacilityLayout.setHorizontalGroup(
-            jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneSearchFacilityLayout.createSequentialGroup()
+        javax.swing.GroupLayout jLayeredPaneBookFacGuestLayout = new javax.swing.GroupLayout(jLayeredPaneBookFacGuest);
+        jLayeredPaneBookFacGuest.setLayout(jLayeredPaneBookFacGuestLayout);
+        jLayeredPaneBookFacGuestLayout.setHorizontalGroup(
+            jLayeredPaneBookFacGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneBookFacGuestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelGuestIDSearchFacilities, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPaneSearchFacilityLayout.createSequentialGroup()
-                            .addComponent(jTextFieldGuestIDSearchFacilities, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonSearchGuestFacilities)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonCancelActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGroup(jLayeredPaneBookFacGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jLayeredPaneBookFacGuestLayout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPaneSearchFacilityLayout.setVerticalGroup(
-            jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneSearchFacilityLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabelGuestIDSearchFacilities)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jLayeredPaneSearchFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldGuestIDSearchFacilities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearchGuestFacilities)
+        jLayeredPaneBookFacGuestLayout.setVerticalGroup(
+            jLayeredPaneBookFacGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneBookFacGuestLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jLayeredPaneBookFacGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelActivity)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPaneSearchFacility.setLayer(jTextFieldGuestIDSearchFacilities, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchFacility.setLayer(jLabelGuestIDSearchFacilities, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchFacility.setLayer(jButtonSearchGuestFacilities, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchFacility.setLayer(jButtonCancelActivity, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchFacility.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchFacility.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacGuest.setLayer(jButtonCancelActivity, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacGuest.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacGuest.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneBookInstructor.setPreferredSize(new java.awt.Dimension(725, 300));
 
         jButtonRemoveIN.setText("Remove INSTRUCTOR");
         jButtonRemoveIN.addActionListener(new java.awt.event.ActionListener()
@@ -593,25 +573,25 @@ public class CasablancaFacilities extends javax.swing.JFrame
             .addGroup(jLayeredPaneBookInstructorLayout.createSequentialGroup()
                 .addGroup(jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPaneBookInstructorLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addContainerGap()
                         .addComponent(jLabel4)
                         .addGap(4, 4, 4)
                         .addComponent(jTextFieldGuestNameInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(jButtonBookIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPaneBookInstructorLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
+                        .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonBookIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(395, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jLayeredPaneBookInstructorLayout.setVerticalGroup(
             jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookInstructorLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldGuestNameInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -623,7 +603,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonRemoveIN))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(178, 178, 178))
+                .addContainerGap())
         );
         jLayeredPaneBookInstructor.setLayer(jButtonRemoveIN, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookInstructor.setLayer(jButtonBookIN, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -631,6 +611,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookInstructor.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookInstructor.setLayer(jButtonBookIN1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookInstructor.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneAdmin.setPreferredSize(new java.awt.Dimension(500, 300));
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -718,16 +700,18 @@ public class CasablancaFacilities extends javax.swing.JFrame
             jLayeredPaneAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneAdminLayout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jLayeredPaneAdminLayout.setVerticalGroup(
             jLayeredPaneAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneAdminLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPaneAdmin.setLayer(jTabbedPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneBookingDetails.setPreferredSize(new java.awt.Dimension(560, 220));
 
         jTableBookingDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -775,7 +759,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonBookInDetails))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jLayeredPaneBookingDetailsLayout.setVerticalGroup(
             jLayeredPaneBookingDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -869,21 +853,19 @@ public class CasablancaFacilities extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPaneBookFacGuest, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLayeredPaneBookFacility, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1361, Short.MAX_VALUE))
-                    .addComponent(jLayeredPaneSearchFacility))
+                        .addComponent(jLayeredPaneBookFacility, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(212, 212, 212)
-                    .addComponent(jLayeredPaneBookInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(546, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLayeredPaneBookInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(394, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLayeredPaneAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(927, Short.MAX_VALUE)))
+                    .addContainerGap(213, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -893,20 +875,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLayeredPaneBookInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLayeredPaneBookFacility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPaneSearchFacility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(136, 136, 136)
-                    .addComponent(jLayeredPaneBookInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(391, Short.MAX_VALUE)))
+                .addComponent(jLayeredPaneBookFacGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(175, Short.MAX_VALUE)
+                    .addContainerGap(276, Short.MAX_VALUE)
                     .addComponent(jLayeredPaneAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(501, Short.MAX_VALUE)))
+                    .addContainerGap(601, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1037,19 +1015,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
         swicthPane(jLayeredPaneBookFacility, currentPane);
+        CasablancaFacilities.this.setPreferredSize(new Dimension(540, 360));
+        CasablancaFacilities.this.pack();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        swicthPane(jLayeredPaneSearchFacility, currentPane);
-
+        swicthPane(jLayeredPaneBookFacGuest, currentPane);
+        CasablancaFacilities.this.setPreferredSize(new Dimension(500, 538));
+        CasablancaFacilities.this.pack();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jButtonSearchGuestFacilitiesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSearchGuestFacilitiesActionPerformed
-    {//GEN-HEADEREND:event_jButtonSearchGuestFacilitiesActionPerformed
-        updateJtable(jTextFieldGuestIDSearchFacilities.getText());
-
-    }//GEN-LAST:event_jButtonSearchGuestFacilitiesActionPerformed
 
     private void jListAvailableFacilitiesMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jListAvailableFacilitiesMouseClicked
     {//GEN-HEADEREND:event_jListAvailableFacilitiesMouseClicked
@@ -1072,103 +1047,10 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-
         swicthPane(jLayeredPaneBookInstructor, currentPane);
-
+        CasablancaFacilities.this.setPreferredSize(new Dimension(750, 400));
+        CasablancaFacilities.this.pack();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jButtonBookIN1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookIN1ActionPerformed
-    {//GEN-HEADEREND:event_jButtonBookIN1ActionPerformed
-        model.clear();
-        updateJtable(jTextFieldGuestNameInstructor.getText());
-
-        bookingsarray = control.getBookingList(jTextFieldGuestNameInstructor.getText());
-        for (int i = 0; i < bookingsarray.size(); i++)
-        {
-            Booking booking = bookingsarray.get(i);
-            //   String facstring = control.getString(booking);
-            model.addElement(booking.getBookingId() + " " + booking.getType() + " " + booking.getInno());
-        }
-//        jListShowInfoOnreservation.setModel(model);
-
-    }//GEN-LAST:event_jButtonBookIN1ActionPerformed
-
-    private void jTextFieldGuestNameInstructorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldGuestNameInstructorActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldGuestNameInstructorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldGuestNameInstructorActionPerformed
-
-    private void jButtonBookINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookINActionPerformed
-    {//GEN-HEADEREND:event_jButtonBookINActionPerformed
-        boolean noInstructor = true;
-        int index = jTableShowBookings.getSelectedRow();
-
-        Booking booking = arr.get(index);
-
-        System.out.println(booking.toString());
-
-        bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
-
-        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
-        // boolean checkResult = control.checkInstructorAlreadyThere(dd, hour, username);
-        if (bookingsArrayForInstructor.isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR ");
-        }
-        else
-        {
-            noInstructor = control.saveInstructorBooking(booking);
-
-            if (!noInstructor)
-            {
-                JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
-            }
-            else if (noInstructor)
-            {
-                JOptionPane.showMessageDialog(null, "Instructor booked");
-                updateJtable(jTextFieldGuestNameInstructor.getText());
-
-            }
-        }
-
-//        if (!bookingsArrayForInstructor.isEmpty())
-//        {
-//            System.out.println("Gettin 0: " + bookingsArrayForInstructor.get(0));
-//
-//            //    Booking booking = bookingsArrayForInstructor.get(0); 
-//            //booking = bookingsarray.get(0);
-////        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
-////        {
-//            Booking tempBooking = bookingsArrayForInstructor.get(0);
-//            int tempBookingInno = tempBooking.getInno();
-//            //String user = tempBooking.getGuestno();
-//            int tempBookingID = 0;
-//            for (int j = 0; j < bookingsarray.size(); j++)
-//            {
-//                Booking tempBooking1 = bookingsarray.get(j);
-//                tempBookingID = tempBooking1.getBookingId();
-//            }
-//
-//            Booking booking = new Booking(tempBookingID, tempBookingInno, username);
-//        }
-//            control.saveInstructorBooking(booking);
-        System.out.println("DONE");
-
-
-    }//GEN-LAST:event_jButtonBookINActionPerformed
-
-    private void jButtonRemoveINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveINActionPerformed
-    {//GEN-HEADEREND:event_jButtonRemoveINActionPerformed
-        int index = jTableShowBookings.getSelectedRow();
-        Booking booking = arr.get(index);
-
-        boolean instructorRemoved = control.removeInstructor(booking.getBookingId(), jTextFieldGuestNameInstructor.getText());
-        if (instructorRemoved)
-        {
-            JOptionPane.showMessageDialog(null, "Instructor succesfully removed");
-            updateJtable(jTextFieldGuestNameInstructor.getText());
-        }
-    }//GEN-LAST:event_jButtonRemoveINActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
@@ -1207,6 +1089,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
         swicthPane(jLayeredPaneAdmin, currentPane);
+        CasablancaFacilities.this.setPreferredSize(new Dimension(510, 375));
+        CasablancaFacilities.this.pack();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
@@ -1219,14 +1103,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         Booking booking = null;
 
-        if (jButtonSearchGuestFacilities.isEnabled())
-        {
-            selectedUser = jTextFieldGuestIDSearchFacilities.getText();
-        }
-        else
-        {
-            selectedUser = guestNo;
-        }
+        selectedUser = guestNo;
 
         int index = jTable1.getSelectedRow();
         booking = arr.get(index);
@@ -1290,6 +1167,103 @@ public class CasablancaFacilities extends javax.swing.JFrame
         cbR.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jButtonBookIN1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookIN1ActionPerformed
+    {//GEN-HEADEREND:event_jButtonBookIN1ActionPerformed
+        model.clear();
+        updateJtable(jTextFieldGuestNameInstructor.getText());
+
+        bookingsarray = control.getBookingList(jTextFieldGuestNameInstructor.getText());
+        for (int i = 0; i < bookingsarray.size(); i++)
+        {
+            Booking booking = bookingsarray.get(i);
+            //   String facstring = control.getString(booking);
+            model.addElement(booking.getBookingId() + " " + booking.getType() + " " + booking.getInno());
+        }
+        //        jListShowInfoOnreservation.setModel(model);
+    }//GEN-LAST:event_jButtonBookIN1ActionPerformed
+
+    private void jTextFieldGuestNameInstructorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldGuestNameInstructorActionPerformed
+    {//GEN-HEADEREND:event_jTextFieldGuestNameInstructorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldGuestNameInstructorActionPerformed
+
+    private void jButtonBookINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookINActionPerformed
+    {//GEN-HEADEREND:event_jButtonBookINActionPerformed
+        boolean noInstructor = true;
+        int index = jTableShowBookings.getSelectedRow();
+
+        Booking booking = arr.get(index);
+
+        System.out.println(booking.toString());
+
+        bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
+
+        //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
+        // boolean checkResult = control.checkInstructorAlreadyThere(dd, hour, username);
+        if (bookingsArrayForInstructor.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "There is NO AVAILABLE INSTRUCTOR ");
+        }
+        else
+        {
+            noInstructor = control.saveInstructorBooking(booking);
+
+            if (!noInstructor)
+            {
+                JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
+            }
+            else if (noInstructor)
+            {
+                JOptionPane.showMessageDialog(null, "Instructor booked");
+                updateJtable(jTextFieldGuestNameInstructor.getText());
+
+            }
+        }
+
+        //        if (!bookingsArrayForInstructor.isEmpty())
+        //
+        {
+            //            System.out.println("Gettin 0: " + bookingsArrayForInstructor.get(0));
+            //
+            //            //    Booking booking = bookingsArrayForInstructor.get(0);
+            //            //booking = bookingsarray.get(0);
+            ////        for (int i = 0; i < bookingsArrayForInstructor.size(); i++)
+            ////
+            {
+                //            Booking tempBooking = bookingsArrayForInstructor.get(0);
+                //            int tempBookingInno = tempBooking.getInno();
+                //            //String user = tempBooking.getGuestno();
+                //            int tempBookingID = 0;
+                //            for (int j = 0; j < bookingsarray.size(); j++)
+                //
+                {
+                    //                Booking tempBooking1 = bookingsarray.get(j);
+                    //                tempBookingID = tempBooking1.getBookingId();
+                    //            }
+                    //
+                    //            Booking booking = new Booking(tempBookingID, tempBookingInno, username);
+                    //        }
+                    //            control.saveInstructorBooking(booking);
+                    System.out.println("DONE");
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jButtonBookINActionPerformed
+
+    private void jButtonRemoveINActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveINActionPerformed
+    {//GEN-HEADEREND:event_jButtonRemoveINActionPerformed
+        int index = jTableShowBookings.getSelectedRow();
+        Booking booking = arr.get(index);
+
+        boolean instructorRemoved = control.removeInstructor(booking.getBookingId(), jTextFieldGuestNameInstructor.getText());
+        if (instructorRemoved)
+        {
+            JOptionPane.showMessageDialog(null, "Instructor succesfully removed");
+            updateJtable(jTextFieldGuestNameInstructor.getText());
+        }
+    }//GEN-LAST:event_jButtonRemoveINActionPerformed
+
     public void setCbR(CasablancaResception cbR)
     {
         this.cbR = cbR;
@@ -1307,7 +1281,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JButton jButtonBookInDetails;
     private javax.swing.JButton jButtonCancelActivity;
     private javax.swing.JButton jButtonRemoveIN;
-    private javax.swing.JButton jButtonSearchGuestFacilities;
     private javax.swing.JButton jButtonShow;
     private javax.swing.JComboBox jComboBoxAddFacility;
     private javax.swing.JComboBox jComboBoxBookingHour;
@@ -1320,12 +1293,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelFacilityType;
-    private javax.swing.JLabel jLabelGuestIDSearchFacilities;
     private javax.swing.JLayeredPane jLayeredPaneAdmin;
+    private javax.swing.JLayeredPane jLayeredPaneBookFacGuest;
     private javax.swing.JLayeredPane jLayeredPaneBookFacility;
     private javax.swing.JLayeredPane jLayeredPaneBookInstructor;
     private javax.swing.JLayeredPane jLayeredPaneBookingDetails;
-    private javax.swing.JLayeredPane jLayeredPaneSearchFacility;
     private javax.swing.JList jListAvailableFacilities;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenuAdmin;
@@ -1347,7 +1319,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableBookingDetails;
     private javax.swing.JTable jTableShowBookings;
-    private javax.swing.JTextField jTextFieldGuestIDSearchFacilities;
     private javax.swing.JTextField jTextFieldGuestNameInstructor;
     private javax.swing.JTextField jTextFieldInstructorName;
     // End of variables declaration//GEN-END:variables

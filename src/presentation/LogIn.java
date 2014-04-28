@@ -214,6 +214,7 @@ public class LogIn extends javax.swing.JFrame
                 cbF.setCbR(cbR);
                 cbF.setVisible(false);
                 cbR.setVisible(true);
+                cbR.pack();
 
                 this.setVisible(false);
             }

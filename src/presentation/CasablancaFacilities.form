@@ -76,6 +76,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[540, 360]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar"/>
@@ -100,29 +103,26 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLayeredPaneBookFacGuest" pref="701" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jLayeredPaneBookFacility" min="-2" pref="500" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="1361" max="32767" attributes="0"/>
+                      <Component id="jLayeredPaneBookFacility" min="-2" pref="532" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jLayeredPaneSearchFacility" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jLayeredPaneBookInstructor" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
-                  <Component id="jLayeredPaneBookInstructor" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="546" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLayeredPaneAdmin" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="213" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="394" max="32767" attributes="0"/>
-                  <Component id="jLayeredPaneAdmin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="927" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="jLayeredPaneBookingDetails" min="-2" max="-2" attributes="0"/>
@@ -134,26 +134,20 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLayeredPaneBookInstructor" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jLayeredPaneBookFacility" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLayeredPaneSearchFacility" min="-2" max="-2" attributes="0"/>
+              <Component id="jLayeredPaneBookFacGuest" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                  <Component id="jLayeredPaneBookInstructor" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="391" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="276" max="32767" attributes="0"/>
+                  <Component id="jLayeredPaneAdmin" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="601" max="32767" attributes="0"/>
               </Group>
           </Group>
           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="175" max="32767" attributes="0"/>
-                  <Component id="jLayeredPaneAdmin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="501" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="jLayeredPaneBookingDetails" min="-2" max="-2" attributes="0"/>
@@ -165,6 +159,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JLayeredPane" name="jLayeredPaneBookFacility">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[535, 345]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -234,7 +233,7 @@
                           <Component id="jScrollPane1" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="61" max="32767" attributes="0"/>
+                  <EmptySpace pref="65" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -329,7 +328,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JLayeredPane" name="jLayeredPaneSearchFacility">
+    <Container class="javax.swing.JLayeredPane" name="jLayeredPaneBookFacGuest">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[500, 518]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -337,59 +341,34 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelGuestIDSearchFacilities" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTextFieldGuestIDSearchFacilities" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonSearchGuestFacilities" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonCancelActivity" min="-2" pref="117" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane5" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonCancelActivity" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane5" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jLabelGuestIDSearchFacilities" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldGuestIDSearchFacilities" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonSearchGuestFacilities" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCancelActivity" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="221" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="jTextFieldGuestIDSearchFacilities">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelGuestIDSearchFacilities">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Guest ID"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonSearchGuestFacilities">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Search"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchGuestFacilitiesActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="jButtonCancelActivity">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancel Activity"/>
@@ -430,6 +409,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JLayeredPane" name="jLayeredPaneBookInstructor">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[725, 300]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -437,7 +421,7 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="jTextFieldGuestNameInstructor" min="-2" pref="80" max="-2" attributes="0"/>
@@ -445,7 +429,7 @@
                           <Component id="jButtonBookIN1" min="-2" pref="204" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -454,14 +438,14 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="395" max="32767" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldGuestNameInstructor" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -476,7 +460,7 @@
                       </Group>
                       <Component id="jScrollPane4" min="-2" pref="230" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -538,13 +522,18 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JLayeredPane" name="jLayeredPaneAdmin">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[500, 300]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jTabbedPane1" min="-2" pref="481" max="-2" attributes="0"/>
-                  <EmptySpace pref="83" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -553,7 +542,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jTabbedPane1" min="-2" pref="265" max="-2" attributes="0"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -701,6 +690,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JLayeredPane" name="jLayeredPaneBookingDetails">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[560, 220]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -715,7 +709,7 @@
                       </Group>
                       <Component id="jScrollPane3" min="-2" pref="453" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="113" max="32767" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
