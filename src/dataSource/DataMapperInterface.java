@@ -21,44 +21,39 @@ import java.sql.SQLException;
 public interface DataMapperInterface
 {
 
-    Reservation getreservation(int reservationNo, Connection con);
+    Reservation getreservation(int reservationNo);
 
-    ArrayList<Reservation> getreservationDepositNotPaid(Connection con);
+    ArrayList<Reservation> getreservationDepositNotPaid();
 
-    ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type, Connection con);
+    ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type);
 
-    int[] getPriceList(Connection con);
+    int[] getPriceList();
 
-    GuestID getGuest(int guestid, Connection con);
+    GuestID getGuest(int guestid);
 
-    int getNextReservationNo(Connection con);
+    int getNextReservationNo();
 
-    //int getNextGuestNo(Connection con);//commented out because guestno is reservationno-1,2,3.... don't need to connect DB
-    boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException;
+    boolean insertGuest(ArrayList<Guest> guestList) throws SQLException;
 
-    boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException;
+    boolean createReservation(Reservation reservation) throws SQLException;
 
-    boolean createReservation(Reservation reservation, Connection con) throws SQLException;
+    boolean updateDeposit(ArrayList<Reservation> reservation) throws SQLException;
 
-    boolean updateDeposit(ArrayList<Reservation> reservation, Connection con) throws SQLException;
+    String getRoomType(int roomNo);
 
-    String getRoomType(int roomNo, Connection con);
+    public boolean getGuestInfo(String userName, String password);
 
-    public boolean getGuestInfo(String userName, String password, Connection con);
+    public boolean getEmpInfo(String userName, String password);
 
-    public boolean getEmpInfo(String userName, String password, Connection con);
+    public boolean insertGuestID(ArrayList<GuestID> guestListID) throws SQLException;
 
-    public ArrayList<GuestID> getGuestID(int guestID, Connection con);
+    public String getEmpLogInName(String userName);
 
-    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) throws SQLException;
+    public String getGuestLogInName(String userName);
 
-    public String getEmpLogInName(String userName, Connection con);
+    public GuestID searchGuest(String guestno);
 
-    public String getGuestLogInName(String userName, Connection con);
+    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO);
 
-    public GuestID searchGuest(String guestno, Connection con);
-
-    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO, Connection con);
-
-    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID, Connection con);
+    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID);
 }

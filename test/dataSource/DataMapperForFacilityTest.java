@@ -7,18 +7,14 @@ package dataSource;
 
 import domain.Booking;
 import domain.Facility;
-import domain.Guest;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -50,8 +46,8 @@ public class DataMapperForFacilityTest
 
     }
 
-    @AfterClass
-    public static void closeConnection()
+    @After
+    public void closeConnection()
     {
         DBConnector.releaseConnection();
     }
@@ -71,7 +67,7 @@ public class DataMapperForFacilityTest
         int bookingId1 = 1094;
         int bookingId2 = 1096;
 
-        ArrayList<Booking> result = facilitymapper.getBookedfac(type, bookingdate, bookingtime, con);
+        ArrayList<Booking> result = facilitymapper.getBookedfac(type, bookingdate, bookingtime);
         assertEquals(arraySize, result.size());
         assertEquals(bookingId1, result.get(0).getBookingId());
         assertEquals(bookingId2, result.get(1).getBookingId());
@@ -89,8 +85,8 @@ public class DataMapperForFacilityTest
 
         int expResultTennis = 4;
         int expResultVB = 10;
-        int resultTennis = facilitymapper.getMaxUsers(facIDTennis, con);
-        int resultVB = facilitymapper.getMaxUsers(facIDVolleyball, con);
+        int resultTennis = facilitymapper.getMaxUsers(facIDTennis);
+        int resultVB = facilitymapper.getMaxUsers(facIDVolleyball);
         assertEquals(expResultTennis, resultTennis);
         assertEquals(expResultVB, resultVB);
     }
@@ -104,9 +100,8 @@ public class DataMapperForFacilityTest
         System.out.println("getfacilitylist");
         String type = "badminton";
         int facNoCount = 0;
-        ArrayList<Facility> result = facilitymapper.getfacilitylist(type, con);
+        ArrayList<Facility> result = facilitymapper.getfacilitylist(type);
 
-        //they have 11 badminton facilities facID 201-211
         for (int i = 0; i < result.size(); i++)
         {
             Facility facility = result.get(i);
@@ -132,8 +127,8 @@ public class DataMapperForFacilityTest
     public void testGetNextBookingNo()
     {
         System.out.println("getNextBookingNo");
-        int currentno = facilitymapper.getNextBookingNo(con);
-        int result = facilitymapper.getNextBookingNo(con);
+        int currentno = facilitymapper.getNextBookingNo();
+        int result = facilitymapper.getNextBookingNo();
         assertEquals(currentno + 1, result);
     }
 
@@ -153,8 +148,8 @@ public class DataMapperForFacilityTest
 
         int expResult = 1082;
 
-        int result = facilitymapper.getBookingno(facId, bookingdate, bookingtime, con);
-        int result2 = facilitymapper.getBookingno(facId, bookingdate2, bookingtime2, con);
+        int result = facilitymapper.getBookingno(facId, bookingdate, bookingtime);
+        int result2 = facilitymapper.getBookingno(facId, bookingdate2, bookingtime2);
         assertEquals(expResult, result);
         assertEquals(0, result2);//if there is no bookingno in before hand, it returns 0.
 
@@ -187,8 +182,8 @@ public class DataMapperForFacilityTest
         bookingUpdateList.add(new Booking(1000, "10000-1"));
 
         boolean expResult = true;
-        boolean result = facilitymapper.updateWaitingPos(bookingUpdateList, con);
-        ArrayList<Booking> bookedfac = facilitymapper.getBookingDetails(1000, con);
+        boolean result = facilitymapper.updateWaitingPos(bookingUpdateList);
+        ArrayList<Booking> bookedfac = facilitymapper.getBookingDetails(1000);
         int size = bookedfac.size();
         int waitingpos = bookedfac.get(0).getWaitingpos();
 
@@ -210,9 +205,9 @@ public class DataMapperForFacilityTest
 
         boolean expResultTrue = true;
         boolean expResultFalse = false;
-        boolean resultTrue = facilitymapper.fourBookingPerDay(guestnoTrue, date, con);
+        boolean resultTrue = facilitymapper.fourBookingPerDay(guestnoTrue, date);
 
-        boolean resultFalse = facilitymapper.fourBookingPerDay(guestnoFalse, date, con);
+        boolean resultFalse = facilitymapper.fourBookingPerDay(guestnoFalse, date);
         assertEquals(expResultTrue, resultTrue);
         assertEquals(expResultFalse, resultFalse);
     }
@@ -228,7 +223,7 @@ public class DataMapperForFacilityTest
         bookingSql1.add(new Booking(1001, 101, format.parse("02-04-14"), 19));
         ArrayList<Booking> bookingSql2 = new ArrayList();
         bookingSql2.add(new Booking(1001, "10000-4", 0, 0));
-        ArrayList<Booking> array = facilitymapper.getBookingDetails(1001, con);
+        ArrayList<Booking> array = facilitymapper.getBookingDetails(1001);
 
         boolean expResult = false;
 
@@ -249,7 +244,7 @@ public class DataMapperForFacilityTest
             expResult = false;
 
         }
-        boolean result = facilitymapper.createFacilityBooking(bookingSql1, bookingSql2, con);
+        boolean result = facilitymapper.createFacilityBooking(bookingSql1, bookingSql2);
         assertEquals(expResult, result);
     }
 
@@ -283,8 +278,8 @@ public class DataMapperForFacilityTest
     {
         System.out.println("getBookingList");
         String guestno = "10000-2";
-        int size = 6;
-        ArrayList<Booking> result = facilitymapper.getBookingList(guestno, con);
+        int size = 7;
+        ArrayList<Booking> result = facilitymapper.getBookingList(guestno);
         assertEquals(size, result.size());
     }
 
@@ -308,7 +303,7 @@ public class DataMapperForFacilityTest
         System.out.println("getTypes");
         boolean contains = false;
         int expResultSize = 9;
-        ArrayList<String> result = facilitymapper.getTypes(con);
+        ArrayList<String> result = facilitymapper.getTypes();
         ArrayList<String> types = new ArrayList();
         types.add("tennis");
         types.add("volleyball");

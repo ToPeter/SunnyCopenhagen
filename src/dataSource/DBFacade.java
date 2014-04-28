@@ -20,23 +20,18 @@ public class DBFacade
 
     //== Singleton start
     private static DBFacade instance;
-    private Guest guest;
-    private GuestID guestID;
 
     public DBFacade()
     {
         con = new DBConnector().getConnection();
         dm = new DataMapper(con);
         mailmapper = new DataMapperForMail(con);
-        //con = new DBConnector().getConnection();  // the connection will be released upon program 
-        // termination by the garbage collector		  
+
     }
 
     public DBFacade(DataMapperInterface dmi)
     {
         dm = dmi;
-        con = new DBConnector().getConnection();  // the connection will be released upon program 
-        // termination by the garbage collector		  
     }
 
     public static DBFacade getInstance()
@@ -51,13 +46,13 @@ public class DBFacade
 
     public Reservation getReservation(int reservationNo)
     {
-        return dm.getreservation(reservationNo, con);
+        return dm.getreservation(reservationNo);
     }
 
     public ArrayList<Room> getRoomsAvailable(Date fromDate, Date endDate, String type)
     {
         System.out.println("facade" + fromDate);
-        return dm.getRoomAvailable(fromDate, endDate, type, con);
+        return dm.getRoomAvailable(fromDate, endDate, type);
     }
 
     //== this is gonna be changed to making the reservations / updating and stuff
@@ -69,22 +64,22 @@ public class DBFacade
     //======	Methods to retrieve data 
     public GuestID getGuest(int guestId)
     {
-        return dm.getGuest(guestId, con);
+        return dm.getGuest(guestId);
     }
 
     public String getRoomType(int roomNo)
     {
-        return dm.getRoomType(roomNo, con);
+        return dm.getRoomType(roomNo);
     }
 
     public int getNextReservationNo()
     {
-        return dm.getNextReservationNo(con);
+        return dm.getNextReservationNo();
     }
 
     public ArrayList<Reservation> getReservationDepositNotPaid()
     {
-        return dm.getreservationDepositNotPaid(con);
+        return dm.getreservationDepositNotPaid();
     }
 
     public void startProcessGuestBusinessTransaction()
@@ -140,7 +135,7 @@ public class DBFacade
 
     public int[] getPriceList()
     {
-        return dm.getPriceList(con);
+        return dm.getPriceList();
 
     }
 
@@ -148,7 +143,7 @@ public class DBFacade
     {
         try
         {
-            return dm.createReservation(reservation, con);
+            return dm.createReservation(reservation);
         }
         catch (SQLException ex)
         {
@@ -168,17 +163,16 @@ public class DBFacade
 
     public boolean getGuestInfo(String userName, String password)
     {
-        return dm.getGuestInfo(userName, password, con);
+        return dm.getGuestInfo(userName, password);
     }
 
     public String getReservationString(int reservationNo)
     {
         Reservation lookedUpReservation;
-        ArrayList<Guest> lookedUpGuestarray;
         String guestsString = "";
         String resultString;
 
-        lookedUpReservation = dm.getreservation(reservationNo, con);
+        lookedUpReservation = dm.getreservation(reservationNo);
         resultString = lookedUpReservation + guestsString;
 
         return resultString;
@@ -186,7 +180,7 @@ public class DBFacade
 
     public boolean getEmpInfo(String userName, String password)
     {
-        return dm.getEmpInfo(userName, password, con);
+        return dm.getEmpInfo(userName, password);
     }
 
     public void registerNewGuestID(GuestID currentGuestID)
@@ -197,11 +191,6 @@ public class DBFacade
             unitOfWork.registerNewGuestID(currentGuestID);
         }
 
-    }
-
-    public ArrayList<GuestID> getGuestsID(int guestID)
-    {
-        return dm.getGuestID(guestID, con);
     }
 
     public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
@@ -216,26 +205,26 @@ public class DBFacade
 
     public String getEmpLogInName(String userName)
     {
-        String name = dm.getEmpLogInName(userName, con);
+        String name = dm.getEmpLogInName(userName);
 
         return name;
     }
 
     public String getGuestLogInName(String userName)
     {
-        String name = dm.getGuestLogInName(userName, con);
+        String name = dm.getGuestLogInName(userName);
         return name;
     }
 
     public GuestID searchGuest(String guestno)
     {
-        return dm.searchGuest(guestno, con);
+        return dm.searchGuest(guestno);
 
     }
 
     public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO)
     {
-        return dm.searchGuestByReservationNO(reservationNO, con);
+        return dm.searchGuestByReservationNO(reservationNO);
 
     }
 

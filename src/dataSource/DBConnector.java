@@ -58,6 +58,7 @@ public class DBConnector
   public static void releaseConnection() {
     try {
       connection.close();
+      connection=null;
     } catch (SQLException e) {
       System.err.println(e);
     }

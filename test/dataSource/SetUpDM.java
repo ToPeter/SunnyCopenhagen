@@ -31,7 +31,9 @@ public class SetUpDM
         String SQLString2 = "update reservation set depositpaid = 0 where reservationno = 1111 ";
         String SQLString3 = "update reservation set Ver_No = 0 where reservationno = 1111 ";
         String SQLString4 = "delete from guestID where guestid = 4321";
-        String SQLString5 = "delete from guest where reservationno=2222";
+        String SQLString5 = "delete from guestID where guestid = 9876";
+        String SQLString6 = "delete from guest where reservationno=2222";
+        String SQLString7 = "insert into guestid values(9876, 'firstname', 'familyname','address','country',0,'email')";
 
         Statement statement = null;
 
@@ -50,8 +52,11 @@ public class SetUpDM
             System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString4);
             System.out.println("rows" + rows);
-
             rows = statement.executeUpdate(SQLString5);
+            System.out.println("rows" + rows);
+            rows = statement.executeUpdate(SQLString6);
+            System.out.println("rows" + rows);
+            rows = statement.executeUpdate(SQLString7);
             System.out.println("rows" + rows);
         }
         catch (Exception e)
@@ -89,16 +94,15 @@ public class SetUpDM
             }
         }
     }
+
     public static void setUpForFacilityTest(Connection con)
     {
 
-    
         String deleteBooking = "delete from bookingstatus where bookingid=1000 ";
-                String SQLString2 = "delete from booking where bookingid=1000 ";
+        String SQLString2 = "delete from booking where bookingid=1000 ";
         String insertBooking = "insert into booking values (1000,101,'01-04-14',19)";
         String insertBookingStatus = "insert into bookingstatus values(1000,'10000-1',1,0,0) ";
         String insertBookingStatus2 = "insert into bookingstatus values(1000,'10000-2',2,0,0)";
-        
 
         Statement statement = null;
 

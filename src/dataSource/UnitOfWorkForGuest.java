@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class UnitOfWorkForGuest
 {
 
-    //private final DataMapper dataMapper;
     private final DataMapperInterface dataMapper;
     private final ArrayList<Guest> newGuest;
     private final ArrayList<GuestID> newGuestID;
@@ -74,16 +73,13 @@ public class UnitOfWorkForGuest
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-            status = status && dataMapper.insertGuestID(newGuestID, con);
-            status = status && dataMapper.insertGuest(newGuest, con);
+            status = status && dataMapper.insertGuestID(newGuestID);
+            status = status && dataMapper.insertGuest(newGuest);
             System.out.println("printing status aftter inserGuest " + status);
-            status = status && dataMapper.updateDeposit(updatedDeposit, con);
+            status = status && dataMapper.updateDeposit(updatedDeposit);
             System.out.println("printing status aftter updateDeposit " + status);
-           status = status && dataMapper.updateGuestID(dirtyGuestID, con);
-
-         //   status = status && dataMapper.updateOrderDetails(updateOrderDetails, dirtyOrders, connection);
-            //    status = status && dataMapper.deleteOrderDetails(deleteOrderDetails, dirtyOrders, connection);
-            //     status = status && dataMapper.insertOrderDetails(newOrderDetails, connection);
+            status = status && dataMapper.updateGuestID(dirtyGuestID);
+            
             if (!status)
             {
                 throw new Exception("Process Order Business Transaction aborted");
@@ -91,13 +87,15 @@ public class UnitOfWorkForGuest
             }
             //=== system transaction - ends with success
             con.commit();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             //=== system transaction - ends with roll back
             try
             {
                 con.rollback();
-            } catch (SQLException e1)
+            }
+            catch (SQLException e1)
             {
                 e1.printStackTrace();
             }
@@ -133,6 +131,5 @@ public class UnitOfWorkForGuest
             dirtyGuestID.add(guestID);
         }
     }
-    
 
 }

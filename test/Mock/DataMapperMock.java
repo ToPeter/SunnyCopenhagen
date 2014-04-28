@@ -41,14 +41,14 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public Reservation getreservation(int reservationNo, Connection con)
+    public Reservation getreservation(int reservationNo)
     {
         return reservationMap.get(reservationNo);
 
     }
 
     @Override
-    public ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type, Connection con)
+    public ArrayList<Room> getRoomAvailable(Date fromDate, Date toDate, String type)
     {
         availableRooms = roomarray;
 
@@ -72,7 +72,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override 
-    public int[] getPriceList(Connection con)
+    public int[] getPriceList()
 
     {
         return pricearray;
@@ -81,14 +81,14 @@ public class DataMapperMock implements dataSource.DataMapperInterface
    
    
     @Override
-    public int getNextReservationNo(Connection conn)
+    public int getNextReservationNo()
     {
         return 0; // cannnot be tested without connecting DB
     }
 
  
     @Override
-    public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
+    public boolean insertGuest(ArrayList<Guest> guestList) throws SQLException
     {
         int size= guestMap.size();
             Guest guest = guestList.get(0);
@@ -98,15 +98,9 @@ public class DataMapperMock implements dataSource.DataMapperInterface
                         
     }
 
-    @Override
-    public boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException
-    {
-        //we dont need to delete guest?
-    return true;
-    }
 
     @Override
-    public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
+    public ArrayList<Reservation> getreservationDepositNotPaid()
     { 
        ArrayList<Reservation> array=new ArrayList();
        
@@ -123,7 +117,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
 
     @Override
-    public boolean createReservation(Reservation reservation, Connection con) throws SQLException
+    public boolean createReservation(Reservation reservation) throws SQLException
     {
         int size=reservationMap.size();
         reservationMap.put(30000, reservation);
@@ -133,19 +127,19 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public GuestID getGuest(int guestid, Connection con)
+    public GuestID getGuest(int guestid)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean updateDeposit(ArrayList<Reservation> reservation, Connection con) throws SQLException
+    public boolean updateDeposit(ArrayList<Reservation> reservation) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getRoomType(int roomNo, Connection con)
+    public String getRoomType(int roomNo)
     {
         for (int i = 0; i < roomarray.size(); i++)
         {
@@ -158,48 +152,43 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public boolean getGuestInfo(String userName, String password, Connection con)
+    public boolean getGuestInfo(String userName, String password)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean getEmpInfo(String userName, String password, Connection con)
+    public boolean getEmpInfo(String userName, String password)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+    @Override
+    public boolean insertGuestID(ArrayList<GuestID> guestListID) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<GuestID> getGuestID(int guestID, Connection con)
+    public String getEmpLogInName(String userName)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con) throws SQLException
+    public String getGuestLogInName(String userName)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public GuestID searchGuest(String guestno)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getEmpLogInName(String userName, Connection con)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getGuestLogInName(String userName, Connection con)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    @Override
-    public GuestID searchGuest(String guestno, Connection con)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO, Connection con)
+    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -273,7 +262,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID, Connection con)
+    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

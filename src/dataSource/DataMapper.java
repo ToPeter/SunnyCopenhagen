@@ -27,8 +27,7 @@ public class DataMapper implements DataMapperInterface
     static boolean testRun = true;  // used to enable test output
 
     private final Connection con;
-    private Date parsedFrom;
-    private Date parsedTo;
+  
     Calendar c = Calendar.getInstance();
 
     public DataMapper(Connection con)
@@ -38,7 +37,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public Reservation getreservation(int reservationNo, Connection con)
+    public Reservation getreservation(int reservationNo)
     {
 
         Reservation reservation = null;
@@ -92,7 +91,7 @@ public class DataMapper implements DataMapperInterface
         return reservation;
     }
 
-    public ArrayList<Reservation> getreservationDepositNotPaid(Connection con)
+    public ArrayList<Reservation> getreservationDepositNotPaid()
     {
         ArrayList<Reservation> depositNotPaidArray = new ArrayList();
         Reservation reservation = null;
@@ -149,7 +148,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public ArrayList<Room> getRoomAvailable(Date fromDate, Date endDate, String type, Connection con)
+    public ArrayList<Room> getRoomAvailable(Date fromDate, Date endDate, String type)
     {
         ArrayList<Room> roomAvailableList = new ArrayList();
         Room tempRoom;
@@ -200,7 +199,7 @@ public class DataMapper implements DataMapperInterface
 
     }
 
-    private ArrayList<Integer> doubleCheckRoomAvailable(Date fromDate, Date endDate, Connection con)
+    private ArrayList<Integer> doubleCheckRoomAvailable(Date fromDate, Date endDate)
     {
 
         ArrayList<Integer> roomAvailableList = new ArrayList();
@@ -256,7 +255,7 @@ public class DataMapper implements DataMapperInterface
 
     }
 
-    public String getRoomType(int roomNo, Connection con)
+    public String getRoomType(int roomNo)
     {
         String result = null;
         String SQLString = // get reservation
@@ -301,7 +300,7 @@ public class DataMapper implements DataMapperInterface
 
     @Override
 
-    public int[] getPriceList(Connection con)
+    public int[] getPriceList()
     {
         int[] priceList = new int[3];
 
@@ -341,7 +340,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public boolean createReservation(Reservation res, Connection con) //return false if it is not doublebooked.
+    public boolean createReservation(Reservation res) //return false if it is not doublebooked.
     {
         boolean booked = true;
         boolean doublebooked = false;
@@ -362,7 +361,7 @@ public class DataMapper implements DataMapperInterface
             return false;
         }
 
-        ArrayList<Integer> availRoomNumbers = doubleCheckRoomAvailable(res.getFromDate(), res.getEndDate(), con);
+        ArrayList<Integer> availRoomNumbers = doubleCheckRoomAvailable(res.getFromDate(), res.getEndDate());
 
         if (!availRoomNumbers.contains(roomNo))
         {
@@ -410,7 +409,7 @@ public class DataMapper implements DataMapperInterface
 // Returns the Order-object
 
     @Override
-    public GuestID getGuest(int id, Connection con)
+    public GuestID getGuest(int id)
     {
         GuestID guestID = null;
         String SQLString1 = // get order
@@ -454,7 +453,7 @@ public class DataMapper implements DataMapperInterface
     // Insert a list of new orders
     // returns true if all elements were inserted successfully
     @Override
-    public boolean insertGuest(ArrayList<Guest> guestList, Connection con) throws SQLException
+    public boolean insertGuest(ArrayList<Guest> guestList) throws SQLException
     {
         System.out.println("inside insertGuest, size = " + guestList.size());
         int rowsInserted = 0;
@@ -493,29 +492,9 @@ public class DataMapper implements DataMapperInterface
         return (rowsInserted == guestList.size());
     }
 
-    public boolean deleteGuest(ArrayList<Guest> delGuest, Connection con) throws SQLException
-    {
-        int rowsDeleted = 0;
-
-        String SQLStringDeleteGuest = "delete from guest where guestNo = ?";
-        PreparedStatement statementDeleteGuest = con.prepareStatement(SQLStringDeleteGuest);
-        for (int i = 0; i < delGuest.size(); i++)
-        {
-            Guest guest = delGuest.get(i);
-
-            statementDeleteGuest.setString(1, guest.getGuestNo());
-
-            statementDeleteGuest.setString(1, guest.getGuestNo());
-            if (statementDeleteGuest.executeUpdate() > 0)
-            {
-                rowsDeleted++;
-            }
-        }
-        return rowsDeleted == delGuest.size();
-    }
 
     @Override
-    public boolean updateDeposit(ArrayList<Reservation> updateList, Connection con) throws SQLException
+    public boolean updateDeposit(ArrayList<Reservation> updateList) throws SQLException
     {
 
         System.out.println("are in updateDeposit: ");
@@ -558,14 +537,14 @@ public class DataMapper implements DataMapperInterface
 //MINVALUE 1
 //START WITH 1000
 //INCREMENT BY 1;
-    public int getNextReservationNo(Connection conn)
+    public int getNextReservationNo()
     {
         int nextReservationNo = 0;
         String SQLString = "select seq_resno.nextval  " + "from dual";
         PreparedStatement statement = null;
         try
         {
-            statement = conn.prepareStatement(SQLString);
+            statement = con.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             if (rs.next())
             {
@@ -581,14 +560,14 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public boolean getGuestInfo(String userName, String password, Connection conn)
+    public boolean getGuestInfo(String userName, String password)
     {
         boolean result = false;
         String SQLString = "select guestno from guest where password = ? and guestno = ?";
         PreparedStatement statement = null;
         try
         {
-            statement = conn.prepareStatement(SQLString);
+            statement = con.prepareStatement(SQLString);
             statement.setString(1, password);
             statement.setString(2, userName);
             //String SQLString = "select guestno from guest where password = 6560 and guestno = '10238-1'";
@@ -610,7 +589,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public boolean getEmpInfo(String userName, String password, Connection conn)
+    public boolean getEmpInfo(String userName, String password)
     {
         boolean result = false;
         String SQLString = "select empid from employee where password = ? and empid = ?";
@@ -618,7 +597,7 @@ public class DataMapper implements DataMapperInterface
 
         try
         {
-            statement = conn.prepareStatement(SQLString);
+            statement = con.prepareStatement(SQLString);
             statement.setString(1, password);
             statement.setString(2, userName);
             ResultSet rs = statement.executeQuery();
@@ -639,53 +618,9 @@ public class DataMapper implements DataMapperInterface
 
     }
 
+   
     @Override
-    public ArrayList<GuestID> getGuestID(int guestID, Connection con)
-    {
-        ArrayList<GuestID> guestListID = new ArrayList<>();
-        GuestID guestIDobject = null;
-        String SQLString1 = // get order
-                "select * "
-                + "from guestid "
-                + "where guestid = ?";
-
-        PreparedStatement statement = null;
-
-        try
-        {
-            //=== get order
-            statement = con.prepareStatement(SQLString1);
-            statement.setInt(1, guestIDobject.getId());
-
-            ResultSet rs = statement.executeQuery();
-            while (rs.next())
-            {
-                guestIDobject = new GuestID(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getString(7));
-
-                guestListID.add(guestIDobject);
-            }
-
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Fail in OrderMapper - getOrder");
-            System.out.println(e.getMessage());
-        }
-        if (testRun)
-        {
-            System.out.println("Retrieved Order: " + guestListID.toString());
-        }
-        return guestListID;
-    }
-
-    @Override
-    public boolean insertGuestID(ArrayList<GuestID> guestListID, Connection con)
+    public boolean insertGuestID(ArrayList<GuestID> guestListID)
     {
         int rowsInserted = 0;
         try
@@ -732,7 +667,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public String getEmpLogInName(String userName, Connection con)
+    public String getEmpLogInName(String userName)
 
     {
         String name = "";
@@ -760,7 +695,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public String getGuestLogInName(String userName, Connection con)
+    public String getGuestLogInName(String userName)
     {
         String name = "";
         String SQLString = "select guestfirstname from guestid where guestid = ("
@@ -787,7 +722,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public GuestID searchGuest(String guestno, Connection con)
+    public GuestID searchGuest(String guestno)
     {
         GuestID guestID = null;
         System.out.println("inside DM");
@@ -825,7 +760,7 @@ public class DataMapper implements DataMapperInterface
     }
 
     @Override
-    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO, Connection con)
+    public ArrayList<GuestID> searchGuestByReservationNO(int reservationNO)
     {
         ArrayList<GuestID> guestIDArray = new ArrayList<>();
         GuestID guestID = null;
@@ -862,7 +797,7 @@ public class DataMapper implements DataMapperInterface
         return guestIDArray;
     }
 
-    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID, Connection con)
+    public boolean updateGuestID(ArrayList<GuestID> dirtyGuestID)
     {
         int rowsInserted = 0;
         try

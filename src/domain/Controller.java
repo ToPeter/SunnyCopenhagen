@@ -15,11 +15,10 @@ public class Controller
     private GuestID currentGuestID;
     private Reservation currentReservation; //Reservation in focus
     private final DBFacade facade;
-    private ArrayList<Guest> guests;
     private Mail mailsender;
     private final DBFacadeForFacility facadeF;
     private boolean processingGuestID;
-    private ArrayList<GuestID> guestsID, arrayOfGuestID;
+    private ArrayList<GuestID> arrayOfGuestID;
 
     public Controller()
     {
@@ -60,8 +59,8 @@ public class Controller
         priceList = facade.getPriceList();
         return priceList;
     }
-    
-        // ----------------------------- Unit Of Work ----------------------------
+
+    // ----------------------------- Unit Of Work ----------------------------
     public boolean getGuest(int guestID)
     {
         boolean guestFound = false;
@@ -82,19 +81,6 @@ public class Controller
         }
 
         return guestFound;
-    }
-
-    public ArrayList<GuestID> getGuestsID(int guestID)
-    {
-        if (processingGuestID)
-        {
-            return null;
-        }
-
-        facade.startProcessGuestBusinessTransaction(); // method in Fascade
-        processingGuestID = true;
-        guestsID = facade.getGuestsID(guestID);
-        return guestsID;
     }
 
     public void resetGuest()
@@ -134,25 +120,27 @@ public class Controller
         return currentGuest;
     }
 
-    public ArrayList <String> getFacilityTypes ()
+    public ArrayList<String> getFacilityTypes()
     {
         return facadeF.getFacilityTypes();
     }
-    public boolean createNewFacility (String type)
+
+    public boolean createNewFacility(String type)
     {
         int num;
         num = getFacilityNumber(type);
         if (!type.equalsIgnoreCase("new"))
         {
-          return facadeF.createNewFacility(num, type);
+            return facadeF.createNewFacility(num, type);
         }
         return false;
     }
-    
-    public int getFacilityNumber (String type)
+
+    public int getFacilityNumber(String type)
     {
         return facadeF.getFacilityNumber(type);
     }
+
     public Guest createGuest(int reservationNo, String guestNo, int password, String agency)
     {
         if (processingGuest)
@@ -275,7 +263,8 @@ public class Controller
         {
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getGuestInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -290,7 +279,8 @@ public class Controller
 
             facade.startProcessOrderBusinessTransaction(); // create new object for Unit of Work
             result = facade.getEmpInfo(userName, password);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -325,8 +315,6 @@ public class Controller
     {
         return facadeF.getFacArrayForJlist(type, bookingdate, bookingtime);
     }
-    
-  
 
     public String getString(Facility fac)
     {
@@ -379,7 +367,6 @@ public class Controller
         return result;
     }
 
-  
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
         int waitingpos;
@@ -407,11 +394,12 @@ public class Controller
 
         //  return true;
     }
-    
+
     public boolean addInstructor(String name, String type)
     {
-      return  facadeF.addInstructor(name,type);
+        return facadeF.addInstructor(name, type);
     }
+
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
         return facadeF.getBookingno(facId, bookingdate, bookingtime);
@@ -474,24 +462,23 @@ public class Controller
 //        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
 //    }
 
-     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
+    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
     {
-        return facadeF.getFacArrayForBookingInstructorJlist(dd, hour,username);
+        return facadeF.getFacArrayForBookingInstructorJlist(dd, hour, username);
     }
- 
- 
- public boolean saveInstructorBooking(Booking booking)
+
+    public boolean saveInstructorBooking(Booking booking)
     {
         facadeF.startProcessGuestBusinessTransaction();
         //facade.registerDirtyReservation(currentReservation);
         facadeF.registerNewInstructorBooking(booking);
-        boolean result= facadeF.commitProcessBookingBusinessTransaction();
+        boolean result = facadeF.commitProcessBookingBusinessTransaction();
         return result;
-}
+    }
 
     public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {
-        return facadeF.checkInstructorAlreadyThere(bookingId,username);
+        return facadeF.checkInstructorAlreadyThere(bookingId, username);
     }
 
     public boolean removeInstructor(int bookingId, String username)
@@ -502,8 +489,9 @@ public class Controller
 
     public ArrayList<Booking> getFacArrayForShowingAvailableInstructor(String type, Date dd, int hour, String username)
     {
-        return facadeF.getFacArrayForBookingInstructorJlist(type,dd, hour,username);
+        return facadeF.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
     }
+
     public void changeCurrentGuestID(int index)
     {
         if (index != -1)
@@ -575,9 +563,8 @@ public class Controller
 
     public boolean checkOnlyOneBooking(String type, String guestNo, Date dd, int selectedHour)
     {
-        
-     
-       return facadeF.checkOnlyOneBooking(type, guestNo, dd, selectedHour);
+
+        return facadeF.checkOnlyOneBooking(type, guestNo, dd, selectedHour);
     }
 
 }
