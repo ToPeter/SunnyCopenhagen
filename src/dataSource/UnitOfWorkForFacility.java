@@ -41,8 +41,8 @@ public class UnitOfWorkForFacility
         {
             //=== system transaction - starts
             con.setAutoCommit(false);
-                status = status && dmf.createFacilityBooking(newBooking, newBookingStatus, con);
-                status = status && dmf.updateWaitingPos(delBooking, con);
+                status = status && dmf.createFacilityBooking(newBooking, newBookingStatus);
+                status = status && dmf.updateWaitingPos(delBooking);
                 status = status && dmf.saveInstructorBooking(newBookingInstructor);
 
             if (!status)

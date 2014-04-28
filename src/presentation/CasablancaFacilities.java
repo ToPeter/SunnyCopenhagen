@@ -315,11 +315,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenuBar = new javax.swing.JMenuBar();
         jMenuBookInstructor = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuAdmin = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuTest = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         jMenuItem5.setText("jMenuItem5");
@@ -804,6 +804,16 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jMenuBookInstructor.add(jMenuItem2);
 
+        jMenuItem1.setText("Book Instructor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuBookInstructor.add(jMenuItem1);
+
         jMenuBar.add(jMenuBookInstructor);
 
         jMenuAdmin.setText("Admin");
@@ -828,21 +838,17 @@ public class CasablancaFacilities extends javax.swing.JFrame
         });
         jMenuAdmin.add(jMenuItem3);
 
-        jMenuBar.add(jMenuAdmin);
-
-        jMenuTest.setText("test");
-
-        jMenuItem1.setText("Search For Booked Facilities");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        jMenuItem6.setText("Switch to Reception");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenuTest.add(jMenuItem1);
+        jMenuAdmin.add(jMenuItem6);
 
-        jMenuBar.add(jMenuTest);
+        jMenuBar.add(jMenuAdmin);
 
         jMenu1.setText("Reception");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter()
@@ -1112,7 +1118,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         else
         {
             noInstructor = control.saveInstructorBooking(booking);
-            
+
             if (!noInstructor)
             {
                 JOptionPane.showMessageDialog(null, "You have INSTRUCTOR already");
@@ -1263,7 +1269,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         }
         else
         {
-            noInstructor = control.saveInstructorBooking(booking, guestNo);
+            noInstructor = control.saveInstructorBooking(booking);
 
             if (!noInstructor)
             {
@@ -1277,6 +1283,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
+        this.setVisible(false);
+        cbR.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public void setCbR(CasablancaResception cbR)
     {
@@ -1324,7 +1336,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenu jMenuTest;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

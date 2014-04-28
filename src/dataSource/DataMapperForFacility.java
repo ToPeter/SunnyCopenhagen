@@ -252,7 +252,7 @@ public class DataMapperForFacility
         return answer;
     }
 
-    public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList, Connection con)
+    public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList)
     {
         System.out.println("in top of updatewitingpos");
         if (bookingUpdateList.isEmpty())
@@ -360,7 +360,7 @@ public class DataMapperForFacility
         return false;
     }
 
-    public boolean createFacilityBooking(ArrayList<Booking> bookingSql1, ArrayList<Booking> bookingSql2, Connection con)
+    public boolean createFacilityBooking(ArrayList<Booking> bookingSql1, ArrayList<Booking> bookingSql2)
     {
         int rowsInserted = 0;
         int bookingno = -1;
@@ -681,7 +681,9 @@ public class DataMapperForFacility
         {
             return false;
         }//you have already booking!!!!!
-        String lock = "Lock table reservation in exclusive mode";
+        
+        //= LOCK
+        String lock = "Lock table BOOKINGSTATUS in exclusive mode";
 
         try
         {
@@ -703,7 +705,7 @@ public class DataMapperForFacility
         PreparedStatement statement = null;
         try
         {
-            con.setAutoCommit(false);
+//            con.setAutoCommit(false);
             statement = con.prepareStatement(SQLString);
 
             statement.setInt(1, inno);
@@ -713,7 +715,7 @@ public class DataMapperForFacility
             int rowchanged = statement.executeUpdate();
             System.out.println(rowchanged + " row is changed - BI");
 
-            con.commit();
+//            con.commit();
         } catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
@@ -816,7 +818,7 @@ public class DataMapperForFacility
             statement.setInt(1, facNum);
             statement.setString(2, type);
             statement.executeUpdate();
-            //con.commit();
+            con.commit();
         } catch (SQLException e)
         {
             System.out.println("fail in DataMapperForFacility - createNewFacility");
