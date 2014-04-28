@@ -224,7 +224,14 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
             data[i][0] = booking.getBookingId();
             data[i][1] = booking.getType();
-            data[i][2] = booking.getInno();
+            if (booking.getInno() == 0)
+            {
+                data[i][2] = "no instructor";
+            }
+            else
+            {
+                data[i][2] = booking.getInno();
+            }
             data[i][3] = booking.getBookingdate();
             data[i][4] = booking.getBookingtime();
 
