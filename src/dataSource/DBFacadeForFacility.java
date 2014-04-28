@@ -44,33 +44,28 @@ public class DBFacadeForFacility
 
     public ArrayList<Booking> getBookedfac(String type, Date bookingdate, int bookingtime)
     {
-        return facilityMapper.getBookedfac(type, bookingdate, bookingtime, con);
+        return facilityMapper.getBookedfac(type, bookingdate, bookingtime);
     }
 
     public int getMaxUsers(int facId)
     {
-        return facilityMapper.getMaxUsers(facId, con);
+        return facilityMapper.getMaxUsers(facId);
     }
 
     public ArrayList<Facility> getfacilitylist(String type)
     {
-        return facilityMapper.getfacilitylist(type, con);
+        return facilityMapper.getfacilitylist(type);
     }
 
     public int getnextbookingno()
     {
-        return facilityMapper.getNextBookingNo(con);
+        return facilityMapper.getNextBookingNo();
     }
 
     public int getbookingno(int facId, Date bookingdate, int bookingtime)
     {
-        return facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+        return facilityMapper.getBookingno(facId, bookingdate, bookingtime);
     }
-
-//    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-//    {
-//        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-//    }
 
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
@@ -84,7 +79,7 @@ public class DBFacadeForFacility
 
     public ArrayList<Guest> getWaitingList(int facID, Date bookingdate, int bookingtime)
     {
-        return facilityMapper.getWaitingListForJlist(facID, bookingdate, bookingtime, con);
+        return facilityMapper.getWaitingListForJlist(facID, bookingdate, bookingtime);
     }
 
     public void startProcessGuestBusinessTransaction()
@@ -102,12 +97,12 @@ public class DBFacadeForFacility
 
     public ArrayList<String> getFacilityTypes()
     {
-        return facilityMapper.getTypes(con);
+        return facilityMapper.getTypes();
     }
 
     public boolean createNewFacility(int facNum, String type)
     {
-       return facilityMapper.createNewFacility(facNum, type);
+        return facilityMapper.createNewFacility(facNum, type);
     }
 
     public int getFacilityNumber(String type)
@@ -126,19 +121,19 @@ public class DBFacadeForFacility
 
     public int getBookingno(int facId, Date bookingdate, int bookingtime)
     {
-        int bookingno = facilityMapper.getBookingno(facId, bookingdate, bookingtime, con);
+        int bookingno = facilityMapper.getBookingno(facId, bookingdate, bookingtime);
 
         return bookingno;
     }
 
     public ArrayList<Booking> getBookingList(String guestno)
     {
-        return facilityMapper.getBookingList(guestno, con);
+        return facilityMapper.getBookingList(guestno);
     }
 
     public ArrayList<Booking> getBookingDetails(int bookingid)
     {
-        return facilityMapper.getBookingDetails(bookingid, con);
+        return facilityMapper.getBookingDetails(bookingid);
 
     }
 
@@ -160,7 +155,7 @@ public class DBFacadeForFacility
 
     }
 
-        public void registerNewInstructorBooking(Booking booking)
+    public void registerNewInstructorBooking(Booking booking)
     {
         if (uowFacility != null)
         {
@@ -192,22 +187,13 @@ public class DBFacadeForFacility
 
     public boolean fourBookingPerDay(String guestno, Date date)
     {
-        return facilityMapper.fourBookingPerDay(guestno, date, con);
+        return facilityMapper.fourBookingPerDay(guestno, date);
     }
 
     public boolean addInstructor(String name, String type)
     {
-      return facilityMapper.addInstructor (name, type);  
+        return facilityMapper.addInstructor(name, type);
     }
-
-//    public boolean createInstructorBooking(Facility facility, String type, String guestNo, Date bookingdate, int inno, int bookingtime)
-//    {
-//        return facilityMapper.createInstructorBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-//    }
-//    public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-//    {
-//        return facilityMapper.createFacilityBooking(facility, type, guestNo, bookingdate, bookingtime, inno, con);
-//    }
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username)
     {
@@ -218,11 +204,6 @@ public class DBFacadeForFacility
     {
         return facilityMapper.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
     }
-
-//    public boolean saveInstructorBooking(Booking booking, String username)
-//    {
-//        return facilityMapper.saveInstructorBooking(booking);
-//    }
 
     public boolean checkInstructorAlreadyThere(int bookingId, String username)
     {
@@ -236,7 +217,7 @@ public class DBFacadeForFacility
 
     public boolean checkOnlyOneBooking(String type, String guestNo, Date dd, int selectedHour)
     {
-       return facilityMapper.checkOnlyOneBooking(guestNo, type, dd, selectedHour);
+        return facilityMapper.checkOnlyOneBooking(guestNo, type, dd, selectedHour);
     }
 
 }

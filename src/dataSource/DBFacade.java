@@ -17,7 +17,7 @@ public class DBFacade
     private Connection con;
     private UnitOfWorkForGuest unitOfWork;
     private DataMapperForMail mailmapper;
-    
+
     //== Singleton start
     private static DBFacade instance;
     private Guest guest;
@@ -27,7 +27,7 @@ public class DBFacade
     {
         con = new DBConnector().getConnection();
         dm = new DataMapper(con);
-        mailmapper= new DataMapperForMail(con);
+        mailmapper = new DataMapperForMail(con);
         //con = new DBConnector().getConnection();  // the connection will be released upon program 
         // termination by the garbage collector		  
     }
@@ -179,13 +179,6 @@ public class DBFacade
         String resultString;
 
         lookedUpReservation = dm.getreservation(reservationNo, con);
-        //  lookedUpGuestarray = dm.getGuest(reservationNo, con);
-//        for (int i = 0; i < lookedUpGuestarray.size(); i++)
-//        {
-//            int guestNo = i + 1;
-//            guestsString += "Guest " + guestNo + "\n"
-//                    + lookedUpGuestarray.get(i).toString();
-//        }
         resultString = lookedUpReservation + guestsString;
 
         return resultString;
@@ -211,14 +204,15 @@ public class DBFacade
         return dm.getGuestID(guestID, con);
     }
 
-  
- public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
- {
- return mailmapper.getGuestArrayForMail(reservationNo, con);}
- 
- public String getGuestStringForMail(int reservationNo)
- { return mailmapper.getGuestStringForMail(reservationNo, con);}
- 
+    public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
+    {
+        return mailmapper.getGuestArrayForMail(reservationNo);
+    }
+
+    public String getGuestStringForMail(int reservationNo)
+    {
+        return mailmapper.getGuestStringForMail(reservationNo);
+    }
 
     public String getEmpLogInName(String userName)
     {
@@ -226,7 +220,6 @@ public class DBFacade
 
         return name;
     }
-
 
     public String getGuestLogInName(String userName)
     {
@@ -248,7 +241,7 @@ public class DBFacade
 
     public boolean updateGuestID(GuestID currentGuestID)
     {
-       unitOfWork.updateGuestID(currentGuestID);
-       return true;
+        unitOfWork.updateGuestID(currentGuestID);
+        return true;
     }
 }

@@ -28,7 +28,7 @@ public class DataMapperForMail
 
 
 
-    public String getGuestStringForMail(int reservationNo, Connection con)
+    public String getGuestStringForMail(int reservationNo)
     {
         int guestno = 1;
         String guestinfo = "";
@@ -53,7 +53,7 @@ public class DataMapperForMail
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
@@ -73,7 +73,7 @@ public class DataMapperForMail
         return guestinfo;
     }
 
-    public ArrayList<Guest> getGuestArrayForMail(int reservationNo, Connection con)
+    public ArrayList<Guest> getGuestArrayForMail(int reservationNo)
     {
 
         ArrayList<Guest> guestarray = new ArrayList();
@@ -105,12 +105,12 @@ public class DataMapperForMail
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
         }
-        finally														// must close statement
+        finally						// must close statement
         {
             try
             {
@@ -125,7 +125,7 @@ public class DataMapperForMail
         return guestarray;
     }
 
-    public String getEmailForMail(int reservationno, Connection con)
+    public String getEmailForMail(int reservationno)
     {
         String email = "";
         String SQLString = " select gi.email from GuestID gi, guest g "
@@ -145,7 +145,7 @@ public class DataMapperForMail
             }
         }
 
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - LogIn_EMP");
             System.out.println(e.getMessage());
@@ -155,7 +155,7 @@ public class DataMapperForMail
 
     }
 
-    public String reservationInfoStringForMail(int reservationno, Connection con)
+    public String reservationInfoStringForMail(int reservationno)
     {
         String resinfo = "";
         DateFormat format = new SimpleDateFormat("dd-MM-yy");
@@ -181,7 +181,7 @@ public class DataMapperForMail
             }
         }
 
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - LogIn_EMP");
             System.out.println(e.getMessage());

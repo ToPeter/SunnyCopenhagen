@@ -182,14 +182,6 @@ public class LogIn extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "Welcome dear customer: " + guestName);
                 cbF = new CasablancaFacilities(userName);
                 cbF.setVisible(logInResult);
-//                java.awt.EventQueue.invokeLater(new Runnable()
-//                {
-//                    public void run()
-//                    {
-//                        new CasablancaFacilities().setVisible(true);
-//                        setLocationRelativeTo(null); // NO ide if it works
-//                    }
-//                });
                 this.setVisible(false);
 
             }
@@ -223,22 +215,13 @@ public class LogIn extends javax.swing.JFrame
                 cbF.setVisible(false);
                 cbR.setVisible(true);
 
-//                java.awt.EventQueue.invokeLater(new Runnable()
-//                {
-//                    public void run()
-//                    {
-//                        new CasablancaResception().setVisible(true);
-//                    }
-//                });
                 this.setVisible(false);
-
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "Invalid password");
                 UserNameField.setText("");
                 PasswordField.setText("");
-
             }
         }
 
@@ -270,16 +253,20 @@ public class LogIn extends javax.swing.JFrame
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
+        }
+        catch (ClassNotFoundException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
+        }
+        catch (InstantiationException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
+        }
+        catch (IllegalAccessException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
