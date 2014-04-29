@@ -130,20 +130,20 @@ public class DBFacadeForFacility
 
     }
 
-    public void registerNewBooking(Booking bookingSQL1)
+    public void registerNewBooking(Booking newBooking)
     {
         if (uowFacility != null)
         {
-            uowFacility.registerNewBooking(bookingSQL1);
+            uowFacility.registerNewBooking(newBooking);
         }
 
     }
 
-    public void registerNewBookingStatus(Booking bookingSQL2)
+    public void registerNewBookingStatus(Booking newBookingStatus)
     {
         if (uowFacility != null)
         {
-            uowFacility.registerNewBookingStatus(bookingSQL2);
+            uowFacility.registerNewBookingStatus(newBookingStatus);
         }
 
     }

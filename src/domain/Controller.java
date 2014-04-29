@@ -375,10 +375,10 @@ public class Controller
         facadeF.startProcessGuestBusinessTransaction();
         int bookingno = facadeF.getBookingno(facility.getFacID(), bookingdate, bookingtime);
 
-        Booking bookingSQL1 = new Booking(bookingno, facility.getFacID(), bookingdate, bookingtime);
-        facadeF.registerNewBooking(bookingSQL1);
-        Booking bookingSQL2 = new Booking(bookingno, guestNo, waitingpos, inno);
-        facadeF.registerNewBookingStatus(bookingSQL2);
+        Booking newBooking = new Booking(bookingno, facility.getFacID(), bookingdate, bookingtime);
+        facadeF.registerNewBooking(newBooking);
+        Booking newBookingStatus = new Booking(bookingno, guestNo, waitingpos, inno);
+        facadeF.registerNewBookingStatus(newBookingStatus);
 
         return facadeF.commitProcessBookingBusinessTransaction(); // return boolean if commit was or wasNOT succesful
 

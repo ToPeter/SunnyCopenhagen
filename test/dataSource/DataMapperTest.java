@@ -340,10 +340,9 @@ public class DataMapperTest
 
         boolean expResult = true;
         boolean result = datamapper.updateGuestID(dirtyGuestID);
-        GuestID guest=datamapper.getGuest(987);
+        GuestID guest = datamapper.getGuest(9876);
         assertEquals(expResult, result);
-        assertEquals("changedbytest",guest.getGuestFamilyName());
-        
+        assertEquals("changedbytest", guest.getGuestFamilyName());
 
         ArrayList<GuestID> notexisitingGuestID = new ArrayList();
 
@@ -369,7 +368,11 @@ public class DataMapperTest
 
         assertEquals(expResult, result);
         assertEquals("testName", guestid.getGuestFirstName());
-        assertNotSame("address", guestid.getAddress());
+
+        boolean expResult2 = false;
+        boolean result2 = datamapper.insertGuestID(guestListID);
+        assertEquals(expResult2, result2);
+
     }
 
     /**

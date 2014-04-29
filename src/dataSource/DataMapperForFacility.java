@@ -324,7 +324,7 @@ public class DataMapperForFacility
         return false;
     }
 
-    public boolean createFacilityBooking(ArrayList<Booking> bookingSql1, ArrayList<Booking> bookingSql2)
+    public boolean createFacilityBooking(ArrayList<Booking> newBookingArray, ArrayList<Booking> newBookingStatusArray)
     {
         int rowsInserted = 0;
         int bookingno = -1;
@@ -337,9 +337,9 @@ public class DataMapperForFacility
             PreparedStatement statement = null;
 
             statement = con.prepareStatement(SQLString1);
-            for (int i = 0; i < bookingSql1.size(); i++)
+            for (int i = 0; i < newBookingArray.size(); i++)
             {
-                Booking booking = bookingSql1.get(i);
+                Booking booking = newBookingArray.get(i);
                 bookingDate = booking.getBookingdate();
                 bookingno = booking.getBookingId();
                 if (bookingno == 0)
@@ -356,9 +356,9 @@ public class DataMapperForFacility
             }
             statement = con.prepareStatement(SQLString2);
 
-            for (int i = 0; i < bookingSql2.size(); i++)
+            for (int i = 0; i < newBookingStatusArray.size(); i++)
             {
-                Booking booking2 = bookingSql2.get(i);
+                Booking booking2 = newBookingStatusArray.get(i);
                 if (fourBookingPerDay(booking2.getGuestno(), bookingDate))
                 {
                     return false;
