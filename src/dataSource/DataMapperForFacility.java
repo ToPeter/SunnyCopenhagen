@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
 import domain.Booking;
@@ -84,7 +79,7 @@ public class DataMapperForFacility
         {
             System.out.println("Fail in DataMapperForFacility - gotfacarray");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        } finally					// must close statement
         {
             try
             {
@@ -139,7 +134,6 @@ public class DataMapperForFacility
         ArrayList<Facility> facilitylist = new ArrayList();
         Facility facility = null;
         PreparedStatement statement = null;
-//        java.sql.Date sqlbookingdate = new java.sql.Date(bookingdate.getTime());
 
         String SQLString
                 = "select f.id, f.type,t.num_users,t.max_Users from facility f, type t "
@@ -166,7 +160,7 @@ public class DataMapperForFacility
         {
             System.out.println("Fail in DataMapperForFacility - gotfacarray");
             System.out.println(e.getMessage());
-        } finally														// must close statement
+        } finally					// must close statement
         {
             try
             {
@@ -224,7 +218,7 @@ public class DataMapperForFacility
             {
                 bookingNo = rs.getInt(1);
             }
-        } catch (Exception e)
+        } catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getNextReservationNo");
             System.out.println(e.getMessage());
@@ -272,7 +266,6 @@ public class DataMapperForFacility
             try
             {
                 con.setAutoCommit(false);
-//          DateFormat format = new SimpleDateFormat("dd-MM-yy");
                 PreparedStatement statement = null;
 
                 statement = con.prepareStatement(SQLString);
@@ -368,11 +361,8 @@ public class DataMapperForFacility
         String SQLString1 = "insert into booking values(?,?,?,?)";
         String SQLString2 = "insert into bookingstatus values (?,?,?,?,?)";
 
-        // int remainroom = remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
         try
         {
-            //con.setAutoCommit(false);
-//            DateFormat format = new SimpleDateFormat("dd-MM-yy");
             PreparedStatement statement = null;
 
             statement = con.prepareStatement(SQLString1);
@@ -415,7 +405,6 @@ public class DataMapperForFacility
                 rowsInserted += statement.executeUpdate();
             }
             System.out.println("Booking created rows inserted = " + rowsInserted);
-            //con.commit();
 
         } catch (SQLException e)
         {
@@ -522,7 +511,6 @@ public class DataMapperForFacility
     public ArrayList<Booking> getBookingDetails(int bookingId)
     {
         ArrayList<Booking> bdetailarray = new ArrayList();
-        // java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
         String SQLString = "SELECT  bs.guestno , bs.waitingpos, bs.inno from bookingstatus bs, booking b "
                 + "where bs.bookingid=b.bookingid and b.bookingid=? order by bs.waitingpos ";
@@ -589,7 +577,6 @@ public class DataMapperForFacility
     public int getInstructorNo(Booking booking, String username)
     {
         int inno = 0;
-//        ArrayList<Booking> avairableInList = new ArrayList();
         java.sql.Date sqlBookingdate = new java.sql.Date(booking.getBookingdate().getTime());
         String SQLString = "select *  from instructor where type = ? and inno not in ("
                 + "select i.inno from instructor i ,bookingstatus bs "
@@ -609,13 +596,7 @@ public class DataMapperForFacility
 
             if (rs.next())
             {
-//                Booking tempbook;
                 inno = rs.getInt(1);
-//                String instructorName = rs.getString(2);
-//                type = rs.getString(3);
-
-//                tempbook = new Booking(type, inno, instructorName);
-//                avairableInList.add(tempbook);
             }
         } catch (SQLException e)
         {
@@ -643,7 +624,6 @@ public class DataMapperForFacility
             statement.setDate(2, sqlBookingdate);
             statement.setInt(3, hour);
 
-            //     statement.setString(1, "10000-1");
             ResultSet rs = statement.executeQuery();
 
             while (rs.next())
@@ -705,7 +685,6 @@ public class DataMapperForFacility
         PreparedStatement statement = null;
         try
         {
-//            con.setAutoCommit(false);
             statement = con.prepareStatement(SQLString);
 
             statement.setInt(1, inno);
@@ -715,7 +694,6 @@ public class DataMapperForFacility
             int rowchanged = statement.executeUpdate();
             System.out.println(rowchanged + " row is changed - BI");
 
-//            con.commit();
         } catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
@@ -750,8 +728,6 @@ public class DataMapperForFacility
                 }
             }
 
-            //  int rowchanged = statement.executeUpdate();
-            //  System.out.println(rowchanged + " row is changed");
         } catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");

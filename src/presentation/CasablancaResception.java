@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentation;
 
 import domain.Controller;
@@ -270,7 +265,6 @@ public class CasablancaResception extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(null);
-        setPreferredSize(new java.awt.Dimension(600, 450));
         addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosing(java.awt.event.WindowEvent evt)
@@ -929,14 +923,6 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
 
-        jTextFieldlLastName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextFieldlLastNameActionPerformed(evt);
-            }
-        });
-
         jTextFieldcheckin.setEditable(false);
 
         jTextFieldnoOfnights.setEditable(false);
@@ -1572,11 +1558,6 @@ public class CasablancaResception extends javax.swing.JFrame
 
     }//GEN-LAST:event_jListOpenMouseClicked
 
-    private void jTextFieldlLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldlLastNameActionPerformed
-    {//GEN-HEADEREND:event_jTextFieldlLastNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldlLastNameActionPerformed
-
     private void guestInfoSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_guestInfoSaveButtonActionPerformed
     {//GEN-HEADEREND:event_guestInfoSaveButtonActionPerformed
         ArrayList<Guest> guestarray = new ArrayList();
@@ -1641,14 +1622,12 @@ public class CasablancaResception extends javax.swing.JFrame
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
         jDialog1.setVisible(true);
         jDialog1.setResizable(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
     {//GEN-HEADEREND:event_jButton5ActionPerformed
-        // TODO add your handling code here:
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 

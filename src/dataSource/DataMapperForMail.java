@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
 import domain.Guest;
@@ -58,7 +53,7 @@ public class DataMapperForMail
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
         }
-        finally														// must close statement
+        finally						// must close statement
         {
             try
             {
@@ -91,7 +86,6 @@ public class DataMapperForMail
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                //int reservationNo, String guestNo, int password, String guestFirstName, String guestFamilyName, String email
                 Guest tempguest = new Guest(
                         reservationNo,
                         rs.getString(1),//guestno

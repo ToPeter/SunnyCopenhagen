@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package domain;
 
 /**
@@ -13,7 +7,7 @@ package domain;
 public class GuestID
 
 {
-    
+
     private int id;
     private String guestFirstName;
     private String guestFamilyName;
@@ -22,10 +16,7 @@ public class GuestID
     private int phoneNo;
     private String email;
 
-    
-    
-    
-     public GuestID(int id,
+    public GuestID(int id,
             String guestFirstName,
             String guestFamilyName,
             String address,
@@ -40,21 +31,18 @@ public class GuestID
         this.country = country;
         this.phoneNo = phone;
         this.email = email;
-
-        //   this.guestDetails = new ArrayList<>();
     }
 
-     public int getId()
+    public int getId()
     {
         return id;
-    }        
-
+    }
 
     public int setId()
     {
         return id;
     }
-     
+
     public String getGuestFirstName()
     {
         return guestFirstName;
@@ -114,11 +102,11 @@ public class GuestID
     {
         this.email = email;
     }
-    
+
     public String toString()
     {
         return //" reservationNo: " + reservationNo
-                  "ID: " + id + "\n"
+                "ID: " + id + "\n"
                 + "First Name: " + guestFirstName + "\n"
                 + "Family Name: " + guestFamilyName + "\n"
                 + "Address: " + address + "\n"
@@ -126,10 +114,10 @@ public class GuestID
                 + "PhoneNo: " + phoneNo + "\n"
                 + "Email: " + email + "\n" + "\n";
     }
-    
-        public boolean equals(GuestID guestID)
+
+    public boolean equals(GuestID guestID)
     {
-        return ( id == guestID.getId()
+        return (id == guestID.getId()
                 && guestFirstName.equals(guestID.getGuestFirstName())
                 && guestFamilyName.equals(guestID.getGuestFamilyName())
                 && address.equals(guestID.getAddress())

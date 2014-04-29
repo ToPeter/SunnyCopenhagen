@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
 import domain.Booking;
@@ -70,23 +65,6 @@ public class UnitOfWorkForFacility
         return status;
     }
 
-//     public void registerNewBooking(Booking booking)
-//    {
-//        if ( !newBooking.contains(booking)) // if not all ready registered in any list
-//              
-//        {
-//            newBooking.add(booking);
-//        }
-//    }
-//     
-//        public void registerDeleteBooking(Booking booking)
-//    {
-//        if ( !newBookingStatus.contains(bookingSQL1)) // if not all ready registered in any list
-//              
-//        {
-//            newBookingStatus.add(bookingSQL1);
-//        }
-//    }
     public void registerDeleteBooking(Booking deleteSql)
     {
         if (!delBooking.contains(deleteSql)) // if not all ready registered in any list

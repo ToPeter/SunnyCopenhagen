@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
 /**
@@ -11,7 +6,6 @@ package domain;
  */
 public class Guest
 {
-
     private int reservationNo;
     private String guestNo;
     private int password;
@@ -35,19 +29,17 @@ public class Guest
         this.email = email;
     }
 //for waiting list for facility
+
     public Guest(int bookingid, String guestNo, String guestFirstName, String guestFamilyName)
-    {   this.bookingid= bookingid;
+    {
+        this.bookingid = bookingid;
         this.guestNo = guestNo;
         this.guestFirstName = guestFirstName;
         this.guestFamilyName = guestFamilyName;
     }
 //for list form facility
-    
-    
-    
-    
+
     ///////////////////////////////
-    
     public Guest(int reservationNo,
             String guestNo,
             int password,
@@ -59,8 +51,6 @@ public class Guest
         this.password = password;
         this.agency = agency;
         this.id = id;
-
-        //   this.guestDetails = new ArrayList<>();
     }
 
     public String getAgency()
@@ -143,12 +133,9 @@ public class Guest
     {
         this.email = email;
     }
-    
-    
 
     // == Methods:  toString,
     // I dont know what about AddGuest ???
-    
     public String toString()
     {
         return // " ReservationNo: " + reservationNo + "\n" // was comm. out
@@ -158,13 +145,13 @@ public class Guest
                 + "ID: " + id;
     }
 
-   public String toStringForMail()
+    public String toStringForMail()
     {
         return // " ReservationNo: " + reservationNo + "\n" // was comm. out
                 "Guest no: " + guestNo + "\n"
-                 + "Name: " + guestFirstName+ " "+guestFamilyName + "\n"
+                + "Name: " + guestFirstName + " " + guestFamilyName + "\n"
                 + "Password: " + password + "\n";
-               }
+    }
 
     public boolean equals(Guest guest)
     {
@@ -176,6 +163,8 @@ public class Guest
     }
 
     public String stringForWaitingList()
-          
-    {return "Guest no: "+ guestNo+"  Name: "+ guestFirstName+ " "+guestFamilyName;}
+
+    {
+        return "Guest no: " + guestNo + "  Name: " + guestFirstName + " " + guestFamilyName;
+    }
 }

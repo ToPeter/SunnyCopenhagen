@@ -148,8 +148,6 @@ public class Controller
             return null;
         }
 
-//       facade.startProcessGuestBusinessTransaction();
-//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
         if (reservationNo != 0)
         {
             processingGuest = true;
@@ -174,8 +172,6 @@ public class Controller
             return null;
         }
 
-        //       facade.startProcessGuestBusinessTransaction();
-//        int newReservationNo = facade.getNextReservationNo();// DB-generated unique ID --< 
         if (guestID != 0)
         {
             processingGuest = true;
@@ -392,7 +388,6 @@ public class Controller
 
         return facadeF.commitProcessBookingBusinessTransaction(); // return boolean if commit was or wasNOT succesful
 
-        //  return true;
     }
 
     public boolean addInstructor(String name, String type)
@@ -457,10 +452,6 @@ public class Controller
     {
         return currentGuestID.getId();
     }
-//  public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
-//    {
-//        return facadeF.createFacilityBooking(facility, type,guestNo, bookingdate, bookingtime, inno);
-//    }
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
     {
@@ -470,7 +461,6 @@ public class Controller
     public boolean saveInstructorBooking(Booking booking)
     {
         facadeF.startProcessGuestBusinessTransaction();
-        //facade.registerDirtyReservation(currentReservation);
         facadeF.registerNewInstructorBooking(booking);
         boolean result = facadeF.commitProcessBookingBusinessTransaction();
         return result;

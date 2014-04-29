@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 public class DBFacade
 {
 
-    //private DataMapper dm;
     private DataMapperInterface dm;
     private Connection con;
     private UnitOfWorkForGuest unitOfWork;

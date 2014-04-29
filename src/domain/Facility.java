@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package domain;
 
 /**
@@ -17,7 +11,7 @@ public class Facility
     int minUsers;
     int maxUsers;
     int roomRemaining;
-    
+
     public Facility(int facID, int minUsers, int maxUsers, int roomRemaining)
     {
         this.facID = facID;
@@ -25,7 +19,7 @@ public class Facility
         this.maxUsers = maxUsers;
         this.roomRemaining = roomRemaining;
     }
-    
+
     public Facility(int facID, String type, int minUsers, int maxUsers)
     {
         this.facID = facID;
@@ -84,16 +78,10 @@ public class Facility
         this.maxUsers = maxUsers;
     }
 
-    
-    
     @Override
     public String toString()
     {
-        return  "facID=" + facID + ", minUsers=" + minUsers + ", maxUsers=" + maxUsers +",roomRemaing"+roomRemaining;
+        return "facID=" + facID + ", minUsers=" + minUsers + ", maxUsers=" + maxUsers + ",roomRemaing" + roomRemaining;
     }
-    
- 
-    
-    
-    
+
 }

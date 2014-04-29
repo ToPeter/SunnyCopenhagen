@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataSource;
 
 import domain.*;
@@ -127,7 +122,7 @@ public class DataMapper implements DataMapperInterface
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
@@ -177,7 +172,7 @@ public class DataMapper implements DataMapperInterface
                 roomAvailableList.add(tempRoom);
             }
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getRoomAvailable");
             System.out.println(e.getMessage());
@@ -233,7 +228,7 @@ public class DataMapper implements DataMapperInterface
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - doublecheckRoomAvailable");
             System.out.println(e.getMessage());
@@ -278,7 +273,7 @@ public class DataMapper implements DataMapperInterface
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - getreservation");
             System.out.println(e.getMessage());
@@ -440,7 +435,7 @@ public class DataMapper implements DataMapperInterface
             }
 
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.out.println("Fail in OrderMapper - getGuest");
             System.out.println(e.getMessage());
@@ -570,7 +565,6 @@ public class DataMapper implements DataMapperInterface
             statement = con.prepareStatement(SQLString);
             statement.setString(1, password);
             statement.setString(2, userName);
-            //String SQLString = "select guestno from guest where password = 6560 and guestno = '10238-1'";
             ResultSet rs = statement.executeQuery();
 
             if (rs.next())
@@ -683,7 +677,6 @@ public class DataMapper implements DataMapperInterface
             if (rs.next())
             {
                 name = rs.getString(1);;
-                //  result = true;
             }
         }
         catch (SQLException e)
@@ -726,7 +719,6 @@ public class DataMapper implements DataMapperInterface
     {
         GuestID guestID = null;
         System.out.println("inside DM");
-        //  String name = "";
         String SQLString = "select * from guestid where guestid in ("
                 + "select guestid from guest where guestno = ?) ";
         PreparedStatement statement = null;
