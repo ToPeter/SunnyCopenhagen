@@ -97,6 +97,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
         updateJtable(user);
+        CasablancaFacilities.this.pack();
 
     }
 
@@ -320,6 +321,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(540, 360));
 
         jLayeredPaneBookFacility.setPreferredSize(new java.awt.Dimension(535, 345));
 
