@@ -104,17 +104,13 @@ public class Mail
             Transport tr = session.getTransport("smtps");
             tr.connect(host, from, Password);
             tr.sendMessage(message, message.getAllRecipients());
-            System.out.println("Mail Sent Successfully");
             tr.close();
             return true;
 
         }
         catch (SendFailedException sfe)
         {
-
-            System.out.println(sfe);
             return false;
-
         }
     }
 
@@ -123,7 +119,6 @@ public class Mail
 
         PDF pdf = new PDF();
         int reservationNo = guestarray.get(0).getReservationNo();
-        System.out.println("reservation in Mail" + reservationNo);
         String firstName = guestarray.get(0).getGuestFirstName();
         String lastName = guestarray.get(0).getGuestFamilyName();
 
@@ -193,17 +188,13 @@ public class Mail
             Transport tr = session.getTransport("smtps");
             tr.connect(host, from, Password);
             tr.sendMessage(message, message.getAllRecipients());
-            System.out.println("Mail Sent Successfully");
             tr.close();
             return true;
 
         }
         catch (SendFailedException sfe)
         {
-
-            System.out.println(sfe);
             return false;
-
         }
     }
 }

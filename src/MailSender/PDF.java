@@ -61,11 +61,9 @@ public class PDF
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
 
         Document document = new Document();
-        System.out.println("document");
         // step 2
         FileOutputStream fos = new FileOutputStream(filePath);
         PdfWriter.getInstance(document, fos);
-        System.out.println("fos");
         // step 3
         document.open();
         // step 4
@@ -121,7 +119,6 @@ public class PDF
         document.add(new Paragraph("Less than a week no deposit is refunded.", font));
         // step 5
         document.close();
-        System.out.println("closed");
     }
 
     public void createConfirmation( ArrayList<Guest> guestarray,Reservation res, String roomType)
@@ -136,11 +133,9 @@ public class PDF
 
 
         Document document = new Document();
-        System.out.println("document");
         // step 2
         FileOutputStream fos = new FileOutputStream(filePath);
         PdfWriter.getInstance(document, fos);
-        System.out.println("fos");
         // step 3
         document.open();
         // step 4
@@ -156,8 +151,6 @@ public class PDF
         document.add(new Paragraph("Dear " + firstName + " " + lastName + ",", font));
         document.add(new Paragraph(Chunk.NEWLINE));
         document.add(new Paragraph("thank you for your reservation.", font));
-        //document.add(new Paragraph("Please print out and bring this confirmation.", font));
-        //document.add(new Paragraph("You will need password shown in guest details below for booking sport facilities.", font));
 
         document.add(new Paragraph(Chunk.NEWLINE));
         document.add(new Paragraph("++++++Reservation details+++++++", font));
@@ -183,7 +176,6 @@ public class PDF
 
         // step 5
         document.close();
-        System.out.println("closed");
     }
 
     public String getFilePath()

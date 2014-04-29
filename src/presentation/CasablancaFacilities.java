@@ -887,7 +887,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jComboBoxFacilityTypeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxFacilityTypeActionPerformed
     {//GEN-HEADEREND:event_jComboBoxFacilityTypeActionPerformed
         facilityType = jComboBoxFacilityType.getSelectedIndex();
-        System.out.println(facilityType);
         jButtonShowActionPerformed(evt);
     }//GEN-LAST:event_jComboBoxFacilityTypeActionPerformed
 
@@ -989,7 +988,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         int typeIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(typeIndex);
         waitingarray = control.getWaitingList(fac.getFacID(), jDateChooserFacilityBooking.getDate(), getSelectedHour());
-        System.out.println("waitingarray size " + waitingarray.size());
         model.clear();
         for (int i = 0; i < waitingarray.size(); i++)
         {
@@ -1098,10 +1096,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButtonBookInDetailsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonBookInDetailsActionPerformed
     {//GEN-HEADEREND:event_jButtonBookInDetailsActionPerformed
         jButton2ActionPerformed(evt);
-
-        System.out.println("prinintng bID" + bookingid);
         setupDetailJtable(bookingid);
-
     }//GEN-LAST:event_jButtonBookInDetailsActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jMenu1MouseClicked
@@ -1117,8 +1112,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         int index = jTable1.getSelectedRow();
 
         Booking booking = arr.get(index);
-
-        System.out.println(booking.toString());
 
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 
@@ -1169,8 +1162,6 @@ public class CasablancaFacilities extends javax.swing.JFrame
         int index = jTableShowBookings.getSelectedRow();
 
         Booking booking = arr.get(index);
-
-        System.out.println(booking.toString());
 
         bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 

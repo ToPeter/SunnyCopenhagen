@@ -107,8 +107,6 @@ public class DBFacadeForFacility
 
     public boolean updateWaitingPos(Booking booking)
     {
-        System.out.println("booking: " + booking.getGuestno());
-
         uowFacility.registerDeleteBooking(booking);
 
         return true;

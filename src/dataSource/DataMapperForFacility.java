@@ -77,8 +77,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapperForFacility - gotfacarray");
-            System.out.println(e.getMessage());
         } finally					// must close statement
         {
             try
@@ -86,8 +84,6 @@ public class DataMapperForFacility
                 statement.close();
             } catch (SQLException e)
             {
-                System.out.println("Fail in DataMapperForFacility - gotfacarray");
-                System.out.println(e.getMessage());
             }
         }
         return bookedlist;
@@ -113,8 +109,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapperForFacility - getallfac");
-            System.out.println(e.getMessage());
         } finally														// must close statement
         {
             try
@@ -122,8 +116,6 @@ public class DataMapperForFacility
                 statement.close();
             } catch (SQLException e)
             {
-                System.out.println("Fail in DataMapperForFacility - getallfac");
-                System.out.println(e.getMessage());
             }
         }
         return maxUsers;
@@ -158,8 +150,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapperForFacility - gotfacarray");
-            System.out.println(e.getMessage());
         } finally					// must close statement
         {
             try
@@ -167,8 +157,6 @@ public class DataMapperForFacility
                 statement.close();
             } catch (SQLException e)
             {
-                System.out.println("Fail in DataMapperForFacility - gotfacarray");
-                System.out.println(e.getMessage());
             }
         }
         return facilitylist;
@@ -185,15 +173,12 @@ public class DataMapperForFacility
             statement = con.prepareStatement(SQLString);
             ResultSet rs = statement.executeQuery();
             boolean status = rs.next();
-            System.out.println("status " + status);
             if (status)
             {
                 nextBookingNo = rs.getInt(1);
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         }
         return nextBookingNo;
     }
@@ -220,17 +205,13 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         }
-        System.out.println("your booking no is: " + bookingNo);
         return bookingNo;
     }
 
     public int remaingPlace(String type, Date bookingdate, int bookingtime, int facid)
     {
         ArrayList<Booking> booking = getBookedfac(type, bookingdate, bookingtime);
-        System.out.println("booking array size" + booking.size());
         int answer = getMaxUsers(facid);
         for (int i = 0; i < booking.size(); i++)
         {
@@ -242,13 +223,11 @@ public class DataMapperForFacility
             }
 
         }
-        System.out.println("remainingplace answer=" + answer);
         return answer;
     }
 
     public boolean updateWaitingPos(ArrayList<Booking> bookingUpdateList)
     {
-        System.out.println("in top of updatewitingpos");
         if (bookingUpdateList.isEmpty())
         {
             return true;
@@ -281,15 +260,12 @@ public class DataMapperForFacility
                     currentVersion = rs.getInt(2);
                 }
 
-                System.out.println("currentWaitingpost is" + currentWaitingPost);
-
                 statement = con.prepareStatement(SQLString2);
 
                 statement.setInt(1, booking.getBookingId());
                 statement.setString(2, booking.getGuestno());
 
                 int rowdeleted = statement.executeUpdate();
-                System.out.println(rowdeleted + " row is deleted");
 
                 statement = con.prepareStatement(SQLString3);
 
@@ -299,14 +275,11 @@ public class DataMapperForFacility
                 statement.setInt(4, currentVersion);
 
                 int rowchanged = statement.executeUpdate();
-                System.out.println(rowchanged + " row is changed");
 
                 con.commit();
             } catch (SQLException ex)
             {
                 Logger.getLogger(DataMapperForFacility.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Fail in DataMapper - ERROR IN BOOKING");
-                System.out.println(ex.getMessage());
             }
             return true;
         }
@@ -347,8 +320,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         };
         return false;
     }
@@ -376,13 +347,11 @@ public class DataMapperForFacility
                     bookingno = getNextBookingNo();
 
                     java.sql.Date sqldate = new java.sql.Date(booking.getBookingdate().getTime());
-                    System.out.println("new bookingno " + bookingno);
                     statement.setInt(1, bookingno);
                     statement.setInt(2, booking.getFacilityId());
                     statement.setDate(3, sqldate);
                     statement.setInt(4, booking.getBookingtime());
                     rowsInserted += statement.executeUpdate();
-                    System.out.println("rows inserted = " + rowsInserted);
                 }
             }
             statement = con.prepareStatement(SQLString2);
@@ -392,7 +361,6 @@ public class DataMapperForFacility
                 Booking booking2 = bookingSql2.get(i);
                 if (fourBookingPerDay(booking2.getGuestno(), bookingDate))
                 {
-                    System.out.println("more than 4 bookings!");
                     return false;
                 }
 
@@ -404,12 +372,9 @@ public class DataMapperForFacility
 
                 rowsInserted += statement.executeUpdate();
             }
-            System.out.println("Booking created rows inserted = " + rowsInserted);
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - ERROR IN BOOKING");
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -460,12 +425,9 @@ public class DataMapperForFacility
 
                 tempGuest = new Guest(bookingid, guestNo, guestFN, guestLN);
                 waitingarray.add(tempGuest);
-                System.out.println("waitingarray size =" + waitingarray.size());
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         };
         return waitingarray;
     }
@@ -501,8 +463,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         };
 
         return bookingarray;
@@ -535,8 +495,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         };
         return bdetailarray;
     }
@@ -568,8 +526,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - makiingbookingarray");
-            System.out.println(e.getMessage());
         }
         return bookingarray;
     }
@@ -600,8 +556,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - AvailableBooking for Instructor - Fail ");
-            System.out.println(e.getMessage());
         };
         return inno;
     }
@@ -635,12 +589,9 @@ public class DataMapperForFacility
 
                 tempbook = new Booking(type, inno, instructorName);
                 bookingarray.add(tempbook);
-                System.out.println("bookingarray size =" + bookingarray.size());
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - AvailableBooking for Instructor - Fail ");
-            System.out.println(e.getMessage());
         };
         return bookingarray;
     }
@@ -673,12 +624,9 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in lokinc");
-            System.out.println(e.getMessage());
             return false;
         }
         int inno = getInstructorNo(booking.get(0), username);
-        System.out.println("inno: " + inno);
 
         String SQLString = "UPDATE BOOKINGSTATUS SET INNO = ? WHERE BOOKINGID = ? AND GUESTNO = ?";
 
@@ -692,12 +640,9 @@ public class DataMapperForFacility
             statement.setString(3, username);
 
             int rowchanged = statement.executeUpdate();
-            System.out.println(rowchanged + " row is changed - BI");
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
-            System.out.println(e.getMessage());
             return booked;
         }
         booked = true;
@@ -730,8 +675,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - ERROR IN BOOKING_Instructor");
-            System.out.println(e.getMessage());
         }
 
         return result;
@@ -750,7 +693,6 @@ public class DataMapperForFacility
             statement.executeUpdate();
         } catch (SQLException e)
         {
-            System.out.println(e.getMessage());
             return result;
         }
         result = true;
@@ -777,8 +719,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         }
         return typeArray;
     }
@@ -797,9 +737,6 @@ public class DataMapperForFacility
             con.commit();
         } catch (SQLException e)
         {
-            System.out.println("fail in DataMapperForFacility - createNewFacility");
-            System.out.println(e.getMessage());
-            System.out.println(e.getErrorCode());
             return result;
         }
         result = true;
@@ -838,8 +775,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - addInstructor");
-            System.out.println(e.getMessage());
         }
         return rowsInserted != 0;
     }
@@ -860,8 +795,6 @@ public class DataMapperForFacility
 
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapperForFacility - getFacilityNumber");
-            System.out.println(e.getMessage());
             return 0;
         }
 
@@ -903,8 +836,6 @@ public class DataMapperForFacility
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getNextReservationNo");
-            System.out.println(e.getMessage());
         };
         return false;
     }

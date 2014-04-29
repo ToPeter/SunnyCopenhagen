@@ -37,7 +37,6 @@ public class UnitOfWorkForGuest
     {
         if (!newGuest.contains(guest) && !dirtyGuest.contains(guest))    // if not all ready registered in any list
         {
-            System.out.println("Adding guets int UOW: " + guest.toString());
             newGuest.add(guest);
 
         }
@@ -75,9 +74,7 @@ public class UnitOfWorkForGuest
             con.setAutoCommit(false);
             status = status && dataMapper.insertGuestID(newGuestID);
             status = status && dataMapper.insertGuest(newGuest);
-            System.out.println("printing status aftter inserGuest " + status);
             status = status && dataMapper.updateDeposit(updatedDeposit);
-            System.out.println("printing status aftter updateDeposit " + status);
             status = status && dataMapper.updateGuestID(dirtyGuestID);
             
             if (!status)
@@ -101,7 +98,6 @@ public class UnitOfWorkForGuest
             }
             status = false;
         }
-        System.out.println("Status in Unit : " + status);
         return status;
     }
 

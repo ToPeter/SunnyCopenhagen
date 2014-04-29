@@ -1381,7 +1381,6 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             for (Room r : arrayForJlist)
             {
-                System.out.println(r.getRoomNo());
                 model.addElement(r.getRoomNo());
             }
 
@@ -1515,11 +1514,9 @@ public class CasablancaResception extends javax.swing.JFrame
 
         if (evt.getClickCount() == 2)
         {
-            System.out.println("double clicked , congrats, it works");
             int index = jListOpen.locationToIndex(evt.getPoint());
             int reservationNoSelected = (Integer) overDueDeposit.get(index);
             boolean haveCurrentReservation = control.getCurrentReservation(reservationNoSelected);
-            System.out.println("status of currentReservation " + haveCurrentReservation);
 
             if (haveCurrentReservation)
             {
@@ -1538,17 +1535,12 @@ public class CasablancaResception extends javax.swing.JFrame
 
                         Reservation res = control.getReservation(reservationNoSelected);
                         ArrayList<Guest> guestarray = control.getGuestArrayForMail(reservationNoSelected);
-                        System.out.println("guestarray got");
-                        System.out.println(guestarray.size());
-                        System.out.println("email got" + email);
                         String roomType = control.getRoomType(res.getRoomNo());
-                        System.out.println("roomtype got");
                         try
                         {
                             control.sendConfirmation(guestarray, res, roomType);
                         } catch (MessagingException ex)
                         {
-                            System.out.println("Messege sending failed");
                             Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
@@ -1569,7 +1561,6 @@ public class CasablancaResception extends javax.swing.JFrame
         {
             Random ran = new Random();
             String guestNo = String.valueOf(reservationNo) + "-" + (guestcounter + 1);
-            System.out.println(guestNo);
             int password = ran.nextInt(9000) + 1000;
 
             if (control.getGuest(Integer.parseInt(jTextFieldID.getText())))
@@ -1608,7 +1599,6 @@ public class CasablancaResception extends javax.swing.JFrame
                     control.sendInvoice(control.getGuestArrayForMail(reservationNo), control.getReservation(reservationNo), type, priceType);
                 } catch (MessagingException ex)
                 {
-                    System.out.println("Messege sending failed");
                     Logger.getLogger(CasablancaResception.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -1650,7 +1640,6 @@ public class CasablancaResception extends javax.swing.JFrame
             jLabelReservationNo.setText(Integer.toString(reservationNo));
 
             swicthPane(jLayeredPaneReservation, currentPane);
-
 
             boolean result = control.bookRoom(roomNo, reservationNo, startDate, endDate, bookingDate, depositPaid, empNo);
         }
@@ -1711,7 +1700,6 @@ public class CasablancaResception extends javax.swing.JFrame
             {
                 choseSearchGuest.removeAllItems();
                 choseSearchGuest.setVisible(true);
-                System.out.println("size: " + control.getSizeOfArrayOfGuestID());
                 for (int i = 0; i < control.getSizeOfArrayOfGuestID(); i++)
                 {
 

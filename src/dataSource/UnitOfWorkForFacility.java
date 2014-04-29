@@ -61,7 +61,6 @@ public class UnitOfWorkForFacility
             }
             status = false;
         }
-        System.out.println("Status in Unit : " + status);
         return status;
     }
 

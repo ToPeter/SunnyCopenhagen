@@ -50,8 +50,6 @@ public class DataMapperForMail
         }
         catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getreservation");
-            System.out.println(e.getMessage());
         }
         finally						// must close statement
         {
@@ -61,8 +59,6 @@ public class DataMapperForMail
             }
             catch (SQLException e)
             {
-                System.out.println("Fail in DataMapper - getreservation");
-                System.out.println(e.getMessage());
             }
         }
         return guestinfo;
@@ -95,14 +91,11 @@ public class DataMapperForMail
                         rs.getString(5));//email
 
                 guestarray.add(tempguest);
-                System.out.println("datamapperformail guestarray size=" +guestarray.size());
             }
 
         }
         catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - getreservation");
-            System.out.println(e.getMessage());
         }
         finally						// must close statement
         {
@@ -112,8 +105,6 @@ public class DataMapperForMail
             }
             catch (SQLException e)
             {
-                System.out.println("Fail in DataMapper - getreservation");
-                System.out.println(e.getMessage());
             }
         }
         return guestarray;
@@ -141,8 +132,6 @@ public class DataMapperForMail
 
         catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - LogIn_EMP");
-            System.out.println(e.getMessage());
         }
 
         return email;
@@ -177,8 +166,6 @@ public class DataMapperForMail
 
         catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - LogIn_EMP");
-            System.out.println(e.getMessage());
         }
 
         return resinfo;

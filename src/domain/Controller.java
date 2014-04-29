@@ -47,7 +47,6 @@ public class Controller
 
     public ArrayList<Room> getRoomsAvailable(Date fromDate, Date endDate, String type)
     {
-        System.out.println("controller" + fromDate);
         return facade.getRoomsAvailable(fromDate, endDate, type);
 
     }
@@ -197,8 +196,6 @@ public class Controller
         Reservation reservation = new Reservation(roomNo, reservationNo, fromDate, endDate, boookingDate, depositPaid, username, 0);
         result = facade.bookRoom(reservation);
 
-        System.out.println("RESERVATIONNO: " + reservationNo + "\n-----||-----\nORDER BOOKED: \t\nFrom: " + fromDate.toString() + " \tRoom: " + roomNo + " Booked: " + boookingDate.toString() + "\n\tTo  " + endDate.toString() + "\nDepositpaied: " + depositPaid);
-
         return result;
     }
 
@@ -215,10 +212,8 @@ public class Controller
     public boolean updateDeposit()
     {
         facade.startProcessGuestBusinessTransaction();
-        //facade.registerDirtyReservation(currentReservation);
         boolean result = facade.updateDeposit(currentReservation);
         boolean test = facade.commitProcessGuestBusinessTransaction();
-        System.out.println("printing trest in contriller update deposti " + test);
         return (result == test);
     }
 
@@ -382,7 +377,6 @@ public class Controller
 
         Booking bookingSQL1 = new Booking(bookingno, facility.getFacID(), bookingdate, bookingtime);
         facadeF.registerNewBooking(bookingSQL1);
-        System.out.println("guestno " + guestNo);
         Booking bookingSQL2 = new Booking(bookingno, guestNo, waitingpos, inno);
         facadeF.registerNewBookingStatus(bookingSQL2);
 
