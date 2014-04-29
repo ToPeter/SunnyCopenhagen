@@ -112,6 +112,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     {
         jComboBoxAddFacility.removeAllItems();
         jComboBoxChoseTypeInstructor.removeAllItems();
+        jComboBoxAddFacility.addItem("[New Type]");
         for (int i = 0; i < control.getFacilityTypes().size(); i++)
         {
             jComboBoxAddFacility.addItem(control.getFacilityTypes().get(i));
@@ -1074,7 +1075,23 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
     {//GEN-HEADEREND:event_jButton5ActionPerformed
-        boolean facilityAdded = control.createNewFacility(jComboBoxAddFacility.getSelectedItem().toString());
+        boolean facilityAdded;
+        if (jComboBoxAddFacility.getSelectedIndex() == 0)
+        {
+            String newType = JOptionPane.showInputDialog("Input Facility Type");
+            if (newType.isEmpty())
+            {
+                facilityAdded = false;
+            }
+            else
+            {
+                facilityAdded = control.createNewFacility(newType);
+            }
+        }
+        else
+        {
+            facilityAdded = control.createNewFacility(jComboBoxAddFacility.getSelectedItem().toString());
+        }
         if (facilityAdded)
         {
             JOptionPane.showMessageDialog(null, "A new " + jComboBoxAddFacility.getSelectedItem().toString() + " Facility succesfully added");

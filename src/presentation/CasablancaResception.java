@@ -120,7 +120,6 @@ public class CasablancaResception extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
-        jLabelShowRoomChosen = new javax.swing.JLabel();
         jLayeredPaneReservation = new javax.swing.JLayeredPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -461,8 +460,6 @@ public class CasablancaResception extends javax.swing.JFrame
             }
         });
 
-        jLabelShowRoomChosen.setText("jLabel6");
-
         javax.swing.GroupLayout jLayeredPaneSearchRoomeLayout = new javax.swing.GroupLayout(jLayeredPaneSearchRoome);
         jLayeredPaneSearchRoome.setLayout(jLayeredPaneSearchRoomeLayout);
         jLayeredPaneSearchRoomeLayout.setHorizontalGroup(
@@ -474,9 +471,7 @@ public class CasablancaResception extends javax.swing.JFrame
                     .addGroup(jLayeredPaneSearchRoomeLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jLabelShowRoomChosen))))
+                        .addComponent(jButton2)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoomeLayout.setVerticalGroup(
@@ -486,16 +481,12 @@ public class CasablancaResception extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPaneSearchRoomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jLayeredPaneSearchRoomeLayout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelShowRoomChosen)))
+                    .addComponent(jButton2))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
         jLayeredPaneSearchRoome.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneSearchRoome.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPaneSearchRoome.setLayer(jLabelShowRoomChosen, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneReservation.setMinimumSize(new java.awt.Dimension(625, 380));
 
@@ -1411,7 +1402,6 @@ public class CasablancaResception extends javax.swing.JFrame
         int jListSelectedIndex = jList1.getSelectedIndex();
         Object roomNoSelected = model.getElementAt(jListSelectedIndex);
         roomNo = Integer.parseInt(roomNoSelected.toString());
-        jLabelShowRoomChosen.setText(roomNoSelected.toString());
 
         jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
         jLabelToDate.setText(endDateStr);
@@ -1660,7 +1650,6 @@ public class CasablancaResception extends javax.swing.JFrame
             int jListSelectedIndex = jList1.getSelectedIndex();
             Object roomNoSelected = model.getElementAt(jListSelectedIndex);
             roomNo = Integer.parseInt(roomNoSelected.toString());
-            jLabelShowRoomChosen.setText(roomNoSelected.toString());
 
             jLabelSelectedStartDate.setText(startDateStr); // could be dateFormat.format(startDate) perhabs
             jLabelToDate.setText(endDateStr);
@@ -1877,7 +1866,6 @@ public class CasablancaResception extends javax.swing.JFrame
     private javax.swing.JLabel jLabelReservationNo;
     private javax.swing.JLabel jLabelSelectedStartDate;
     private javax.swing.JLabel jLabelShowPrice;
-    private javax.swing.JLabel jLabelShowRoomChosen;
     private javax.swing.JLabel jLabelShowTotalPrice;
     private javax.swing.JLabel jLabelShowType;
     private javax.swing.JLabel jLabelToDate;

@@ -129,6 +129,7 @@ public class Controller
     {
         int num;
         num = getFacilityNumber(type);
+        System.out.println(num);
         if (!type.equalsIgnoreCase("new"))
         {
             return facadeF.createNewFacility(num, type);
