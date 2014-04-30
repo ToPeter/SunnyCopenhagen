@@ -348,7 +348,7 @@ public class DataMapper implements DataMapperInterface
             statement.setDate(4, sqlToDate);
             statement.setDate(5, sqlToBookingDate);
             statement.setInt(6, res.isDepositPaid());
-            statement.setInt(7, 1111);
+            statement.setInt(7, res.getEmpNo());
             statement.setInt(8, res.getVersion());
             statement.executeUpdate();
 
