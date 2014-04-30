@@ -139,7 +139,7 @@ public class DataMapper implements DataMapperInterface
         Room tempRoom;
         String SQLString = // get roomavailable
                 "select * from room"
-                + " WHERE Type = '" + type + "' AND Roomno NOT IN "
+                + " WHERE Type = ? AND Roomno NOT IN "
                 + "(SELECT roomno FROM Reservation "
                 + " where fromdate < ? AND endDate >?)order by roomno ";
         PreparedStatement statement = null;
@@ -149,8 +149,9 @@ public class DataMapper implements DataMapperInterface
             java.sql.Date sqlFromDate = new java.sql.Date(fromDate.getTime());
             java.sql.Date sqlToDate = new java.sql.Date(endDate.getTime());
             statement = con.prepareStatement(SQLString);
-            statement.setDate(1, sqlToDate);
-            statement.setDate(2, sqlFromDate);
+            statement.setString(1, type);
+            statement.setDate(2, sqlToDate);
+            statement.setDate(3, sqlFromDate);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next())

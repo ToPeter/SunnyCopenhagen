@@ -347,7 +347,7 @@ public class Controller
 
     }
 
-    public boolean updateWaitingPos(int bookingno, String guestno)
+        public boolean updateWaitingPos(int bookingno, String guestno)
     {
         facadeF.startProcessGuestBusinessTransaction();
         boolean result;

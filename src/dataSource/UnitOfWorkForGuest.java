@@ -79,7 +79,7 @@ public class UnitOfWorkForGuest
             
             if (!status)
             {
-                throw new Exception("Process Order Business Transaction aborted");
+                throw new Exception("Process guest Business Transaction aborted");
 
             }
             //=== system transaction - ends with success
