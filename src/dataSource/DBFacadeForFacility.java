@@ -22,7 +22,7 @@ public class DBFacadeForFacility
 
     public DBFacadeForFacility()
     {
-        con = new DBConnector().getConnection();
+        con = DBConnector.getConnection();
         facilityMapper = new DataMapperForFacility(con);
 
     }
@@ -188,10 +188,7 @@ public class DBFacadeForFacility
         return facilityMapper.addInstructor(name, type);
     }
 
-    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date bookingdate, int bookingtime, String username)
-    {
-        return facilityMapper.getFacArrayForBookingInstructorJlist(bookingdate, bookingtime, username);
-    }
+
 
     public ArrayList<Booking> getFacArrayForBookingInstructorJlist(String type, Date dd, int hour, String username)
     {

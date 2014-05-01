@@ -439,10 +439,7 @@ public class Controller
         return currentGuestID.getId();
     }
 
-    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(Date dd, int hour, String username)
-    {
-        return facadeF.getFacArrayForBookingInstructorJlist(dd, hour, username);
-    }
+
 
     public boolean saveInstructorBooking(Booking booking)
     {
