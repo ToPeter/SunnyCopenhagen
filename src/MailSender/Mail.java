@@ -72,7 +72,7 @@ public class Mail
 
         message.setRecipients(Message.RecipientType.TO, toAddress);
 
-        message.setSubject("Confirmation of your reservation (#" + guestarray.get(0).getReservationNo() + ')');
+        message.setSubject("Invoice for your reservation (#" + guestarray.get(0).getReservationNo() + ')');
 
         BodyPart messageBodyPart = new MimeBodyPart();
 
