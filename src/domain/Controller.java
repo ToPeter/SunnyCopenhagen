@@ -109,15 +109,7 @@ public class Controller
         return facade.getReservationDepositNotPaid();
     }
 
-    public Guest deleteGuest()
-    {
-        if (processingGuest)
-        {
-            facade.startProcessGuestBusinessTransaction();
-            facade.registerDeleteGuest(currentGuest);
-        }
-        return currentGuest;
-    }
+    
 
     public ArrayList<String> getFacilityTypes()
     {
