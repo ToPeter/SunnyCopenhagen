@@ -64,6 +64,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
+        jTextFieldBookingforguestno.setVisible(true);
+        jLabel6.setVisible(true);
         loggedinAsEmp = true;
         populateComboBox();
         populateAnotherComboBoxBcuzWhyNot();
@@ -96,6 +98,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jDateChooserFacilityBooking.requestFocusInWindow();
         jDateChooserFacilityBooking.setSelectableDateRange(today, weekfwd);
         jDateChooserFacilityBooking.setDate(today);
+        jTextFieldBookingforguestno.setVisible(false);
+        jLabel6.setVisible(false);
         updateJtable(user);
         CasablancaFacilities.this.pack();
 
@@ -279,6 +283,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBoxBookingHour = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldBookingforguestno = new javax.swing.JTextField();
         jLayeredPaneBookFacGuest = new javax.swing.JLayeredPane();
         jButtonCancelActivity = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -393,6 +399,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
             }
         });
 
+        jLabel6.setText("Booking for guestno:");
+
         javax.swing.GroupLayout jLayeredPaneBookFacilityLayout = new javax.swing.GroupLayout(jLayeredPaneBookFacility);
         jLayeredPaneBookFacility.setLayout(jLayeredPaneBookFacilityLayout);
         jLayeredPaneBookFacilityLayout.setHorizontalGroup(
@@ -420,8 +428,11 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLayeredPaneBookFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
-                            .addComponent(jButton2))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton2)
+                            .addGroup(jLayeredPaneBookFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldBookingforguestno, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jLayeredPaneBookFacilityLayout.setVerticalGroup(
             jLayeredPaneBookFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,11 +454,15 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addGap(33, 33, 33)
                         .addComponent(jButton2)
                         .addGap(27, 27, 27)
-                        .addComponent(jButton3))
+                        .addComponent(jButton3)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldBookingforguestno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPaneBookFacilityLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jLayeredPaneBookFacility.setLayer(jComboBoxFacilityType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jDateChooserFacilityBooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -459,6 +474,8 @@ public class CasablancaFacilities extends javax.swing.JFrame
         jLayeredPaneBookFacility.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneBookFacility.setLayer(jComboBoxBookingHour, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacility.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneBookFacility.setLayer(jTextFieldBookingforguestno, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneBookFacGuest.setPreferredSize(new java.awt.Dimension(500, 518));
 
@@ -577,12 +594,12 @@ public class CasablancaFacilities extends javax.swing.JFrame
                         .addGroup(jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonBookIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonRemoveIN, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jLayeredPaneBookInstructorLayout.setVerticalGroup(
             jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneBookInstructorLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jLayeredPaneBookInstructorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldGuestNameInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -844,7 +861,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPaneBookFacGuest, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .addComponent(jLayeredPaneBookFacGuest, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLayeredPaneBookFacility, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -934,6 +951,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
 
+        String bookingGuestno = "";
         int listIndex = jListAvailableFacilities.getSelectedIndex();
         Facility fac = facArray.get(listIndex);
 
@@ -960,28 +978,53 @@ public class CasablancaFacilities extends javax.swing.JFrame
         {
             type = "fitness";
         }
-
-        boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
-        if (result)
+        if (loggedinAsEmp)
         {
-            boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
-
-            if (fourbookings)
+            boolean result = control.checkOnlyOneBooking(type, jTextFieldBookingforguestno.getText(), dd, getSelectedHour());
+            if (result)
             {
-                JOptionPane.showMessageDialog(null, type + " Facility booked ");
-                jButtonShowActionPerformed(evt);
+                boolean fourbookings = control.createFacilityBooking(fac, type, jTextFieldBookingforguestno.getText(), dd, getSelectedHour(), 0);
+
+                if (fourbookings)
+                {
+                    JOptionPane.showMessageDialog(null, type + " Facility booked ");
+                    jButtonShowActionPerformed(evt);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "This customer allready have four bookings for this day: " + dd);
+                }
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "You allready have four bookings for this day: " + dd);
+                JOptionPane.showMessageDialog(null, "This customer allready have one booking at this hour");
             }
+
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
+
+            boolean result = control.checkOnlyOneBooking(type, guestNo, dd, getSelectedHour());
+            if (result)
+            {
+                boolean fourbookings = control.createFacilityBooking(fac, type, guestNo, dd, getSelectedHour(), 0);
+
+                if (fourbookings)
+                {
+                    JOptionPane.showMessageDialog(null, type + " Facility booked ");
+                    jButtonShowActionPerformed(evt);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "You allready have four bookings for this day: " + dd);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "You allready have one booking at this hour");
+            }
+
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
@@ -1231,6 +1274,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelFacilityType;
     private javax.swing.JLayeredPane jLayeredPaneAdmin;
     private javax.swing.JLayeredPane jLayeredPaneBookFacGuest;
@@ -1258,6 +1302,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableBookingDetails;
     private javax.swing.JTable jTableShowBookings;
+    private javax.swing.JTextField jTextFieldBookingforguestno;
     private javax.swing.JTextField jTextFieldGuestNameInstructor;
     private javax.swing.JTextField jTextFieldInstructorName;
     // End of variables declaration//GEN-END:variables
