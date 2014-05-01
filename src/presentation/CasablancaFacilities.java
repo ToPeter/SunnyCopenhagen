@@ -1052,6 +1052,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+        updateJtable(guestNo);
         swicthPane(jLayeredPaneBookFacGuest, currentPane);
         CasablancaFacilities.this.setPreferredSize(new Dimension(500, 538));
         CasablancaFacilities.this.pack();
