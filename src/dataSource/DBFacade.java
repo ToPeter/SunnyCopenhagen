@@ -139,15 +139,8 @@ public class DBFacade
 
     public boolean bookRoom(Reservation reservation)
     {
-        try
-        {
-            return dm.createReservation(reservation);
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(DBFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+
+        return dm.createReservation(reservation);
 
     }
 

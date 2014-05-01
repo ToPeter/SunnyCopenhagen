@@ -88,7 +88,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
  
     @Override
-    public boolean insertGuest(ArrayList<Guest> guestList) throws SQLException
+    public boolean insertGuest(ArrayList<Guest> guestList)
     {
         int size= guestMap.size();
             Guest guest = guestList.get(0);
@@ -117,7 +117,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
 
     @Override
-    public boolean createReservation(Reservation reservation) throws SQLException
+    public boolean createReservation(Reservation reservation) 
     {
         int size=reservationMap.size();
         reservationMap.put(30000, reservation);
@@ -133,7 +133,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
     }
 
     @Override
-    public boolean updateDeposit(ArrayList<Reservation> reservation) throws SQLException
+    public boolean updateDeposit(ArrayList<Reservation> reservation) 
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -165,7 +165,7 @@ public class DataMapperMock implements dataSource.DataMapperInterface
 
    
     @Override
-    public boolean insertGuestID(ArrayList<GuestID> guestListID) throws SQLException
+    public boolean insertGuestID(ArrayList<GuestID> guestListID) 
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

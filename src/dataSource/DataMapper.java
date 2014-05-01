@@ -22,7 +22,7 @@ public class DataMapper implements DataMapperInterface
     static boolean testRun = true;  // used to enable test output
 
     private final Connection con;
-  
+
     Calendar c = Calendar.getInstance();
 
     public DataMapper(Connection con)
@@ -409,34 +409,41 @@ public class DataMapper implements DataMapperInterface
     // Insert a list of new orders
     // returns true if all elements were inserted successfully
     @Override
-    public boolean insertGuest(ArrayList<Guest> guestList) throws SQLException
+    public boolean insertGuest(ArrayList<Guest> guestList)
     {
         int rowsInserted = 0;
         String SQLString = "insert into guest values (?,?,?,?,?)";
 
         PreparedStatement statement = null;
-        statement = con.prepareStatement(SQLString);
-
-        for (int i = 0; i < guestList.size(); i++)
+        try
         {
+            statement = con.prepareStatement(SQLString);
 
-            Guest guest = guestList.get(i);
+            for (int i = 0; i < guestList.size(); i++)
+            {
 
-            statement.setInt(1, guest.getReservationNo());
-            statement.setString(2, guest.getGuestNo());
-            statement.setInt(3, guest.getPassword());
-            statement.setString(4, guest.getAgency());
-            statement.setInt(5, guest.getId());
+                Guest guest = guestList.get(i);
 
-            rowsInserted = statement.executeUpdate();
+                statement.setInt(1, guest.getReservationNo());
+                statement.setString(2, guest.getGuestNo());
+                statement.setInt(3, guest.getPassword());
+                statement.setString(4, guest.getAgency());
+                statement.setInt(5, guest.getId());
+
+                rowsInserted = statement.executeUpdate();
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("SQLException is thrown");
+            return false;
         }
 
         return (rowsInserted == guestList.size());
     }
 
-
     @Override
-    public boolean updateDeposit(ArrayList<Reservation> updateList) throws SQLException
+    public boolean updateDeposit(ArrayList<Reservation> updateList)
     {
 
         int rowsUpdated = 0;
@@ -445,23 +452,29 @@ public class DataMapper implements DataMapperInterface
                 + "SET depositpaid = ?, ver_no = ? "
                 + "where reservationNO= ? and ver_no = ? ";
         PreparedStatement statement = null;
-
-        statement = con.prepareStatement(SQLString);
-
-        for (int i = 0; i < updateList.size(); i++)
+        try
         {
-            Reservation reservation = updateList.get(i);
-            statement.setInt(1, 1);
-            statement.setInt(2, reservation.getVersion() + 1); // next version number
-            statement.setInt(3, reservation.getReservationNo());
-            statement.setInt(4, reservation.getVersion());   // old version number
+            statement = con.prepareStatement(SQLString);
 
-            int tupleUpdated = statement.executeUpdate();
-            if (tupleUpdated == 1)
+            for (int i = 0; i < updateList.size(); i++)
             {
-                reservation.incrementVersionNumber();                       // increment version in current OrderObject
+                Reservation reservation = updateList.get(i);
+                statement.setInt(1, 1);
+                statement.setInt(2, reservation.getVersion() + 1); // next version number
+                statement.setInt(3, reservation.getReservationNo());
+                statement.setInt(4, reservation.getVersion());   // old version number
+
+                int tupleUpdated = statement.executeUpdate();
+                if (tupleUpdated == 1)
+                {
+                    reservation.incrementVersionNumber();                       // increment version in current OrderObject
+                }
+                rowsUpdated += tupleUpdated;
             }
-            rowsUpdated += tupleUpdated;
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return (rowsUpdated == updateList.size());    // false if any conflict in version number
@@ -546,7 +559,6 @@ public class DataMapper implements DataMapperInterface
 
     }
 
-   
     @Override
     public boolean insertGuestID(ArrayList<GuestID> guestListID)
     {
@@ -576,7 +588,8 @@ public class DataMapper implements DataMapperInterface
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQLException is thrown");
+            return false;
         }
         return (rowsInserted == guestListID.size());
     }

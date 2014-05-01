@@ -123,6 +123,7 @@ public class DataMapperForFacility
             {
                 System.out.println("error in closing");
             }
+
         }
         return maxUsers;
     }
@@ -230,9 +231,10 @@ public class DataMapperForFacility
             }
         }
         catch (SQLException e)
-        {System.out.println("Error in getbookingno");
+        {
+            System.out.println("Error in getbookingno");
         }
-        
+
         finally					// must close statement
         {
             try
@@ -244,7 +246,7 @@ public class DataMapperForFacility
                 System.out.println("error in closing status");
             }
         }
-        
+
         return bookingNo;
     }
 
@@ -361,7 +363,20 @@ public class DataMapperForFacility
         }
         catch (SQLException e)
         {
-        };
+        }
+
+        finally					// must close statement
+        {
+            try
+            {
+                statement.close();
+            }
+            catch (SQLException e)
+            {
+                System.out.println("error in closing status");
+            }
+        }
+        ;
         return false;
     }
 
@@ -419,6 +434,7 @@ public class DataMapperForFacility
         {
             return false;
         }
+
         return true;
     }
 
@@ -470,7 +486,8 @@ public class DataMapperForFacility
         }
         catch (SQLException e)
         {
-        };
+        }
+        ;
         return waitingarray;
     }
 
@@ -543,7 +560,6 @@ public class DataMapperForFacility
         return bdetailarray;
     }
 
-
     public int getInstructorNo(Booking booking, String username)
     {
         int inno = 0;
@@ -567,6 +583,7 @@ public class DataMapperForFacility
             if (rs.next())
             {
                 inno = rs.getInt(1);
+                System.out.println("inno " + inno);
             }
         }
         catch (SQLException e)
@@ -575,7 +592,7 @@ public class DataMapperForFacility
         return inno;
     }
 
-    ArrayList<Booking> getFacArrayForBookingInstructorJlist(String type, Date dd, int hour, String username)
+    ArrayList<Booking> getAvailableInstructorList(String type, Date dd, int hour, String username)
     {
         ArrayList<Booking> bookingarray = new ArrayList();
         java.sql.Date sqlBookingdate = new java.sql.Date(dd.getTime());
@@ -656,7 +673,7 @@ public class DataMapperForFacility
             statement.setInt(2, booking.get(0).getBookingId());
             statement.setString(3, username);
 
-            int rowchanged = statement.executeUpdate();
+            statement.executeUpdate();
 
         }
         catch (SQLException e)

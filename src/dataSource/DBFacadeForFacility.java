@@ -188,11 +188,9 @@ public class DBFacadeForFacility
         return facilityMapper.addInstructor(name, type);
     }
 
-
-
-    public ArrayList<Booking> getFacArrayForBookingInstructorJlist(String type, Date dd, int hour, String username)
+    public ArrayList<Booking> getAvailableInstructorList(String type, Date dd, int hour, String username)
     {
-        return facilityMapper.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
+        return facilityMapper.getAvailableInstructorList(type, dd, hour, username);
     }
 
     public boolean checkInstructorAlreadyThere(int bookingId, String username)

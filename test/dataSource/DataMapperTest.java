@@ -11,6 +11,7 @@ import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,20 +32,10 @@ public class DataMapperTest
 {
 
     static Connection con;
-    DataMapper datamapper;
+    DataMapperInterface datamapper;
     DateFormat format;
 
     public DataMapperTest()
-    {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception
     {
     }
 
@@ -67,7 +58,7 @@ public class DataMapperTest
     /**
      * Test of getreservation method, of class DataMapper.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetreservation() throws ParseException
     {
         System.out.println("getreservation");
@@ -76,7 +67,7 @@ public class DataMapperTest
 
         Reservation result = datamapper.getreservation(reservationNo);
 
-        datamapper.getreservation(notExistingreservationNO);//exception
+        Reservation nullResult= datamapper.getreservation(notExistingreservationNO);
 
         int roomNo = result.getRoomNo();
         Date fromDate = result.getFromDate();
@@ -84,6 +75,7 @@ public class DataMapperTest
         assertEquals(100, roomNo);
         assertEquals(format.parse("14-03-14"), fromDate);
         assertEquals(format.parse("14-03-14"), endDate);
+                assertEquals(null, nullResult);
 
     }
 
@@ -141,7 +133,7 @@ public class DataMapperTest
      * Test of getRoomType method, of class DataMapper. Single=no1-10 Double =
      * no11-20 Family = no21-30
      */
-    @Test//(expected=Exception.class)
+    @Test
     public void testGetRoomType()
     {
         System.out.println("getRoomType");
@@ -151,7 +143,7 @@ public class DataMapperTest
         int roomNoDouble2 = 20;
         int roomNoFamily1 = 21;
         int roomNoFamily2 = 30;
-        int notExistingRoomno = 200;
+        int notExistingRoomno = 31;
         String resultSingle1 = datamapper.getRoomType(roomNoSingle1);
         String resultDouble1 = datamapper.getRoomType(roomNoDouble1);
         String resultFamily1 = datamapper.getRoomType(roomNoFamily1);
@@ -188,9 +180,10 @@ public class DataMapperTest
 
     /**
      * Test of createReservation method, of class DataMapper.
+     * @throws java.text.ParseException
      */
     @Test
-    public void testCreateReservation() throws ParseException
+    public void testCreateReservation() throws ParseException, SQLException
     {
         System.out.println("createReservation");
         Date fromDate1 = format.parse("12-02-14");
@@ -210,6 +203,9 @@ public class DataMapperTest
         boolean expResult3 = false;
         boolean result3 = datamapper.createReservation(res3);//the same reservationno cannot be used
         assertEquals(expResult3, result3);
+
+        Reservation res4 = datamapper.getreservation(55555);
+        assertEquals(21, res4.getRoomNo());
 
     }
 
@@ -235,7 +231,7 @@ public class DataMapperTest
     /**
      * Test of insertGuest method, of class DataMapper.
      */
-    @Test(expected = SQLException.class)
+    @Test
     public void testInsertGuest() throws Exception
     {
         System.out.println("insertGuest");
@@ -246,7 +242,7 @@ public class DataMapperTest
         boolean result = datamapper.insertGuest(guestList);
         assertEquals(true, result);
 
-        datamapper.insertGuest(guestList);//throw SQLException
+        datamapper.insertGuest(guestList);
     }
 
     /**

@@ -1159,7 +1159,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         Booking booking = arr.get(index);
 
-        bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
+        bookingsArrayForInstructor = control.getAvailableInstructorList(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 
         //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
         if (bookingsArrayForInstructor.isEmpty())
@@ -1209,7 +1209,7 @@ public class CasablancaFacilities extends javax.swing.JFrame
 
         Booking booking = arr.get(index);
 
-        bookingsArrayForInstructor = control.getFacArrayForShowingAvailableInstructor(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
+        bookingsArrayForInstructor = control.getAvailableInstructorList(booking.getType(), booking.getBookingdate(), booking.getBookingtime(), guestNo);
 
         //--CHECK IF THERE IS OR IS NOT INSTRUCTOR ALREAADY
         if (bookingsArrayForInstructor.isEmpty())

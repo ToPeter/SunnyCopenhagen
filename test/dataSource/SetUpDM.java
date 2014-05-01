@@ -40,24 +40,17 @@ public class SetUpDM
         try
         {
             con.setAutoCommit(false);
-            //=== get reservaton
 
             statement = con.createStatement();
 
             int rows = statement.executeUpdate(SQLString1);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString2);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString3);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString4);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString5);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString6);
-            System.out.println("rows" + rows);
             rows = statement.executeUpdate(SQLString7);
-            System.out.println("rows" + rows);
+
         }
         catch (Exception e)
         {
@@ -103,27 +96,26 @@ public class SetUpDM
         String insertBooking = "insert into booking values (1000,101,'01-04-14',19)";
         String insertBookingStatus = "insert into bookingstatus values(1000,'10000-1',1,0,0) ";
         String insertBookingStatus2 = "insert into bookingstatus values(1000,'10000-2',2,0,0)";
+        String deleteInstructor = "delete from instructor where inname='testIn'";
+        String deleteFacility = "delete from facility where ID=777";
+        String updateBookingStatus = "update bookingstatus set inno=0 where guestno='10404-1'";
 
         Statement statement = null;
 
         try
         {
             con.setAutoCommit(false);
-            //=== get reservaton
 
             statement = con.createStatement();
 
-            int rows = statement.executeUpdate(deleteBooking);
-            System.out.println("rows" + rows);
-            rows = statement.executeUpdate(SQLString2);
-            System.out.println("rows" + rows);
-            rows = statement.executeUpdate(insertBooking);
-            System.out.println("rows" + rows);
-            rows = statement.executeUpdate(insertBookingStatus);
-            System.out.println("rows" + rows);
-
-            rows = statement.executeUpdate(insertBookingStatus2);
-            System.out.println("rows" + rows);
+            statement.executeUpdate(deleteBooking);
+            statement.executeUpdate(SQLString2);
+            statement.executeUpdate(insertBooking);
+            statement.executeUpdate(insertBookingStatus);
+            statement.executeUpdate(insertBookingStatus2);
+            statement.executeUpdate(deleteInstructor);
+            statement.executeUpdate(deleteFacility);
+            statement.executeUpdate(updateBookingStatus);
         }
         catch (Exception e)
         {

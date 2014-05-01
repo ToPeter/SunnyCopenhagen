@@ -27,11 +27,11 @@ public interface DataMapperInterface
 
     int getNextReservationNo();
 
-    boolean insertGuest(ArrayList<Guest> guestList) throws SQLException;
+    boolean insertGuest(ArrayList<Guest> guestList);
 
-    boolean createReservation(Reservation reservation) throws SQLException;
+    boolean createReservation(Reservation reservation);
 
-    boolean updateDeposit(ArrayList<Reservation> reservation) throws SQLException;
+    boolean updateDeposit(ArrayList<Reservation> reservation);
 
     String getRoomType(int roomNo);
 
@@ -39,7 +39,7 @@ public interface DataMapperInterface
 
     public boolean getEmpInfo(String userName, String password);
 
-    public boolean insertGuestID(ArrayList<GuestID> guestListID) throws SQLException;
+    public boolean insertGuestID(ArrayList<GuestID> guestListID);
 
     public String getEmpLogInName(String userName);
 

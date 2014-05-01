@@ -353,7 +353,7 @@ public class Controller
     public boolean createFacilityBooking(Facility facility, String type, String guestNo, Date bookingdate, int bookingtime, int inno)
     {
         int waitingpos;
-        int remainroom = facadeF.remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
+        int remainroom = remaingPlace(type, bookingdate, bookingtime, facility.getFacID());
 
         if (remainroom <= 0)
         {
@@ -460,9 +460,9 @@ public class Controller
 
     }
 
-    public ArrayList<Booking> getFacArrayForShowingAvailableInstructor(String type, Date dd, int hour, String username)
+    public ArrayList<Booking> getAvailableInstructorList(String type, Date dd, int hour, String username)
     {
-        return facadeF.getFacArrayForBookingInstructorJlist(type, dd, hour, username);
+        return facadeF.getAvailableInstructorList(type, dd, hour, username);
     }
 
     public void changeCurrentGuestID(int index)
